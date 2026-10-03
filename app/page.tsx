@@ -1,5 +1,22 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Free SEO Tools for Website Analysis and Optimization",
+  description:
+    "Analyze websites, check technical SEO, generate metadata, review keyword usage, create sitemaps and improve search performance with free LifeSeos tools.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "LifeSeos - Free SEO Tools for Smarter Growth",
+    description:
+      "Analyze websites, discover SEO issues and improve your search performance with free LifeSeos tools.",
+    url: "/",
+    type: "website",
+  },
+};
 
 export default async function Home() {
   const supabase = await createClient();
