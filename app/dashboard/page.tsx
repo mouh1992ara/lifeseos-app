@@ -45,7 +45,8 @@ export default async function DashboardPage() {
       ? Math.round(
           seoReports.reduce(
             (total, report) =>
-              total + Number(report.score ?? 0),
+              total +
+              Number(report.score ?? 0),
             0
           ) / totalAudits
         )
@@ -66,10 +67,14 @@ export default async function DashboardPage() {
       <div className="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
 
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+
           <div>
+
             <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-300">
               <span>◉</span>
-              <span>LifeSeos Dashboard</span>
+              <span>
+                LifeSeos Dashboard
+              </span>
             </div>
 
             <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-5xl">
@@ -82,7 +87,9 @@ export default async function DashboardPage() {
                 {user.email}
               </span>
             </p>
+
           </div>
+
 
           <Link
             href="/tools/seo-analyzer"
@@ -90,6 +97,7 @@ export default async function DashboardPage() {
           >
             New SEO Analysis
           </Link>
+
         </div>
 
 
@@ -126,7 +134,9 @@ export default async function DashboardPage() {
         <section className="mt-10 overflow-hidden rounded-[28px] border border-white/10 bg-slate-900/80">
 
           <div className="flex flex-col gap-3 border-b border-white/10 px-6 py-6 sm:flex-row sm:items-center sm:justify-between">
+
             <div>
+
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
                 SEO History
               </p>
@@ -134,15 +144,19 @@ export default async function DashboardPage() {
               <h2 className="mt-2 text-2xl font-bold">
                 Recent Reports
               </h2>
+
             </div>
+
 
             <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-400">
               {totalAudits} reports
             </div>
+
           </div>
 
 
           {seoReports.length === 0 ? (
+
             <div className="px-6 py-16 text-center">
 
               <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-violet-400/20 bg-violet-400/10 text-2xl text-violet-300">
@@ -166,11 +180,15 @@ export default async function DashboardPage() {
               </Link>
 
             </div>
+
           ) : (
+
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[760px]">
+
+              <table className="w-full min-w-[900px]">
 
                 <thead>
+
                   <tr className="border-b border-white/10 bg-black/10 text-left text-xs uppercase tracking-wider text-slate-500">
 
                     <th className="px-6 py-4 font-medium">
@@ -193,61 +211,105 @@ export default async function DashboardPage() {
                       Date
                     </th>
 
+                    <th className="px-6 py-4 text-right font-medium">
+                      Report
+                    </th>
+
                   </tr>
+
                 </thead>
 
 
                 <tbody>
-                  {seoReports.map((report) => (
-                    <tr
-                      key={report.id}
-                      className="border-b border-white/5 transition last:border-b-0 hover:bg-white/[0.03]"
-                    >
 
-                      <td className="px-6 py-5">
-                        <div className="max-w-xs truncate font-medium text-slate-200">
-                          {report.url}
-                        </div>
-                      </td>
+                  {seoReports.map(
+                    (report) => (
 
+                      <tr
+                        key={report.id}
+                        className="group border-b border-white/5 transition last:border-b-0 hover:bg-white/[0.04]"
+                      >
 
-                      <td className="px-6 py-5">
-                        <ScoreBadge
-                          score={report.score}
-                        />
-                      </td>
+                        <td className="px-6 py-5">
 
+                          <Link
+                            href={`/dashboard/reports/${report.id}`}
+                            className="block max-w-xs truncate font-medium text-slate-200 transition group-hover:text-violet-300"
+                          >
+                            {report.url}
+                          </Link>
 
-                      <td className="px-6 py-5">
-                        <span className="inline-flex h-9 min-w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-3 text-sm font-bold text-slate-200">
-                          {report.grade ?? "-"}
-                        </span>
-                      </td>
+                        </td>
 
 
-                      <td className="px-6 py-5">
-                        <StatusBadge
-                          score={report.score}
-                          status={
-                            report.status ??
-                            "Unknown"
-                          }
-                        />
-                      </td>
+                        <td className="px-6 py-5">
+
+                          <ScoreBadge
+                            score={report.score}
+                          />
+
+                        </td>
 
 
-                      <td className="px-6 py-5 text-sm text-slate-500">
-                        {formatDate(
-                          report.created_at
-                        )}
-                      </td>
+                        <td className="px-6 py-5">
 
-                    </tr>
-                  ))}
+                          <span className="inline-flex h-9 min-w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-3 text-sm font-bold text-slate-200">
+                            {report.grade ?? "-"}
+                          </span>
+
+                        </td>
+
+
+                        <td className="px-6 py-5">
+
+                          <StatusBadge
+                            score={report.score}
+                            status={
+                              report.status ??
+                              "Unknown"
+                            }
+                          />
+
+                        </td>
+
+
+                        <td className="px-6 py-5 text-sm text-slate-500">
+
+                          {formatDate(
+                            report.created_at
+                          )}
+
+                        </td>
+
+
+                        <td className="px-6 py-5 text-right">
+
+                          <Link
+                            href={`/dashboard/reports/${report.id}`}
+                            className="inline-flex items-center gap-2 rounded-xl border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-sm font-semibold text-violet-300 transition hover:border-violet-400/30 hover:bg-violet-400/20 hover:text-violet-200"
+                          >
+                            <span>
+                              View Report
+                            </span>
+
+                            <span>
+                              →
+                            </span>
+                          </Link>
+
+                        </td>
+
+                      </tr>
+
+                    )
+                  )}
+
                 </tbody>
 
               </table>
+
             </div>
+
           )}
 
         </section>
@@ -262,6 +324,7 @@ export default async function DashboardPage() {
           <h2 className="mt-2 text-xl font-semibold">
             Account Information
           </h2>
+
 
           <div className="mt-5 rounded-2xl border border-white/5 bg-black/10 px-5 py-4">
 

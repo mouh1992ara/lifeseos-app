@@ -1,4 +1,13 @@
-export default function Home() {
+import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
+
+export default async function Home() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const tools = [
     {
       title: "SEO Analyzer",
@@ -44,10 +53,8 @@ export default function Home() {
     },
   ];
 
-
   return (
     <main className="overflow-hidden bg-slate-950 text-white">
-
 
       {/* HERO */}
 
@@ -67,7 +74,6 @@ export default function Home() {
           "
         />
 
-
         <div
           className="
           relative
@@ -81,7 +87,6 @@ export default function Home() {
           text-center
           "
         >
-
 
           <div
             className="
@@ -97,8 +102,6 @@ export default function Home() {
           >
             🚀 Free SEO tools for smarter growth
           </div>
-
-
 
           <h1
             className="
@@ -125,8 +128,6 @@ export default function Home() {
             </span>
           </h1>
 
-
-
           <p
             className="
             mt-8
@@ -140,12 +141,9 @@ export default function Home() {
             optimize content and discover technical issues instantly.
           </p>
 
-
-
           <div className="mt-10 flex flex-wrap justify-center gap-4">
 
-
-            <a
+            <Link
               href="/tools"
               className="
               rounded-xl
@@ -161,29 +159,43 @@ export default function Home() {
               "
             >
               Explore tools
-            </a>
+            </Link>
 
-
-            <a
-              href="/auth/sign-up"
-              className="
-              rounded-xl
-              border
-              border-white/20
-              px-7
-              py-3
-              font-bold
-              transition
-              hover:bg-white/10
-              "
-            >
-              Create account
-            </a>
-
+            {user ? (
+              <Link
+                href="/dashboard"
+                className="
+                rounded-xl
+                border
+                border-white/20
+                px-7
+                py-3
+                font-bold
+                transition
+                hover:bg-white/10
+                "
+              >
+                Go to Dashboard
+              </Link>
+            ) : (
+              <Link
+                href="/auth/sign-up"
+                className="
+                rounded-xl
+                border
+                border-white/20
+                px-7
+                py-3
+                font-bold
+                transition
+                hover:bg-white/10
+                "
+              >
+                Create account
+              </Link>
+            )}
 
           </div>
-
-
 
           {/* Fake Dashboard */}
 
@@ -209,7 +221,6 @@ export default function Home() {
               </span>
             </div>
 
-
             <div
               className="
               mt-6
@@ -220,7 +231,6 @@ export default function Home() {
             >
               92
             </div>
-
 
             <div
               className="
@@ -243,19 +253,13 @@ export default function Home() {
               />
             </div>
 
-
           </div>
-
 
         </div>
 
       </section>
 
-
-
-
       {/* TOOLS */}
-
 
       <section
         className="
@@ -265,7 +269,6 @@ export default function Home() {
         py-20
         "
       >
-
 
         <p
           className="
@@ -278,7 +281,6 @@ export default function Home() {
           Tools
         </p>
 
-
         <h2
           className="
           mt-3
@@ -288,8 +290,6 @@ export default function Home() {
         >
           Everything you need for SEO
         </h2>
-
-
 
         <div
           className="
@@ -301,9 +301,9 @@ export default function Home() {
           "
         >
 
-          {tools.map((tool)=>(
+          {tools.map((tool) => (
 
-            <a
+            <Link
               key={tool.title}
               href={tool.href}
               className="
@@ -323,7 +323,6 @@ export default function Home() {
                 {tool.icon}
               </div>
 
-
               <h3
                 className="
                 mt-5
@@ -333,7 +332,6 @@ export default function Home() {
               >
                 {tool.title}
               </h3>
-
 
               <p
                 className="
@@ -345,7 +343,6 @@ export default function Home() {
                 {tool.description}
               </p>
 
-
               <div
                 className="
                 mt-6
@@ -355,18 +352,13 @@ export default function Home() {
                 Open tool →
               </div>
 
-
-            </a>
+            </Link>
 
           ))}
 
-
         </div>
 
-
       </section>
-
-
 
       {/* TRUST */}
 
@@ -384,7 +376,6 @@ export default function Home() {
         <h2 className="text-3xl font-bold">
           Built for creators, developers and marketers
         </h2>
-
 
         <div
           className="
@@ -404,10 +395,7 @@ export default function Home() {
 
         </div>
 
-
       </section>
-
-
 
     </main>
   );
