@@ -1,22 +1,91 @@
+import Link from "next/link";
+
 export default function SiteFooter() {
   return (
     <footer className="border-t border-white/10 bg-slate-950 text-slate-500">
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-8 text-sm md:flex-row md:items-center md:justify-between">
-        <p>© 2026 LifeSeos. Built for better SEO workflows.</p>
+      <div className="mx-auto max-w-7xl px-6 py-10">
 
-        <div className="flex gap-5">
-          <a href="/tools" className="hover:text-white">
-            Tools
-          </a>
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
 
-          <a href="/privacy" className="hover:text-white">
-            Privacy
-          </a>
+          <div>
+            <p className="text-base font-semibold text-white">
+              LifeSeos
+            </p>
 
-          <a href="/terms" className="hover:text-white">
-            Terms
-          </a>
+            <p className="mt-2 text-sm text-slate-500">
+              SEO tools for smarter website growth.
+            </p>
+          </div>
+
+
+          <nav className="flex flex-wrap gap-x-6 gap-y-3 text-sm">
+
+            <Link
+              href="/"
+              className="transition hover:text-white"
+            >
+              Home
+            </Link>
+
+            <Link
+              href="/tools"
+              className="transition hover:text-white"
+            >
+              Tools
+            </Link>
+
+            <Link
+              href="/dashboard"
+              className="transition hover:text-white"
+            >
+              Dashboard
+            </Link>
+
+            <Link
+              href="/about"
+              className="transition hover:text-white"
+            >
+              About
+            </Link>
+
+            <Link
+              href="/contact"
+              className="transition hover:text-white"
+            >
+              Contact
+            </Link>
+
+            <Link
+              href="/privacy"
+              className="transition hover:text-white"
+            >
+              Privacy
+            </Link>
+
+            <Link
+              href="/terms"
+              className="transition hover:text-white"
+            >
+              Terms
+            </Link>
+
+          </nav>
+
         </div>
+
+
+        <div className="mt-8 flex flex-col gap-3 border-t border-white/5 pt-6 text-xs text-slate-600 sm:flex-row sm:items-center sm:justify-between">
+
+          <p>
+            © 2026 LifeSeos. All rights reserved.
+          </p>
+
+          <p>
+            Built for better SEO workflows.
+          </p>
+
+        </div>
+
       </div>
     </footer>
   );
