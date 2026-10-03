@@ -8,3 +8,9 @@ export const analyzeRatelimit = new Ratelimit({
   limiter: Ratelimit.slidingWindow(10, "1 m"),
   prefix: "lifeseos:analyze",
 });
+
+export const contactRatelimit = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(5, "10 m"),
+  prefix: "lifeseos:contact",
+});
