@@ -16,10 +16,42 @@ export const metadata: Metadata = {
   },
 };
 
+const metaTagGeneratorJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "LifeSeos Meta Tag Generator",
+  url: "https://www.lifeseos.com/tools/meta-tag-generator",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  description:
+    "A free SEO tool for generating optimized page titles and meta descriptions.",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "LifeSeos",
+    url: "https://www.lifeseos.com",
+  },
+};
+
 export default function MetaTagGeneratorLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(metaTagGeneratorJsonLd),
+        }}
+      />
+
+      {children}
+    </>
+  );
 }

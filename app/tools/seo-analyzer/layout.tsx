@@ -16,10 +16,42 @@ export const metadata: Metadata = {
   },
 };
 
+const seoAnalyzerJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "LifeSeos SEO Analyzer",
+  url: "https://www.lifeseos.com/tools/seo-analyzer",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  description:
+    "A free SEO analyzer for auditing technical SEO, content, images, social metadata, warnings and optimization opportunities.",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "LifeSeos",
+    url: "https://www.lifeseos.com",
+  },
+};
+
 export default function SEOAnalyzerLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(seoAnalyzerJsonLd),
+        }}
+      />
+
+      {children}
+    </>
+  );
 }

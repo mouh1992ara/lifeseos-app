@@ -1,9 +1,20 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Terms of Service | LifeSeos",
+export const metadata: Metadata = {
+  title: "Terms of Service",
   description:
     "Read the terms and conditions that govern the use of LifeSeos SEO tools and services.",
+  alternates: {
+    canonical: "/terms",
+  },
+  openGraph: {
+    title: "Terms of Service | LifeSeos",
+    description:
+      "Read the terms and conditions that govern the use of LifeSeos SEO tools and services.",
+    url: "/terms",
+    type: "website",
+  },
 };
 
 export default function TermsPage() {

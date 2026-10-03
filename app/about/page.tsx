@@ -1,9 +1,20 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata = {
-  title: "About | LifeSeos",
+export const metadata: Metadata = {
+  title: "About",
   description:
     "Learn more about LifeSeos and our mission to make SEO analysis simpler, faster, and more accessible.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About LifeSeos",
+    description:
+      "Learn more about LifeSeos and our mission to make SEO analysis simpler, faster, and more accessible.",
+    url: "/about",
+    type: "website",
+  },
 };
 
 export default function AboutPage() {

@@ -1,9 +1,20 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Privacy Policy | LifeSeos",
+export const metadata: Metadata = {
+  title: "Privacy Policy",
   description:
     "Learn how LifeSeos collects, uses, stores, and protects information when you use our SEO tools and services.",
+  alternates: {
+    canonical: "/privacy",
+  },
+  openGraph: {
+    title: "Privacy Policy | LifeSeos",
+    description:
+      "Learn how LifeSeos collects, uses, stores, and protects information when you use our SEO tools and services.",
+    url: "/privacy",
+    type: "website",
+  },
 };
 
 export default function PrivacyPage() {

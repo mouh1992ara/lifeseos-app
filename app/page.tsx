@@ -25,6 +25,25 @@ export default async function Home() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "LifeSeos",
+    url: "https://www.lifeseos.com",
+    description:
+      "LifeSeos provides free SEO tools for website analysis, technical SEO, metadata optimization, keyword analysis and search performance.",
+    logo: "https://www.lifeseos.com/opengraph-image.png",
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "LifeSeos",
+    url: "https://www.lifeseos.com",
+    description:
+      "Free SEO tools for website analysis, technical SEO and smarter search growth.",
+  };
+
   const tools = [
     {
       title: "SEO Analyzer",
@@ -70,10 +89,24 @@ export default async function Home() {
     },
   ];
 
-  return (
-    <main className="overflow-hidden bg-slate-950 text-white">
+ return (
+  <main className="overflow-hidden bg-slate-950 text-white">
 
-      {/* HERO */}
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(organizationJsonLd),
+      }}
+    />
+
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(websiteJsonLd),
+      }}
+    />
+
+    {/* HERO */}
 
       <section className="relative">
 

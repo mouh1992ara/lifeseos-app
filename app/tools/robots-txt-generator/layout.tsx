@@ -16,10 +16,42 @@ export const metadata: Metadata = {
   },
 };
 
+const robotsTxtGeneratorJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "LifeSeos Robots.txt Generator",
+  url: "https://www.lifeseos.com/tools/robots-txt-generator",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  description:
+    "A free SEO tool for generating robots.txt rules to manage search engine crawler access.",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "LifeSeos",
+    url: "https://www.lifeseos.com",
+  },
+};
+
 export default function RobotsTxtGeneratorLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(robotsTxtGeneratorJsonLd),
+        }}
+      />
+
+      {children}
+    </>
+  );
 }
