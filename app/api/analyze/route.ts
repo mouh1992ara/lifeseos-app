@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { isIP } from "node:net";
+import { analyzeRatelimit } from "@/lib/ratelimit";
 
 const MAX_REDIRECTS = 5;
 const MAX_RESPONSE_BYTES = 2 * 1024 * 1024;
@@ -187,9 +188,29 @@ async function safeFetch(initialUrl: string) {
 
   throw new Error("Too many redirects.");
 }
-
 export async function POST(request: Request) {
   try {
+    const forwardedFor = request.headers.get("x-forwarded-for");
+
+    const ip =
+      forwardedFor?.split(",")[0]?.trim() ||
+      request.headers.get("x-real-ip") ||
+      "local";
+
+    const { success } = await analyzeRatelimit.limit(ip);
+
+    if (!success) {
+      return NextResponse.json(
+        {
+          error:
+            "Too many SEO analysis requests. Please wait a moment and try again.",
+        },
+        {
+          status: 429,
+        }
+      );
+    }
+
     const body = await request.json();
 
     const url =
@@ -199,8 +220,12 @@ export async function POST(request: Request) {
 
     if (!url) {
       return NextResponse.json(
-        { error: "URL is required" },
-        { status: 400 }
+        {
+          error: "URL is required",
+        },
+        {
+          status: 400,
+        }
       );
     }
 
@@ -214,17 +239,6 @@ export async function POST(request: Request) {
       html,
       finalUrl,
     } = await safeFetch(normalizedUrl);
-
-    if (!response.ok) {
-      return NextResponse.json(
-        {
-          error: `Website returned HTTP ${response.status}.`,
-        },
-        {
-          status: 400,
-        }
-      );
-    }
 
     const titleMatch = html.match(
       /<title[^>]*>([\s\S]*?)<\/title>/i
