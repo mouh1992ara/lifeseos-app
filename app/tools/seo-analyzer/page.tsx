@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 type SEOResult = {
   url?: string;
@@ -98,33 +99,63 @@ export default function SEOAnalyzerPage() {
 
     try {
       const response = await fetch("/api/analyze", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          url: cleanUrl,
-        }),
-      });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    url: cleanUrl,
+  }),
+});
 
-      const data = await response.json();
+const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(
-          data.error || "Unable to analyze website."
-        );
-      }
+if (!response.ok) {
+  throw new Error(
+    data.error || "Unable to analyze website."
+  );
+}
 
-      setResult({
-        ...data,
-        score: Number(data.score ?? 0),
-        status: data.status ?? "Unknown",
-        recommendations:
-          data.recommendations ?? [],
-        passed: data.passed ?? [],
-        warnings: data.warnings ?? [],
-        errors: data.errors ?? [],
-      });
+const supabase = createClient();
+
+const {
+  data: {
+    user,
+  },
+} = await supabase.auth.getUser();
+
+if (user) {
+  const { error: saveError } = await supabase
+    .from("seo_reports")
+    .insert({
+      user_id: user.id,
+      url: cleanUrl,
+      score: Number(data.score ?? 0),
+      grade:
+        data.grade ??
+        getGrade(Number(data.score ?? 0)),
+      status: data.status ?? "Unknown",
+      report_data: data,
+    });
+
+  if (saveError) {
+    console.error(
+      "Failed to save SEO report:",
+      saveError
+    );
+  }
+}
+
+setResult({
+  ...data,
+  score: Number(data.score ?? 0),
+  status: data.status ?? "Unknown",
+  recommendations:
+    data.recommendations ?? [],
+  passed: data.passed ?? [],
+  warnings: data.warnings ?? [],
+  errors: data.errors ?? [],
+});
     } catch (err) {
       setError(
         err instanceof Error
