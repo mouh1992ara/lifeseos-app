@@ -34,11 +34,19 @@ async function SiteHeaderContent() {
   }
 
 
+  const userEmail = user?.email ?? "";
+
+  const userInitial =
+    userEmail.length > 0
+      ? userEmail.charAt(0).toUpperCase()
+      : "U";
+
+
   return (
     <header className="
-      border-b 
-      border-white/10 
-      bg-slate-950/80 
+      border-b
+      border-white/10
+      bg-slate-950/80
       backdrop-blur-xl
     ">
 
@@ -59,7 +67,7 @@ async function SiteHeaderContent() {
         <nav className="
           flex
           items-center
-          gap-4
+          gap-3
         ">
 
 
@@ -84,25 +92,97 @@ async function SiteHeaderContent() {
           {
             user ? (
 
-              <form action={logout}>
+              <>
 
-                <button
+                <Link
+                  href="/dashboard"
                   className="
+                    hidden
                     rounded-lg
-                    border
-                    border-white/20
                     px-4
                     py-2
                     text-sm
-                    text-white
+                    text-slate-300
                     transition
                     hover:bg-white/10
+                    hover:text-white
+                    sm:inline-flex
                   "
                 >
-                  Sign out
-                </button>
+                  Dashboard
+                </Link>
 
-              </form>
+
+                <div className="
+                  hidden
+                  items-center
+                  gap-3
+                  rounded-xl
+                  border
+                  border-white/10
+                  bg-white/5
+                  px-3
+                  py-2
+                  md:flex
+                ">
+
+                  <div className="
+                    flex
+                    h-8
+                    w-8
+                    shrink-0
+                    items-center
+                    justify-center
+                    rounded-full
+                    bg-gradient-to-br
+                    from-blue-500
+                    via-violet-500
+                    to-fuchsia-500
+                    text-xs
+                    font-bold
+                    text-white
+                    shadow-lg
+                    shadow-violet-950/30
+                  ">
+                    {userInitial}
+                  </div>
+
+
+                  <div className="
+                    max-w-[220px]
+                    truncate
+                    text-sm
+                    font-medium
+                    text-slate-200
+                  ">
+                    {userEmail}
+                  </div>
+
+                </div>
+
+
+                <form action={logout}>
+
+                  <button
+                    type="submit"
+                    className="
+                      rounded-lg
+                      border
+                      border-white/20
+                      px-4
+                      py-2
+                      text-sm
+                      text-white
+                      transition
+                      hover:bg-white/10
+                    "
+                  >
+                    Sign out
+                  </button>
+
+                </form>
+
+              </>
 
 
             ) : (
@@ -179,7 +259,17 @@ function HeaderFallback() {
       py-5
     ">
 
-      <Logo />
+      <div className="
+        mx-auto
+        flex
+        max-w-7xl
+        items-center
+        justify-between
+      ">
+
+        <Logo />
+
+      </div>
 
     </header>
 
