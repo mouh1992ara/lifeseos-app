@@ -103,7 +103,7 @@ export default function Logo() {
         <div
           className="
             text-xs
-            text-slate-400
+            text-slate-300
           "
         >
           SEO tools for smarter growth
