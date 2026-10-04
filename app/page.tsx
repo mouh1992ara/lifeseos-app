@@ -106,25 +106,16 @@ export default async function Home() {
       }}
     />
 
-    {/* HERO */}
+    
+{/* HERO */}
 
-      <section className="relative">
-
-<div
-  className="
-    absolute
-    left-1/2
-    top-20
-    hidden
-    h-96
-    w-96
-    -translate-x-1/2
-    rounded-full
-    bg-blue-600/20
-    blur-3xl
-    sm:block
-  "
-/>
+<section
+  className="relative"
+  style={{
+    backgroundImage:
+      "radial-gradient(circle at 50% 22%, rgba(59,130,246,0.30) 0%, rgba(124,58,237,0.16) 30%, rgba(15,23,42,0) 65%)",
+  }}
+>
         <div
           className="
           relative
