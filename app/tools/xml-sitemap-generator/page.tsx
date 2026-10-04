@@ -80,7 +80,7 @@ ${entries}
             className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 leading-7 outline-none focus:border-emerald-400"
           />
 
-          <p className="mt-2 text-xs text-slate-500">
+          <p className="mt-2 text-xs text-slate-300">
             Enter one full URL per line.
           </p>
 
