@@ -110,20 +110,21 @@ export default async function Home() {
 
       <section className="relative">
 
-        <div
-          className="
-          absolute
-          left-1/2
-          top-20
-          h-96
-          w-96
-          -translate-x-1/2
-          rounded-full
-          bg-blue-600/20
-          blur-3xl
-          "
-        />
-
+<div
+  className="
+    absolute
+    left-1/2
+    top-20
+    hidden
+    h-96
+    w-96
+    -translate-x-1/2
+    rounded-full
+    bg-blue-600/20
+    blur-3xl
+    sm:block
+  "
+/>
         <div
           className="
           relative
