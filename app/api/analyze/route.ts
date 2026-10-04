@@ -3,7 +3,7 @@ import { isIP } from "node:net";
 import { analyzeRatelimit } from "@/lib/ratelimit";
 
 const MAX_REDIRECTS = 5;
-const MAX_RESPONSE_BYTES = 2 * 1024 * 1024;
+const MAX_RESPONSE_BYTES = 5 * 1024 * 1024;
 const REQUEST_TIMEOUT_MS = 10000;
 
 function isPrivateIPv4(ip: string) {

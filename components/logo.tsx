@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Logo() {
@@ -11,83 +12,30 @@ export default function Logo() {
         gap-3
       "
     >
-
       <div
         className="
           relative
-          flex
-          h-11
-          w-11
-          items-center
-          justify-center
+          h-[60px]
+          w-[60px]
+          shrink-0
           overflow-hidden
-          rounded-2xl
-          bg-gradient-to-br
-          from-blue-500
-          via-indigo-500
-          to-purple-600
-          shadow-lg
-          shadow-blue-500/30
-          transition-all
+          rounded-xl
+          transition
           duration-300
-          group-hover:scale-110
+          group-hover:scale-105
         "
       >
-
-        {/* Glow */}
-        <div
-          className="
-            absolute
-            inset-0
-            rounded-2xl
-            bg-white/20
-            opacity-0
-            blur-xl
-            transition
-            duration-300
-            group-hover:opacity-100
-          "
+        <Image
+          src="/lifeseos-logo.png"
+          alt="LifeSeos logo"
+          fill
+          priority
+          sizes="60px"
+          className="object-cover"
         />
-
-
-        {/* Logo Icon */}
-        <div
-          className="
-            relative
-            text-xl
-            font-black
-            text-white
-            transition
-            duration-300
-            group-hover:-translate-y-0.5
-          "
-        >
-          L
-        </div>
-
-
-        {/* Growth signal */}
-        <div
-          className="
-            absolute
-            bottom-2
-            right-2
-            h-1.5
-            w-1.5
-            rounded-full
-            bg-emerald-400
-            shadow
-            shadow-emerald-300
-          "
-        />
-
-
       </div>
 
-
-
       <div>
-
         <div
           className="
             text-2xl
@@ -99,7 +47,6 @@ export default function Logo() {
           LifeSeos
         </div>
 
-
         <div
           className="
             text-xs
@@ -108,10 +55,7 @@ export default function Logo() {
         >
           SEO tools for smarter growth
         </div>
-
       </div>
-
-
     </Link>
   );
 }
