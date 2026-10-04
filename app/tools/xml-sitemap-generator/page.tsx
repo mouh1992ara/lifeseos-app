@@ -34,12 +34,16 @@ ${entries}
   }
 
   function downloadSitemap() {
-    const blob = new Blob([sitemap], { type: "application/xml" });
+    const blob = new Blob([sitemap], {
+      type: "application/xml",
+    });
+
     const url = URL.createObjectURL(blob);
 
     const link = document.createElement("a");
     link.href = url;
     link.download = "sitemap.xml";
+
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -66,11 +70,15 @@ ${entries}
 
       <div className="mt-10 grid gap-8 lg:grid-cols-2">
         <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-          <label className="text-sm font-semibold">
+          <label
+            htmlFor="website-urls"
+            className="text-sm font-semibold"
+          >
             Website URLs
           </label>
 
           <textarea
+            id="website-urls"
             value={urls}
             onChange={(e) => setUrls(e.target.value)}
             placeholder={
@@ -86,11 +94,15 @@ ${entries}
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="text-sm font-semibold">
+              <label
+                htmlFor="change-frequency"
+                className="text-sm font-semibold"
+              >
                 Change frequency
               </label>
 
               <select
+                id="change-frequency"
                 value={changefreq}
                 onChange={(e) => setChangefreq(e.target.value)}
                 className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
@@ -106,11 +118,15 @@ ${entries}
             </div>
 
             <div>
-              <label className="text-sm font-semibold">
+              <label
+                htmlFor="priority"
+                className="text-sm font-semibold"
+              >
                 Priority
               </label>
 
               <select
+                id="priority"
                 value={priority}
                 onChange={(e) => setPriority(e.target.value)}
                 className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
@@ -134,6 +150,7 @@ ${entries}
 
             <div className="flex gap-2">
               <button
+                type="button"
                 onClick={copySitemap}
                 className="rounded-lg border border-white/10 px-4 py-2 text-sm font-semibold hover:bg-white/5"
               >
@@ -141,6 +158,7 @@ ${entries}
               </button>
 
               <button
+                type="button"
                 onClick={downloadSitemap}
                 className="rounded-lg bg-emerald-400 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-300"
               >
