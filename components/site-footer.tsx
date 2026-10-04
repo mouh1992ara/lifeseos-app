@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 bg-slate-950 text-slate-400">
+    <footer className="border-t border-white/10 bg-slate-950 text-slate-300">
       <div className="mx-auto max-w-7xl px-6 py-10">
 
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
@@ -12,7 +12,7 @@ export default function SiteFooter() {
               LifeSeos
             </p>
 
-            <p className="mt-2 text-sm text-slate-400">
+            <p className="mt-2 text-sm text-slate-300">
               SEO tools for smarter website growth.
             </p>
           </div>
