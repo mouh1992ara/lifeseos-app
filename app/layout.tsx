@@ -95,12 +95,7 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
-
+  };
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
