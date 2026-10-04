@@ -76,13 +76,13 @@ export default function SiteFooter() {
 
         <div className="mt-8 flex flex-col gap-3 border-t border-white/5 pt-6 text-xs text-slate-600 sm:flex-row sm:items-center sm:justify-between">
 
-          <p>
+          <p className="text-slate-200">
             © 2026 LifeSeos. All rights reserved.
-          </p>
+         </p>
 
-          <p>
+          <p className="text-slate-200">
             Built for better SEO workflows.
-          </p>
+         </p>
 
         </div>
 
