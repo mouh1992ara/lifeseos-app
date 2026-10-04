@@ -39,7 +39,7 @@ export default function MetaTagGeneratorPage() {
             className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
           />
 
-          <div className="mt-2 flex justify-between text-xs text-slate-500">
+          <div className="mt-2 flex justify-between text-xs text-slate-300">
             <span>Recommended: around 50–60 characters</span>
             <span>{titleLength} characters</span>
           </div>
@@ -56,7 +56,7 @@ export default function MetaTagGeneratorPage() {
             className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
           />
 
-          <div className="mt-2 flex justify-between text-xs text-slate-500">
+          <div className="mt-2 flex justify-between text-xs text-slate-300">
             <span>Recommended: around 140–160 characters</span>
             <span>{descriptionLength} characters</span>
           </div>
