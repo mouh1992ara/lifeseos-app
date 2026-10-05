@@ -3,25 +3,60 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 
+const ADMIN_TIME_ZONE = "Asia/Shanghai";
+
 function formatDate(date?: string | null) {
   if (!date) return "—";
 
   return new Intl.DateTimeFormat("en", {
+    timeZone: ADMIN_TIME_ZONE,
     year: "numeric",
     month: "short",
     day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
+    hour12: true,
   }).format(new Date(date));
 }
 
-function isSameDay(dateString: string, reference: Date) {
-  const date = new Date(dateString);
+function getDateKey(date: Date | string) {
+  const value =
+    typeof date === "string"
+      ? new Date(date)
+      : date;
 
+  const parts = new Intl.DateTimeFormat(
+    "en-CA",
+    {
+      timeZone: ADMIN_TIME_ZONE,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }
+  ).formatToParts(value);
+
+  const year =
+    parts.find((part) => part.type === "year")
+      ?.value ?? "";
+
+  const month =
+    parts.find((part) => part.type === "month")
+      ?.value ?? "";
+
+  const day =
+    parts.find((part) => part.type === "day")
+      ?.value ?? "";
+
+  return `${year}-${month}-${day}`;
+}
+
+function isSameDay(
+  dateString: string,
+  reference: Date
+) {
   return (
-    date.getFullYear() === reference.getFullYear() &&
-    date.getMonth() === reference.getMonth() &&
-    date.getDate() === reference.getDate()
+    getDateKey(dateString) ===
+    getDateKey(reference)
   );
 }
 
@@ -117,31 +152,54 @@ export default async function AdminPage() {
   const totalToolUses =
     toolEventsCountResult.count ?? 0;
 
-  const now = new Date();
+const now = new Date();
 
-  const startOfWeek = new Date(now);
-  startOfWeek.setHours(0, 0, 0, 0);
-  startOfWeek.setDate(now.getDate() - 6);
+const todayKey = getDateKey(now);
 
-  const startOfMonth = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    1
-  );
+const todayCalendarDate = new Date(
+  `${todayKey}T00:00:00.000Z`
+);
 
-  const newUsersToday = users.filter((account) =>
+const startOfWeekDate = new Date(
+  todayCalendarDate
+);
+
+startOfWeekDate.setUTCDate(
+  startOfWeekDate.getUTCDate() - 6
+);
+
+const startOfWeekKey =
+  startOfWeekDate
+    .toISOString()
+    .slice(0, 10);
+
+const currentMonthKey =
+  todayKey.slice(0, 7);
+
+const newUsersToday = users.filter(
+  (account) =>
     isSameDay(account.created_at, now)
-  ).length;
+).length;
 
-  const newUsersThisWeek = users.filter(
-    (account) =>
-      new Date(account.created_at) >= startOfWeek
-  ).length;
+const newUsersThisWeek = users.filter(
+  (account) => {
+    const accountDateKey = getDateKey(
+      account.created_at
+    );
 
-  const newUsersThisMonth = users.filter(
-    (account) =>
-      new Date(account.created_at) >= startOfMonth
-  ).length;
+    return (
+      accountDateKey >= startOfWeekKey &&
+      accountDateKey <= todayKey
+    );
+  }
+).length;
+
+const newUsersThisMonth = users.filter(
+  (account) =>
+    getDateKey(account.created_at).startsWith(
+      currentMonthKey
+    )
+).length;
 
   const confirmedUsers = users.filter(
     (account) =>
