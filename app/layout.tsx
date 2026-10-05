@@ -7,11 +7,9 @@ import SiteFooter from "@/components/site-footer";
 
 import "./globals.css";
 
-
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
   "https://www.lifeseos.com";
-
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -95,14 +93,13 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  };
+};
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   display: "swap",
   subsets: ["latin"],
 });
-
 
 export default function RootLayout({
   children,
@@ -114,6 +111,13 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
     >
+      <head>
+        <meta
+          name="baidu-site-verification"
+          content="codeva-GvjC1X0P41"
+        />
+      </head>
+
       <body
         suppressHydrationWarning
         className={`
@@ -131,7 +135,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="flex min-h-screen flex-col">
-
             <SiteHeader />
 
             <main className="flex-1">
@@ -139,7 +142,6 @@ export default function RootLayout({
             </main>
 
             <SiteFooter />
-
           </div>
         </ThemeProvider>
       </body>
