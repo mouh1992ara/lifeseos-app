@@ -82,6 +82,12 @@ export const metadata: Metadata = {
     ],
   },
 
+  verification: {
+    other: {
+      "baidu-site-verification": "codeva-GvjC1X0P41",
+    },
+  },
+
   robots: {
     index: true,
     follow: true,
@@ -111,13 +117,6 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
     >
-      <head>
-        <meta
-          name="baidu-site-verification"
-          content="codeva-GvjC1X0P41"
-        />
-      </head>
-
       <body
         suppressHydrationWarning
         className={`
