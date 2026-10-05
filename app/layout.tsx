@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
+import LivePresence from "@/components/live-presence";
 
 import "./globals.css";
 
@@ -15,7 +16,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: "LifeSeos - Free SEO Tools for Smarter Growth",
+    default:
+      "LifeSeos - Free SEO Tools for Smarter Growth",
     template: "%s | LifeSeos",
   },
 
@@ -59,7 +61,8 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "LifeSeos",
-    title: "LifeSeos - Free SEO Tools for Smarter Growth",
+    title:
+      "LifeSeos - Free SEO Tools for Smarter Growth",
     description:
       "Analyze websites, discover SEO issues and improve your search performance with free LifeSeos tools.",
     images: [
@@ -74,7 +77,8 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "LifeSeos - Free SEO Tools for Smarter Growth",
+    title:
+      "LifeSeos - Free SEO Tools for Smarter Growth",
     description:
       "Analyze websites, discover SEO issues and improve your search performance with free LifeSeos tools.",
     images: [
@@ -83,13 +87,13 @@ export const metadata: Metadata = {
   },
 
   verification: {
-  other: {
-    "baidu-site-verification": [
-      "codeva-GvjC1X0P41",
-      "codeva-qOIDHgcBnq",
-    ],
+    other: {
+      "baidu-site-verification": [
+        "codeva-GvjC1X0P41",
+        "codeva-qOIDHgcBnq",
+      ],
+    },
   },
-},
 
   robots: {
     index: true,
@@ -136,6 +140,8 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+          <LivePresence />
+
           <div className="flex min-h-screen flex-col">
             <SiteHeader />
 

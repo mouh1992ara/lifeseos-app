@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import LiveVisitors from "@/components/admin/live-visitors";
 
 const ADMIN_TIME_ZONE = "Asia/Shanghai";
 
@@ -86,9 +87,13 @@ export default async function AdminPage() {
     redirect("/auth/login");
   }
 
-  const adminUserId = process.env.ADMIN_USER_ID;
+  const adminUserId =
+    process.env.ADMIN_USER_ID;
 
-  if (!adminUserId || user.id !== adminUserId) {
+  if (
+    !adminUserId ||
+    user.id !== adminUserId
+  ) {
     redirect("/dashboard");
   }
 
@@ -141,117 +146,161 @@ export default async function AdminPage() {
       .limit(1000),
   ]);
 
-  const users = usersResult.data?.users ?? [];
+  const users =
+    usersResult.data?.users ?? [];
 
   const toolEvents =
-    (toolEventsDataResult.data as ToolEvent[] | null) ?? [];
+    (toolEventsDataResult.data as
+      | ToolEvent[]
+      | null) ?? [];
 
   const totalUsers = users.length;
-  const totalReports = reportsResult.count ?? 0;
-  const totalMessages = messagesResult.count ?? 0;
+
+  const totalReports =
+    reportsResult.count ?? 0;
+
+  const totalMessages =
+    messagesResult.count ?? 0;
+
   const totalToolUses =
     toolEventsCountResult.count ?? 0;
 
-const now = new Date();
+  const now = new Date();
 
-const todayKey = getDateKey(now);
+  const todayKey = getDateKey(now);
 
-const todayCalendarDate = new Date(
-  `${todayKey}T00:00:00.000Z`
-);
+  const todayCalendarDate = new Date(
+    `${todayKey}T00:00:00.000Z`
+  );
 
-const startOfWeekDate = new Date(
-  todayCalendarDate
-);
+  const startOfWeekDate = new Date(
+    todayCalendarDate
+  );
 
-startOfWeekDate.setUTCDate(
-  startOfWeekDate.getUTCDate() - 6
-);
+  startOfWeekDate.setUTCDate(
+    startOfWeekDate.getUTCDate() - 6
+  );
 
-const startOfWeekKey =
-  startOfWeekDate
-    .toISOString()
-    .slice(0, 10);
+  const startOfWeekKey =
+    startOfWeekDate
+      .toISOString()
+      .slice(0, 10);
 
-const currentMonthKey =
-  todayKey.slice(0, 7);
+  const currentMonthKey =
+    todayKey.slice(0, 7);
 
-const newUsersToday = users.filter(
-  (account) =>
-    isSameDay(account.created_at, now)
-).length;
-
-const newUsersThisWeek = users.filter(
-  (account) => {
-    const accountDateKey = getDateKey(
-      account.created_at
-    );
-
-    return (
-      accountDateKey >= startOfWeekKey &&
-      accountDateKey <= todayKey
-    );
-  }
-).length;
-
-const newUsersThisMonth = users.filter(
-  (account) =>
-    getDateKey(account.created_at).startsWith(
-      currentMonthKey
-    )
-).length;
-
-  const confirmedUsers = users.filter(
+  const newUsersToday = users.filter(
     (account) =>
-      Boolean(account.email_confirmed_at)
+      isSameDay(
+        account.created_at,
+        now
+      )
   ).length;
+
+  const newUsersThisWeek = users.filter(
+    (account) => {
+      const accountDateKey =
+        getDateKey(
+          account.created_at
+        );
+
+      return (
+        accountDateKey >=
+          startOfWeekKey &&
+        accountDateKey <= todayKey
+      );
+    }
+  ).length;
+
+  const newUsersThisMonth =
+    users.filter((account) =>
+      getDateKey(
+        account.created_at
+      ).startsWith(
+        currentMonthKey
+      )
+    ).length;
+
+  const confirmedUsers =
+    users.filter((account) =>
+      Boolean(
+        account.email_confirmed_at
+      )
+    ).length;
 
   const unconfirmedUsers =
     totalUsers - confirmedUsers;
 
-  const sortedUsers = [...users].sort((a, b) => {
-    const aTime = a.last_sign_in_at
-      ? new Date(a.last_sign_in_at).getTime()
-      : 0;
+  const sortedUsers = [
+    ...users,
+  ].sort((a, b) => {
+    const aTime =
+      a.last_sign_in_at
+        ? new Date(
+            a.last_sign_in_at
+          ).getTime()
+        : 0;
 
-    const bTime = b.last_sign_in_at
-      ? new Date(b.last_sign_in_at).getTime()
-      : 0;
+    const bTime =
+      b.last_sign_in_at
+        ? new Date(
+            b.last_sign_in_at
+          ).getTime()
+        : 0;
 
     return bTime - aTime;
   });
 
-  const registeredToolUses = toolEvents.filter(
-    (event) => Boolean(event.user_id)
-  ).length;
+  const registeredToolUses =
+    toolEvents.filter((event) =>
+      Boolean(event.user_id)
+    ).length;
 
   const guestToolUses =
-    toolEvents.length - registeredToolUses;
+    toolEvents.length -
+    registeredToolUses;
 
   const userEmailMap = new Map(
     users.map((account) => [
       account.id,
-      account.email ?? "Unknown user",
+      account.email ??
+        "Unknown user",
     ])
   );
 
-  const toolSummaryMap = new Map<
-    string,
-    ToolSummary
-  >();
+  const liveUserEmails =
+    Object.fromEntries(
+      userEmailMap
+    );
+
+  const toolSummaryMap =
+    new Map<string, ToolSummary>();
 
   for (const event of toolEvents) {
     const existing =
-      toolSummaryMap.get(event.tool_name);
+      toolSummaryMap.get(
+        event.tool_name
+      );
 
     if (!existing) {
-      toolSummaryMap.set(event.tool_name, {
-        toolName: event.tool_name,
-        totalUses: 1,
-        registeredUses: event.user_id ? 1 : 0,
-        guestUses: event.user_id ? 0 : 1,
-        lastUsedAt: event.created_at,
-      });
+      toolSummaryMap.set(
+        event.tool_name,
+        {
+          toolName:
+            event.tool_name,
+          totalUses: 1,
+          registeredUses:
+            event.user_id
+              ? 1
+              : 0,
+          guestUses:
+            event.user_id
+              ? 0
+              : 1,
+          lastUsedAt:
+            event.created_at,
+        }
+      );
 
       continue;
     }
@@ -266,20 +315,26 @@ const newUsersThisMonth = users.filter(
 
     if (
       !existing.lastUsedAt ||
-      new Date(event.created_at).getTime() >
-        new Date(existing.lastUsedAt).getTime()
+      new Date(
+        event.created_at
+      ).getTime() >
+        new Date(
+          existing.lastUsedAt
+        ).getTime()
     ) {
       existing.lastUsedAt =
         event.created_at;
     }
   }
 
-  const toolSummaries = Array.from(
-    toolSummaryMap.values()
-  ).sort(
-    (a, b) =>
-      b.totalUses - a.totalUses
-  );
+  const toolSummaries =
+    Array.from(
+      toolSummaryMap.values()
+    ).sort(
+      (a, b) =>
+        b.totalUses -
+        a.totalUses
+    );
 
   const recentToolEvents =
     toolEvents.slice(0, 20);
@@ -297,7 +352,9 @@ const newUsersThisMonth = users.filter(
           </h1>
 
           <p className="mt-3 text-slate-400">
-            Manage users, reports, tool activity and website data.
+            Manage users, reports,
+            tool activity and website
+            data.
           </p>
         </div>
 
@@ -402,7 +459,9 @@ const newUsersThisMonth = users.filter(
             </h2>
 
             <p className="mt-1 text-sm text-slate-400">
-              Registered LifeSeos users, ordered by latest sign-in.
+              Registered LifeSeos
+              users, ordered by latest
+              sign-in.
             </p>
           </div>
 
@@ -433,7 +492,8 @@ const newUsersThisMonth = users.filter(
               </thead>
 
               <tbody>
-                {sortedUsers.length === 0 ? (
+                {sortedUsers.length ===
+                0 ? (
                   <tr>
                     <td
                       colSpan={5}
@@ -443,49 +503,60 @@ const newUsersThisMonth = users.filter(
                     </td>
                   </tr>
                 ) : (
-                  sortedUsers.map((account) => (
-                    <tr
-                      key={account.id}
-                      className="border-b border-white/5 last:border-b-0"
-                    >
-                      <td className="px-6 py-4 text-sm text-white">
-                        {account.email ?? "—"}
-                      </td>
+                  sortedUsers.map(
+                    (account) => (
+                      <tr
+                        key={
+                          account.id
+                        }
+                        className="border-b border-white/5 last:border-b-0"
+                      >
+                        <td className="px-6 py-4 text-sm text-white">
+                          {account.email ??
+                            "—"}
+                        </td>
 
-                      <td className="px-6 py-4 text-sm text-slate-300">
-                        {formatDate(
-                          account.created_at
-                        )}
-                      </td>
+                        <td className="px-6 py-4 text-sm text-slate-300">
+                          {formatDate(
+                            account.created_at
+                          )}
+                        </td>
 
-                      <td className="px-6 py-4 text-sm text-slate-300">
-                        {formatDate(
-                          account.last_sign_in_at
-                        )}
-                      </td>
+                        <td className="px-6 py-4 text-sm text-slate-300">
+                          {formatDate(
+                            account.last_sign_in_at
+                          )}
+                        </td>
 
-                      <td className="px-6 py-4">
-                        {account.email_confirmed_at ? (
-                          <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300">
-                            Confirmed
-                          </span>
-                        ) : (
-                          <span className="rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 text-xs font-medium text-amber-300">
-                            Unconfirmed
-                          </span>
-                        )}
-                      </td>
+                        <td className="px-6 py-4">
+                          {account.email_confirmed_at ? (
+                            <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300">
+                              Confirmed
+                            </span>
+                          ) : (
+                            <span className="rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 text-xs font-medium text-amber-300">
+                              Unconfirmed
+                            </span>
+                          )}
+                        </td>
 
-                      <td className="px-6 py-4 font-mono text-xs text-slate-400">
-                        {account.id}
-                      </td>
-                    </tr>
-                  ))
+                        <td className="px-6 py-4 font-mono text-xs text-slate-400">
+                          {account.id}
+                        </td>
+                      </tr>
+                    )
+                  )
                 )}
               </tbody>
             </table>
           </div>
         </section>
+
+        <LiveVisitors
+          userEmails={
+            liveUserEmails
+          }
+        />
 
         <section className="mt-10">
           <div className="mb-5">
@@ -494,7 +565,8 @@ const newUsersThisMonth = users.filter(
             </h2>
 
             <p className="mt-1 text-sm text-slate-400">
-              Usage activity across LifeSeos tools.
+              Usage activity across
+              LifeSeos tools.
             </p>
           </div>
 
@@ -568,44 +640,58 @@ const newUsersThisMonth = users.filter(
                 </thead>
 
                 <tbody>
-                  {toolSummaries.length === 0 ? (
+                  {toolSummaries.length ===
+                  0 ? (
                     <tr>
                       <td
                         colSpan={5}
                         className="px-6 py-10 text-center text-sm text-slate-400"
                       >
-                        No tool activity yet.
+                        No tool activity
+                        yet.
                       </td>
                     </tr>
                   ) : (
-                    toolSummaries.map((tool) => (
-                      <tr
-                        key={tool.toolName}
-                        className="border-b border-white/5 last:border-b-0"
-                      >
-                        <td className="px-6 py-4 text-sm font-medium text-white">
-                          {tool.toolName}
-                        </td>
+                    toolSummaries.map(
+                      (tool) => (
+                        <tr
+                          key={
+                            tool.toolName
+                          }
+                          className="border-b border-white/5 last:border-b-0"
+                        >
+                          <td className="px-6 py-4 text-sm font-medium text-white">
+                            {
+                              tool.toolName
+                            }
+                          </td>
 
-                        <td className="px-6 py-4 text-sm text-slate-300">
-                          {tool.totalUses}
-                        </td>
+                          <td className="px-6 py-4 text-sm text-slate-300">
+                            {
+                              tool.totalUses
+                            }
+                          </td>
 
-                        <td className="px-6 py-4 text-sm text-emerald-300">
-                          {tool.registeredUses}
-                        </td>
+                          <td className="px-6 py-4 text-sm text-emerald-300">
+                            {
+                              tool.registeredUses
+                            }
+                          </td>
 
-                        <td className="px-6 py-4 text-sm text-violet-300">
-                          {tool.guestUses}
-                        </td>
+                          <td className="px-6 py-4 text-sm text-violet-300">
+                            {
+                              tool.guestUses
+                            }
+                          </td>
 
-                        <td className="px-6 py-4 text-sm text-slate-300">
-                          {formatDate(
-                            tool.lastUsedAt
-                          )}
-                        </td>
-                      </tr>
-                    ))
+                          <td className="px-6 py-4 text-sm text-slate-300">
+                            {formatDate(
+                              tool.lastUsedAt
+                            )}
+                          </td>
+                        </tr>
+                      )
+                    )
                   )}
                 </tbody>
               </table>
@@ -619,7 +705,8 @@ const newUsersThisMonth = users.filter(
               </h3>
 
               <p className="mt-1 text-sm text-slate-400">
-                Latest tool usage events.
+                Latest tool usage
+                events.
               </p>
             </div>
 
@@ -646,13 +733,15 @@ const newUsersThisMonth = users.filter(
                 </thead>
 
                 <tbody>
-                  {recentToolEvents.length === 0 ? (
+                  {recentToolEvents.length ===
+                  0 ? (
                     <tr>
                       <td
                         colSpan={4}
                         className="px-6 py-10 text-center text-sm text-slate-400"
                       >
-                        No recent tool activity.
+                        No recent tool
+                        activity.
                       </td>
                     </tr>
                   ) : (
@@ -663,7 +752,9 @@ const newUsersThisMonth = users.filter(
                           className="border-b border-white/5 last:border-b-0"
                         >
                           <td className="px-6 py-4 text-sm font-medium text-white">
-                            {event.tool_name}
+                            {
+                              event.tool_name
+                            }
                           </td>
 
                           <td className="px-6 py-4 text-sm text-slate-300">
