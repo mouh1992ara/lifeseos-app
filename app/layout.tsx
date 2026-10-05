@@ -83,10 +83,13 @@ export const metadata: Metadata = {
   },
 
   verification: {
-    other: {
-      "baidu-site-verification": "codeva-GvjC1X0P41",
-    },
+  other: {
+    "baidu-site-verification": [
+      "codeva-GvjC1X0P41",
+      "codeva-qOIDHgcBnq",
+    ],
   },
+},
 
   robots: {
     index: true,
