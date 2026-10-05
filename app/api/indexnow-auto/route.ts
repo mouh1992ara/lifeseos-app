@@ -82,12 +82,17 @@ export async function GET(request: NextRequest) {
       }
     );
 
-    return NextResponse.json({
-      success: indexNowResponse.ok,
-      status: indexNowResponse.status,
-      submitted: urls.length,
-      urls,
-    });
+    return NextResponse.json(
+      {
+        success: indexNowResponse.ok,
+        status: indexNowResponse.status,
+        submitted: urls.length,
+        urls,
+      },
+      {
+        status: indexNowResponse.ok ? 200 : indexNowResponse.status,
+      }
+    );
   } catch {
     return NextResponse.json(
       {
