@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 type Result = {
   requestedUrl: string;
@@ -117,7 +117,15 @@ export default function HttpStatusCheckerPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function recordToolUse() {
+  const hasTrackedUse = useRef(false);
+
+  async function recordToolUseOnce() {
+    if (hasTrackedUse.current) {
+      return;
+    }
+
+    hasTrackedUse.current = true;
+
     try {
       const response = await fetch("/api/tool-events", {
         method: "POST",
@@ -175,7 +183,7 @@ export default function HttpStatusCheckerPage() {
         return;
       }
 
-      await recordToolUse();
+      await recordToolUseOnce();
 
       setResult(data);
     } catch {

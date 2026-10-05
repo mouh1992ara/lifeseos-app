@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 type SeoResult = {
   requestedUrl: string;
@@ -27,7 +27,15 @@ export default function SeoPageAnalyzerPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function recordToolUse() {
+  const hasTrackedUse = useRef(false);
+
+  async function recordToolUseOnce() {
+    if (hasTrackedUse.current) {
+      return;
+    }
+
+    hasTrackedUse.current = true;
+
     try {
       const response = await fetch("/api/tool-events", {
         method: "POST",
@@ -85,7 +93,7 @@ export default function SeoPageAnalyzerPage() {
         return;
       }
 
-      await recordToolUse();
+      await recordToolUseOnce();
 
       setResult(data);
     } catch {
@@ -174,10 +182,7 @@ export default function SeoPageAnalyzerPage() {
           <section className="mt-8 grid gap-6 lg:grid-cols-2">
             <InfoCard
               title="Title"
-              value={
-                result.title ||
-                "No title found"
-              }
+              value={result.title || "No title found"}
               note={`${result.titleLength} characters`}
             />
 
