@@ -1,13 +1,66 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function MetaTagGeneratorPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  const hasTrackedUse = useRef(false);
+
   const titleLength = title.length;
   const descriptionLength = description.length;
+
+  async function recordToolUseOnce() {
+    if (hasTrackedUse.current) {
+      return;
+    }
+
+    hasTrackedUse.current = true;
+
+    try {
+      const response = await fetch("/api/tool-events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tool_name: "Meta Tag Generator",
+        }),
+      });
+
+      if (!response.ok) {
+        console.error(
+          "Failed to record Meta Tag Generator usage."
+        );
+      }
+    } catch (trackingError) {
+      console.error(
+        "Unable to record tool usage:",
+        trackingError
+      );
+    }
+  }
+
+  function handleTitleChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    setTitle(event.target.value);
+
+    if (event.target.value.trim()) {
+      void recordToolUseOnce();
+    }
+  }
+
+  function handleDescriptionChange(
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) {
+    setDescription(event.target.value);
+
+    if (event.target.value.trim()) {
+      void recordToolUseOnce();
+    }
+  }
 
   return (
     <>
@@ -34,14 +87,19 @@ export default function MetaTagGeneratorPage() {
 
           <input
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={handleTitleChange}
             placeholder="Example: Free SEO Tools for Better Rankings"
             className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
           />
 
           <div className="mt-2 flex justify-between text-xs text-slate-300">
-            <span>Recommended: around 50–60 characters</span>
-            <span>{titleLength} characters</span>
+            <span>
+              Recommended: around 50–60 characters
+            </span>
+
+            <span>
+              {titleLength} characters
+            </span>
           </div>
 
           <label className="mt-8 block text-sm font-semibold">
@@ -50,15 +108,20 @@ export default function MetaTagGeneratorPage() {
 
           <textarea
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={handleDescriptionChange}
             placeholder="Describe the page clearly and encourage searchers to click."
             rows={6}
             className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
           />
 
           <div className="mt-2 flex justify-between text-xs text-slate-300">
-            <span>Recommended: around 140–160 characters</span>
-            <span>{descriptionLength} characters</span>
+            <span>
+              Recommended: around 140–160 characters
+            </span>
+
+            <span>
+              {descriptionLength} characters
+            </span>
           </div>
         </section>
 

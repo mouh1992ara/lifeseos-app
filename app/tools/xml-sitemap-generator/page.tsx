@@ -1,11 +1,13 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 export default function XmlSitemapGeneratorPage() {
   const [urls, setUrls] = useState("");
   const [changefreq, setChangefreq] = useState("weekly");
   const [priority, setPriority] = useState("0.8");
+
+  const hasTrackedUse = useRef(false);
 
   const sitemap = useMemo(() => {
     const urlList = urls
@@ -28,6 +30,49 @@ export default function XmlSitemapGeneratorPage() {
 ${entries}
 </urlset>`;
   }, [urls, changefreq, priority]);
+
+  async function recordToolUseOnce() {
+    if (hasTrackedUse.current) {
+      return;
+    }
+
+    hasTrackedUse.current = true;
+
+    try {
+      const response = await fetch("/api/tool-events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tool_name: "XML Sitemap Generator",
+        }),
+      });
+
+      if (!response.ok) {
+        console.error(
+          "Failed to record XML Sitemap Generator usage."
+        );
+      }
+    } catch (trackingError) {
+      console.error(
+        "Unable to record tool usage:",
+        trackingError
+      );
+    }
+  }
+
+  function handleUrlsChange(
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) {
+    const value = event.target.value;
+
+    setUrls(value);
+
+    if (value.trim()) {
+      void recordToolUseOnce();
+    }
+  }
 
   async function copySitemap() {
     await navigator.clipboard.writeText(sitemap);
@@ -80,7 +125,7 @@ ${entries}
           <textarea
             id="website-urls"
             value={urls}
-            onChange={(e) => setUrls(e.target.value)}
+            onChange={handleUrlsChange}
             placeholder={
               "https://example.com/\nhttps://example.com/about\nhttps://example.com/contact"
             }
@@ -104,16 +149,38 @@ ${entries}
               <select
                 id="change-frequency"
                 value={changefreq}
-                onChange={(e) => setChangefreq(e.target.value)}
+                onChange={(e) =>
+                  setChangefreq(e.target.value)
+                }
                 className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
               >
-                <option value="always">Always</option>
-                <option value="hourly">Hourly</option>
-                <option value="daily">Daily</option>
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
-                <option value="never">Never</option>
+                <option value="always">
+                  Always
+                </option>
+
+                <option value="hourly">
+                  Hourly
+                </option>
+
+                <option value="daily">
+                  Daily
+                </option>
+
+                <option value="weekly">
+                  Weekly
+                </option>
+
+                <option value="monthly">
+                  Monthly
+                </option>
+
+                <option value="yearly">
+                  Yearly
+                </option>
+
+                <option value="never">
+                  Never
+                </option>
               </select>
             </div>
 
@@ -128,15 +195,34 @@ ${entries}
               <select
                 id="priority"
                 value={priority}
-                onChange={(e) => setPriority(e.target.value)}
+                onChange={(e) =>
+                  setPriority(e.target.value)
+                }
                 className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
               >
-                <option value="1.0">1.0</option>
-                <option value="0.9">0.9</option>
-                <option value="0.8">0.8</option>
-                <option value="0.7">0.7</option>
-                <option value="0.6">0.6</option>
-                <option value="0.5">0.5</option>
+                <option value="1.0">
+                  1.0
+                </option>
+
+                <option value="0.9">
+                  0.9
+                </option>
+
+                <option value="0.8">
+                  0.8
+                </option>
+
+                <option value="0.7">
+                  0.7
+                </option>
+
+                <option value="0.6">
+                  0.6
+                </option>
+
+                <option value="0.5">
+                  0.5
+                </option>
               </select>
             </div>
           </div>

@@ -27,9 +27,42 @@ export default function SeoPageAnalyzerPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  async function recordToolUse() {
+    try {
+      const response = await fetch("/api/tool-events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tool_name: "SEO Page Analyzer",
+        }),
+      });
+
+      if (!response.ok) {
+        console.error(
+          "Failed to record SEO Page Analyzer usage."
+        );
+      }
+    } catch (trackingError) {
+      console.error(
+        "Unable to record tool usage:",
+        trackingError
+      );
+    }
+  }
+
   async function analyzePage() {
+    const cleanUrl = url.trim();
+
     setError("");
     setResult(null);
+
+    if (!cleanUrl) {
+      setError("Please enter a website URL.");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -38,15 +71,21 @@ export default function SeoPageAnalyzerPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({
+          url: cleanUrl,
+        }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || "Unable to analyze this page.");
+        setError(
+          data.error || "Unable to analyze this page."
+        );
         return;
       }
+
+      await recordToolUse();
 
       setResult(data);
     } catch {
@@ -83,13 +122,16 @@ export default function SeoPageAnalyzerPage() {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") analyzePage();
+              if (e.key === "Enter") {
+                analyzePage();
+              }
             }}
             placeholder="https://example.com"
             className="flex-1 rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
           />
 
           <button
+            type="button"
             onClick={analyzePage}
             disabled={loading}
             className="rounded-xl bg-emerald-400 px-6 py-3 font-semibold text-slate-950 hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-50"
@@ -132,24 +174,36 @@ export default function SeoPageAnalyzerPage() {
           <section className="mt-8 grid gap-6 lg:grid-cols-2">
             <InfoCard
               title="Title"
-              value={result.title || "No title found"}
+              value={
+                result.title ||
+                "No title found"
+              }
               note={`${result.titleLength} characters`}
             />
 
             <InfoCard
               title="Meta Description"
-              value={result.description || "No meta description found"}
+              value={
+                result.description ||
+                "No meta description found"
+              }
               note={`${result.descriptionLength} characters`}
             />
 
             <InfoCard
               title="Canonical URL"
-              value={result.canonical || "No canonical tag found"}
+              value={
+                result.canonical ||
+                "No canonical tag found"
+              }
             />
 
             <InfoCard
               title="Robots Meta"
-              value={result.robots || "No robots meta tag found"}
+              value={
+                result.robots ||
+                "No robots meta tag found"
+              }
             />
           </section>
 
@@ -177,14 +231,16 @@ export default function SeoPageAnalyzerPage() {
 
               {result.h1.length > 0 && (
                 <div className="mt-5 space-y-2">
-                  {result.h1.map((heading, index) => (
-                    <div
-                      key={`${heading}-${index}`}
-                      className="rounded-lg bg-slate-900 px-4 py-3 text-sm text-slate-300"
-                    >
-                      {heading}
-                    </div>
-                  ))}
+                  {result.h1.map(
+                    (heading, index) => (
+                      <div
+                        key={`${heading}-${index}`}
+                        className="rounded-lg bg-slate-900 px-4 py-3 text-sm text-slate-300"
+                      >
+                        {heading}
+                      </div>
+                    )
+                  )}
                 </div>
               )}
             </div>

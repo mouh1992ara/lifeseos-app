@@ -99,63 +99,86 @@ export default function SEOAnalyzerPage() {
 
     try {
       const response = await fetch("/api/analyze", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    url: cleanUrl,
-  }),
-});
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          url: cleanUrl,
+        }),
+      });
 
-const data = await response.json();
+      const data = await response.json();
 
-if (!response.ok) {
-  throw new Error(
-    data.error || "Unable to analyze website."
-  );
-}
+      if (!response.ok) {
+        throw new Error(
+          data.error || "Unable to analyze website."
+        );
+      }
 
-const supabase = createClient();
+      try {
+        const trackingResponse = await fetch("/api/tool-events", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            tool_name: "SEO Analyzer",
+          }),
+        });
 
-const {
-  data: {
-    user,
-  },
-} = await supabase.auth.getUser();
+        if (!trackingResponse.ok) {
+          console.error(
+            "Failed to record SEO Analyzer usage."
+          );
+        }
+      } catch (trackingError) {
+        console.error(
+          "Unable to record tool usage:",
+          trackingError
+        );
+      }
 
-if (user) {
-  const { error: saveError } = await supabase
-    .from("seo_reports")
-    .insert({
-      user_id: user.id,
-      url: cleanUrl,
-      score: Number(data.score ?? 0),
-      grade:
-        data.grade ??
-        getGrade(Number(data.score ?? 0)),
-      status: data.status ?? "Unknown",
-      report_data: data,
-    });
+      const supabase = createClient();
 
-  if (saveError) {
-    console.error(
-      "Failed to save SEO report:",
-      saveError
-    );
-  }
-}
+      const {
+        data: {
+          user,
+        },
+      } = await supabase.auth.getUser();
 
-setResult({
-  ...data,
-  score: Number(data.score ?? 0),
-  status: data.status ?? "Unknown",
-  recommendations:
-    data.recommendations ?? [],
-  passed: data.passed ?? [],
-  warnings: data.warnings ?? [],
-  errors: data.errors ?? [],
-});
+      if (user) {
+        const { error: saveError } = await supabase
+          .from("seo_reports")
+          .insert({
+            user_id: user.id,
+            url: cleanUrl,
+            score: Number(data.score ?? 0),
+            grade:
+              data.grade ??
+              getGrade(Number(data.score ?? 0)),
+            status: data.status ?? "Unknown",
+            report_data: data,
+          });
+
+        if (saveError) {
+          console.error(
+            "Failed to save SEO report:",
+            saveError
+          );
+        }
+      }
+
+      setResult({
+        ...data,
+        score: Number(data.score ?? 0),
+        status: data.status ?? "Unknown",
+        recommendations:
+          data.recommendations ?? [],
+        passed: data.passed ?? [],
+        warnings: data.warnings ?? [],
+        errors: data.errors ?? [],
+      });
     } catch (err) {
       setError(
         err instanceof Error

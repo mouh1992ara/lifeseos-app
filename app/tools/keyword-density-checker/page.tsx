@@ -1,9 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 export default function KeywordDensityCheckerPage() {
   const [text, setText] = useState("");
+
+  const hasTrackedUse = useRef(false);
 
   const analysis = useMemo(() => {
     const cleaned = text
@@ -47,6 +49,49 @@ export default function KeywordDensityCheckerPage() {
     };
   }, [text]);
 
+  async function recordToolUseOnce() {
+    if (hasTrackedUse.current) {
+      return;
+    }
+
+    hasTrackedUse.current = true;
+
+    try {
+      const response = await fetch("/api/tool-events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tool_name: "Keyword Density Checker",
+        }),
+      });
+
+      if (!response.ok) {
+        console.error(
+          "Failed to record Keyword Density Checker usage."
+        );
+      }
+    } catch (trackingError) {
+      console.error(
+        "Unable to record tool usage:",
+        trackingError
+      );
+    }
+  }
+
+  function handleTextChange(
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) {
+    const value = event.target.value;
+
+    setText(value);
+
+    if (value.trim()) {
+      void recordToolUseOnce();
+    }
+  }
+
   return (
     <>
       <div>
@@ -72,7 +117,7 @@ export default function KeywordDensityCheckerPage() {
 
           <textarea
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={handleTextChange}
             placeholder="Paste your article, landing page copy, or SEO content here..."
             rows={18}
             className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 leading-7 outline-none focus:border-emerald-400"
@@ -83,6 +128,7 @@ export default function KeywordDensityCheckerPage() {
               <p className="text-xs uppercase tracking-wider text-slate-500">
                 Total words
               </p>
+
               <p className="mt-2 text-2xl font-bold">
                 {analysis.totalWords}
               </p>
@@ -92,6 +138,7 @@ export default function KeywordDensityCheckerPage() {
               <p className="text-xs uppercase tracking-wider text-slate-500">
                 Unique words
               </p>
+
               <p className="mt-2 text-2xl font-bold">
                 {analysis.uniqueWords}
               </p>
@@ -112,8 +159,12 @@ export default function KeywordDensityCheckerPage() {
             <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
               <div className="grid grid-cols-3 bg-white/[0.04] px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
                 <span>Keyword</span>
-                <span className="text-center">Count</span>
-                <span className="text-right">Density</span>
+                <span className="text-center">
+                  Count
+                </span>
+                <span className="text-right">
+                  Density
+                </span>
               </div>
 
               {analysis.keywords.map((item) => (
@@ -121,7 +172,9 @@ export default function KeywordDensityCheckerPage() {
                   key={item.keyword}
                   className="grid grid-cols-3 border-t border-white/10 px-4 py-3 text-sm"
                 >
-                  <span className="truncate">{item.keyword}</span>
+                  <span className="truncate">
+                    {item.keyword}
+                  </span>
 
                   <span className="text-center text-slate-300">
                     {item.count}

@@ -1,12 +1,14 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 export default function RobotsTxtGeneratorPage() {
   const [userAgent, setUserAgent] = useState("*");
   const [allowPath, setAllowPath] = useState("/");
   const [disallowPaths, setDisallowPaths] = useState("");
   const [sitemap, setSitemap] = useState("");
+
+  const hasTrackedUse = useRef(false);
 
   const robotsTxt = useMemo(() => {
     const lines = [`User-agent: ${userAgent || "*"}`];
@@ -32,8 +34,61 @@ export default function RobotsTxtGeneratorPage() {
     return lines.join("\n");
   }, [userAgent, allowPath, disallowPaths, sitemap]);
 
+  async function recordToolUseOnce() {
+    if (hasTrackedUse.current) {
+      return;
+    }
+
+    hasTrackedUse.current = true;
+
+    try {
+      const response = await fetch("/api/tool-events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tool_name: "Robots.txt Generator",
+        }),
+      });
+
+      if (!response.ok) {
+        console.error(
+          "Failed to record Robots.txt Generator usage."
+        );
+      }
+    } catch (trackingError) {
+      console.error(
+        "Unable to record tool usage:",
+        trackingError
+      );
+    }
+  }
+
+  function handleUserAgentChange(value: string) {
+    setUserAgent(value);
+    void recordToolUseOnce();
+  }
+
+  function handleAllowPathChange(value: string) {
+    setAllowPath(value);
+    void recordToolUseOnce();
+  }
+
+  function handleDisallowPathsChange(value: string) {
+    setDisallowPaths(value);
+    void recordToolUseOnce();
+  }
+
+  function handleSitemapChange(value: string) {
+    setSitemap(value);
+    void recordToolUseOnce();
+  }
+
   async function copyRobotsTxt() {
     await navigator.clipboard.writeText(robotsTxt);
+
+    void recordToolUseOnce();
   }
 
   return (
@@ -61,7 +116,9 @@ export default function RobotsTxtGeneratorPage() {
 
           <input
             value={userAgent}
-            onChange={(e) => setUserAgent(e.target.value)}
+            onChange={(e) =>
+              handleUserAgentChange(e.target.value)
+            }
             placeholder="*"
             className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
           />
@@ -76,7 +133,9 @@ export default function RobotsTxtGeneratorPage() {
 
           <input
             value={allowPath}
-            onChange={(e) => setAllowPath(e.target.value)}
+            onChange={(e) =>
+              handleAllowPathChange(e.target.value)
+            }
             placeholder="/"
             className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
           />
@@ -87,7 +146,9 @@ export default function RobotsTxtGeneratorPage() {
 
           <textarea
             value={disallowPaths}
-            onChange={(e) => setDisallowPaths(e.target.value)}
+            onChange={(e) =>
+              handleDisallowPathsChange(e.target.value)
+            }
             placeholder={"/admin/\n/private/\n/search/"}
             rows={6}
             className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
@@ -103,7 +164,9 @@ export default function RobotsTxtGeneratorPage() {
 
           <input
             value={sitemap}
-            onChange={(e) => setSitemap(e.target.value)}
+            onChange={(e) =>
+              handleSitemapChange(e.target.value)
+            }
             placeholder="https://example.com/sitemap.xml"
             className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
           />
@@ -116,6 +179,7 @@ export default function RobotsTxtGeneratorPage() {
             </h2>
 
             <button
+              type="button"
               onClick={copyRobotsTxt}
               className="rounded-lg bg-emerald-400 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-300"
             >

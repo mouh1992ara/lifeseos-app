@@ -117,6 +117,31 @@ export default function HttpStatusCheckerPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  async function recordToolUse() {
+    try {
+      const response = await fetch("/api/tool-events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tool_name: "HTTP Status Checker",
+        }),
+      });
+
+      if (!response.ok) {
+        console.error(
+          "Failed to record HTTP Status Checker usage."
+        );
+      }
+    } catch (trackingError) {
+      console.error(
+        "Unable to record tool usage:",
+        trackingError
+      );
+    }
+  }
+
   async function checkStatus() {
     const cleanUrl = url.trim();
 
@@ -144,9 +169,13 @@ export default function HttpStatusCheckerPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || "Something went wrong.");
+        setError(
+          data.error || "Something went wrong."
+        );
         return;
       }
+
+      await recordToolUse();
 
       setResult(data);
     } catch {
