@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
+import {
+  Gift,
+  Zap,
+  CreditCard,
+  ShieldCheck,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Free SEO Tools for Website Analysis and Optimization",
@@ -89,33 +95,31 @@ export default async function Home() {
     },
   ];
 
- return (
-  <main className="overflow-hidden bg-slate-950 text-white">
+  return (
+    <main className="overflow-hidden bg-slate-950 text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationJsonLd),
+        }}
+      />
 
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(organizationJsonLd),
-      }}
-    />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteJsonLd),
+        }}
+      />
 
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(websiteJsonLd),
-      }}
-    />
+      {/* HERO */}
 
-    
-{/* HERO */}
-
-<section
-  className="relative"
-  style={{
-    backgroundImage:
-      "radial-gradient(circle at 50% 22%, rgba(59,130,246,0.30) 0%, rgba(124,58,237,0.16) 30%, rgba(15,23,42,0) 65%)",
-  }}
->
+      <section
+        className="relative"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 50% 22%, rgba(59,130,246,0.30) 0%, rgba(124,58,237,0.16) 30%, rgba(15,23,42,0) 65%)",
+        }}
+      >
         <div
           className="
           relative
@@ -129,7 +133,6 @@ export default async function Home() {
           text-center
           "
         >
-
           <div
             className="
             rounded-full
@@ -147,7 +150,7 @@ export default async function Home() {
 
           <h1
             className="
-            mt-8
+            mt-6
             max-w-5xl
             text-5xl
             font-black
@@ -172,7 +175,7 @@ export default async function Home() {
 
           <p
             className="
-            mt-8
+            mt-6
             max-w-3xl
             text-lg
             leading-8
@@ -184,7 +187,6 @@ export default async function Home() {
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
-
             <Link
               href="/tools"
               className="
@@ -236,7 +238,6 @@ export default async function Home() {
                 Create account
               </Link>
             )}
-
           </div>
 
           {/* Fake Dashboard */}
@@ -255,9 +256,9 @@ export default async function Home() {
             backdrop-blur-xl
             "
           >
-
             <div className="flex justify-between text-sm text-slate-400">
               <span>Website SEO Score</span>
+
               <span className="text-emerald-400">
                 Excellent
               </span>
@@ -294,11 +295,8 @@ export default async function Home() {
                 "
               />
             </div>
-
           </div>
-
         </div>
-
       </section>
 
       {/* TOOLS */}
@@ -311,7 +309,6 @@ export default async function Home() {
         py-20
         "
       >
-
         <p
           className="
           text-sm
@@ -326,6 +323,7 @@ export default async function Home() {
         <h2
           className="
           mt-3
+          mb-10
           text-4xl
           font-black
           "
@@ -335,16 +333,13 @@ export default async function Home() {
 
         <div
           className="
-          mt-10
           grid
           gap-6
           md:grid-cols-2
           lg:grid-cols-3
           "
         >
-
           {tools.map((tool) => (
-
             <Link
               key={tool.title}
               href={tool.href}
@@ -360,7 +355,6 @@ export default async function Home() {
               hover:border-emerald-400/40
               "
             >
-
               <div className="text-3xl">
                 {tool.icon}
               </div>
@@ -378,8 +372,8 @@ export default async function Home() {
               <p
                 className="
                 mt-3
-                text-slate-400
                 leading-7
+                text-slate-400
                 "
               >
                 {tool.description}
@@ -393,13 +387,9 @@ export default async function Home() {
               >
                 Open tool →
               </div>
-
             </Link>
-
           ))}
-
         </div>
-
       </section>
 
       {/* TRUST */}
@@ -414,31 +404,110 @@ export default async function Home() {
         text-center
         "
       >
-
         <h2 className="text-3xl font-bold">
           Built for creators, developers and marketers
         </h2>
 
         <div
           className="
-          mt-8
-          flex
-          flex-wrap
-          justify-center
-          gap-8
-          text-slate-300
+          mx-auto
+          mt-6
+          grid
+          max-w-4xl
+          gap-4
+          sm:grid-cols-2
+          lg:grid-cols-4
           "
         >
+          <div
+            className="
+            flex
+            items-center
+            justify-center
+            gap-3
+            rounded-2xl
+            border
+            border-white/10
+            bg-white/[0.03]
+            px-5
+            py-4
+            text-slate-300
+            transition
+            hover:border-emerald-400/30
+            hover:bg-white/[0.05]
+            "
+          >
+            <Gift className="h-5 w-5 text-emerald-400" />
+            <span>Free tools</span>
+          </div>
 
-          <span>✓ Free tools</span>
-          <span>✓ Instant analysis</span>
-          <span>✓ No credit card</span>
-          <span>✓ Privacy friendly</span>
+          <div
+            className="
+            flex
+            items-center
+            justify-center
+            gap-3
+            rounded-2xl
+            border
+            border-white/10
+            bg-white/[0.03]
+            px-5
+            py-4
+            text-slate-300
+            transition
+            hover:border-blue-400/30
+            hover:bg-white/[0.05]
+            "
+          >
+            <Zap className="h-5 w-5 text-blue-400" />
+            <span>Instant analysis</span>
+          </div>
 
+          <div
+            className="
+            flex
+            items-center
+            justify-center
+            gap-3
+            rounded-2xl
+            border
+            border-white/10
+            bg-white/[0.03]
+            px-5
+            py-4
+            text-slate-300
+            transition
+            hover:border-violet-400/30
+            hover:bg-white/[0.05]
+            "
+          >
+            <CreditCard className="h-5 w-5 text-violet-400" />
+            <span>No credit card</span>
+          </div>
+
+          <div
+            className="
+            flex
+            items-center
+            justify-center
+            gap-3
+            rounded-2xl
+            border
+            border-white/10
+            bg-white/[0.03]
+            px-5
+            py-4
+            text-slate-300
+            transition
+            hover:border-emerald-400/30
+            hover:bg-white/[0.05]
+            "
+          >
+            <ShieldCheck className="h-5 w-5 text-emerald-400" />
+            <span>Privacy friendly</span>
+          </div>
         </div>
-
       </section>
-
     </main>
   );
 }
