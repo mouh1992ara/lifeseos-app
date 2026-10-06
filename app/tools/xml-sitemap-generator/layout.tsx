@@ -2,17 +2,37 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "XML Sitemap Generator - Free SEO Sitemap Tool",
+
   description:
     "Create an XML sitemap for your website and help search engines discover your important pages with the free LifeSeos XML Sitemap Generator.",
+
   alternates: {
     canonical: "/tools/xml-sitemap-generator",
   },
+
   openGraph: {
     title: "XML Sitemap Generator | LifeSeos",
     description:
       "Generate XML sitemaps to help search engines discover and crawl your website pages.",
     url: "/tools/xml-sitemap-generator",
     type: "website",
+    siteName: "LifeSeos",
+    images: [
+      {
+        url: "/social/xml-sitemap-generator.png",
+        width: 1200,
+        height: 630,
+        alt: "LifeSeos XML Sitemap Generator",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "XML Sitemap Generator | LifeSeos",
+    description:
+      "Generate XML sitemaps to help search engines discover and crawl your website pages.",
+    images: ["/social/xml-sitemap-generator.png"],
   },
 };
 
