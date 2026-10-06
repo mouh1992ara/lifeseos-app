@@ -2,17 +2,37 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Keyword Density Checker - Free SEO Content Tool",
+
   description:
     "Check keyword frequency, density and content distribution with the free LifeSeos Keyword Density Checker.",
+
   alternates: {
     canonical: "/tools/keyword-density-checker",
   },
+
   openGraph: {
     title: "Keyword Density Checker | LifeSeos",
     description:
       "Analyze keyword frequency and density to improve SEO content optimization.",
     url: "/tools/keyword-density-checker",
     type: "website",
+    siteName: "LifeSeos",
+    images: [
+      {
+        url: "/social/keyword-density-checker.png",
+        width: 1200,
+        height: 630,
+        alt: "LifeSeos Keyword Density Checker",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Keyword Density Checker | LifeSeos",
+    description:
+      "Analyze keyword frequency and density to improve SEO content optimization.",
+    images: ["/social/keyword-density-checker.png"],
   },
 };
 
