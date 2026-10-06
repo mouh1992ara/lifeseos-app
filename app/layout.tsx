@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Free SEO tools for website analysis, technical SEO, content optimization, metadata, sitemaps and smarter search growth.",
+    "Free SEO tools for website analysis, technical SEO, on-page optimization, content analysis, page speed, metadata, sitemaps and smarter search growth.",
 
   applicationName: "LifeSeos",
 
@@ -42,13 +42,17 @@ export const metadata: Metadata = {
     "SEO tools",
     "free SEO tools",
     "SEO analyzer",
+    "SEO page analyzer",
     "website SEO checker",
     "technical SEO",
+    "on-page SEO",
     "meta tag generator",
     "robots.txt generator",
     "XML sitemap generator",
     "keyword density checker",
     "HTTP status checker",
+    "page speed analyzer",
+    "content analyzer",
     "website optimization",
   ],
 
@@ -64,10 +68,10 @@ export const metadata: Metadata = {
     title:
       "LifeSeos - Free SEO Tools for Smarter Growth",
     description:
-      "Analyze websites, discover SEO issues and improve your search performance with free LifeSeos tools.",
+      "Analyze websites, discover SEO issues, improve performance and optimize content with free LifeSeos SEO tools.",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "/social/home.png",
         width: 1200,
         height: 630,
         alt: "LifeSeos - Free SEO Tools",
@@ -80,10 +84,8 @@ export const metadata: Metadata = {
     title:
       "LifeSeos - Free SEO Tools for Smarter Growth",
     description:
-      "Analyze websites, discover SEO issues and improve your search performance with free LifeSeos tools.",
-    images: [
-      "/twitter-image.png",
-    ],
+      "Analyze websites, discover SEO issues, improve performance and optimize content with free LifeSeos SEO tools.",
+    images: ["/social/home.png"],
   },
 
   verification: {
@@ -106,6 +108,28 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "LifeSeos",
+  url: "https://www.lifeseos.com",
+  description:
+    "Free SEO tools for website analysis, technical SEO, on-page optimization, content analysis, page speed and search growth.",
+  publisher: {
+    "@type": "Organization",
+    name: "LifeSeos",
+    url: "https://www.lifeseos.com",
+  },
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "LifeSeos",
+  url: "https://www.lifeseos.com",
+  logo: "https://www.lifeseos.com/icon.png",
 };
 
 const geistSans = Geist({
@@ -134,6 +158,20 @@ export default function RootLayout({
           antialiased
         `}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
+          }}
+        />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
+
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
