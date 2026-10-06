@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import ShareTool from "@/components/share-tool";
 
 type SEOResult = {
   url?: string;
@@ -925,6 +926,13 @@ export default function SEOAnalyzerPage() {
             </div>
           </div>
         )}
+
+        <div className="print:hidden">
+          <ShareTool
+            title="SEO Analyzer"
+            description="Analyze technical SEO, content, images and social metadata with this free LifeSeos SEO Analyzer."
+          />
+        </div>
       </section>
     </main>
   );

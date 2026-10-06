@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import ShareTool from "@/components/share-tool";
 
 type KeywordItem = {
   keyword: string;
@@ -157,6 +158,7 @@ export default function ContentAnalyzerPage() {
       recommendations.push(
         "Consider adding more useful content. Pages with very little text may not fully answer search intent."
       );
+
       score -= 20;
     }
 
@@ -167,13 +169,18 @@ export default function ContentAnalyzerPage() {
       recommendations.push(
         "Some sentences may be too long. Shorter sentences can improve readability."
       );
+
       score -= 10;
     }
 
-    if (paragraphs <= 1 && words.length > 150) {
+    if (
+      paragraphs <= 1 &&
+      words.length > 150
+    ) {
       recommendations.push(
         "Break long blocks of text into multiple paragraphs to improve readability."
       );
+
       score -= 10;
     }
 
@@ -184,6 +191,7 @@ export default function ContentAnalyzerPage() {
       recommendations.push(
         "The content contains a high amount of repeated vocabulary. Consider using more natural variation."
       );
+
       score -= 10;
     }
 
@@ -196,6 +204,7 @@ export default function ContentAnalyzerPage() {
       recommendations.push(
         `The keyword "${highDensityKeyword.keyword}" appears frequently. Review the content to avoid unnatural repetition.`
       );
+
       score -= 10;
     }
 
@@ -215,7 +224,10 @@ export default function ContentAnalyzerPage() {
       );
     }
 
-    score = Math.max(0, Math.min(100, score));
+    score = Math.max(
+      0,
+      Math.min(100, score)
+    );
 
     return {
       words: words.length,
@@ -319,7 +331,9 @@ export default function ContentAnalyzerPage() {
           <div className="mt-6 grid grid-cols-2 gap-4">
             <MetricCard
               label="Words"
-              value={String(analysis.words)}
+              value={String(
+                analysis.words
+              )}
             />
 
             <MetricCard
@@ -407,7 +421,10 @@ export default function ContentAnalyzerPage() {
                     </span>
 
                     <span className="text-right text-emerald-400">
-                      {item.density.toFixed(2)}%
+                      {item.density.toFixed(
+                        2
+                      )}
+                      %
                     </span>
                   </div>
                 )
@@ -506,6 +523,11 @@ export default function ContentAnalyzerPage() {
           relevant to the reader.
         </p>
       </section>
+
+      <ShareTool
+        title="Content Analyzer"
+        description="Analyze content length, readability, keyword usage and SEO quality signals with this free LifeSeos tool."
+      />
     </>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import ShareTool from "@/components/share-tool";
 
 export default function RobotsTxtGeneratorPage() {
   const [userAgent, setUserAgent] = useState("*");
@@ -214,6 +215,11 @@ export default function RobotsTxtGeneratorPage() {
           website.
         </p>
       </section>
+
+      <ShareTool
+        title="Robots.txt Generator"
+        description="Create a clean robots.txt file and manage crawler access with this free LifeSeos tool."
+      />
     </>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import ShareTool from "@/components/share-tool";
 
 export default function XmlSitemapGeneratorPage() {
   const [urls, setUrls] = useState("");
@@ -154,33 +155,13 @@ ${entries}
                 }
                 className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
               >
-                <option value="always">
-                  Always
-                </option>
-
-                <option value="hourly">
-                  Hourly
-                </option>
-
-                <option value="daily">
-                  Daily
-                </option>
-
-                <option value="weekly">
-                  Weekly
-                </option>
-
-                <option value="monthly">
-                  Monthly
-                </option>
-
-                <option value="yearly">
-                  Yearly
-                </option>
-
-                <option value="never">
-                  Never
-                </option>
+                <option value="always">Always</option>
+                <option value="hourly">Hourly</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+                <option value="never">Never</option>
               </select>
             </div>
 
@@ -200,29 +181,12 @@ ${entries}
                 }
                 className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
               >
-                <option value="1.0">
-                  1.0
-                </option>
-
-                <option value="0.9">
-                  0.9
-                </option>
-
-                <option value="0.8">
-                  0.8
-                </option>
-
-                <option value="0.7">
-                  0.7
-                </option>
-
-                <option value="0.6">
-                  0.6
-                </option>
-
-                <option value="0.5">
-                  0.5
-                </option>
+                <option value="1.0">1.0</option>
+                <option value="0.9">0.9</option>
+                <option value="0.8">0.8</option>
+                <option value="0.7">0.7</option>
+                <option value="0.6">0.6</option>
+                <option value="0.5">0.5</option>
               </select>
             </div>
           </div>
@@ -273,6 +237,11 @@ ${entries}
           preferred search engine webmaster tools.
         </p>
       </section>
+
+      <ShareTool
+        title="XML Sitemap Generator"
+        description="Create and download an XML sitemap for your website with this free LifeSeos tool."
+      />
     </>
   );
 }

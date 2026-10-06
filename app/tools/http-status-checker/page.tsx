@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import ShareTool from "@/components/share-tool";
 
 type Result = {
   requestedUrl: string;
@@ -540,6 +541,11 @@ export default function HttpStatusCheckerPage() {
           ))}
         </div>
       </section>
+
+      <ShareTool
+        title="HTTP Status Checker"
+        description="Check HTTP status codes, redirects and final URLs with this free LifeSeos technical SEO tool."
+      />
     </>
   );
 }

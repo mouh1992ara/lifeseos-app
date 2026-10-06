@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import ShareTool from "@/components/share-tool";
 
 export default function KeywordDensityCheckerPage() {
   const [text, setText] = useState("");
@@ -202,6 +203,11 @@ export default function KeywordDensityCheckerPage() {
           reads naturally.
         </p>
       </section>
+
+      <ShareTool
+        title="Keyword Density Checker"
+        description="Analyze keyword frequency and density in your content with this free LifeSeos tool."
+      />
     </>
   );
 }

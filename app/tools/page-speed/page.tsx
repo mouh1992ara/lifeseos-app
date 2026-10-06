@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import ShareTool from "@/components/share-tool";
 
 type PageSpeedResult = {
   requestedUrl: string;
@@ -294,6 +295,11 @@ export default function PageSpeedAnalyzerPage() {
           performance improvements.
         </p>
       </section>
+
+      <ShareTool
+        title="Page Speed Analyzer"
+        description="Measure website performance, loading speed and Lighthouse metrics with this free LifeSeos tool."
+      />
     </>
   );
 }

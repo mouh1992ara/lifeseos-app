@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import ShareTool from "@/components/share-tool";
 
 type SeoResult = {
   requestedUrl: string;
@@ -290,6 +291,11 @@ export default function SeoPageAnalyzerPage() {
           </section>
         </>
       )}
+
+      <ShareTool
+        title="SEO Page Analyzer"
+        description="Analyze titles, meta descriptions, headings, canonical tags, links and image SEO with this free LifeSeos tool."
+      />
     </>
   );
 }

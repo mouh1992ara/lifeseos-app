@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import ShareTool from "@/components/share-tool";
 
 export default function MetaTagGeneratorPage() {
   const [title, setTitle] = useState("");
@@ -175,6 +176,11 @@ export default function MetaTagGeneratorPage() {
           section of your webpage.
         </p>
       </section>
+
+      <ShareTool
+        title="Meta Tag Generator"
+        description="Create SEO-friendly title tags and meta descriptions with this free LifeSeos tool."
+      />
     </>
   );
 }
