@@ -2,17 +2,37 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "HTTP Status Checker - Free Website Response Code Tool",
+
   description:
     "Check website HTTP response codes, redirects and page availability with the free LifeSeos HTTP Status Checker.",
+
   alternates: {
     canonical: "/tools/http-status-checker",
   },
+
   openGraph: {
     title: "HTTP Status Checker | LifeSeos",
     description:
       "Check HTTP response codes, redirects and website availability for SEO and technical troubleshooting.",
     url: "/tools/http-status-checker",
     type: "website",
+    siteName: "LifeSeos",
+    images: [
+      {
+        url: "/social/http-status-checker.png",
+        width: 1200,
+        height: 630,
+        alt: "LifeSeos HTTP Status Checker",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "HTTP Status Checker | LifeSeos",
+    description:
+      "Check HTTP response codes, redirects and website availability for SEO and technical troubleshooting.",
+    images: ["/social/http-status-checker.png"],
   },
 };
 
