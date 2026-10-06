@@ -20,6 +20,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+
+    // Technical SEO
     {
       url: `${baseUrl}/tools/seo-analyzer`,
       lastModified: now,
@@ -27,25 +29,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/tools/meta-tag-generator`,
+      url: `${baseUrl}/tools/seo-page-analyzer`,
       lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
+      changeFrequency: "weekly",
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/tools/robots-txt-generator`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/tools/keyword-density-checker`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/tools/http-status-checker`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
@@ -56,6 +46,44 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+
+    // Content SEO
+    {
+      url: `${baseUrl}/tools/meta-tag-generator`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/tools/keyword-density-checker`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+
+    // Performance
+    {
+      url: `${baseUrl}/tools/http-status-checker`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/tools/page-speed`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+
+    // Content Analysis
+    {
+      url: `${baseUrl}/tools/content-analyzer`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+
+    // Static pages
     {
       url: `${baseUrl}/about`,
       lastModified: now,

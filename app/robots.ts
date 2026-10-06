@@ -14,8 +14,10 @@ export default function robots(): MetadataRoute.Robots {
         "/dashboard/",
         "/auth/",
         "/protected/",
+        "/api/",
       ],
     },
+
     sitemap: `${baseUrl}/sitemap.xml`,
     host: baseUrl,
   };
