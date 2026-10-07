@@ -96,7 +96,7 @@ export default async function Home() {
   ];
 
   return (
-    <main className="overflow-hidden bg-slate-950 text-white">
+<main className="w-full overflow-x-hidden bg-slate-950 text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -121,18 +121,20 @@ export default async function Home() {
         }}
       >
         <div
-          className="
-          relative
-          mx-auto
-          flex
-          max-w-7xl
-          flex-col
-          items-center
-          px-6
-          py-24
-          text-center
-          "
-        >
+ className="
+ relative
+ mx-auto
+ flex
+ w-full
+ max-w-7xl
+ flex-col
+ items-center
+ overflow-hidden
+ px-6
+ py-24
+ text-center
+ "
+>
           <div
             className="
             rounded-full
@@ -149,15 +151,16 @@ export default async function Home() {
           </div>
 
           <h1
-            className="
-            mt-6
-            max-w-5xl
-            text-5xl
-            font-black
-            leading-tight
-            md:text-7xl
-            "
-          >
+  className="
+    mt-6
+    max-w4xl
+    text-3xl
+    sm:text-5xl
+    md:text-7xl
+    font-black
+    leading-tight
+  "
+>
             Analyze, optimize and{" "}
             <span
               className="
@@ -186,8 +189,18 @@ export default async function Home() {
             optimize content and discover technical issues instantly.
           </p>
 
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Link
+<div
+  className="
+    mt-10
+    flex
+    w-full
+    flex-col
+    items-center
+    justify-center
+    gap-4
+    sm:flex-row
+  "
+>            <Link
               href="/tools"
               className="
               rounded-xl
