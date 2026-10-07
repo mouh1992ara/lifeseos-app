@@ -7,206 +7,322 @@ import LivePresence from "@/components/live-presence";
 
 import "./globals.css";
 
+
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
   "https://www.lifeseos.com";
 
+
+
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+
+  metadataBase:
+    new URL(siteUrl),
+
 
   title: {
+
     default:
       "LifeSeos - Free SEO Tools for Smarter Growth",
-    template: "%s | LifeSeos",
+
+    template:
+      "%s | LifeSeos",
+
   },
+
 
   description:
     "Free SEO tools for website analysis, technical SEO, on-page optimization, content analysis, page speed, metadata, sitemaps and smarter search growth.",
 
-  applicationName: "LifeSeos",
 
-  authors: [
-    {
-      name: "LifeSeos",
-    },
-  ],
+  applicationName:
+    "LifeSeos",
 
-  creator: "LifeSeos",
 
-  publisher: "LifeSeos",
+  creator:
+    "LifeSeos",
 
-  category: "SEO Tools",
+
+  publisher:
+    "LifeSeos",
+
 
   keywords: [
+
     "SEO tools",
     "free SEO tools",
     "SEO analyzer",
-    "SEO page analyzer",
     "website SEO checker",
     "technical SEO",
     "on-page SEO",
-    "meta tag generator",
-    "robots.txt generator",
     "XML sitemap generator",
-    "keyword density checker",
-    "HTTP status checker",
+    "robots.txt generator",
     "page speed analyzer",
     "content analyzer",
-    "website optimization",
+
   ],
 
+
   alternates: {
-    canonical: "/",
+
+    canonical:
+      "/",
+
   },
+
 
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteUrl,
-    siteName: "LifeSeos",
+
+    type:
+      "website",
+
+    locale:
+      "en_US",
+
+    url:
+      siteUrl,
+
+    siteName:
+      "LifeSeos",
+
 
     title:
       "LifeSeos - Free SEO Tools for Smarter Growth",
 
+
     description:
-      "Analyze websites, discover SEO issues, improve performance and optimize content with free LifeSeos SEO tools.",
+      "Analyze websites, discover SEO issues and optimize your website with free LifeSeos SEO tools.",
+
 
     images: [
+
       {
-        url: "/social/home.png",
-        width: 1200,
-        height: 630,
-        alt: "LifeSeos - Free SEO Tools",
+
+        url:
+          "/social/home.png",
+
+        width:
+          1200,
+
+        height:
+          630,
+
+        alt:
+          "LifeSeos SEO Tools",
+
       },
+
     ],
+
   },
 
+
   twitter: {
-    card: "summary_large_image",
+
+    card:
+      "summary_large_image",
 
     title:
       "LifeSeos - Free SEO Tools for Smarter Growth",
 
     description:
-      "Analyze websites, discover SEO issues, improve performance and optimize content with free LifeSeos SEO tools.",
+      "Free SEO tools for website analysis and optimization.",
 
-    images: ["/social/home.png"],
-  },
 
-  verification: {
-    other: {
-      "baidu-site-verification": [
-        "codeva-GvjC1X0P41",
-        "codeva-qOIDHgcBnq",
+    images:
+      [
+        "/social/home.png",
       ],
-    },
+
   },
+
 
   robots: {
-    index: true,
-    follow: true,
+
+    index:
+      true,
+
+    follow:
+      true,
 
     googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
+
+      index:
+        true,
+
+      follow:
+        true,
+
+      "max-image-preview":
+        "large",
+
+      "max-snippet":
+        -1,
+
+      "max-video-preview":
+        -1,
+
     },
+
   },
+
+
+  verification: {
+
+    other: {
+
+      "baidu-site-verification": [
+
+        "codeva-GvjC1X0P41",
+
+        "codeva-qOIDHgcBnq",
+
+      ],
+
+    },
+
+  },
+
+
 };
+
 
 
 const websiteJsonLd = {
-  "@context": "https://schema.org",
 
-  "@type": "WebSite",
+  "@context":
+    "https://schema.org",
 
-  name: "LifeSeos",
+  "@type":
+    "WebSite",
 
-  url: "https://www.lifeseos.com",
+  name:
+    "LifeSeos",
+
+  url:
+    "https://www.lifeseos.com",
 
   description:
-    "Free SEO tools for website analysis, technical SEO, on-page optimization, content analysis, page speed and search growth.",
+    "Free SEO tools for website analysis and optimization.",
 
-  publisher: {
-    "@type": "Organization",
-
-    name: "LifeSeos",
-
-    url: "https://www.lifeseos.com",
-  },
 };
+
 
 
 const organizationJsonLd = {
-  "@context": "https://schema.org",
 
-  "@type": "Organization",
+  "@context":
+    "https://schema.org",
 
-  name: "LifeSeos",
+  "@type":
+    "Organization",
 
-  url: "https://www.lifeseos.com",
+  name:
+    "LifeSeos",
+
+  url:
+    "https://www.lifeseos.com",
 
   logo:
     "https://www.lifeseos.com/icon.png",
+
 };
 
 
+
+
 export default function RootLayout({
+
   children,
+
 }: Readonly<{
-  children: React.ReactNode;
+
+  children:
+    React.ReactNode;
+
 }>) {
+
 
   return (
 
     <html
+
       lang="en"
+
       suppressHydrationWarning
+
     >
 
       <body
+
         suppressHydrationWarning
+
         className="
           min-h-screen
           bg-slate-950
           text-white
           antialiased
         "
+
       >
 
+
         <script
+
           id="website-schema"
+
           type="application/ld+json"
+
           dangerouslySetInnerHTML={{
+
             __html:
-              JSON.stringify(websiteJsonLd),
+              JSON.stringify(
+                websiteJsonLd
+              ),
+
           }}
+
         />
 
 
         <script
+
           id="organization-schema"
+
           type="application/ld+json"
+
           dangerouslySetInnerHTML={{
+
             __html:
-              JSON.stringify(organizationJsonLd),
+              JSON.stringify(
+                organizationJsonLd
+              ),
+
           }}
+
         />
+
 
 
         <ThemeProvider
+
           attribute="class"
+
           defaultTheme="dark"
+
           enableSystem={false}
+
           disableTransitionOnChange
+
         >
+
 
           <LivePresence />
 
 
+
           <div className="flex min-h-screen flex-col">
+
 
             <SiteHeader />
 
@@ -218,16 +334,21 @@ export default function RootLayout({
             </main>
 
 
+
             <SiteFooter />
+
 
           </div>
 
 
         </ThemeProvider>
 
+
       </body>
+
 
     </html>
 
   );
+
 }

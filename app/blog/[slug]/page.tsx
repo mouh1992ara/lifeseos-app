@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { notFound } from "next/navigation";
 
 import ArticleView from "./article-view";
@@ -27,6 +28,7 @@ export function generateStaticParams() {
 }
 
 
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -44,43 +46,70 @@ export async function generateMetadata({
 
 
   return {
+
     title: article.title,
 
-    description: article.description,
+
+    description:
+      article.description,
 
 
     alternates: {
-      canonical: `/blog/${article.slug}`,
+      canonical:
+        `/blog/${article.slug}`,
     },
 
 
     openGraph: {
-      title: `${article.title} | LifeSeos`,
-      description: article.description,
+
+      title:
+        `${article.title} | LifeSeos`,
+
+
+      description:
+        article.description,
+
 
       type: "article",
 
-      url: `https://www.lifeseos.com/blog/${article.slug}`,
 
-      siteName: "LifeSeos",
+      url:
+        `https://www.lifeseos.com/blog/${article.slug}`,
+
+
+      siteName:
+        "LifeSeos",
+
 
       images: [
         {
-          url: article.featuredImage,
+          url:
+            article.featuredImage,
+
           width: 1200,
+
           height: 630,
-          alt: article.imageAlt,
+
+          alt:
+            article.imageAlt,
         },
       ],
     },
 
 
     twitter: {
-      card: "summary_large_image",
 
-      title: `${article.title} | LifeSeos`,
+      card:
+        "summary_large_image",
 
-      description: article.description,
+
+      title:
+        `${article.title} | LifeSeos`,
+
+
+      description:
+        article.description,
+
 
       images: [
         article.featuredImage,
@@ -88,6 +117,7 @@ export async function generateMetadata({
     },
   };
 }
+
 
 
 
@@ -99,7 +129,9 @@ export default async function BlogArticlePage({
   const { slug } = await params;
 
 
-  const article = getArticleBySlug(slug);
+  const article =
+    getArticleBySlug(slug);
+
 
 
   if (!article) {
@@ -107,15 +139,29 @@ export default async function BlogArticlePage({
   }
 
 
-  const relatedArticles = getRelatedArticles(
-    article.slug
-  ).map((related) => ({
-    slug: related.slug,
-    title: related.title,
-    description: related.description,
-    category: related.category,
-    readTime: related.readTime,
-  }));
+
+  const relatedArticles =
+    getRelatedArticles(article.slug)
+      .map((related) => ({
+
+        slug:
+          related.slug,
+
+        title:
+          related.title,
+
+        description:
+          related.description,
+
+        category:
+          related.category,
+
+        readTime:
+          related.readTime,
+
+      }));
+
+
 
 
   const articleUrl =
@@ -125,15 +171,23 @@ export default async function BlogArticlePage({
 
   const jsonLd = {
 
-    "@context": "https://schema.org",
-
-    "@type": "BlogPosting",
-
-
-    headline: article.title,
+    "@context":
+      "https://schema.org",
 
 
-    description: article.description,
+    "@type":
+      "BlogPosting",
+
+
+
+    headline:
+      article.title,
+
+
+
+    description:
+      article.description,
+
 
 
     image: [
@@ -141,46 +195,69 @@ export default async function BlogArticlePage({
     ],
 
 
-    datePublished: article.publishedAt,
+
+    datePublished:
+      article.publishedAt,
 
 
-    dateModified: article.updatedAt,
+
+    dateModified:
+      article.updatedAt,
+
 
 
     author: {
 
-      "@type": "Organization",
+      "@type":
+        "Organization",
 
-      name: article.author,
 
-      url: "https://www.lifeseos.com",
+      name:
+        article.author,
+
+
+      url:
+        "https://www.lifeseos.com",
 
     },
+
 
 
     publisher: {
 
-      "@type": "Organization",
+      "@type":
+        "Organization",
 
-      name: "LifeSeos",
 
-      url: "https://www.lifeseos.com",
+      name:
+        "LifeSeos",
+
+
+      url:
+        "https://www.lifeseos.com",
 
     },
+
 
 
     mainEntityOfPage: {
 
-      "@type": "WebPage",
+      "@type":
+        "WebPage",
 
-      "@id": articleUrl,
+
+      "@id":
+        articleUrl,
 
     },
 
 
-    articleSection: article.category,
+
+    articleSection:
+      article.category,
 
   };
+
 
 
 
@@ -188,18 +265,31 @@ export default async function BlogArticlePage({
 
     <>
 
-      <script
+      <Script
+
+        id="article-jsonld"
+
         type="application/ld+json"
+
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd),
+          __html:
+            JSON.stringify(jsonLd),
         }}
+
       />
 
 
-<ArticleView
-  article={article}
-  relatedArticles={relatedArticles}
-/>
+
+      <ArticleView
+
+        article={article}
+
+        relatedArticles={
+          relatedArticles
+        }
+
+      />
+
 
     </>
 

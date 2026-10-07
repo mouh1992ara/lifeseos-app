@@ -17,6 +17,8 @@ export default function ArticleView({
   relatedArticles: RelatedArticle[];
 }) {
 
+  console.log("ARTICLE IMAGE:", article.featuredImage);
+
   return (
 
     <main className="min-h-screen bg-slate-950 text-white">

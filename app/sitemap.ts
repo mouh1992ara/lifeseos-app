@@ -7,17 +7,18 @@ const baseUrl =
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const blogPosts = [
-    "complete-seo-audit-guide",
-    "seo-meta-tags-guide",
-    "page-speed-seo-guide",
-    "xml-sitemap-guide",
-    "robots-txt-guide",
-    "http-status-codes-seo",
-    "keyword-density-guide",
-    "content-analysis-seo-guide",
-    "on-page-seo-checklist",
-  ];
+const blogPosts = [
+  "complete-seo-audit-guide",
+  "seo-meta-tags-guide",
+  "page-speed-seo-guide",
+  "technical-seo-guide",
+  "xml-sitemap-guide",
+  "robots-txt-guide",
+  "http-status-codes-seo-guide",
+  "keyword-density-guide",
+  "content-analysis-seo-guide",
+  "on-page-seo-checklist",
+];
 
   return [
     {

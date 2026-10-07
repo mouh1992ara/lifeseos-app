@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import Script from "next/script";
+
 import BlogClient from "./blog-client";
+
 
 export const metadata: Metadata = {
   title: "SEO Blog & Guides",
@@ -13,11 +16,16 @@ export const metadata: Metadata = {
 
   openGraph: {
     title: "SEO Blog & Guides | LifeSeos",
+
     description:
       "Practical SEO guides, technical tutorials and website optimization strategies from LifeSeos.",
+
     url: "/blog",
+
     type: "website",
+
     siteName: "LifeSeos",
+
     images: [
       {
         url: "/social/blog.png",
@@ -30,38 +38,74 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "SEO Blog & Guides | LifeSeos",
+
+    title:
+      "SEO Blog & Guides | LifeSeos",
+
     description:
       "Practical SEO guides, technical tutorials and website optimization strategies.",
-    images: ["/social/blog.png"],
+
+    images: [
+      "/social/blog.png",
+    ],
   },
 };
+
+
 
 const blogJsonLd = {
   "@context": "https://schema.org",
+
   "@type": "Blog",
-  name: "LifeSeos SEO Blog",
-  url: "https://www.lifeseos.com/blog",
+
+  name:
+    "LifeSeos SEO Blog",
+
+  url:
+    "https://www.lifeseos.com/blog",
+
   description:
     "Practical SEO guides, technical tutorials and website optimization strategies.",
+
   publisher: {
-    "@type": "Organization",
-    name: "LifeSeos",
-    url: "https://www.lifeseos.com",
+
+    "@type":
+      "Organization",
+
+    name:
+      "LifeSeos",
+
+    url:
+      "https://www.lifeseos.com",
+
   },
 };
 
+
+
 export default function BlogPage() {
+
   return (
+
     <>
-      <script
+
+      <Script
+
+        id="blog-jsonld"
+
         type="application/ld+json"
+
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(blogJsonLd),
+          __html:
+            JSON.stringify(blogJsonLd),
         }}
+
       />
 
+
       <BlogClient />
+
     </>
+
   );
 }
