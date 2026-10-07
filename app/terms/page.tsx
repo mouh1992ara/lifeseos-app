@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Terms of Service - LifeSeos",
+  title: "Terms of Service",
 
   description:
     "Read the terms and conditions that govern the use of LifeSeos SEO tools, accounts and services.",

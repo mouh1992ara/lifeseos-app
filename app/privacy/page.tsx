@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - LifeSeos",
+  title: "Privacy Policy",
 
   description:
     "Learn how LifeSeos collects, uses, stores, protects and handles information when you use our SEO tools, accounts and services.",
