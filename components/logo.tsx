@@ -12,6 +12,7 @@ export default function Logo() {
         gap-3
       "
     >
+
       <div
         className="
           relative
@@ -25,17 +26,27 @@ export default function Logo() {
           group-hover:scale-105
         "
       >
+
         <Image
           src="/lifeseos-logo.png"
           alt="LifeSeos logo"
-          fill
+          width={60}
+          height={60}
           priority
           sizes="60px"
-          className="object-cover"
+          className="
+            h-[60px]
+            w-[60px]
+            object-cover
+          "
         />
+
       </div>
 
+
+
       <div>
+
         <div
           className="
             text-2xl
@@ -47,6 +58,8 @@ export default function Logo() {
           LifeSeos
         </div>
 
+
+
         <div
           className="
             text-xs
@@ -55,7 +68,11 @@ export default function Logo() {
         >
           SEO tools for smarter growth
         </div>
+
+
       </div>
+
+
     </Link>
   );
 }

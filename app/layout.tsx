@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 
 import SiteHeader from "@/components/site-header";
@@ -65,10 +64,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "LifeSeos",
+
     title:
       "LifeSeos - Free SEO Tools for Smarter Growth",
+
     description:
       "Analyze websites, discover SEO issues, improve performance and optimize content with free LifeSeos SEO tools.",
+
     images: [
       {
         url: "/social/home.png",
@@ -81,10 +83,13 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
+
     title:
       "LifeSeos - Free SEO Tools for Smarter Growth",
+
     description:
       "Analyze websites, discover SEO issues, improve performance and optimize content with free LifeSeos SEO tools.",
+
     images: ["/social/home.png"],
   },
 
@@ -100,6 +105,7 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+
     googleBot: {
       index: true,
       follow: true,
@@ -110,67 +116,85 @@ export const metadata: Metadata = {
   },
 };
 
+
 const websiteJsonLd = {
   "@context": "https://schema.org",
+
   "@type": "WebSite",
+
   name: "LifeSeos",
+
   url: "https://www.lifeseos.com",
+
   description:
     "Free SEO tools for website analysis, technical SEO, on-page optimization, content analysis, page speed and search growth.",
+
   publisher: {
     "@type": "Organization",
+
     name: "LifeSeos",
+
     url: "https://www.lifeseos.com",
   },
 };
 
+
 const organizationJsonLd = {
   "@context": "https://schema.org",
+
   "@type": "Organization",
+
   name: "LifeSeos",
+
   url: "https://www.lifeseos.com",
-  logo: "https://www.lifeseos.com/icon.png",
+
+  logo:
+    "https://www.lifeseos.com/icon.png",
 };
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  display: "swap",
-  subsets: ["latin"],
-});
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
+
     <html
       lang="en"
       suppressHydrationWarning
     >
+
       <body
         suppressHydrationWarning
-        className={`
-          ${geistSans.variable}
+        className="
           min-h-screen
           bg-slate-950
           text-white
           antialiased
-        `}
+        "
       >
+
         <script
+          id="website-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteJsonLd),
+            __html:
+              JSON.stringify(websiteJsonLd),
           }}
         />
 
+
         <script
+          id="organization-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd),
+            __html:
+              JSON.stringify(organizationJsonLd),
           }}
         />
+
 
         <ThemeProvider
           attribute="class"
@@ -178,19 +202,32 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+
           <LivePresence />
 
+
           <div className="flex min-h-screen flex-col">
+
             <SiteHeader />
 
+
             <main className="flex-1">
+
               {children}
+
             </main>
 
+
             <SiteFooter />
+
           </div>
+
+
         </ThemeProvider>
+
       </body>
+
     </html>
+
   );
 }

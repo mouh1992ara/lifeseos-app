@@ -31,6 +31,13 @@ export default function SiteFooter() {
             </Link>
 
             <Link
+              href="/blog"
+              className="transition hover:text-white"
+            >
+              Blog
+            </Link>
+
+            <Link
               href="/about"
               className="transition hover:text-white"
             >

@@ -1,0 +1,20 @@
+Continue my LifeSeos project from the attached project handoff.
+
+Important:
+- Explain to me in Arabic.
+- Give code and Terminal commands in English.
+- I prefer complete copy-paste files for substantial edits.
+- Work one step at a time.
+- Do not use `git add .`; use targeted `git add`.
+- Always validate with `npx tsc --noEmit`.
+- Preserve the current design unless I ask to change it.
+
+Current immediate task:
+We already created `app/tools/meta-tag-generator/layout.tsx` for a unique social preview and TypeScript passed.
+The image `/social/meta-tag-generator.png` does NOT exist yet.
+
+Continue by creating the first 1200x630 LifeSeos Social Preview image for Meta Tag Generator and then help me place/test it at:
+
+`public/social/meta-tag-generator.png`
+
+Please read `LifeSeos_Project_Handoff_2026-10-06.md` first so you know the full project state.

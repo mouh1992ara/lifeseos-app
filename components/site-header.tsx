@@ -37,28 +37,34 @@ async function SiteHeaderContent() {
       : "U";
 
   return (
-    <header className="
-      border-b
-      border-white/10
-      bg-slate-950/80
-      backdrop-blur-xl
-    ">
-      <div className="
-        mx-auto
-        flex
-        max-w-7xl
-        items-center
-        justify-between
-        px-6
-        py-5
-      ">
+    <header
+      className="
+        border-b
+        border-white/10
+        bg-slate-950/80
+        backdrop-blur-xl
+      "
+    >
+      <div
+        className="
+          mx-auto
+          flex
+          max-w-7xl
+          items-center
+          justify-between
+          px-6
+          py-5
+        "
+      >
         <Logo />
 
-        <nav className="
-          flex
-          items-center
-          gap-3
-        ">
+        <nav
+          className="
+            flex
+            items-center
+            gap-3
+          "
+        >
           <Link
             href="/tools"
             className="
@@ -73,6 +79,22 @@ async function SiteHeaderContent() {
             "
           >
             Tools
+          </Link>
+
+          <Link
+            href="/blog"
+            className="
+              rounded-lg
+              px-4
+              py-2
+              text-sm
+              text-slate-300
+              transition
+              hover:bg-white/10
+              hover:text-white
+            "
+          >
+            Blog
           </Link>
 
           {user ? (
@@ -95,46 +117,52 @@ async function SiteHeaderContent() {
                 Dashboard
               </Link>
 
-              <div className="
-                hidden
-                items-center
-                gap-3
-                rounded-xl
-                border
-                border-white/10
-                bg-white/5
-                px-3
-                py-2
-                md:flex
-              ">
-                <div className="
-                  flex
-                  h-8
-                  w-8
-                  shrink-0
+              <div
+                className="
+                  hidden
                   items-center
-                  justify-center
-                  rounded-full
-                  bg-gradient-to-br
-                  from-blue-500
-                  via-violet-500
-                  to-fuchsia-500
-                  text-xs
-                  font-bold
-                  text-white
-                  shadow-lg
-                  shadow-violet-950/30
-                ">
+                  gap-3
+                  rounded-xl
+                  border
+                  border-white/10
+                  bg-white/5
+                  px-3
+                  py-2
+                  md:flex
+                "
+              >
+                <div
+                  className="
+                    flex
+                    h-8
+                    w-8
+                    shrink-0
+                    items-center
+                    justify-center
+                    rounded-full
+                    bg-gradient-to-br
+                    from-blue-500
+                    via-violet-500
+                    to-fuchsia-500
+                    text-xs
+                    font-bold
+                    text-white
+                    shadow-lg
+                    shadow-violet-950/30
+                  "
+                >
                   {userInitial}
                 </div>
 
-                <div className="
-                  max-w-[220px]
-                  truncate
-                  text-sm
-                  font-medium
-                  text-slate-200
-                ">
+                <div
+                  className="
+                    max-w-[220px]
+                    truncate
+                    text-sm
+                    font-medium
+                    text-slate-200
+                  "
+                >
                   {userEmail}
                 </div>
               </div>
@@ -205,20 +233,24 @@ async function SiteHeaderContent() {
 
 function HeaderFallback() {
   return (
-    <header className="
-      border-b
-      border-white/10
-      bg-slate-950
-      px-6
-      py-5
-    ">
-      <div className="
-        mx-auto
-        flex
-        max-w-7xl
-        items-center
-        justify-between
-      ">
+    <header
+      className="
+        border-b
+        border-white/10
+        bg-slate-950
+        px-6
+        py-5
+      "
+    >
+      <div
+        className="
+          mx-auto
+          flex
+          max-w-7xl
+          items-center
+          justify-between
+        "
+      >
         <Logo />
       </div>
     </header>
