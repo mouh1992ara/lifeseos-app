@@ -16,8 +16,6 @@ export default function SiteHeader() {
 
 }
 
-
-
 async function SiteHeaderContent() {
 
 
@@ -119,42 +117,88 @@ async function SiteHeaderContent() {
 
 
 
-          <Link
-            href="/auth/login"
-            className="
-              text-xs
-              text-slate-300
-              hover:text-white
-            "
-          >
-            Sign In
-          </Link>
+{user ? (
+
+  <>
+
+    <Link
+      href="/dashboard"
+      className="
+        text-xs
+        text-slate-300
+        hover:text-white
+      "
+    >
+      Dashboard
+    </Link>
 
 
+    <form action={logout}>
 
-          <Link
-            href="/auth/sign-up"
-            className="
-              rounded-lg
-              bg-gradient-to-r
-              from-blue-500
-              to-purple-600
-              px-3
-              py-1.5
-              text-xs
-              font-semibold
-              text-white
-            "
-          >
-            Get Started
-          </Link>
+      <button
+        type="submit"
+        className="
+          rounded-lg
+          bg-gradient-to-r
+          from-blue-500
+          to-purple-600
+          px-3
+          py-1.5
+          text-xs
+          font-semibold
+          text-white
+        "
+      >
+        Sign out
+      </button>
+
+    </form>
+
+  </>
+
+) : (
+
+  <>
+
+    <Link
+      href="/auth/login"
+      className="
+        text-xs
+        text-slate-300
+        hover:text-white
+      "
+    >
+      Sign In
+    </Link>
+
+
+    <Link
+      href="/auth/sign-up"
+      className="
+        rounded-lg
+        bg-gradient-to-r
+        from-blue-500
+        to-purple-600
+        px-3
+        py-1.5
+        text-xs
+        font-semibold
+        text-white
+      "
+    >
+      Get Started
+    </Link>
+
+  </>
+
+)}
+
 
 
         </div>
 
 
       </div>
-
 
 
 
