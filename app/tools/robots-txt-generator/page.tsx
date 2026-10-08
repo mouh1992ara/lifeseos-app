@@ -1,64 +1,110 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import Link from "next/link";
+import {
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+
 import ShareTool from "@/components/share-tool";
 
 export default function RobotsTxtGeneratorPage() {
-  const [userAgent, setUserAgent] = useState("*");
-  const [allowPath, setAllowPath] = useState("/");
-  const [disallowPaths, setDisallowPaths] = useState("");
-  const [sitemap, setSitemap] = useState("");
+  const [userAgent, setUserAgent] =
+    useState("*");
+
+  const [allowPath, setAllowPath] =
+    useState("/");
+
+  const [
+    disallowPaths,
+    setDisallowPaths,
+  ] = useState("");
+
+  const [sitemap, setSitemap] =
+    useState("");
 
   const hasTrackedUse = useRef(false);
 
   const robotsTxt = useMemo(() => {
-    const lines = [`User-agent: ${userAgent || "*"}`];
+    const lines = [
+      `User-agent: ${userAgent || "*"}`,
+    ];
 
     if (allowPath.trim()) {
-      lines.push(`Allow: ${allowPath.trim()}`);
+      lines.push(
+        `Allow: ${allowPath.trim()}`
+      );
     }
 
-    const disallowList = disallowPaths
-      .split("\n")
-      .map((item) => item.trim())
-      .filter(Boolean);
+    const disallowList =
+      disallowPaths
+        .split("\n")
+        .map((item) =>
+          item.trim()
+        )
+        .filter(Boolean);
 
-    disallowList.forEach((path) => {
-      lines.push(`Disallow: ${path}`);
-    });
+    disallowList.forEach(
+      (path) => {
+        lines.push(
+          `Disallow: ${path}`
+        );
+      }
+    );
 
     if (sitemap.trim()) {
       lines.push("");
-      lines.push(`Sitemap: ${sitemap.trim()}`);
+      lines.push(
+        `Sitemap: ${sitemap.trim()}`
+      );
     }
 
     return lines.join("\n");
-  }, [userAgent, allowPath, disallowPaths, sitemap]);
+  }, [
+    userAgent,
+    allowPath,
+    disallowPaths,
+    sitemap,
+  ]);
 
   async function recordToolUseOnce() {
-    if (hasTrackedUse.current) {
+    if (
+      hasTrackedUse.current
+    ) {
       return;
     }
 
-    hasTrackedUse.current = true;
+    hasTrackedUse.current =
+      true;
 
     try {
-      const response = await fetch("/api/tool-events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          tool_name: "Robots.txt Generator",
-        }),
-      });
+      const response =
+        await fetch(
+          "/api/tool-events",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+
+            body: JSON.stringify({
+              tool_name:
+                "Robots.txt Generator",
+            }),
+          }
+        );
 
       if (!response.ok) {
         console.error(
           "Failed to record Robots.txt Generator usage."
         );
       }
-    } catch (trackingError) {
+    } catch (
+      trackingError
+    ) {
       console.error(
         "Unable to record tool usage:",
         trackingError
@@ -66,160 +112,770 @@ export default function RobotsTxtGeneratorPage() {
     }
   }
 
-  function handleUserAgentChange(value: string) {
+  function handleUserAgentChange(
+    value: string
+  ) {
     setUserAgent(value);
     void recordToolUseOnce();
   }
 
-  function handleAllowPathChange(value: string) {
+  function handleAllowPathChange(
+    value: string
+  ) {
     setAllowPath(value);
     void recordToolUseOnce();
   }
 
-  function handleDisallowPathsChange(value: string) {
+  function handleDisallowPathsChange(
+    value: string
+  ) {
     setDisallowPaths(value);
     void recordToolUseOnce();
   }
 
-  function handleSitemapChange(value: string) {
+  function handleSitemapChange(
+    value: string
+  ) {
     setSitemap(value);
     void recordToolUseOnce();
   }
 
   async function copyRobotsTxt() {
-    await navigator.clipboard.writeText(robotsTxt);
+    await navigator.clipboard.writeText(
+      robotsTxt
+    );
 
     void recordToolUseOnce();
   }
 
   return (
-    <>
-      <div>
-        <p className="text-sm font-medium uppercase tracking-widest text-emerald-400">
-          SEO Tool
-        </p>
+    <main className="min-h-screen bg-slate-950 text-white">
 
-        <h1 className="mt-3 text-4xl font-bold">
-          Robots.txt Generator
-        </h1>
+      <section className="mx-auto max-w-6xl px-5 py-14 sm:px-6 lg:px-8">
 
-        <p className="mt-4 max-w-2xl leading-7 text-slate-400">
-          Create a clean robots.txt file to control how search engine crawlers
-          access sections of your website.
-        </p>
-      </div>
+        {/* HERO */}
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-2">
-        <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-          <label className="text-sm font-semibold">
-            User-agent
-          </label>
+        <div className="mx-auto max-w-4xl text-center">
 
-          <input
-            value={userAgent}
-            onChange={(e) =>
-              handleUserAgentChange(e.target.value)
-            }
-            placeholder="*"
-            className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
-          />
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-300">
+            <span>🤖</span>
 
-          <p className="mt-2 text-xs text-slate-500">
-            Use * to target all crawlers.
+            <span>
+              LifeSeos Robots.txt Generator
+            </span>
+          </div>
+
+          <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            Free Robots.txt Generator
+
+            <span className="mt-2 block bg-gradient-to-r from-emerald-300 via-cyan-300 to-blue-400 bg-clip-text text-transparent">
+              Control Search Engine Crawling
+            </span>
+          </h1>
+
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
+            Create a clean robots.txt file,
+            define crawler access rules and
+            optionally include your XML sitemap
+            URL.
           </p>
 
-          <label className="mt-8 block text-sm font-semibold">
-            Allow path
-          </label>
+        </div>
 
-          <input
-            value={allowPath}
-            onChange={(e) =>
-              handleAllowPathChange(e.target.value)
-            }
-            placeholder="/"
-            className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
-          />
 
-          <label className="mt-8 block text-sm font-semibold">
-            Disallow paths
-          </label>
+        {/* TOOL */}
 
-          <textarea
-            value={disallowPaths}
-            onChange={(e) =>
-              handleDisallowPathsChange(e.target.value)
-            }
-            placeholder={"/admin/\n/private/\n/search/"}
-            rows={6}
-            className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
-          />
+        <div className="mt-10 grid gap-8 lg:grid-cols-2">
 
-          <p className="mt-2 text-xs text-slate-500">
-            Enter one path per line.
-          </p>
+          <section className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
 
-          <label className="mt-8 block text-sm font-semibold">
-            Sitemap URL
-          </label>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">
+              Crawler rules
+            </p>
 
-          <input
-            value={sitemap}
-            onChange={(e) =>
-              handleSitemapChange(e.target.value)
-            }
-            placeholder="https://example.com/sitemap.xml"
-            className="mt-3 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 outline-none focus:border-emerald-400"
-          />
-        </section>
-
-        <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-          <div className="flex items-center justify-between gap-4">
-            <h2 className="text-xl font-semibold">
-              Generated robots.txt
+            <h2 className="mt-2 text-2xl font-bold">
+              Configure Your Robots.txt
             </h2>
 
-            <button
-              type="button"
-              onClick={copyRobotsTxt}
-              className="rounded-lg bg-emerald-400 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-300"
-            >
-              Copy
-            </button>
-          </div>
 
-          <div className="mt-5 rounded-xl bg-black/30 p-5">
-            <pre className="whitespace-pre-wrap break-words text-sm leading-7 text-emerald-300">
-              {robotsTxt}
-            </pre>
-          </div>
+            <label className="mt-6 block text-sm font-semibold text-slate-200">
+              User-agent
+            </label>
 
-          <div className="mt-8 rounded-xl border border-amber-400/20 bg-amber-400/5 p-4">
-            <p className="text-sm leading-6 text-amber-200">
-              Robots.txt controls crawler access, but it should not be used to
-              protect sensitive information.
+            <input
+              value={userAgent}
+              onChange={(e) =>
+                handleUserAgentChange(
+                  e.target.value
+                )
+              }
+              placeholder="*"
+              className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/60"
+            />
+
+            <p className="mt-2 text-xs leading-5 text-slate-500">
+              Use * to apply the rule group
+              to all compatible crawlers.
             </p>
-          </div>
-        </section>
-      </div>
 
-      <section className="mt-10 rounded-2xl border border-white/10 p-6">
-        <h2 className="text-2xl font-bold">
-          How to use this tool
-        </h2>
 
-        <p className="mt-4 max-w-3xl leading-7 text-slate-400">
-          Choose the crawler you want to target, define allowed and blocked
-          paths, then optionally add your sitemap URL. Copy the generated
-          content and save it as robots.txt in the root directory of your
-          website.
-        </p>
+            <label className="mt-8 block text-sm font-semibold text-slate-200">
+              Allow path
+            </label>
+
+            <input
+              value={allowPath}
+              onChange={(e) =>
+                handleAllowPathChange(
+                  e.target.value
+                )
+              }
+              placeholder="/"
+              className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/60"
+            />
+
+            <p className="mt-2 text-xs leading-5 text-slate-500">
+              Example: / allows crawling from
+              the root unless a more specific
+              rule restricts a path.
+            </p>
+
+
+            <label className="mt-8 block text-sm font-semibold text-slate-200">
+              Disallow paths
+            </label>
+
+            <textarea
+              value={disallowPaths}
+              onChange={(e) =>
+                handleDisallowPathsChange(
+                  e.target.value
+                )
+              }
+              placeholder={
+                "/admin/\n/private/\n/search/"
+              }
+              rows={6}
+              className="mt-3 w-full resize-y rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 leading-7 text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/60"
+            />
+
+            <p className="mt-2 text-xs leading-5 text-slate-500">
+              Enter one path per line.
+            </p>
+
+
+            <label className="mt-8 block text-sm font-semibold text-slate-200">
+              Sitemap URL
+            </label>
+
+            <input
+              value={sitemap}
+              onChange={(e) =>
+                handleSitemapChange(
+                  e.target.value
+                )
+              }
+              placeholder="https://example.com/sitemap.xml"
+              className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/60"
+            />
+
+            <p className="mt-2 text-xs leading-5 text-slate-500">
+              Use the full absolute URL of
+              your XML sitemap.
+            </p>
+
+          </section>
+
+
+          <section className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+
+            <div className="flex items-center justify-between gap-4">
+
+              <div>
+
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
+                  Generated output
+                </p>
+
+                <h2 className="mt-2 text-2xl font-bold">
+                  Generated robots.txt
+                </h2>
+
+              </div>
+
+
+              <button
+                type="button"
+                onClick={
+                  copyRobotsTxt
+                }
+                className="rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-400 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:from-emerald-300 hover:to-cyan-300"
+              >
+                Copy
+              </button>
+
+            </div>
+
+
+            <div className="mt-5 rounded-2xl border border-white/5 bg-black/30 p-5">
+
+              <pre className="whitespace-pre-wrap break-words text-sm leading-7 text-emerald-300">
+                {robotsTxt}
+              </pre>
+
+            </div>
+
+
+            <div className="mt-8 rounded-2xl border border-amber-400/20 bg-amber-400/5 p-5">
+
+              <div className="flex gap-3">
+
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-400/10 font-bold text-amber-300">
+                  !
+                </div>
+
+                <div>
+
+                  <h3 className="font-semibold text-amber-200">
+                    Important
+                  </h3>
+
+                  <p className="mt-2 text-sm leading-6 text-amber-100/70">
+                    Robots.txt controls crawler
+                    access. It should not be used
+                    to protect confidential or
+                    sensitive information.
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+
+
+        <div className="mt-10">
+
+          <ShareTool
+            title="Robots.txt Generator"
+            description="Create a clean robots.txt file and manage crawler access with this free LifeSeos tool."
+          />
+
+        </div>
+
       </section>
 
-      <ShareTool
-        title="Robots.txt Generator"
-        description="Create a clean robots.txt file and manage crawler access with this free LifeSeos tool."
-      />
-    </>
+
+      {/* SEO CONTENT */}
+
+      <section className="border-t border-white/10">
+
+        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-6 lg:px-8 lg:py-20">
+
+          <div className="mx-auto max-w-3xl text-center">
+
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
+              Crawler Management
+            </p>
+
+            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+              Understand How Robots.txt Works
+            </h2>
+
+            <p className="mt-5 leading-8 text-slate-400">
+              A robots.txt file gives supported
+              web crawlers instructions about
+              which areas of a website they may
+              or may not crawl. It is normally
+              placed at the root of the website
+              so crawlers can discover the rules
+              before requesting other URLs.
+            </p>
+
+          </div>
+
+
+          {/* DIRECTIVES */}
+
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+
+            <DirectiveCard
+              directive="User-agent"
+              title="Choose the Crawler"
+              description="Defines which crawler or group of crawlers the following rules apply to."
+              example="User-agent: *"
+            />
+
+            <DirectiveCard
+              directive="Allow"
+              title="Allow a Path"
+              description="Allows crawling of a specific path when the rule is applicable to the selected crawler."
+              example="Allow: /"
+            />
+
+            <DirectiveCard
+              directive="Disallow"
+              title="Block Crawling"
+              description="Requests that compatible crawlers do not crawl a specified path or directory."
+              example="Disallow: /private/"
+            />
+
+            <DirectiveCard
+              directive="Sitemap"
+              title="Reference Your Sitemap"
+              description="Provides crawlers with the absolute URL of an XML sitemap."
+              example="Sitemap: https://example.com/sitemap.xml"
+            />
+
+          </div>
+
+
+          {/* HOW TO USE */}
+
+          <div className="mt-16 rounded-[32px] border border-white/10 bg-white/[0.03] p-6 sm:p-8 lg:p-10">
+
+            <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+
+              <div>
+
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
+                  How it works
+                </p>
+
+                <h2 className="mt-4 text-3xl font-bold">
+                  How to Use the Robots.txt Generator
+                </h2>
+
+                <p className="mt-4 leading-7 text-slate-400">
+                  Configure the crawler rules,
+                  review the generated text and
+                  place the final file in your
+                  website root.
+                </p>
+
+              </div>
+
+
+              <div className="space-y-4">
+
+                <StepCard
+                  number="1"
+                  title="Choose a user-agent"
+                  description="Use * for a general rule group or enter the crawler token you specifically want to target."
+                />
+
+                <StepCard
+                  number="2"
+                  title="Define allowed and blocked paths"
+                  description="Add the paths that crawlers should be permitted or requested not to crawl."
+                />
+
+                <StepCard
+                  number="3"
+                  title="Add your sitemap"
+                  description="Optionally include the full URL of your XML sitemap."
+                />
+
+                <StepCard
+                  number="4"
+                  title="Publish robots.txt"
+                  description="Copy the generated content and save it as robots.txt at the root of your website."
+                />
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          {/* IMPORTANT DISTINCTION */}
+
+          <div className="mt-16 rounded-[32px] border border-violet-400/15 bg-violet-400/[0.04] p-6 sm:p-8 lg:p-10">
+
+            <div className="grid gap-8 lg:grid-cols-[auto_1fr]">
+
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-violet-400/20 bg-violet-400/10 text-lg font-bold text-violet-300">
+                !
+              </div>
+
+
+              <div>
+
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-violet-300">
+                  Important SEO distinction
+                </p>
+
+                <h2 className="mt-3 text-2xl font-bold sm:text-3xl">
+                  Blocking Crawling Is Not the Same as Preventing Indexing
+                </h2>
+
+                <p className="mt-4 max-w-4xl leading-8 text-slate-400">
+                  A robots.txt rule primarily
+                  controls crawling. It should
+                  not be treated as a guaranteed
+                  method for keeping a URL out
+                  of search results. If you need
+                  to control indexing, review the
+                  appropriate indexing directives
+                  and make sure search engines can
+                  access the page when those
+                  directives need to be read.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          {/* BEST PRACTICES */}
+
+          <div className="mt-16 grid gap-10 lg:grid-cols-2 lg:items-center">
+
+            <div>
+
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
+                Configuration tips
+              </p>
+
+              <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
+                Robots.txt Best Practices
+              </h2>
+
+              <p className="mt-5 leading-8 text-slate-400">
+                Small robots.txt mistakes can
+                restrict crawler access to pages
+                or resources you intended to keep
+                crawlable. Review every rule
+                carefully before publishing the
+                file.
+              </p>
+
+              <p className="mt-4 leading-8 text-slate-400">
+                After making changes, verify the
+                live robots.txt file and check
+                that important public pages and
+                resources are still accessible
+                to the crawlers you want to
+                support.
+              </p>
+
+            </div>
+
+
+            <div className="grid gap-4 sm:grid-cols-2">
+
+              <BestPracticeCard
+                title="Use precise paths"
+                description="Avoid broad Disallow rules unless you are certain the entire path should not be crawled."
+              />
+
+              <BestPracticeCard
+                title="Check your syntax"
+                description="Review user-agent groups and path rules before uploading the file."
+              />
+
+              <BestPracticeCard
+                title="Include your sitemap"
+                description="Add your XML sitemap URL when appropriate so crawlers can discover it easily."
+              />
+
+              <BestPracticeCard
+                title="Test after changes"
+                description="Confirm that important public pages remain crawlable after updating robots.txt."
+              />
+
+            </div>
+
+          </div>
+
+
+          {/* COMMON MISTAKES */}
+
+          <div className="mt-16">
+
+            <div className="mx-auto max-w-3xl text-center">
+
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-amber-300">
+                Avoid mistakes
+              </p>
+
+              <h2 className="mt-4 text-3xl font-bold">
+                Common Robots.txt Problems
+              </h2>
+
+            </div>
+
+
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+
+              <MistakeCard
+                title="Blocking the whole site"
+                description="A broad Disallow rule can prevent crawlers from accessing far more pages than intended."
+              />
+
+              <MistakeCard
+                title="Blocking important resources"
+                description="Restricting CSS, JavaScript or other resources can make it harder for crawlers to render a page properly."
+              />
+
+              <MistakeCard
+                title="Using robots.txt for security"
+                description="Blocked paths remain publicly accessible if someone knows the URL, so sensitive data requires real access control."
+              />
+
+            </div>
+
+          </div>
+
+
+          {/* RELATED TOOLS */}
+
+          <div className="mt-20">
+
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+
+              <div>
+
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
+                  Continue optimizing
+                </p>
+
+                <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+                  Related SEO Tools
+                </h2>
+
+              </div>
+
+
+              <Link
+                href="/tools"
+                className="text-sm font-semibold text-cyan-300 transition hover:text-cyan-200"
+              >
+                View all tools →
+              </Link>
+
+            </div>
+
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
+              <RelatedToolCard
+                href="/tools/xml-sitemap-generator"
+                icon="⌘"
+                title="XML Sitemap Generator"
+                description="Create an XML sitemap that lists important website URLs for search engines."
+              />
+
+              <RelatedToolCard
+                href="/tools/seo-analyzer"
+                icon="⌕"
+                title="SEO Analyzer"
+                description="Run a broader SEO audit covering technical, content and indexing-related signals."
+              />
+
+              <RelatedToolCard
+                href="/tools/seo-page-analyzer"
+                icon="◎"
+                title="SEO Page Analyzer"
+                description="Inspect titles, metadata, headings, canonical tags and other page-level SEO elements."
+              />
+
+              <RelatedToolCard
+                href="/tools/http-status-checker"
+                icon="↔"
+                title="HTTP Status Checker"
+                description="Check HTTP response codes and verify whether important URLs respond correctly."
+              />
+
+              <RelatedToolCard
+                href="/tools/page-speed"
+                icon="⚡"
+                title="Page Speed Analyzer"
+                description="Measure Lighthouse performance and website loading metrics."
+              />
+
+              <RelatedToolCard
+                href="/tools/meta-tag-generator"
+                icon="<>"
+                title="Meta Tag Generator"
+                description="Create SEO titles and meta descriptions for your website pages."
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+  );
+}
+
+
+function DirectiveCard({
+  directive,
+  title,
+  description,
+  example,
+}: {
+  directive: string;
+  title: string;
+  description: string;
+  example: string;
+}) {
+  return (
+    <div className="rounded-[24px] border border-white/10 bg-slate-900/70 p-6">
+
+      <div className="inline-flex rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 font-mono text-xs font-bold text-emerald-300">
+        {directive}
+      </div>
+
+      <h3 className="mt-5 text-lg font-bold">
+        {title}
+      </h3>
+
+      <p className="mt-3 text-sm leading-7 text-slate-400">
+        {description}
+      </p>
+
+      <div className="mt-4 rounded-xl border border-white/5 bg-black/20 px-3 py-2 font-mono text-xs leading-5 text-slate-400">
+        {example}
+      </div>
+
+    </div>
+  );
+}
+
+
+function StepCard({
+  number,
+  title,
+  description,
+}: {
+  number: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="flex gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-5">
+
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 font-bold text-emerald-300">
+        {number}
+      </div>
+
+      <div>
+
+        <h3 className="font-semibold text-white">
+          {title}
+        </h3>
+
+        <p className="mt-1 text-sm leading-6 text-slate-400">
+          {description}
+        </p>
+
+      </div>
+
+    </div>
+  );
+}
+
+
+function BestPracticeCard({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+
+      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-400/10 text-emerald-300">
+        ✓
+      </div>
+
+      <h3 className="mt-4 font-semibold">
+        {title}
+      </h3>
+
+      <p className="mt-2 text-sm leading-6 text-slate-400">
+        {description}
+      </p>
+
+    </div>
+  );
+}
+
+
+function MistakeCard({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-amber-400/10 bg-amber-400/[0.03] p-5">
+
+      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-400/10 font-bold text-amber-300">
+        !
+      </div>
+
+      <h3 className="mt-4 font-semibold text-white">
+        {title}
+      </h3>
+
+      <p className="mt-2 text-sm leading-6 text-slate-400">
+        {description}
+      </p>
+
+    </div>
+  );
+}
+
+
+function RelatedToolCard({
+  href,
+  icon,
+  title,
+  description,
+}: {
+  href: string;
+  icon: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:-translate-y-1 hover:border-emerald-400/20 hover:bg-white/[0.05]"
+    >
+
+      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg">
+        {icon}
+      </div>
+
+      <h3 className="mt-4 font-semibold text-white transition group-hover:text-emerald-300">
+        {title}
+      </h3>
+
+      <p className="mt-2 text-sm leading-6 text-slate-400">
+        {description}
+      </p>
+
+      <div className="mt-4 text-sm font-semibold text-emerald-300">
+        Open tool →
+      </div>
+
+    </Link>
   );
 }
