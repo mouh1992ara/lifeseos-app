@@ -50,6 +50,58 @@ export default async function Home() {
       "Free SEO tools for website analysis, technical SEO and smarter search growth.",
   };
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What is LifeSeos?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text:
+            "LifeSeos provides free SEO tools that help website owners analyze, optimize and improve website performance.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Are LifeSeos SEO tools free?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text:
+            "Yes. LifeSeos provides free SEO tools for website analysis, technical SEO, content optimization and search performance improvement.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What SEO tools are available on LifeSeos?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text:
+            "LifeSeos provides SEO analysis tools, metadata generators, keyword analysis tools, sitemap tools, robots.txt tools and technical SEO checkers.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Do I need SEO experience to use LifeSeos?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text:
+            "No. LifeSeos tools are designed for beginners, marketers, developers and website owners.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Can LifeSeos improve my Google rankings?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text:
+            "LifeSeos helps identify SEO issues and optimization opportunities, but rankings also depend on content quality, competition and other search factors.",
+        },
+      },
+    ],
+  };
+
   const tools = [
     {
       title: "SEO Analyzer",
@@ -96,17 +148,17 @@ export default async function Home() {
   ];
 
   return (
-<main
-  className="
-    relative
-    z-0
-    isolate
-    w-full
-    overflow-x-hidden
-    bg-slate-950
-    text-white
-  "
->
+    <main
+      className="
+        relative
+        z-0
+        isolate
+        w-full
+        overflow-x-hidden
+        bg-slate-950
+        text-white
+      "
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -121,419 +173,401 @@ export default async function Home() {
         }}
       />
 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd),
+        }}
+      />
+
       {/* HERO */}
 
       <section
-  className="
-    relative
-    z-0
-  "
+        className="
+          relative
+          z-0
+          px-6
+          pb-24
+          pt-24
+          sm:px-10
+          lg:px-16
+        "
         style={{
           backgroundImage:
             "radial-gradient(circle at 50% 22%, rgba(59,130,246,0.30) 0%, rgba(124,58,237,0.16) 30%, rgba(15,23,42,0) 65%)",
         }}
       >
-        <div
- className="
- relative
- mx-auto
- flex
- w-full
- max-w-7xl
- flex-col
- items-center
- overflow-hidden
- px-6
- py-24
- text-center
- "
->
-          <div
+        <div className="mx-auto max-w-5xl text-center">
+          <h1
             className="
-            rounded-full
-            border
-            border-emerald-400/20
-            bg-emerald-400/10
-            px-5
-            py-2
-            text-sm
-            text-emerald-300
+              text-4xl
+              font-bold
+              leading-tight
+              sm:text-6xl
             "
           >
-            🚀 Free SEO tools for smarter growth
-          </div>
-
-          <h1
-  className="
-    mt-6
-    max-w-4xl
-    text-3xl
-    sm:text-5xl
-    md:text-7xl
-    font-black
-    leading-tight
-  "
->
-            Analyze, optimize and{" "}
-            <span
-              className="
-              bg-gradient-to-r
-              from-blue-400
-              via-purple-400
-              to-emerald-400
-              bg-clip-text
-              text-transparent
-              "
-            >
-              grow your website
-            </span>
+            Free SEO Tools to Analyze,
+            <br />
+            Optimize and Grow Your Website
           </h1>
 
           <p
             className="
-            mt-6
-            max-w-3xl
-            text-lg
-            leading-8
-            text-slate-400
+              mx-auto
+              mt-6
+              max-w-3xl
+              text-lg
+              leading-8
+              text-slate-400
             "
           >
-            Powerful SEO tools to analyze websites, improve rankings,
-            optimize content and discover technical issues instantly.
+            Improve your website performance with free SEO tools for
+            technical analysis, content optimization, metadata,
+            crawling and search visibility.
           </p>
 
-<div
-  className="
-    mt-10
-    flex
-    w-full
-    flex-col
-    items-center
-    justify-center
-    gap-4
-    sm:flex-row
-  "
->            <Link
+          <div
+            className="
+              mt-10
+              flex
+              flex-wrap
+              justify-center
+              gap-4
+            "
+          >
+            <Link
               href="/tools"
               className="
-              rounded-xl
-              bg-gradient-to-r
-              from-emerald-400
-              to-cyan-400
-              px-7
-              py-3
-              font-bold
-              text-slate-950
-              transition
-              hover:scale-105
+                rounded-xl
+                bg-emerald-400
+                px-7
+                py-3
+                font-semibold
+                text-slate-950
+                transition
+                hover:bg-emerald-300
               "
             >
-              Explore tools
+              Explore SEO Tools
             </Link>
 
             {user ? (
               <Link
                 href="/dashboard"
                 className="
-                rounded-xl
-                border
-                border-white/20
-                px-7
-                py-3
-                font-bold
-                transition
-                hover:bg-white/10
+                  rounded-xl
+                  border
+                  border-white/10
+                  px-7
+                  py-3
+                  font-semibold
+                  transition
+                  hover:bg-white/5
                 "
               >
-                Go to Dashboard
+                Dashboard
               </Link>
             ) : (
               <Link
                 href="/auth/sign-up"
                 className="
-                rounded-xl
-                border
-                border-white/20
-                px-7
-                py-3
-                font-bold
-                transition
-                hover:bg-white/10
+                  rounded-xl
+                  border
+                  border-white/10
+                  px-7
+                  py-3
+                  font-semibold
+                  transition
+                  hover:bg-white/5
                 "
               >
-                Create account
+                Create Free Account
               </Link>
             )}
           </div>
-
-          {/* Fake Dashboard */}
-
-          <div
-            className="
-            mt-20
-            w-full
-            max-w-3xl
-            rounded-3xl
-            border
-            border-white/10
-            bg-white/[0.04]
-            p-8
-            shadow-2xl
-            backdrop-blur-xl
-            "
-          >
-            <div className="flex justify-between text-sm text-slate-400">
-              <span>Website SEO Score</span>
-
-              <span className="text-emerald-400">
-                Excellent
-              </span>
-            </div>
-
-            <div
-              className="
-              mt-6
-              text-6xl
-              font-black
-              text-white
-              "
-            >
-              92
-            </div>
-
-            <div
-              className="
-              mt-6
-              h-3
-              overflow-hidden
-              rounded-full
-              bg-white/10
-              "
-            >
-              <div
-                className="
-                h-full
-                w-[92%]
-                rounded-full
-                bg-gradient-to-r
-                from-emerald-400
-                to-blue-500
-                "
-              />
-            </div>
-          </div>
         </div>
       </section>
+
 
       {/* TOOLS */}
 
-      <section
-        className="
-        mx-auto
-        max-w-7xl
-        px-6
-        py-20
-        "
-      >
-        <p
-          className="
-          text-sm
-          uppercase
-          tracking-widest
-          text-emerald-400
-          "
-        >
-          Tools
-        </p>
+      <section className="px-6 py-20 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="text-center text-3xl font-bold">
+            Powerful SEO Tools
+          </h2>
 
-        <h2
-          className="
-          mt-3
-          mb-10
-          text-4xl
-          font-black
-          "
-        >
-          Everything you need for SEO
-        </h2>
+          <p
+            className="
+              mx-auto
+              mt-4
+              max-w-2xl
+              text-center
+              text-slate-400
+            "
+          >
+            Everything you need to analyze and improve your website SEO.
+          </p>
 
-        <div
-          className="
-          grid
-          gap-6
-          md:grid-cols-2
-          lg:grid-cols-3
-          "
-        >
-          {tools.map((tool) => (
-            <Link
-              key={tool.title}
-              href={tool.href}
-              className="
-              group
-              rounded-3xl
-              border
-              border-white/10
-              bg-white/[0.03]
-              p-7
-              transition
-              hover:-translate-y-2
-              hover:border-emerald-400/40
-              "
-            >
-              <div className="text-3xl">
-                {tool.icon}
-              </div>
-
-              <h3
+          <div
+            className="
+              mt-12
+              grid
+              gap-6
+              sm:grid-cols-2
+              lg:grid-cols-3
+            "
+          >
+            {tools.map((tool) => (
+              <Link
+                key={tool.title}
+                href={tool.href}
                 className="
-                mt-5
-                text-xl
-                font-bold
+                  rounded-2xl
+                  border
+                  border-white/10
+                  bg-white/[0.03]
+                  p-6
+                  transition
+                  hover:border-emerald-400/40
+                  hover:bg-white/[0.05]
                 "
               >
-                {tool.title}
-              </h3>
+                <div className="text-3xl">
+                  {tool.icon}
+                </div>
 
-              <p
-                className="
-                mt-3
-                leading-7
-                text-slate-400
-                "
-              >
-                {tool.description}
-              </p>
+                <h3 className="mt-5 text-xl font-semibold">
+                  {tool.title}
+                </h3>
 
-              <div
-                className="
-                mt-6
-                text-emerald-400
-                "
-              >
-                Open tool →
-              </div>
-            </Link>
-          ))}
+                <p className="mt-3 leading-7 text-slate-400">
+                  {tool.description}
+                </p>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
+
 
       {/* TRUST */}
 
-      <section
-        className="
-        border-t
-        border-white/10
-        bg-white/[0.02]
-        px-6
-        py-16
-        text-center
-        "
-      >
-        <h2 className="text-3xl font-bold">
-          Built for creators, developers and marketers
-        </h2>
-
+      <section className="px-6 py-20 sm:px-10 lg:px-16">
         <div
           className="
-          mx-auto
-          mt-6
-          grid
-          max-w-4xl
-          gap-4
-          sm:grid-cols-2
-          lg:grid-cols-4
+            mx-auto
+            grid
+            max-w-6xl
+            gap-6
+            md:grid-cols-4
           "
         >
-          <div
-            className="
-            flex
-            items-center
-            justify-center
-            gap-3
-            rounded-2xl
-            border
-            border-white/10
-            bg-white/[0.03]
-            px-5
-            py-4
-            text-slate-300
-            transition
-            hover:border-emerald-400/30
-            hover:bg-white/[0.05]
-            "
-          >
-            <Gift className="h-5 w-5 text-emerald-400" />
-            <span>Free tools</span>
-          </div>
+          {[
+            {
+              icon: Gift,
+              title: "Free Forever",
+              text: "Use essential SEO tools without payment.",
+            },
+            {
+              icon: Zap,
+              title: "Fast Analysis",
+              text: "Get instant insights and recommendations.",
+            },
+            {
+              icon: CreditCard,
+              title: "No Credit Card",
+              text: "Start using tools without commitment.",
+            },
+            {
+              icon: ShieldCheck,
+              title: "Secure",
+              text: "Your data is handled safely.",
+            },
+          ].map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <div
+                key={item.title}
+                className="
+                  rounded-2xl
+                  border
+                  border-white/10
+                  bg-white/[0.03]
+                  p-6
+                "
+              >
+                <Icon className="h-8 w-8 text-emerald-400" />
+
+                <h3 className="mt-5 font-semibold">
+                  {item.title}
+                </h3>
+
+                <p className="mt-2 text-sm leading-6 text-slate-400">
+                  {item.text}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+
+      {/* WHY CHOOSE LIFESEOS */}
+
+      <section className="px-6 py-20 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-center text-3xl font-bold">
+            Why Choose LifeSeos?
+          </h2>
 
           <div
             className="
-            flex
-            items-center
-            justify-center
-            gap-3
-            rounded-2xl
-            border
-            border-white/10
-            bg-white/[0.03]
-            px-5
-            py-4
-            text-slate-300
-            transition
-            hover:border-blue-400/30
-            hover:bg-white/[0.05]
+              mt-10
+              grid
+              gap-6
+              md:grid-cols-3
             "
           >
-            <Zap className="h-5 w-5 text-blue-400" />
-            <span>Instant analysis</span>
-          </div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+              <h3 className="font-semibold">
+                Simple SEO Analysis
+              </h3>
+              <p className="mt-3 text-slate-400">
+                Understand website issues with clear reports and practical insights.
+              </p>
+            </div>
 
-          <div
-            className="
-            flex
-            items-center
-            justify-center
-            gap-3
-            rounded-2xl
-            border
-            border-white/10
-            bg-white/[0.03]
-            px-5
-            py-4
-            text-slate-300
-            transition
-            hover:border-violet-400/30
-            hover:bg-white/[0.05]
-            "
-          >
-            <CreditCard className="h-5 w-5 text-violet-400" />
-            <span>No credit card</span>
-          </div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+              <h3 className="font-semibold">
+                Complete SEO Toolkit
+              </h3>
+              <p className="mt-3 text-slate-400">
+                Analyze technical SEO, content, keywords, speed and search signals in one place.
+              </p>
+            </div>
 
-          <div
-            className="
-            flex
-            items-center
-            justify-center
-            gap-3
-            rounded-2xl
-            border
-            border-white/10
-            bg-white/[0.03]
-            px-5
-            py-4
-            text-slate-300
-            transition
-            hover:border-emerald-400/30
-            hover:bg-white/[0.05]
-            "
-          >
-            <ShieldCheck className="h-5 w-5 text-emerald-400" />
-            <span>Privacy friendly</span>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+              <h3 className="font-semibold">
+                Built for Everyone
+              </h3>
+              <p className="mt-3 text-slate-400">
+                Designed for beginners, marketers, developers and website owners.
+              </p>
+            </div>
           </div>
         </div>
       </section>
+
+
+           {/* FAQ */}
+
+      <section className="px-6 py-20 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-center text-3xl font-bold">
+            Frequently Asked Questions
+          </h2>
+
+          <div className="mt-10 space-y-5">
+            {[
+              {
+                q: "What is LifeSeos?",
+                a: "LifeSeos provides free SEO tools that help website owners analyze and improve website performance.",
+              },
+              {
+                q: "Are LifeSeos tools free?",
+                a: "Yes. Most LifeSeos SEO tools are available for free.",
+              },
+              {
+                q: "Who can use LifeSeos?",
+                a: "Anyone managing a website, including beginners, marketers and developers.",
+              },
+            ].map((item) => (
+              <div
+                key={item.q}
+                className="
+                  rounded-2xl
+                  border
+                  border-white/10
+                  bg-white/[0.03]
+                  p-6
+                "
+              >
+                <h3 className="font-semibold">
+                  {item.q}
+                </h3>
+
+                <p className="mt-3 text-slate-400">
+                  {item.a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      {/* FINAL CTA */}
+
+      <section
+        className="
+          px-6
+          py-20
+          sm:px-10
+          lg:px-16
+        "
+      >
+        <div
+          className="
+            mx-auto
+            max-w-4xl
+            rounded-3xl
+            border
+            border-white/10
+            bg-white/[0.03]
+            p-10
+            text-center
+          "
+        >
+          <h2 className="text-3xl font-bold">
+            Ready to improve your website SEO?
+          </h2>
+
+          <p
+            className="
+              mx-auto
+              mt-4
+              max-w-2xl
+              leading-7
+              text-slate-400
+            "
+          >
+            Analyze your website, discover SEO issues and improve your search
+            performance with free LifeSeos tools.
+          </p>
+
+          <Link
+            href="/tools/seo-analyzer"
+            className="
+              mt-8
+              inline-flex
+              rounded-xl
+              bg-emerald-400
+              px-8
+              py-3
+              font-semibold
+              text-slate-950
+              transition
+              hover:bg-emerald-300
+            "
+          >
+            Start Free SEO Analysis
+          </Link>
+        </div>
+      </section>
+
+
     </main>
   );
 }
