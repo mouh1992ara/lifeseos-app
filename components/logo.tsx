@@ -33,7 +33,6 @@ export default function Logo() {
           width={60}
           height={60}
           priority
-          sizes="60px"
           className="
             h-[60px]
             w-[60px]
@@ -42,7 +41,6 @@ export default function Logo() {
         />
 
       </div>
-
 
 
       <div>
@@ -59,7 +57,6 @@ export default function Logo() {
         </div>
 
 
-
         <div
           className="
             text-xs
@@ -68,7 +65,6 @@ export default function Logo() {
         >
           SEO tools for smarter growth
         </div>
-
 
       </div>
 

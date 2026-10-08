@@ -130,6 +130,7 @@ export const metadata: Metadata = {
 
 
     images:
+
       [
         "/social/home.png",
       ],
@@ -246,16 +247,12 @@ export default function RootLayout({
   return (
 
     <html
-
       lang="en"
-
       suppressHydrationWarning
-
     >
 
-      <body
 
-        suppressHydrationWarning
+      <body
 
         className="
           min-h-screen
@@ -283,6 +280,7 @@ export default function RootLayout({
           }}
 
         />
+
 
 
         <script
@@ -317,14 +315,13 @@ export default function RootLayout({
         >
 
 
-          <LivePresence />
-
-
-
           <div className="flex min-h-screen flex-col">
 
 
             <SiteHeader />
+
+
+            <LivePresence />
 
 
             <main className="flex-1">
@@ -332,7 +329,6 @@ export default function RootLayout({
               {children}
 
             </main>
-
 
 
             <SiteFooter />

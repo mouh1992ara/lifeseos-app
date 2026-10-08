@@ -96,7 +96,17 @@ export default async function Home() {
   ];
 
   return (
-<main className="w-full overflow-x-hidden bg-slate-950 text-white">
+<main
+  className="
+    relative
+    z-0
+    isolate
+    w-full
+    overflow-x-hidden
+    bg-slate-950
+    text-white
+  "
+>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -114,7 +124,10 @@ export default async function Home() {
       {/* HERO */}
 
       <section
-        className="relative"
+  className="
+    relative
+    z-0
+  "
         style={{
           backgroundImage:
             "radial-gradient(circle at 50% 22%, rgba(59,130,246,0.30) 0%, rgba(124,58,237,0.16) 30%, rgba(15,23,42,0) 65%)",
@@ -153,7 +166,7 @@ export default async function Home() {
           <h1
   className="
     mt-6
-    max-w4xl
+    max-w-4xl
     text-3xl
     sm:text-5xl
     md:text-7xl
