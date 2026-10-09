@@ -145,6 +145,27 @@ export default async function Home() {
       href: "/tools/xml-sitemap-generator",
       icon: "🌐",
     },
+    {
+      title: "SEO Page Analyzer",
+      description:
+        "Review important on-page SEO elements including titles, descriptions, headings, links and image alt text.",
+      href: "/tools/seo-page-analyzer",
+      icon: "🧭",
+    },
+    {
+      title: "Page Speed Analyzer",
+      description:
+        "Measure website performance and review important loading and Lighthouse metrics.",
+      href: "/tools/page-speed",
+      icon: "🚀",
+    },
+    {
+      title: "Content Analyzer",
+      description:
+        "Analyze content length, keyword usage, readability and basic SEO quality signals.",
+      href: "/tools/content-analyzer",
+      icon: "📝",
+    },
   ];
 
   return (
@@ -288,7 +309,6 @@ export default async function Home() {
         </div>
       </section>
 
-
       {/* TOOLS */}
 
       <section className="px-6 py-20 sm:px-10 lg:px-16">
@@ -349,7 +369,6 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
 
       {/* TRUST */}
 
@@ -413,7 +432,6 @@ export default async function Home() {
         </div>
       </section>
 
-
       {/* WHY CHOOSE LIFESEOS */}
 
       <section className="px-6 py-20 sm:px-10 lg:px-16">
@@ -434,6 +452,7 @@ export default async function Home() {
               <h3 className="font-semibold">
                 Simple SEO Analysis
               </h3>
+
               <p className="mt-3 text-slate-400">
                 Understand website issues with clear reports and practical insights.
               </p>
@@ -443,6 +462,7 @@ export default async function Home() {
               <h3 className="font-semibold">
                 Complete SEO Toolkit
               </h3>
+
               <p className="mt-3 text-slate-400">
                 Analyze technical SEO, content, keywords, speed and search signals in one place.
               </p>
@@ -452,6 +472,7 @@ export default async function Home() {
               <h3 className="font-semibold">
                 Built for Everyone
               </h3>
+
               <p className="mt-3 text-slate-400">
                 Designed for beginners, marketers, developers and website owners.
               </p>
@@ -460,8 +481,85 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* HOW IT WORKS */}
 
-           {/* FAQ */}
+      <section className="px-6 py-20 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-center text-3xl font-bold">
+            How It Works
+          </h2>
+
+          <p className="mx-auto mt-4 max-w-2xl text-center text-slate-400">
+            Improve your website SEO in three simple steps.
+          </p>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-7 text-center">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-400 font-bold text-slate-950">
+                1
+              </div>
+
+              <h3 className="mt-5 text-lg font-semibold">
+                Enter Your Website
+              </h3>
+
+              <p className="mt-3 leading-7 text-slate-400">
+                Add your website URL to start analyzing important SEO signals.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-7 text-center">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-400 font-bold text-slate-950">
+                2
+              </div>
+
+              <h3 className="mt-5 text-lg font-semibold">
+                Run SEO Analysis
+              </h3>
+
+              <p className="mt-3 leading-7 text-slate-400">
+                Use LifeSeos tools to identify technical, content and optimization issues.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-7 text-center">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-400 font-bold text-slate-950">
+                3
+              </div>
+
+              <h3 className="mt-5 text-lg font-semibold">
+                Improve Your Website
+              </h3>
+
+              <p className="mt-3 leading-7 text-slate-400">
+                Review the results and apply practical improvements to strengthen your SEO.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-10 text-center">
+            <Link
+              href="/tools/seo-analyzer"
+              className="
+                inline-flex
+                rounded-xl
+                border
+                border-emerald-400/30
+                px-6
+                py-3
+                font-semibold
+                text-emerald-400
+                transition
+                hover:bg-emerald-400/10
+              "
+            >
+              Analyze Your Website
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
 
       <section className="px-6 py-20 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-4xl">
@@ -473,15 +571,23 @@ export default async function Home() {
             {[
               {
                 q: "What is LifeSeos?",
-                a: "LifeSeos provides free SEO tools that help website owners analyze and improve website performance.",
+                a: "LifeSeos provides free SEO tools that help website owners analyze, optimize and improve website performance.",
               },
               {
-                q: "Are LifeSeos tools free?",
-                a: "Yes. Most LifeSeos SEO tools are available for free.",
+                q: "Are LifeSeos SEO tools free?",
+                a: "Yes. LifeSeos provides free SEO tools for website analysis, technical SEO, content optimization and search performance improvement.",
               },
               {
-                q: "Who can use LifeSeos?",
-                a: "Anyone managing a website, including beginners, marketers and developers.",
+                q: "What SEO tools are available on LifeSeos?",
+                a: "LifeSeos provides SEO analysis tools, metadata generators, keyword analysis tools, sitemap tools, robots.txt tools and technical SEO checkers.",
+              },
+              {
+                q: "Do I need SEO experience to use LifeSeos?",
+                a: "No. LifeSeos tools are designed for beginners, marketers, developers and website owners.",
+              },
+              {
+                q: "Can LifeSeos improve my Google rankings?",
+                a: "LifeSeos helps identify SEO issues and optimization opportunities, but rankings also depend on content quality, competition and other search factors.",
               },
             ].map((item) => (
               <div
@@ -506,7 +612,6 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
 
       {/* FINAL CTA */}
 
@@ -566,8 +671,6 @@ export default async function Home() {
           </Link>
         </div>
       </section>
-
-
     </main>
   );
 }
