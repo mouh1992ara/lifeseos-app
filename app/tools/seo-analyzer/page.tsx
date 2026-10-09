@@ -779,18 +779,23 @@ export default function SEOAnalyzerPage() {
             </span>
 
             <input
-              value={url}
-              onChange={(
-                event
-              ) =>
-                setUrl(
-                  event.target
-                    .value
-                )
-              }
-              placeholder="https://example.com"
-              className="w-full bg-transparent py-4 text-sm text-white outline-none placeholder:text-slate-600 sm:text-base"
-            />
+  type="url"
+  inputMode="url"
+  autoCapitalize="none"
+  spellCheck={false}
+  aria-label="Website URL"
+  value={url}
+  onChange={(
+    event
+  ) =>
+    setUrl(
+      event.target
+        .value
+    )
+  }
+  placeholder="https://example.com"
+  className="w-full bg-transparent py-4 text-sm text-white outline-none placeholder:text-slate-600 sm:text-base"
+/>
 
           </div>
 
@@ -1599,6 +1604,135 @@ export default function SEOAnalyzerPage() {
 
           </div>
 
+          {/* SEO ANALYZER VS SEO PAGE ANALYZER */}
+
+          <div className="mt-16 rounded-[32px] border border-white/10 bg-white/[0.03] p-6 sm:p-8 lg:p-10">
+
+            <div className="mx-auto max-w-3xl text-center">
+
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
+                Choose the right analysis
+              </p>
+
+              <h2 className="mt-4 text-3xl font-bold">
+                SEO Analyzer vs SEO Page Analyzer
+              </h2>
+
+              <p className="mt-5 leading-8 text-slate-400">
+                Use the SEO Analyzer for a broad overview of technical SEO,
+                content, images and social metadata. Use the SEO Page Analyzer
+                when you want a more focused review of important on-page SEO
+                elements for a specific page.
+              </p>
+
+              <div className="mt-7 flex flex-wrap justify-center gap-3">
+
+                <Link
+                  href="/tools/seo-page-analyzer"
+                  className="inline-flex rounded-xl border border-cyan-400/20 bg-cyan-400/10 px-5 py-3 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-400/15"
+                >
+                  Open SEO Page Analyzer →
+                </Link>
+
+              </div>
+
+            </div>
+
+          </div>
+          {/* SEO GUIDES */}
+
+          <div className="mt-16">
+
+            <div className="text-center">
+
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-violet-300">
+                Learn more
+              </p>
+
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+                SEO Audit Guides
+              </h2>
+
+              <p className="mx-auto mt-4 max-w-2xl leading-7 text-slate-400">
+                Explore practical SEO guides to better understand audit results
+                and improve your website step by step.
+              </p>
+
+            </div>
+
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+
+              <Link
+                href="/blog/complete-seo-audit-guide"
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-violet-400/20 hover:bg-white/[0.05]"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-300">
+                  SEO Audit
+                </p>
+
+                <h3 className="mt-3 text-lg font-semibold text-white transition group-hover:text-violet-300">
+                  Complete SEO Audit Guide
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-slate-400">
+                  Learn how to review technical, on-page and content SEO issues
+                  using a structured audit process.
+                </p>
+
+                <div className="mt-5 text-sm font-semibold text-violet-300">
+                  Read guide →
+                </div>
+              </Link>
+
+
+              <Link
+                href="/blog/technical-seo-guide"
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-cyan-400/20 hover:bg-white/[0.05]"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
+                  Technical SEO
+                </p>
+
+                <h3 className="mt-3 text-lg font-semibold text-white transition group-hover:text-cyan-300">
+                  Technical SEO Guide
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-slate-400">
+                  Understand crawling, indexing, metadata and other technical
+                  signals that affect search visibility.
+                </p>
+
+                <div className="mt-5 text-sm font-semibold text-cyan-300">
+                  Read guide →
+                </div>
+              </Link>
+
+
+              <Link
+                href="/blog/on-page-seo-checklist"
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-emerald-400/20 hover:bg-white/[0.05]"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">
+                  On-Page SEO
+                </p>
+
+                <h3 className="mt-3 text-lg font-semibold text-white transition group-hover:text-emerald-300">
+                  On-Page SEO Checklist
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-slate-400">
+                  Review important on-page elements such as titles,
+                  descriptions, headings and page structure.
+                </p>
+
+                <div className="mt-5 text-sm font-semibold text-emerald-300">
+                  Read guide →
+                </div>
+              </Link>
+
+            </div>
+
+          </div>
 
           {/* RELATED TOOLS */}
 
