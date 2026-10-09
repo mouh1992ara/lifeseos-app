@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import ShareTool from "@/components/share-tool";
 
@@ -24,8 +24,11 @@ export default function PageSpeedAnalyzerPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] =
     useState(false);
+  const [animatedScore, setAnimatedScore] =
+    useState(0);
 
   const hasTrackedUse = useRef(false);
+  const initialUrlHandledRef = useRef(false);
 
   async function recordToolUseOnce() {
     if (hasTrackedUse.current) {
@@ -63,8 +66,11 @@ export default function PageSpeedAnalyzerPage() {
     }
   }
 
-  async function analyzeSpeed() {
-    const cleanUrl = url.trim();
+  async function analyzeSpeed(
+    overrideUrl?: string
+  ) {
+    const cleanUrl =
+      (overrideUrl ?? url).trim();
 
     setError("");
     setResult(null);
@@ -116,6 +122,93 @@ export default function PageSpeedAnalyzerPage() {
     }
   }
 
+  useEffect(() => {
+    if (!result) {
+      setAnimatedScore(0);
+      return;
+    }
+
+    const target = Math.max(
+      0,
+      Math.min(
+        100,
+        Number(
+          result.performanceScore ?? 0
+        )
+      )
+    );
+
+    const duration = 1200;
+    const startTime = performance.now();
+    let frame = 0;
+
+    const animate = (
+      time: number
+    ) => {
+      const progress = Math.min(
+        (time - startTime) /
+          duration,
+        1
+      );
+
+      const eased =
+        1 -
+        Math.pow(
+          1 - progress,
+          3
+        );
+
+      setAnimatedScore(
+        Math.round(
+          target * eased
+        )
+      );
+
+      if (progress < 1) {
+        frame =
+          requestAnimationFrame(
+            animate
+          );
+      }
+    };
+
+    setAnimatedScore(0);
+    frame =
+      requestAnimationFrame(
+        animate
+      );
+
+    return () => {
+      cancelAnimationFrame(frame);
+    };
+  }, [result]);
+
+  useEffect(() => {
+    if (
+      initialUrlHandledRef.current
+    ) {
+      return;
+    }
+
+    const incomingUrl =
+      new URLSearchParams(
+        window.location.search
+      )
+        .get("url")
+        ?.trim();
+
+    if (!incomingUrl) {
+      return;
+    }
+
+    initialUrlHandledRef.current = true;
+    setUrl(incomingUrl);
+
+    void analyzeSpeed(
+      incomingUrl
+    );
+  }, []);
+
   function getScoreLabel(
     score: number | null
   ) {
@@ -151,6 +244,149 @@ export default function PageSpeedAnalyzerPage() {
 
     return "text-rose-400";
   }
+
+  function getMetricStatus(
+    label: string,
+    value: string
+  ) {
+    const numeric =
+      Number.parseFloat(value);
+
+    if (
+      Number.isNaN(numeric)
+    ) {
+      return {
+        label: "Review",
+        className:
+          "border-white/10 bg-white/5 text-slate-400",
+      };
+    }
+
+    if (
+      label ===
+      "Cumulative Layout Shift"
+    ) {
+      if (numeric <= 0.1) {
+        return {
+          label: "Good",
+          className:
+            "border-emerald-400/20 bg-emerald-400/10 text-emerald-300",
+        };
+      }
+
+      if (numeric <= 0.25) {
+        return {
+          label:
+            "Needs Improvement",
+          className:
+            "border-amber-400/20 bg-amber-400/10 text-amber-300",
+        };
+      }
+
+      return {
+        label: "Poor",
+        className:
+          "border-rose-400/20 bg-rose-400/10 text-rose-300",
+      };
+    }
+
+    const seconds =
+      value.toLowerCase().includes(
+        "ms"
+      )
+        ? numeric / 1000
+        : numeric;
+
+    const limits: Record<
+      string,
+      [number, number]
+    > = {
+      "First Contentful Paint": [
+        1.8,
+        3,
+      ],
+      "Largest Contentful Paint": [
+        2.5,
+        4,
+      ],
+      "Total Blocking Time": [
+        0.2,
+        0.6,
+      ],
+      "Speed Index": [
+        3.4,
+        5.8,
+      ],
+    };
+
+    const threshold =
+      limits[label];
+
+    if (!threshold) {
+      return {
+        label: "Review",
+        className:
+          "border-white/10 bg-white/5 text-slate-400",
+      };
+    }
+
+    if (seconds <= threshold[0]) {
+      return {
+        label: "Good",
+        className:
+          "border-emerald-400/20 bg-emerald-400/10 text-emerald-300",
+      };
+    }
+
+    if (seconds <= threshold[1]) {
+      return {
+        label:
+          "Needs Improvement",
+        className:
+          "border-amber-400/20 bg-amber-400/10 text-amber-300",
+      };
+    }
+
+    return {
+      label: "Poor",
+      className:
+        "border-rose-400/20 bg-rose-400/10 text-rose-300",
+    };
+  }
+
+  const recommendations =
+    result
+      ? [
+          result.performanceScore !==
+            null &&
+          result.performanceScore < 90
+            ? "Reduce unnecessary JavaScript, optimize images and review render-blocking resources."
+            : null,
+          getMetricStatus(
+            "Largest Contentful Paint",
+            result.largestContentfulPaint
+          ).label !== "Good"
+            ? "Improve Largest Contentful Paint by optimizing the main above-the-fold element and server response."
+            : null,
+          getMetricStatus(
+            "Cumulative Layout Shift",
+            result.cumulativeLayoutShift
+          ).label !== "Good"
+            ? "Reserve space for images, embeds and dynamic content to reduce layout shifts."
+            : null,
+          getMetricStatus(
+            "Total Blocking Time",
+            result.totalBlockingTime
+          ).label !== "Good"
+            ? "Break up long JavaScript tasks and reduce main-thread work."
+            : null,
+        ].filter(
+          (
+            item
+          ): item is string =>
+            Boolean(item)
+        )
+      : [];
 
   return (
     <main className="min-h-screen bg-slate-950 text-white">
@@ -216,9 +452,9 @@ export default function PageSpeedAnalyzerPage() {
 
             <button
               type="button"
-              onClick={
-                analyzeSpeed
-              }
+              onClick={() => {
+                void analyzeSpeed();
+              }}
               disabled={loading}
               className="rounded-2xl bg-gradient-to-r from-emerald-400 to-cyan-400 px-7 py-3.5 font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:from-emerald-300 hover:to-cyan-300 disabled:cursor-not-allowed disabled:opacity-50"
             >
@@ -254,108 +490,238 @@ export default function PageSpeedAnalyzerPage() {
         {result && (
           <div className="mt-10 space-y-6">
 
-            <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <section className="relative overflow-hidden rounded-[32px] border border-white/10 bg-slate-900/80 p-6 shadow-2xl shadow-black/20 sm:p-8">
+              <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-cyan-500/10 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-emerald-500/10 blur-3xl" />
 
-              <div className="rounded-[24px] border border-white/10 bg-slate-900/80 p-6">
+              <div className="relative grid items-center gap-8 lg:grid-cols-[260px_1fr]">
+                <div className="flex justify-center">
+                  <PerformanceScoreRing
+                    score={animatedScore}
+                  />
+                </div>
 
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                  Performance Score
-                </p>
+                <div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span
+                      className={`rounded-full border px-3 py-1 text-xs font-semibold ${
+                        result.performanceScore !== null &&
+                        result.performanceScore >= 90
+                          ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
+                          : result.performanceScore !== null &&
+                            result.performanceScore >= 50
+                          ? "border-amber-400/20 bg-amber-400/10 text-amber-300"
+                          : "border-rose-400/20 bg-rose-400/10 text-rose-300"
+                      }`}
+                    >
+                      {getScoreLabel(
+                        result.performanceScore
+                      )}
+                    </span>
 
-                <p
-                  className={`mt-4 text-5xl font-bold ${getScoreClass(
-                    result.performanceScore
-                  )}`}
-                >
-                  {result.performanceScore ??
-                    "N/A"}
-                </p>
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-slate-300">
+                      {result.strategy}
+                    </span>
+                  </div>
 
-                <p className="mt-2 text-sm text-slate-400">
-                  {getScoreLabel(
-                    result.performanceScore
-                  )}
-                </p>
+                  <h2 className="mt-5 text-2xl font-bold sm:text-3xl">
+                    Page Performance Overview
+                  </h2>
 
+                  <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">
+                    Review your Lighthouse performance score together with loading, interactivity and layout stability metrics.
+                  </p>
+
+                  <div className="mt-5 rounded-2xl border border-white/5 bg-black/10 px-4 py-3 text-sm text-slate-400">
+                    <span className="mr-2 text-slate-500">
+                      Tested URL
+                    </span>
+                    <span className="break-all text-slate-200">
+                      {result.finalUrl}
+                    </span>
+                  </div>
+                </div>
               </div>
-
-
-              <MetricCard
-                label="First Contentful Paint"
-                value={
-                  result.firstContentfulPaint
-                }
-                description="How quickly the first visible content appears."
-              />
-
-              <MetricCard
-                label="Largest Contentful Paint"
-                value={
-                  result.largestContentfulPaint
-                }
-                description="How quickly the largest visible content element loads."
-              />
-
-              <MetricCard
-                label="Cumulative Layout Shift"
-                value={
-                  result.cumulativeLayoutShift
-                }
-                description="Measures unexpected layout movement during loading."
-              />
-
-              <MetricCard
-                label="Total Blocking Time"
-                value={
-                  result.totalBlockingTime
-                }
-                description="Measures how long the main thread is blocked by long tasks."
-              />
-
-              <MetricCard
-                label="Speed Index"
-                value={
-                  result.speedIndex
-                }
-                description="Shows how quickly visible page content is displayed."
-              />
-
             </section>
 
+            <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              {[
+                {
+                  label:
+                    "First Contentful Paint",
+                  value:
+                    result.firstContentfulPaint,
+                  description:
+                    "First visible content",
+                },
+                {
+                  label:
+                    "Largest Contentful Paint",
+                  value:
+                    result.largestContentfulPaint,
+                  description:
+                    "Largest visible element",
+                },
+                {
+                  label:
+                    "Cumulative Layout Shift",
+                  value:
+                    result.cumulativeLayoutShift,
+                  description:
+                    "Visual stability",
+                },
+                {
+                  label:
+                    "Total Blocking Time",
+                  value:
+                    result.totalBlockingTime,
+                  description:
+                    "Main-thread blocking",
+                },
+                {
+                  label:
+                    "Speed Index",
+                  value:
+                    result.speedIndex,
+                  description:
+                    "Visual loading speed",
+                },
+              ].map((metric) => (
+                <MetricCard
+                  key={metric.label}
+                  label={metric.label}
+                  value={metric.value}
+                  description={
+                    metric.description
+                  }
+                  status={getMetricStatus(
+                    metric.label,
+                    metric.value
+                  )}
+                />
+              ))}
+            </section>
 
             <section className="rounded-[28px] border border-white/10 bg-slate-900/80 p-6 sm:p-8">
 
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300">
-                Test information
-              </p>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
 
-              <h2 className="mt-2 text-2xl font-bold">
-                Analysis Details
-              </h2>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300">
+                    Test information
+                  </p>
 
+                  <h2 className="mt-2 text-2xl font-bold">
+                    Analysis Details
+                  </h2>
+                </div>
+
+                <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-400">
+                  Lighthouse performance
+                </span>
+              </div>
 
               <div className="mt-6 grid gap-4 md:grid-cols-3">
 
                 <DetailCard
-                  label="Tested URL"
-                  value={
-                    result.requestedUrl
-                  }
+                  label="Requested URL"
+                  value={result.requestedUrl}
                 />
 
                 <DetailCard
                   label="Final URL"
-                  value={
-                    result.finalUrl
-                  }
+                  value={result.finalUrl}
                 />
 
                 <DetailCard
                   label="Strategy"
-                  value={
-                    result.strategy
-                  }
+                  value={result.strategy}
                 />
+
+              </div>
+
+            </section>
+
+            <section className="rounded-[28px] border border-white/10 bg-gradient-to-br from-white/[0.045] to-white/[0.02] p-6 sm:p-8">
+
+              <div className="flex items-center gap-3">
+
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-amber-400/20 bg-amber-400/10 text-xl text-amber-300">
+                  !
+                </div>
+
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-300/70">
+                    Performance action plan
+                  </p>
+
+                  <h2 className="mt-1 text-2xl font-bold">
+                    Recommended Improvements
+                  </h2>
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-3">
+
+                {recommendations.length > 0 ? (
+                  recommendations.map(
+                    (item, index) => (
+
+                      <div
+                        key={`${item}-${index}`}
+                        className="flex gap-4 rounded-2xl border border-white/10 bg-slate-950/40 p-5"
+                      >
+
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-400/10 text-sm font-bold text-amber-300">
+                          {index + 1}
+                        </div>
+
+                        <p className="text-sm leading-7 text-slate-300">
+                          {item}
+                        </p>
+
+                      </div>
+                    )
+                  )
+                ) : (
+
+                  <div className="rounded-2xl border border-emerald-400/15 bg-emerald-400/5 px-5 py-4 text-sm text-emerald-300">
+                    The measured performance signals look strong. Continue monitoring after major website changes.
+                  </div>
+
+                )}
+
+              </div>
+
+            </section>
+
+            <section className="rounded-[28px] border border-cyan-400/15 bg-cyan-400/[0.04] p-6 sm:p-8">
+
+              <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
+                    Recommended next tool
+                  </p>
+
+                  <h2 className="mt-2 text-2xl font-bold">
+                    Run a complete SEO audit
+                  </h2>
+
+                  <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400">
+                    Page speed is only one part of SEO. Use the SEO Analyzer to review technical, content, image and social metadata signals for the same page.
+                  </p>
+                </div>
+
+                <Link
+                  href={`/tools/seo-analyzer?url=${encodeURIComponent(
+                    result.finalUrl
+                  )}`}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-cyan-200"
+                >
+                  Open SEO Analyzer
+                  <span>→</span>
+                </Link>
 
               </div>
 
@@ -651,27 +1017,102 @@ export default function PageSpeedAnalyzerPage() {
 }
 
 
+function PerformanceScoreRing({
+  score,
+}: {
+  score: number;
+}) {
+  const safeScore =
+    Math.max(
+      0,
+      Math.min(
+        100,
+        score
+      )
+    );
+
+  const color =
+    safeScore >= 90
+      ? "#34d399"
+      : safeScore >= 50
+      ? "#facc15"
+      : "#fb7185";
+
+  return (
+    <div
+      className="relative flex h-52 w-52 items-center justify-center rounded-full"
+      style={{
+        background:
+          `conic-gradient(${color} ${
+            safeScore * 3.6
+          }deg, rgba(51,65,85,0.45) 0deg)`,
+      }}
+    >
+
+      <div className="absolute inset-[12px] rounded-full bg-slate-950 shadow-inner shadow-black/50" />
+
+      <div className="relative text-center">
+
+        <div
+          className="text-6xl font-bold tabular-nums"
+          style={{
+            color,
+          }}
+        >
+          {safeScore}
+        </div>
+
+        <div className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+          Performance
+        </div>
+
+        <div className="mt-1 text-xs text-slate-600">
+          out of 100
+        </div>
+
+      </div>
+
+    </div>
+  );
+}
+
+
 function MetricCard({
   label,
   value,
   description,
+  status,
 }: {
   label: string;
   value: string;
   description: string;
+  status: {
+    label: string;
+    className: string;
+  };
 }) {
   return (
-    <div className="rounded-[24px] border border-white/10 bg-slate-900/80 p-6">
+    <div className="rounded-[24px] border border-white/10 bg-slate-900/80 p-5 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-400/20 hover:bg-slate-900">
 
-      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-        {label}
-      </p>
+      <div className="flex items-start justify-between gap-3">
 
-      <p className="mt-3 text-2xl font-bold text-white">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+          {label}
+        </p>
+
+        <span
+          className={`shrink-0 rounded-full border px-2.5 py-1 text-[10px] font-semibold ${status.className}`}
+        >
+          {status.label}
+        </span>
+
+      </div>
+
+      <p className="mt-4 text-2xl font-bold text-white">
         {value}
       </p>
 
-      <p className="mt-3 text-sm leading-6 text-slate-500">
+      <p className="mt-2 text-sm leading-6 text-slate-500">
         {description}
       </p>
 
@@ -713,7 +1154,7 @@ function MetricInfoCard({
   description: string;
 }) {
   return (
-    <div className="rounded-[24px] border border-white/10 bg-slate-900/70 p-6">
+    <div className="rounded-[24px] border border-white/10 bg-slate-900/70 p-6 transition duration-300 hover:-translate-y-0.5 hover:border-emerald-400/20 hover:bg-slate-900">
 
       <div className="inline-flex rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 text-sm font-bold text-emerald-300">
         {abbreviation}
@@ -742,7 +1183,7 @@ function StepCard({
   description: string;
 }) {
   return (
-    <div className="flex gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-5">
+    <div className="flex gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-5 transition duration-300 hover:border-cyan-400/20 hover:bg-slate-900/80">
 
       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 font-bold text-emerald-300">
         {number}
@@ -773,7 +1214,7 @@ function BenefitCard({
   description: string;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition duration-300 hover:-translate-y-0.5 hover:border-emerald-400/20 hover:bg-white/[0.05]">
 
       <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-400/10 text-emerald-300">
         ✓

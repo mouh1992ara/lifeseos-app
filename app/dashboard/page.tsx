@@ -62,6 +62,25 @@ export default async function DashboardPage() {
         )
       : 0;
 
+  const latestReport =
+    seoReports[0] ?? null;
+
+  const previousReport =
+    seoReports[1] ?? null;
+
+  const uniqueWebsites =
+    new Set(
+      seoReports.map(
+        (report) => report.url
+      )
+    ).size;
+
+  const scoreChange =
+    latestReport && previousReport
+      ? Number(latestReport.score ?? 0) -
+        Number(previousReport.score ?? 0)
+      : null;
+
   return (
     <main className="min-h-screen bg-slate-950 text-white">
       <div className="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
@@ -101,7 +120,7 @@ export default async function DashboardPage() {
         </div>
 
 
-        <section className="mt-10 grid gap-5 md:grid-cols-3">
+        <section className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
 
           <DashboardStatCard
             label="Total Audits"
@@ -121,8 +140,122 @@ export default async function DashboardPage() {
             description="Highest SEO score recorded"
           />
 
+          <DashboardStatCard
+            label="Websites Analyzed"
+            value={String(uniqueWebsites)}
+            description="Unique URLs in your audit history"
+          />
+
         </section>
 
+
+        {latestReport && (
+          <section className="relative mt-10 overflow-hidden rounded-[30px] border border-white/10 bg-gradient-to-br from-white/[0.055] to-white/[0.018] p-6 sm:p-8">
+            <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-violet-500/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-emerald-400/10 blur-3xl" />
+
+            <div className="relative grid gap-8 lg:grid-cols-[1.2fr_.8fr] lg:items-center">
+              <div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1.5 text-xs font-semibold text-blue-300">
+                    Latest Audit
+                  </span>
+
+                  {scoreChange !== null && (
+                    <span
+                      className={`rounded-full border px-3 py-1.5 text-xs font-semibold ${
+                        scoreChange > 0
+                          ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
+                          : scoreChange < 0
+                          ? "border-rose-400/20 bg-rose-400/10 text-rose-300"
+                          : "border-white/10 bg-white/5 text-slate-400"
+                      }`}
+                    >
+                      {scoreChange > 0
+                        ? `+${scoreChange} vs previous`
+                        : scoreChange < 0
+                        ? `${scoreChange} vs previous`
+                        : "No score change"}
+                    </span>
+                  )}
+                </div>
+
+                <h2 className="mt-5 text-2xl font-bold sm:text-3xl">
+                  Your most recent SEO analysis
+                </h2>
+
+                <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">
+                  Review your latest website score, status and report details, or run another audit to continue tracking improvements.
+                </p>
+
+                <div className="mt-6 rounded-2xl border border-white/10 bg-black/10 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                    Website
+                  </p>
+                  <p className="mt-2 break-all font-medium text-slate-200">
+                    {latestReport.url}
+                  </p>
+                  <p className="mt-2 text-sm text-slate-500">
+                    {formatDate(latestReport.created_at)}
+                  </p>
+                </div>
+
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <Link
+                    href={`/dashboard/reports/${latestReport.id}`}
+                    className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-200"
+                  >
+                    View Latest Report
+                    <span>→</span>
+                  </Link>
+
+                  <Link
+                    href="/tools/seo-analyzer"
+                    className="inline-flex items-center rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-slate-300 transition hover:border-white/20 hover:bg-white/[0.06] hover:text-white"
+                  >
+                    Run New Analysis
+                  </Link>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-5">
+                  <p className="text-sm text-slate-500">SEO Score</p>
+                  <p className="mt-3 text-4xl font-bold text-white">
+                    {Number(latestReport.score ?? 0)}
+                  </p>
+                  <p className="mt-1 text-sm text-slate-600">out of 100</p>
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-5">
+                  <p className="text-sm text-slate-500">Grade</p>
+                  <p className="mt-3 text-4xl font-bold text-violet-300">
+                    {latestReport.grade ?? "-"}
+                  </p>
+                  <p className="mt-1 text-sm text-slate-600">
+                    Current audit grade
+                  </p>
+                </div>
+
+                <div className="col-span-2 rounded-2xl border border-white/10 bg-slate-950/50 p-5">
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-sm text-slate-500">Status</p>
+                      <p className="mt-2 font-semibold text-slate-200">
+                        {latestReport.status ?? "Unknown"}
+                      </p>
+                    </div>
+
+                    <StatusBadge
+                      score={latestReport.score}
+                      status={latestReport.status ?? "Unknown"}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
 
         {error && (
           <div className="mt-8 rounded-2xl border border-rose-400/20 bg-rose-400/10 px-5 py-4 text-sm text-rose-300">
@@ -131,7 +264,7 @@ export default async function DashboardPage() {
         )}
 
 
-        <section className="mt-10 overflow-hidden rounded-[28px] border border-white/10 bg-slate-900/80">
+        <section className="mt-10 overflow-hidden rounded-[28px] border border-white/10 bg-slate-900/80 shadow-2xl shadow-black/10">
 
           <div className="flex flex-col gap-3 border-b border-white/10 px-6 py-6 sm:flex-row sm:items-center sm:justify-between">
 
@@ -315,7 +448,7 @@ export default async function DashboardPage() {
         </section>
 
 
-        <section className="mt-10 rounded-[28px] border border-white/10 bg-white/[0.04] p-6">
+        <section className="mt-10 rounded-[28px] border border-white/10 bg-gradient-to-br from-white/[0.045] to-white/[0.02] p-6">
 
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
             Account
@@ -356,7 +489,7 @@ function DashboardStatCard({
   description: string;
 }) {
   return (
-    <div className="rounded-[24px] border border-white/10 bg-slate-900/80 p-6">
+    <div className="rounded-[24px] border border-white/10 bg-slate-900/80 p-6 transition duration-300 hover:-translate-y-0.5 hover:border-violet-400/20 hover:bg-slate-900">
 
       <p className="text-sm text-slate-500">
         {label}

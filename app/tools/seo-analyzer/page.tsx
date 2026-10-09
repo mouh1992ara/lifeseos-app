@@ -5,6 +5,7 @@ import {
   FormEvent,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 
@@ -51,6 +52,8 @@ type AuditCheck = {
 };
 
 export default function SEOAnalyzerPage() {
+  const initialUrlHandledRef = useRef(false);
+
   const [url, setUrl] = useState("");
   const [loading, setLoading] =
     useState(false);
@@ -127,12 +130,13 @@ export default function SEOAnalyzerPage() {
   }, [result]);
 
   async function analyzeWebsite(
-    event?: FormEvent
+    event?: FormEvent,
+    overrideUrl?: string
   ) {
     event?.preventDefault();
 
     const cleanUrl =
-      url.trim();
+      (overrideUrl ?? url).trim();
 
     if (!cleanUrl) {
       setError(
@@ -293,6 +297,31 @@ export default function SEOAnalyzerPage() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    if (initialUrlHandledRef.current) {
+      return;
+    }
+
+    const incomingUrl =
+      new URLSearchParams(
+        window.location.search
+      )
+        .get("url")
+        ?.trim();
+
+    if (!incomingUrl) {
+      return;
+    }
+
+    initialUrlHandledRef.current = true;
+    setUrl(incomingUrl);
+
+    void analyzeWebsite(
+      undefined,
+      incomingUrl
+    );
+  }, []);
 
   const metrics =
     useMemo(() => {
