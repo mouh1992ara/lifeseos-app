@@ -4,7 +4,7 @@ import { ThemeProvider } from "next-themes";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import LivePresence from "@/components/live-presence";
-
+import PageVisitTracker from "./page-visit-tracker";
 import "./globals.css";
 
 
@@ -244,107 +244,63 @@ export default function RootLayout({
 }>) {
 
 
-  return (
-
-    <html
-      lang="en"
-      suppressHydrationWarning
+return (
+  <html
+    lang="en"
+    suppressHydrationWarning
+  >
+    <body
+      className="
+        min-h-screen
+        bg-slate-950
+        text-white
+        antialiased
+      "
     >
+      <script
+        id="website-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html:
+            JSON.stringify(
+              websiteJsonLd
+            ),
+        }}
+      />
 
+      <script
+        id="organization-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html:
+            JSON.stringify(
+              organizationJsonLd
+            ),
+        }}
+      />
 
-      <body
+      <PageVisitTracker />
 
-        className="
-          min-h-screen
-          bg-slate-950
-          text-white
-          antialiased
-        "
-
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="dark"
+        enableSystem={false}
+        disableTransitionOnChange
       >
+        <div className="flex min-h-screen flex-col">
+          <SiteHeader />
 
+          <LivePresence />
 
-        <script
+          <main className="flex-1">
+            {children}
+          </main>
 
-          id="website-schema"
-
-          type="application/ld+json"
-
-          dangerouslySetInnerHTML={{
-
-            __html:
-              JSON.stringify(
-                websiteJsonLd
-              ),
-
-          }}
-
-        />
-
-
-
-        <script
-
-          id="organization-schema"
-
-          type="application/ld+json"
-
-          dangerouslySetInnerHTML={{
-
-            __html:
-              JSON.stringify(
-                organizationJsonLd
-              ),
-
-          }}
-
-        />
-
-
-
-        <ThemeProvider
-
-          attribute="class"
-
-          defaultTheme="dark"
-
-          enableSystem={false}
-
-          disableTransitionOnChange
-
-        >
-
-
-          <div className="flex min-h-screen flex-col">
-
-
-            <SiteHeader />
-
-
-            <LivePresence />
-
-
-            <main className="flex-1">
-
-              {children}
-
-            </main>
-
-
-            <SiteFooter />
-
-
-          </div>
-
-
-        </ThemeProvider>
-
-
-      </body>
-
-
-    </html>
-
-  );
+          <SiteFooter />
+        </div>
+      </ThemeProvider>
+    </body>
+  </html>
+);
 
 }

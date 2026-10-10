@@ -76,6 +76,39 @@ type ToolSummary = {
   lastUsedAt: string | null;
 };
 
+type PageVisit = {
+  id: number;
+  country_code: string | null;
+  country_name: string | null;
+  path: string | null;
+  created_at: string;
+};
+
+type CountrySummary = {
+  countryCode: string;
+  countryName: string;
+  visits: number;
+  lastVisitAt: string | null;
+};
+
+function countryCodeToFlag(countryCode: string) {
+  const code = countryCode.trim().toUpperCase();
+
+  if (!/^[A-Z]{2}$/.test(code) || code === "XX") {
+    return "🌐";
+  }
+
+  return String.fromCodePoint(
+    ...code
+      .split("")
+      .map(
+        (character) =>
+          127397 +
+          character.charCodeAt(0)
+      )
+  );
+}
+
 export default async function AdminPage() {
   const supabase = await createClient();
 
@@ -103,6 +136,8 @@ export default async function AdminPage() {
     messagesResult,
     toolEventsCountResult,
     toolEventsDataResult,
+    pageVisitsCountResult,
+    pageVisitsDataResult,
   ] = await Promise.all([
     supabaseAdmin.auth.admin.listUsers({
       page: 1,
@@ -144,6 +179,29 @@ export default async function AdminPage() {
         ascending: false,
       })
       .limit(1000),
+
+    supabaseAdmin
+      .from("page_visits")
+      .select("*", {
+        count: "exact",
+        head: true,
+      }),
+
+    supabaseAdmin
+      .from("page_visits")
+      .select(
+        `
+          id,
+          country_code,
+          country_name,
+          path,
+          created_at
+        `
+      )
+      .order("created_at", {
+        ascending: false,
+      })
+      .limit(10000),
   ]);
 
   const users =
@@ -152,6 +210,11 @@ export default async function AdminPage() {
   const toolEvents =
     (toolEventsDataResult.data as
       | ToolEvent[]
+      | null) ?? [];
+
+  const pageVisits =
+    (pageVisitsDataResult.data as
+      | PageVisit[]
       | null) ?? [];
 
   const totalUsers = users.length;
@@ -164,6 +227,9 @@ export default async function AdminPage() {
 
   const totalToolUses =
     toolEventsCountResult.count ?? 0;
+
+  const totalPageVisits =
+    pageVisitsCountResult.count ?? 0;
 
   const now = new Date();
 
@@ -338,6 +404,93 @@ export default async function AdminPage() {
 
   const recentToolEvents =
     toolEvents.slice(0, 20);
+
+  const visitsToday =
+    pageVisits.filter((visit) =>
+      isSameDay(
+        visit.created_at,
+        now
+      )
+    ).length;
+
+  const unknownLocationVisits =
+    pageVisits.filter((visit) => {
+      const code =
+        visit.country_code
+          ?.trim()
+          .toUpperCase();
+
+      return (
+        !code ||
+        code === "XX" ||
+        !visit.country_name ||
+        visit.country_name === "Unknown"
+      );
+    }).length;
+
+  const countrySummaryMap =
+    new Map<string, CountrySummary>();
+
+  for (const visit of pageVisits) {
+    const countryCode =
+      visit.country_code
+        ?.trim()
+        .toUpperCase() || "XX";
+
+    const countryName =
+      visit.country_name
+        ?.trim() ||
+      (countryCode === "XX"
+        ? "Unknown"
+        : countryCode);
+
+    const key =
+      `${countryCode}:${countryName}`;
+
+    const existing =
+      countrySummaryMap.get(key);
+
+    if (!existing) {
+      countrySummaryMap.set(key, {
+        countryCode,
+        countryName,
+        visits: 1,
+        lastVisitAt:
+          visit.created_at,
+      });
+
+      continue;
+    }
+
+    existing.visits += 1;
+
+    if (
+      !existing.lastVisitAt ||
+      new Date(
+        visit.created_at
+      ).getTime() >
+        new Date(
+          existing.lastVisitAt
+        ).getTime()
+    ) {
+      existing.lastVisitAt =
+        visit.created_at;
+    }
+  }
+
+  const countrySummaries =
+    Array.from(
+      countrySummaryMap.values()
+    ).sort(
+      (a, b) =>
+        b.visits - a.visits
+    );
+
+  const knownCountries =
+    countrySummaries.filter(
+      (country) =>
+        country.countryCode !== "XX"
+    ).length;
 
   return (
     <main className="min-h-screen bg-slate-950 px-6 py-12 text-white">
@@ -557,6 +710,176 @@ export default async function AdminPage() {
             liveUserEmails
           }
         />
+
+        <section className="mt-10">
+          <div className="mb-5">
+            <h2 className="text-2xl font-semibold">
+              Visitor Geography
+            </h2>
+
+            <p className="mt-1 text-sm text-slate-400">
+              Page visits grouped by
+              visitor country.
+            </p>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+              <p className="text-sm text-slate-400">
+                Total Page Visits
+              </p>
+
+              <p className="mt-2 text-2xl font-semibold">
+                {totalPageVisits}
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+              <p className="text-sm text-slate-400">
+                Countries
+              </p>
+
+              <p className="mt-2 text-2xl font-semibold text-cyan-300">
+                {knownCountries}
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+              <p className="text-sm text-slate-400">
+                Visits Today
+              </p>
+
+              <p className="mt-2 text-2xl font-semibold text-emerald-300">
+                {visitsToday}
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+              <p className="text-sm text-slate-400">
+                Unknown Location
+              </p>
+
+              <p className="mt-2 text-2xl font-semibold text-amber-300">
+                {unknownLocationVisits}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+            <div className="border-b border-white/10 px-6 py-5">
+              <h3 className="text-lg font-semibold">
+                Top Countries
+              </h3>
+
+              <p className="mt-1 text-sm text-slate-400">
+                Countries ranked by
+                recorded page visits.
+              </p>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[720px] text-left">
+                <thead className="border-b border-white/10 bg-white/[0.03]">
+                  <tr>
+                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
+                      Country
+                    </th>
+
+                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
+                      Code
+                    </th>
+
+                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
+                      Visits
+                    </th>
+
+                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
+                      Share
+                    </th>
+
+                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
+                      Last Visit
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {countrySummaries.length ===
+                  0 ? (
+                    <tr>
+                      <td
+                        colSpan={5}
+                        className="px-6 py-10 text-center text-sm text-slate-400"
+                      >
+                        No visitor
+                        geography data yet.
+                      </td>
+                    </tr>
+                  ) : (
+                    countrySummaries.map(
+                      (country) => {
+                        const share =
+                          pageVisits.length > 0
+                            ? (
+                                (country.visits /
+                                  pageVisits.length) *
+                                100
+                              ).toFixed(1)
+                            : "0.0";
+
+                        return (
+                          <tr
+                            key={`${country.countryCode}-${country.countryName}`}
+                            className="border-b border-white/5 last:border-b-0"
+                          >
+                            <td className="px-6 py-4">
+                              <div className="flex items-center gap-3">
+                                <span
+                                  className="text-2xl"
+                                  aria-hidden="true"
+                                >
+                                  {countryCodeToFlag(
+                                    country.countryCode
+                                  )}
+                                </span>
+
+                                <span className="text-sm font-medium text-white">
+                                  {
+                                    country.countryName
+                                  }
+                                </span>
+                              </div>
+                            </td>
+
+                            <td className="px-6 py-4 font-mono text-xs text-slate-400">
+                              {
+                                country.countryCode
+                              }
+                            </td>
+
+                            <td className="px-6 py-4 text-sm text-slate-300">
+                              {country.visits}
+                            </td>
+
+                            <td className="px-6 py-4 text-sm text-cyan-300">
+                              {share}%
+                            </td>
+
+                            <td className="px-6 py-4 text-sm text-slate-300">
+                              {formatDate(
+                                country.lastVisitAt
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      }
+                    )
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
 
         <section className="mt-10">
           <div className="mb-5">
