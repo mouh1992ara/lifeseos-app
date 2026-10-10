@@ -1763,83 +1763,165 @@ export default function SEOAnalyzerPage() {
 
           </div>
 
-          {/* RELATED TOOLS */}
+          {/* CONTINUE TECHNICAL SEO WORKFLOW */}
 
           <div className="mt-20">
 
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="mx-auto max-w-3xl text-center">
 
-              <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
+                Complete Your Technical SEO Workflow
+              </p>
 
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
-                  Continue optimizing
-                </p>
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+                Control crawling, improve discovery and audit your site
+              </h2>
 
-                <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                  Related SEO Tools
-                </h2>
-
-              </div>
-
-
-              <Link
-                href="/tools"
-                className="text-sm font-semibold text-cyan-300 transition hover:text-cyan-200"
-              >
-                View all tools →
-              </Link>
+              <p className="mt-4 leading-8 text-slate-400">
+                Use these tools together to manage crawler access, publish a
+                clean XML sitemap and then review your website with a broader
+                SEO audit.
+              </p>
 
             </div>
 
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid gap-5 lg:grid-cols-3">
 
-              <RelatedToolCard
-                href="/tools/page-speed"
-                icon="⚡"
-                title="Page Speed Analyzer"
-                description="Measure website performance and discover speed optimization opportunities."
-              />
-
-
-              <RelatedToolCard
-                href="/tools/seo-page-analyzer"
-                icon="⌕"
-                title="SEO Page Analyzer"
-                description="Inspect individual pages and review important on-page SEO elements."
-              />
-
-
-              <RelatedToolCard
-                href="/tools/meta-tag-generator"
-                icon="<>"
-                title="Meta Tag Generator"
-                description="Create optimized title, description and social metadata for your pages."
-              />
-
-
-              <RelatedToolCard
+              <Link
                 href="/tools/robots-txt-generator"
-                icon="🤖"
-                title="Robots.txt Generator"
-                description="Create robots.txt rules to guide search engine crawlers."
-              />
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-emerald-400/30 hover:bg-white/[0.05]"
+              >
+
+                <div className="flex items-center justify-between gap-4">
+
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-400/20 bg-emerald-400/10 text-lg text-emerald-300">
+                    🤖
+                  </div>
+
+                  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
+                    Step 1
+                  </span>
+
+                </div>
+
+                <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-emerald-300">
+                  Robots.txt Generator
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-slate-400">
+                  Configure crawler access rules and make sure search engines can
+                  access the areas of your site you want them to crawl.
+                </p>
+
+                <div className="mt-5 text-sm font-semibold text-emerald-300">
+                  Configure crawling →
+                </div>
+
+              </Link>
 
 
-              <RelatedToolCard
+              <Link
                 href="/tools/xml-sitemap-generator"
-                icon="⌘"
-                title="XML Sitemap Generator"
-                description="Generate XML sitemaps that help search engines discover your website pages."
-              />
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-blue-400/30 hover:bg-white/[0.05]"
+              >
+
+                <div className="flex items-center justify-between gap-4">
+
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-blue-400/20 bg-blue-400/10 font-bold text-blue-300">
+                    ⌘
+                  </div>
+
+                  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
+                    Step 2
+                  </span>
+
+                </div>
+
+                <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-blue-300">
+                  XML Sitemap Generator
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-slate-400">
+                  Create a clean XML sitemap containing important canonical URLs
+                  you want search engines to discover.
+                </p>
+
+                <div className="mt-5 text-sm font-semibold text-blue-300">
+                  Create sitemap →
+                </div>
+
+              </Link>
 
 
-              <RelatedToolCard
+              <div className="rounded-2xl border border-cyan-400/30 bg-cyan-400/[0.055] p-6">
+
+                <div className="flex items-center justify-between gap-4">
+
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 text-lg text-cyan-300">
+                    ⌕
+                  </div>
+
+                  <span className="rounded-full border border-cyan-400/25 bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-300">
+                    Step 3 · Current
+                  </span>
+
+                </div>
+
+                <h3 className="mt-5 text-lg font-semibold">
+                  SEO Analyzer
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-slate-400">
+                  Complete the workflow with a broader audit covering technical,
+                  content, image and social SEO signals.
+                </p>
+
+                <div className="mt-5 text-sm font-semibold text-cyan-300">
+                  Run SEO audit ✓
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+
+              <Link
+                href="/tools/http-status-checker"
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                HTTP Status Checker →
+              </Link>
+
+              <Link
+                href="/tools/seo-page-analyzer"
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                SEO Page Analyzer →
+              </Link>
+
+              <Link
+                href="/tools/page-speed"
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                Page Speed Analyzer →
+              </Link>
+
+              <Link
                 href="/tools/content-analyzer"
-                icon="▤"
-                title="Content Analyzer"
-                description="Analyze page content and identify opportunities to improve SEO relevance."
-              />
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                Content Analyzer →
+              </Link>
+
+              <Link
+                href="/tools"
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                View All Tools →
+              </Link>
 
             </div>
 

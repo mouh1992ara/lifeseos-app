@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Free SEO Tools - Website Analysis & Optimization",
+  title: "Free SEO Tools | LifeSeos",
 
   description:
-    "Explore 9 free LifeSeos tools for website analysis, technical SEO, on-page SEO, metadata, keyword density, HTTP status checks, page speed, content analysis, robots.txt and XML sitemaps.",
+    "Explore free LifeSeos tools for website analysis, technical SEO, content optimization, YouTube SEO, page speed, structured data and more.",
 
   alternates: {
     canonical: "/tools",
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Free SEO Tools | LifeSeos",
     description:
-      "Explore free SEO tools for website analysis, technical SEO, on-page optimization, content analysis, page speed, metadata, sitemaps and more.",
+      "Explore free SEO tools for website analysis, technical SEO, content optimization, YouTube SEO, page speed, structured data and more.",
     url: "/tools",
     type: "website",
     siteName: "LifeSeos",
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Free SEO Tools | LifeSeos",
     description:
-      "Explore free SEO tools for website analysis, technical SEO, content optimization, page speed, metadata and more.",
+      "Explore free SEO tools for technical SEO, content optimization, website analysis, YouTube SEO and more.",
     images: ["/social/tools.png"],
   },
 };
@@ -39,13 +40,7 @@ export const metadata: Metadata = {
 export default function ToolsLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
-  return (
-    <section className="bg-slate-950 text-white">
-      <div className="mx-auto max-w-6xl px-6 py-10">
-        {children}
-      </div>
-    </section>
-  );
+  return <>{children}</>;
 }

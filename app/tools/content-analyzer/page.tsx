@@ -897,78 +897,150 @@ export default function ContentAnalyzerPage() {
           </div>
 
 
-          {/* RELATED TOOLS */}
+          {/* CONTINUE CONTENT WORKFLOW */}
 
           <div className="mt-20">
 
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="mx-auto max-w-3xl text-center">
 
-              <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-violet-300">
+                Continue Your Content SEO Workflow
+              </p>
 
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
-                  Continue optimizing
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+                Rewrite, analyze and refine your content
+              </h2>
+
+              <p className="mt-4 leading-8 text-slate-400">
+                Use these tools together to improve your draft, review content
+                quality and then check keyword frequency in greater detail.
+              </p>
+
+            </div>
+
+
+            <div className="mt-10 grid gap-5 lg:grid-cols-3">
+
+              <Link
+                href="/tools/article-rewriter"
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-blue-400/30 hover:bg-white/[0.05]"
+              >
+
+                <div className="flex items-center justify-between gap-4">
+
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-blue-400/20 bg-blue-400/10 font-bold text-blue-300">
+                    ✦
+                  </div>
+
+                  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
+                    Step 1
+                  </span>
+
+                </div>
+
+                <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-blue-300">
+                  SEO Article Rewriter
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-slate-400">
+                  Improve clarity, tone and structure before running a deeper
+                  content analysis.
                 </p>
 
-                <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                  Related SEO Tools
-                </h2>
+                <div className="mt-5 text-sm font-semibold text-blue-300">
+                  Rewrite content →
+                </div>
+
+              </Link>
+
+
+              <div className="rounded-2xl border border-violet-400/30 bg-violet-400/[0.055] p-6">
+
+                <div className="flex items-center justify-between gap-4">
+
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-violet-400/20 bg-violet-400/10 text-lg text-violet-300">
+                    ▤
+                  </div>
+
+                  <span className="rounded-full border border-violet-400/25 bg-violet-400/10 px-3 py-1 text-xs font-semibold text-violet-300">
+                    Step 2 · Current
+                  </span>
+
+                </div>
+
+                <h3 className="mt-5 text-lg font-semibold">
+                  Content Analyzer
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-slate-400">
+                  Review readability, structure, vocabulary, keyword usage and
+                  other measurable content quality signals.
+                </p>
+
+                <div className="mt-5 text-sm font-semibold text-violet-300">
+                  Analyze content ✓
+                </div>
 
               </div>
 
 
               <Link
-                href="/tools"
-                className="text-sm font-semibold text-cyan-300 transition hover:text-cyan-200"
+                href="/tools/keyword-density-checker"
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-cyan-400/30 hover:bg-white/[0.05]"
               >
-                View all tools →
+
+                <div className="flex items-center justify-between gap-4">
+
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 font-bold text-cyan-300">
+                    %
+                  </div>
+
+                  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
+                    Step 3
+                  </span>
+
+                </div>
+
+                <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-cyan-300">
+                  Keyword Density Checker
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-slate-400">
+                  Inspect keyword frequency and density in greater detail after
+                  reviewing the overall content structure.
+                </p>
+
+                <div className="mt-5 text-sm font-semibold text-cyan-300">
+                  Check keyword usage →
+                </div>
+
               </Link>
 
             </div>
 
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
 
-              <RelatedToolCard
-                href="/tools/keyword-density-checker"
-                icon="%"
-                title="Keyword Density Checker"
-                description="Review keyword frequency and density in greater detail."
-              />
-
-              <RelatedToolCard
-                href="/tools/seo-analyzer"
-                icon="⌕"
-                title="SEO Analyzer"
-                description="Run a broader SEO audit covering technical, content and metadata signals."
-              />
-
-              <RelatedToolCard
+              <Link
                 href="/tools/seo-page-analyzer"
-                icon="◎"
-                title="SEO Page Analyzer"
-                description="Analyze important SEO elements on a live webpage."
-              />
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-violet-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                SEO Page Analyzer →
+              </Link>
 
-              <RelatedToolCard
+              <Link
                 href="/tools/meta-tag-generator"
-                icon="<>"
-                title="Meta Tag Generator"
-                description="Create optimized titles, descriptions and social metadata."
-              />
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-violet-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                Meta Tag Generator →
+              </Link>
 
-              <RelatedToolCard
-                href="/tools/page-speed"
-                icon="⚡"
-                title="Page Speed Analyzer"
-                description="Measure Lighthouse performance and website loading metrics."
-              />
-
-              <RelatedToolCard
-                href="/tools/xml-sitemap-generator"
-                icon="⌘"
-                title="XML Sitemap Generator"
-                description="Create XML sitemaps that help search engines discover important pages."
-              />
+              <Link
+                href="/tools"
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-violet-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                View All Tools →
+              </Link>
 
             </div>
 

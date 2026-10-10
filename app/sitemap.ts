@@ -18,6 +18,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "on-page-seo-checklist",
   ];
 
+  const weeklyTools = [
+    "seo-analyzer",
+    "seo-page-analyzer",
+  ];
+
+  const monthlyTools = [
+    "robots-txt-generator",
+    "xml-sitemap-generator",
+    "meta-tag-generator",
+    "serp-snippet-preview",
+    "keyword-density-checker",
+    "article-rewriter",
+    "http-status-checker",
+    "page-speed",
+    "content-analyzer",
+    "schema-markup-generator",
+    "youtube-keyword-ideas",
+    "youtube-title-generator",
+    "youtube-title-analyzer",
+    "youtube-description-generator",
+    "youtube-script-writer",
+  ];
+
   return [
     {
       url: baseUrl,
@@ -43,59 +66,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     })),
 
-    {
-      url: `${baseUrl}/tools/seo-analyzer`,
-      changeFrequency: "weekly",
+    ...weeklyTools.map((slug) => ({
+      url: `${baseUrl}/tools/${slug}`,
+      changeFrequency: "weekly" as const,
       priority: 0.9,
-    },
+    })),
 
-    {
-      url: `${baseUrl}/tools/seo-page-analyzer`,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-
-    {
-      url: `${baseUrl}/tools/robots-txt-generator`,
-      changeFrequency: "monthly",
+    ...monthlyTools.map((slug) => ({
+      url: `${baseUrl}/tools/${slug}`,
+      changeFrequency: "monthly" as const,
       priority: 0.8,
-    },
-
-    {
-      url: `${baseUrl}/tools/xml-sitemap-generator`,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-
-    {
-      url: `${baseUrl}/tools/meta-tag-generator`,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-
-    {
-      url: `${baseUrl}/tools/keyword-density-checker`,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-
-    {
-      url: `${baseUrl}/tools/http-status-checker`,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-
-    {
-      url: `${baseUrl}/tools/page-speed`,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-
-    {
-      url: `${baseUrl}/tools/content-analyzer`,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
+    })),
 
     {
       url: `${baseUrl}/about`,

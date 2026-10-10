@@ -7,7 +7,9 @@ import {
   CheckCircle2,
   ChevronDown,
   CreditCard,
+  FileCode2,
   FileSearch,
+  FileText,
   Gauge,
   Gift,
   Globe2,
@@ -15,21 +17,24 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
+  Tags,
+  WandSparkles,
   Wrench,
+  Youtube,
   Zap,
 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Free SEO Tools for Website Analysis and Optimization",
   description:
-    "Analyze websites, check technical SEO, generate metadata, review keyword usage, create sitemaps and improve search performance with free LifeSeos tools.",
+    "Analyze websites, improve content, generate schema markup, optimize YouTube metadata and solve technical SEO issues with free LifeSeos tools.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "LifeSeos - Free SEO Tools for Smarter Growth",
     description:
-      "Analyze websites, discover SEO issues and improve your search performance with free LifeSeos tools.",
+      "Analyze websites, improve content, generate structured data and use practical SEO and YouTube optimization tools with LifeSeos.",
     url: "/",
     type: "website",
   },
@@ -48,7 +53,7 @@ export default async function Home() {
     name: "LifeSeos",
     url: "https://www.lifeseos.com",
     description:
-      "LifeSeos provides free SEO tools for website analysis, technical SEO, metadata optimization, keyword analysis and search performance.",
+      "LifeSeos provides free tools for website analysis, technical SEO, content optimization, structured data and YouTube SEO workflows.",
     logo: "https://www.lifeseos.com/opengraph-image.png",
   };
 
@@ -58,7 +63,7 @@ export default async function Home() {
     name: "LifeSeos",
     url: "https://www.lifeseos.com",
     description:
-      "Free SEO tools for website analysis, technical SEO and smarter search growth.",
+      "Free tools for website analysis, technical SEO, content optimization, structured data and YouTube SEO.",
   };
 
   const faqJsonLd = {
@@ -86,7 +91,7 @@ export default async function Home() {
         name: "What SEO tools are available on LifeSeos?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "LifeSeos provides SEO analysis tools, metadata generators, keyword analysis tools, sitemap tools, robots.txt tools and technical SEO checkers.",
+          text: "LifeSeos provides website analysis, technical SEO, content optimization, schema markup, metadata, sitemap and YouTube SEO tools.",
         },
       },
       {
@@ -165,6 +170,13 @@ export default async function Home() {
       icon: Sparkles,
     },
     {
+      title: "SERP Snippet Preview",
+      description:
+        "Preview how your title, meta description and URL may appear in Google search results.",
+      href: "/tools/serp-snippet-preview",
+      icon: FileSearch,
+    },
+    {
       title: "Robots.txt Generator",
       description:
         "Generate crawler rules and improve search engine accessibility.",
@@ -178,6 +190,55 @@ export default async function Home() {
       href: "/tools/keyword-density-checker",
       icon: BarChart3,
     },
+    {
+      title: "Schema Markup Generator",
+      description:
+        "Generate JSON-LD structured data for articles, FAQs, products and businesses.",
+      href: "/tools/schema-markup-generator",
+      icon: FileCode2,
+    },
+    {
+      title: "SEO Article Rewriter",
+      description:
+        "Rewrite website content for better clarity, readability, tone and SEO consistency.",
+      href: "/tools/article-rewriter",
+      icon: WandSparkles,
+    },
+    {
+      title: "YouTube Keyword Ideas",
+      description:
+        "Generate useful keyword groups, long-tail phrases and video topic ideas.",
+      href: "/tools/youtube-keyword-ideas",
+      icon: Tags,
+    },
+    {
+      title: "YouTube Title Generator",
+      description:
+        "Create engaging YouTube title ideas based on your topic, keyword and audience.",
+      href: "/tools/youtube-title-generator",
+      icon: Sparkles,
+    },
+    {
+      title: "YouTube Title Analyzer",
+      description:
+        "Review title clarity, structure, keyword use, length and click appeal.",
+      href: "/tools/youtube-title-analyzer",
+      icon: FileSearch,
+    },
+    {
+      title: "YouTube Description Generator",
+      description:
+        "Create structured YouTube descriptions with keyword support and calls to action.",
+      href: "/tools/youtube-description-generator",
+      icon: FileText,
+    },
+    {
+      title: "YouTube Script Writer",
+      description:
+        "Build structured video scripts with hooks, main points, transitions and CTAs.",
+      href: "/tools/youtube-script-writer",
+      icon: Youtube,
+    },
   ];
 
   const categories = [
@@ -190,6 +251,10 @@ export default async function Home() {
         { label: "SEO Analyzer", href: "/tools/seo-analyzer" },
         { label: "HTTP Status Checker", href: "/tools/http-status-checker" },
         { label: "Robots.txt Generator", href: "/tools/robots-txt-generator" },
+        {
+          label: "Schema Markup Generator",
+          href: "/tools/schema-markup-generator",
+        },
       ],
     },
     {
@@ -200,6 +265,7 @@ export default async function Home() {
       links: [
         { label: "SEO Page Analyzer", href: "/tools/seo-page-analyzer" },
         { label: "Meta Tag Generator", href: "/tools/meta-tag-generator" },
+        { label: "SERP Snippet Preview", href: "/tools/serp-snippet-preview" },
         { label: "Content Analyzer", href: "/tools/content-analyzer" },
       ],
     },
@@ -230,6 +296,48 @@ export default async function Home() {
         { label: "SEO Analyzer", href: "/tools/seo-analyzer" },
       ],
     },
+    {
+      icon: WandSparkles,
+      title: "Content SEO",
+      description:
+        "Improve website copy, keyword usage and search-focused content.",
+      links: [
+        { label: "SEO Article Rewriter", href: "/tools/article-rewriter" },
+        { label: "Content Analyzer", href: "/tools/content-analyzer" },
+        {
+          label: "Keyword Density Checker",
+          href: "/tools/keyword-density-checker",
+        },
+      ],
+    },
+    {
+      icon: Youtube,
+      title: "YouTube SEO",
+      description:
+        "Plan video keywords, titles, descriptions and scripts in one workflow.",
+      links: [
+        {
+          label: "YouTube Keyword Ideas",
+          href: "/tools/youtube-keyword-ideas",
+        },
+        {
+          label: "YouTube Title Generator",
+          href: "/tools/youtube-title-generator",
+        },
+        {
+          label: "YouTube Title Analyzer",
+          href: "/tools/youtube-title-analyzer",
+        },
+        {
+          label: "YouTube Description Generator",
+          href: "/tools/youtube-description-generator",
+        },
+        {
+          label: "YouTube Script Writer",
+          href: "/tools/youtube-script-writer",
+        },
+      ],
+    },
   ];
 
   const faq = [
@@ -243,7 +351,7 @@ export default async function Home() {
     },
     {
       q: "What SEO tools are available on LifeSeos?",
-      a: "LifeSeos provides SEO analysis tools, metadata generators, keyword analysis tools, sitemap tools, robots.txt tools and technical SEO checkers.",
+      a: "LifeSeos provides website analysis, technical SEO, content optimization, schema markup, metadata, sitemap and YouTube SEO tools.",
     },
     {
       q: "Do I need SEO experience to use LifeSeos?",
@@ -280,7 +388,7 @@ export default async function Home() {
 
       {/* HERO */}
 
-      <section className="relative overflow-hidden px-6 pb-24 pt-20 sm:px-10 lg:px-16 lg:pb-32 lg:pt-28">
+      <section className="relative overflow-hidden px-6 pb-12 pt-20 sm:px-10 lg:px-16 lg:pb-16 lg:pt-28">
         <div className="absolute inset-0 -z-10">
           <div className="absolute left-1/2 top-0 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-blue-600/20 blur-[140px]" />
           <div className="absolute right-0 top-20 h-[350px] w-[350px] rounded-full bg-emerald-400/10 blur-[120px]" />
@@ -301,8 +409,8 @@ export default async function Home() {
             </h1>
 
             <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-400">
-              Find technical SEO issues, analyze your pages, improve content
-              and understand what may be holding your website back.
+              Find technical SEO issues, improve website content, generate
+              structured data and build stronger search and YouTube workflows.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-4">
@@ -410,7 +518,7 @@ export default async function Home() {
 
       {/* POPULAR TOOLS */}
 
-      <section className="px-6 py-24 sm:px-10 lg:px-16">
+      <section className="px-6 pb-24 pt-12 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
             <div>
@@ -465,6 +573,95 @@ export default async function Home() {
                   </Link>
                 );
               })}
+          </div>
+        </div>
+      </section>
+
+      {/* NEW TOOL WORKFLOWS */}
+
+      <section className="px-6 pb-10 pt-2 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-5 lg:grid-cols-3">
+            <Link
+              href="/tools/schema-markup-generator"
+              className="group rounded-[26px] border border-cyan-400/15 bg-cyan-400/[0.035] p-7 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/30 hover:bg-cyan-400/[0.055]"
+            >
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-400/10">
+                <FileCode2 className="h-5 w-5 text-cyan-300" />
+              </div>
+
+              <p className="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
+                Technical SEO
+              </p>
+
+              <h3 className="mt-2 text-xl font-semibold">
+                Schema Markup Generator
+              </h3>
+
+              <p className="mt-3 text-sm leading-7 text-slate-400">
+                Generate JSON-LD for articles, FAQs, products, businesses,
+                breadcrumbs and other common structured data types.
+              </p>
+
+              <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300">
+                Generate schema
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+              </span>
+            </Link>
+
+            <Link
+              href="/tools/article-rewriter"
+              className="group rounded-[26px] border border-blue-400/15 bg-blue-400/[0.035] p-7 transition duration-300 hover:-translate-y-1 hover:border-blue-400/30 hover:bg-blue-400/[0.055]"
+            >
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-400/10">
+                <WandSparkles className="h-5 w-5 text-blue-300" />
+              </div>
+
+              <p className="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-blue-300">
+                Content SEO
+              </p>
+
+              <h3 className="mt-2 text-xl font-semibold">
+                SEO Article Rewriter
+              </h3>
+
+              <p className="mt-3 text-sm leading-7 text-slate-400">
+                Rewrite website content for better clarity, readability, tone
+                and SEO consistency while preserving the main direction.
+              </p>
+
+              <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-300">
+                Rewrite content
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+              </span>
+            </Link>
+
+            <Link
+              href="/tools/youtube-keyword-ideas"
+              className="group rounded-[26px] border border-red-400/15 bg-red-400/[0.035] p-7 transition duration-300 hover:-translate-y-1 hover:border-red-400/30 hover:bg-red-400/[0.055]"
+            >
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-red-400/10">
+                <Youtube className="h-5 w-5 text-red-300" />
+              </div>
+
+              <p className="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-red-300">
+                YouTube SEO
+              </p>
+
+              <h3 className="mt-2 text-xl font-semibold">
+                Build your YouTube workflow
+              </h3>
+
+              <p className="mt-3 text-sm leading-7 text-slate-400">
+                Move from keyword ideas to stronger titles, descriptions and
+                structured video scripts with dedicated YouTube tools.
+              </p>
+
+              <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-red-300">
+                Explore YouTube tools
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+              </span>
+            </Link>
           </div>
         </div>
       </section>
@@ -536,8 +733,8 @@ export default async function Home() {
             </h2>
 
             <p className="mx-auto mt-4 max-w-2xl text-slate-400">
-              Find the right tool based on the part of your website you want
-              to improve.
+              Find the right tool for technical SEO, content, performance,
+              structured data or YouTube optimization.
             </p>
           </div>
 

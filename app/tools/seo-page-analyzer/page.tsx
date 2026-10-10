@@ -636,78 +636,157 @@ export default function SeoPageAnalyzerPage() {
           </div>
 
 
-          {/* RELATED TOOLS */}
+          {/* CONTINUE SEO WORKFLOW */}
 
           <div className="mt-20">
 
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="mx-auto max-w-3xl text-center">
 
-              <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
+                Continue Your SEO Workflow
+              </p>
 
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
-                  Continue optimizing
-                </p>
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+                Create, Preview and Analyze Your On-Page SEO
+              </h2>
 
-                <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                  Related SEO Tools
-                </h2>
-
-              </div>
-
-
-              <Link
-                href="/tools"
-                className="text-sm font-semibold text-cyan-300 transition hover:text-cyan-200"
-              >
-                View all tools →
-              </Link>
+              <p className="mt-4 leading-8 text-slate-400">
+                Use these tools together to prepare your metadata, preview how
+                it may appear in search and then audit the finished page.
+              </p>
 
             </div>
 
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid gap-5 lg:grid-cols-3">
 
-              <RelatedToolCard
-                href="/tools/seo-analyzer"
-                icon="⌕"
-                title="SEO Analyzer"
-                description="Run a broader SEO audit covering technical, content, image and social signals."
-              />
-
-              <RelatedToolCard
-                href="/tools/content-analyzer"
-                icon="▤"
-                title="Content Analyzer"
-                description="Analyze readability, content structure, keyword usage and content quality signals."
-              />
-
-              <RelatedToolCard
+              <Link
                 href="/tools/meta-tag-generator"
-                icon="<>"
-                title="Meta Tag Generator"
-                description="Create optimized page titles, descriptions and social metadata."
-              />
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-fuchsia-400/30 hover:bg-white/[0.05]"
+              >
 
-              <RelatedToolCard
-                href="/tools/keyword-density-checker"
-                icon="%"
-                title="Keyword Density Checker"
-                description="Measure keyword frequency and density within your written content."
-              />
+                <div className="flex items-center justify-between gap-4">
 
-              <RelatedToolCard
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-fuchsia-400/20 bg-fuchsia-400/10 font-bold text-fuchsia-300">
+                    T
+                  </div>
+
+                  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
+                    Step 1
+                  </span>
+
+                </div>
+
+                <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-fuchsia-300">
+                  Meta Tag Generator
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-slate-400">
+                  Create a clear title tag and meta description before
+                  publishing or updating the page.
+                </p>
+
+                <div className="mt-5 text-sm font-semibold text-fuchsia-300">
+                  Create metadata →
+                </div>
+
+              </Link>
+
+
+              <Link
+                href="/tools/serp-snippet-preview"
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-blue-400/30 hover:bg-white/[0.05]"
+              >
+
+                <div className="flex items-center justify-between gap-4">
+
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-blue-400/20 bg-blue-400/10 text-lg text-blue-300">
+                    ◫
+                  </div>
+
+                  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
+                    Step 2
+                  </span>
+
+                </div>
+
+                <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-blue-300">
+                  SERP Snippet Preview
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-slate-400">
+                  Preview how your title, URL and meta description may appear
+                  across desktop and mobile search layouts.
+                </p>
+
+                <div className="mt-5 text-sm font-semibold text-blue-300">
+                  Preview metadata →
+                </div>
+
+              </Link>
+
+
+              <div className="rounded-2xl border border-cyan-400/30 bg-cyan-400/[0.05] p-6">
+
+                <div className="flex items-center justify-between gap-4">
+
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 text-lg text-cyan-300">
+                    ⌕
+                  </div>
+
+                  <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-300">
+                    Step 3 · Current
+                  </span>
+
+                </div>
+
+                <h3 className="mt-5 text-lg font-semibold">
+                  SEO Page Analyzer
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-slate-400">
+                  Analyze the live page and review metadata, headings, canonical
+                  tags, robots directives, links and image SEO.
+                </p>
+
+                <div className="mt-5 text-sm font-semibold text-cyan-300">
+                  Analyze page ✓
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+
+              <Link
+                href="/tools/seo-analyzer"
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                SEO Analyzer →
+              </Link>
+
+              <Link
+                href="/tools/content-analyzer"
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                Content Analyzer →
+              </Link>
+
+              <Link
                 href="/tools/page-speed"
-                icon="⚡"
-                title="Page Speed Analyzer"
-                description="Measure Lighthouse performance and important page loading metrics."
-              />
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                Page Speed Analyzer →
+              </Link>
 
-              <RelatedToolCard
-                href="/tools/xml-sitemap-generator"
-                icon="⌘"
-                title="XML Sitemap Generator"
-                description="Generate XML sitemaps to help search engines discover website pages."
-              />
+              <Link
+                href="/tools"
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                View All Tools →
+              </Link>
 
             </div>
 

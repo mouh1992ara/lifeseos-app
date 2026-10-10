@@ -635,78 +635,157 @@ export default function RobotsTxtGeneratorPage() {
           </div>
 
 
-          {/* RELATED TOOLS */}
+          {/* CONTINUE TECHNICAL SEO WORKFLOW */}
 
           <div className="mt-20">
 
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="mx-auto max-w-3xl text-center">
 
-              <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
+                Continue Your Technical SEO Workflow
+              </p>
 
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
-                  Continue optimizing
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+                Control crawling, improve discovery and audit your site
+              </h2>
+
+              <p className="mt-4 leading-8 text-slate-400">
+                Use these tools together to manage crawler access, provide a
+                structured list of important URLs and then run a broader SEO audit.
+              </p>
+
+            </div>
+
+
+            <div className="mt-10 grid gap-5 lg:grid-cols-3">
+
+              <div className="rounded-2xl border border-emerald-400/30 bg-emerald-400/[0.055] p-6">
+
+                <div className="flex items-center justify-between gap-4">
+
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-400/20 bg-emerald-400/10 text-lg text-emerald-300">
+                    🤖
+                  </div>
+
+                  <span className="rounded-full border border-emerald-400/25 bg-emerald-400/10 px-3 py-1 text-xs font-semibold text-emerald-300">
+                    Step 1 · Current
+                  </span>
+
+                </div>
+
+                <h3 className="mt-5 text-lg font-semibold">
+                  Robots.txt Generator
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-slate-400">
+                  Create crawler access rules and reference your sitemap from a
+                  correctly structured robots.txt file.
                 </p>
 
-                <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                  Related SEO Tools
-                </h2>
+                <div className="mt-5 text-sm font-semibold text-emerald-300">
+                  Configure crawling ✓
+                </div>
 
               </div>
 
 
               <Link
-                href="/tools"
-                className="text-sm font-semibold text-cyan-300 transition hover:text-cyan-200"
+                href="/tools/xml-sitemap-generator"
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-cyan-400/30 hover:bg-white/[0.05]"
               >
-                View all tools →
+
+                <div className="flex items-center justify-between gap-4">
+
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 font-bold text-cyan-300">
+                    ⌘
+                  </div>
+
+                  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
+                    Step 2
+                  </span>
+
+                </div>
+
+                <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-cyan-300">
+                  XML Sitemap Generator
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-slate-400">
+                  Create an XML sitemap that lists important URLs and helps
+                  search engines discover your website structure.
+                </p>
+
+                <div className="mt-5 text-sm font-semibold text-cyan-300">
+                  Create sitemap →
+                </div>
+
+              </Link>
+
+
+              <Link
+                href="/tools/seo-analyzer"
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-blue-400/30 hover:bg-white/[0.05]"
+              >
+
+                <div className="flex items-center justify-between gap-4">
+
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-blue-400/20 bg-blue-400/10 text-lg text-blue-300">
+                    ⌕
+                  </div>
+
+                  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
+                    Step 3
+                  </span>
+
+                </div>
+
+                <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-blue-300">
+                  SEO Analyzer
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-slate-400">
+                  Run a broader SEO audit after configuring crawling and
+                  discovery to review technical and content signals.
+                </p>
+
+                <div className="mt-5 text-sm font-semibold text-blue-300">
+                  Run SEO audit →
+                </div>
+
               </Link>
 
             </div>
 
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
 
-              <RelatedToolCard
-                href="/tools/xml-sitemap-generator"
-                icon="⌘"
-                title="XML Sitemap Generator"
-                description="Create an XML sitemap that lists important website URLs for search engines."
-              />
-
-              <RelatedToolCard
-                href="/tools/seo-analyzer"
-                icon="⌕"
-                title="SEO Analyzer"
-                description="Run a broader SEO audit covering technical, content and indexing-related signals."
-              />
-
-              <RelatedToolCard
-                href="/tools/seo-page-analyzer"
-                icon="◎"
-                title="SEO Page Analyzer"
-                description="Inspect titles, metadata, headings, canonical tags and other page-level SEO elements."
-              />
-
-              <RelatedToolCard
+              <Link
                 href="/tools/http-status-checker"
-                icon="↔"
-                title="HTTP Status Checker"
-                description="Check HTTP response codes and verify whether important URLs respond correctly."
-              />
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-emerald-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                HTTP Status Checker →
+              </Link>
 
-              <RelatedToolCard
+              <Link
+                href="/tools/seo-page-analyzer"
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-emerald-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                SEO Page Analyzer →
+              </Link>
+
+              <Link
                 href="/tools/page-speed"
-                icon="⚡"
-                title="Page Speed Analyzer"
-                description="Measure Lighthouse performance and website loading metrics."
-              />
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-emerald-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                Page Speed Analyzer →
+              </Link>
 
-              <RelatedToolCard
-                href="/tools/meta-tag-generator"
-                icon="<>"
-                title="Meta Tag Generator"
-                description="Create SEO titles and meta descriptions for your website pages."
-              />
+              <Link
+                href="/tools"
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-emerald-400/20 hover:bg-white/[0.05] hover:text-white"
+              >
+                View All Tools →
+              </Link>
 
             </div>
 
