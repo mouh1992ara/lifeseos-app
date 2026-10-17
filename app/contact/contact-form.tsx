@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   FormEvent,
   useState,
@@ -27,7 +28,6 @@ export default function ContactForm() {
   const [error, setError] =
     useState("");
 
-
   async function handleSubmit(
     event: FormEvent<HTMLFormElement>
   ) {
@@ -48,7 +48,6 @@ export default function ContactForm() {
     const cleanMessage =
       message.trim();
 
-
     if (
       !cleanName ||
       !cleanEmail ||
@@ -61,7 +60,6 @@ export default function ContactForm() {
 
       return;
     }
-
 
     const emailPattern =
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -76,9 +74,7 @@ export default function ContactForm() {
       return;
     }
 
-
     setLoading(true);
-
 
     try {
       const response =
@@ -98,10 +94,8 @@ export default function ContactForm() {
           }),
         });
 
-
       const data =
         await response.json();
-
 
       if (!response.ok) {
         throw new Error(
@@ -110,11 +104,9 @@ export default function ContactForm() {
         );
       }
 
-
       setSuccess(
         "Your message has been sent successfully. Thank you for contacting LifeSeos."
       );
-
 
       setName("");
       setEmail("");
@@ -133,13 +125,11 @@ export default function ContactForm() {
     }
   }
 
-
   return (
     <form
       onSubmit={handleSubmit}
       className="mt-7 space-y-5"
     >
-
       <div>
         <label
           htmlFor="name"
@@ -160,11 +150,11 @@ export default function ContactForm() {
           }
           placeholder="Your name"
           autoComplete="name"
+          required
           disabled={loading}
           className="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-violet-400/50 disabled:cursor-not-allowed disabled:opacity-60"
         />
       </div>
-
 
       <div>
         <label
@@ -186,11 +176,11 @@ export default function ContactForm() {
           }
           placeholder="you@example.com"
           autoComplete="email"
+          required
           disabled={loading}
           className="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-violet-400/50 disabled:cursor-not-allowed disabled:opacity-60"
         />
       </div>
-
 
       <div>
         <label
@@ -209,10 +199,10 @@ export default function ContactForm() {
               event.target.value
             )
           }
+          required
           disabled={loading}
           className="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3.5 text-sm text-white outline-none transition focus:border-violet-400/50 disabled:cursor-not-allowed disabled:opacity-60"
         >
-
           <option
             value=""
             disabled
@@ -235,10 +225,8 @@ export default function ContactForm() {
           <option value="feedback">
             Feedback
           </option>
-
         </select>
       </div>
-
 
       <div>
         <label
@@ -259,11 +247,11 @@ export default function ContactForm() {
             )
           }
           placeholder="Tell us how we can help..."
+          required
           disabled={loading}
           className="w-full resize-none rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-violet-400/50 disabled:cursor-not-allowed disabled:opacity-60"
         />
       </div>
-
 
       {error && (
         <div className="rounded-2xl border border-rose-400/20 bg-rose-400/10 px-4 py-3 text-sm leading-6 text-rose-300">
@@ -271,11 +259,9 @@ export default function ContactForm() {
         </div>
       )}
 
-
       {success && (
         <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/10 px-4 py-3 text-sm leading-6 text-emerald-300">
           <div className="flex items-start gap-3">
-
             <span className="mt-0.5 font-bold">
               ✓
             </span>
@@ -283,18 +269,15 @@ export default function ContactForm() {
             <span>
               {success}
             </span>
-
           </div>
         </div>
       )}
-
 
       <button
         type="submit"
         disabled={loading}
         className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-500 via-violet-500 to-fuchsia-500 px-6 py-3.5 font-semibold text-white shadow-lg shadow-violet-950/30 transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
       >
-
         <span>
           {loading
             ? "Sending..."
@@ -306,15 +289,19 @@ export default function ContactForm() {
             ? "◌"
             : "→"}
         </span>
-
       </button>
 
-
-      <p className="text-center text-xs leading-5 text-slate-600">
-        Your message will be securely
-        submitted to LifeSeos.
+      <p className="text-center text-xs leading-5 text-slate-500">
+        By sending this form, you agree that LifeSeos may use the information
+        you provide to respond to your message and handle your request. See our{" "}
+        <Link
+          href="/privacy"
+          className="font-semibold text-violet-300 transition hover:text-violet-200"
+        >
+          Privacy Policy
+        </Link>
+        .
       </p>
-
     </form>
   );
 }

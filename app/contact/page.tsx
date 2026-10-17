@@ -77,7 +77,7 @@ export default function ContactPage() {
 
             <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
               Have a question, suggestion, technical support request, or
-              privacy-related inquiry? We&apos;d be happy to hear from you.
+              privacy-related inquiry? Send us a message using the form below.
             </p>
           </section>
 
@@ -87,25 +87,25 @@ export default function ContactPage() {
               <ContactCard
                 icon="💬"
                 title="General Questions"
-                description="Questions about LifeSeos, features, or how our SEO tools work."
+                description="Questions about LifeSeos, its features, or how our SEO tools work."
               />
 
               <ContactCard
                 icon="🛠"
                 title="Technical Support"
-                description="Report a technical problem or let us know if something is not working correctly."
+                description="Report a technical problem or let us know if a tool or feature is not working correctly."
               />
 
               <ContactCard
                 icon="🔒"
                 title="Privacy Requests"
-                description="Questions about your account, saved reports, or how LifeSeos handles information."
+                description="Submit questions or requests relating to your account, saved reports, personal information, or privacy choices."
               />
 
               <ContactCard
                 icon="✨"
                 title="Feedback"
-                description="Share ideas or suggestions that could help us improve LifeSeos."
+                description="Share suggestions or ideas that may help us improve LifeSeos."
               />
             </div>
 
@@ -120,10 +120,37 @@ export default function ContactPage() {
 
               <p className="mt-2 text-sm leading-6 text-slate-500">
                 Fill in the form below and we&apos;ll review your message.
+                Please provide enough information for us to understand your
+                request.
               </p>
 
               <ContactForm />
+
+              <p className="mt-5 text-center text-xs leading-5 text-slate-600">
+                For information about how LifeSeos handles submitted
+                information, see our{" "}
+                <Link
+                  href="/privacy"
+                  className="font-semibold text-violet-300 transition hover:text-violet-200"
+                >
+                  Privacy Policy
+                </Link>
+                .
+              </p>
             </div>
+          </section>
+
+          {/* RESPONSE INFO */}
+          <section className="mt-8 rounded-[24px] border border-white/10 bg-white/[0.02] p-6 text-center">
+            <h2 className="text-lg font-semibold text-slate-200">
+              About responses
+            </h2>
+
+            <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+              Messages are reviewed as reasonably possible. Response times can
+              vary depending on the type of request, and submitting the form
+              does not guarantee an immediate response.
+            </p>
           </section>
 
           {/* TOOLS CTA */}
@@ -131,11 +158,11 @@ export default function ContactPage() {
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm font-semibold text-emerald-300">
-                  Need help with your website?
+                  Need help reviewing your website?
                 </p>
 
                 <h2 className="mt-2 text-2xl font-bold">
-                  Explore our free SEO tools
+                  Explore our SEO tools
                 </h2>
 
                 <p className="mt-2 max-w-xl text-sm leading-6 text-slate-400">

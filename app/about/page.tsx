@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "About LifeSeos - Free SEO Tools",
 
   description:
-    "Learn about LifeSeos, our mission, and the free SEO tools we build to make website analysis, technical SEO, content optimization and search improvement simpler.",
+    "Learn about LifeSeos, our mission, and the SEO tools and educational resources we build to make website analysis, technical SEO and content optimization simpler.",
 
   alternates: {
     canonical: "/about",
@@ -78,9 +78,10 @@ export default function AboutPage() {
             </h1>
 
             <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-slate-400 sm:text-lg">
-              LifeSeos is a collection of practical SEO tools designed to help
-              creators, developers, marketers, and website owners understand
-              their websites and identify opportunities for improvement.
+              LifeSeos provides practical SEO tools and educational resources
+              designed to help creators, developers, marketers, and website
+              owners understand their websites and identify opportunities for
+              improvement.
             </p>
           </section>
 
@@ -98,13 +99,20 @@ export default function AboutPage() {
               <p className="mt-5 text-sm leading-7 text-slate-400 sm:text-base">
                 SEO can feel complicated, especially when technical issues,
                 metadata, content structure, performance, and search engine
-                requirements are spread across many different tools.
+                requirements are spread across many different tools and
+                resources.
               </p>
 
               <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
                 LifeSeos aims to bring useful SEO checks into one simple
                 workspace, with clear results, practical recommendations, and
                 tools that are easy to use.
+              </p>
+
+              <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
+                We also publish educational SEO guides that explain the ideas
+                behind the tools so users can understand why an issue matters
+                instead of relying only on an automated score.
               </p>
             </div>
 
@@ -116,24 +124,66 @@ export default function AboutPage() {
               <div className="mt-6 space-y-4">
                 <FeatureItem
                   title="Simple analysis"
-                  description="Turn technical SEO signals into clear scores and understandable results."
+                  description="Turn technical SEO signals into clearer results that are easier to review."
                 />
 
                 <FeatureItem
                   title="Useful recommendations"
-                  description="Highlight important issues and provide practical next steps."
+                  description="Highlight potential issues and provide practical next steps for further evaluation."
                 />
 
                 <FeatureItem
-                  title="Fast tools"
+                  title="Practical tools"
                   description="Help users complete common SEO tasks without unnecessary complexity."
                 />
 
                 <FeatureItem
+                  title="Educational guidance"
+                  description="Explain SEO concepts so users can make informed optimization decisions."
+                />
+
+                <FeatureItem
                   title="Account-based history"
-                  description="Allow signed-in users to save SEO reports and review them later."
+                  description="Allow signed-in users to save supported SEO reports and review them later."
                 />
               </div>
+            </div>
+          </section>
+
+          {/* HOW IT WORKS */}
+          <section className="mt-16">
+            <div className="text-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
+                How LifeSeos Works
+              </p>
+
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+                Tools support decisions — they do not replace them
+              </h2>
+
+              <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-slate-400 sm:text-base">
+                LifeSeos combines automated checks with explanatory guidance.
+                The tools can identify patterns, technical signals, metadata,
+                content characteristics, and other SEO-related information,
+                but automated results should always be reviewed in context.
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-5 md:grid-cols-3">
+              <ValueCard
+                title="1. Analyze"
+                description="Use a LifeSeos tool to inspect a webpage, text, metadata, performance signal, or other supported SEO element."
+              />
+
+              <ValueCard
+                title="2. Understand"
+                description="Review the results together with explanations, recommendations, and related educational guides."
+              />
+
+              <ValueCard
+                title="3. Improve"
+                description="Decide which changes are appropriate for your website, then test and monitor the results."
+              />
             </div>
           </section>
 
@@ -174,7 +224,7 @@ export default function AboutPage() {
                 href="/tools/meta-tag-generator"
                 icon="✨"
                 title="Meta Tag Generator"
-                description="Create optimized title and description ideas for your pages."
+                description="Create title and description ideas for your pages."
               />
 
               <ToolCard
@@ -209,15 +259,89 @@ export default function AboutPage() {
                 href="/tools/page-speed"
                 icon="🚀"
                 title="Page Speed Analyzer"
-                description="Measure loading performance and Lighthouse metrics."
+                description="Review loading performance and important performance metrics."
               />
 
               <ToolCard
                 href="/tools/content-analyzer"
                 icon="📝"
                 title="Content Analyzer"
-                description="Analyze readability, content length, keywords and SEO quality signals."
+                description="Analyze readability, content length, keywords and SEO-related content signals."
               />
+            </div>
+
+            <div className="mt-7 text-center">
+              <Link
+                href="/tools"
+                className="inline-flex font-semibold text-emerald-300 transition hover:text-emerald-200"
+              >
+                View all LifeSeos tools →
+              </Link>
+            </div>
+          </section>
+
+          {/* CONTENT */}
+          <section className="mt-16 rounded-[32px] border border-white/10 bg-slate-900/80 p-7 sm:p-10">
+            <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-300">
+                  SEO Learning
+                </p>
+
+                <h2 className="mt-3 text-3xl font-bold">
+                  Practical guides alongside the tools
+                </h2>
+
+                <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
+                  Our SEO guides cover topics such as technical SEO, on-page
+                  optimization, metadata, page speed, HTTP status codes,
+                  robots.txt, XML sitemaps, keyword usage, and content
+                  analysis.
+                </p>
+
+                <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
+                  The goal is to provide useful context so users can understand
+                  what a tool is measuring and make their own informed
+                  decisions.
+                </p>
+              </div>
+
+              <div className="rounded-[26px] border border-white/10 bg-black/10 p-6 sm:p-7">
+                <h3 className="text-xl font-semibold">
+                  Our content principles
+                </h3>
+
+                <ul className="mt-5 space-y-4 text-sm leading-6 text-slate-400">
+                  <SimpleListItem>
+                    Explain SEO concepts in clear and practical language.
+                  </SimpleListItem>
+
+                  <SimpleListItem>
+                    Avoid presenting arbitrary SEO scores as guarantees.
+                  </SimpleListItem>
+
+                  <SimpleListItem>
+                    Distinguish automated checks from editorial judgment.
+                  </SimpleListItem>
+
+                  <SimpleListItem>
+                    Update important guidance when tools, practices, or
+                    standards change.
+                  </SimpleListItem>
+
+                  <SimpleListItem>
+                    Focus on information that helps users make better website
+                    decisions.
+                  </SimpleListItem>
+                </ul>
+
+                <Link
+                  href="/blog"
+                  className="mt-6 inline-flex font-semibold text-blue-300 transition hover:text-blue-200"
+                >
+                  Explore SEO guides →
+                </Link>
+              </div>
             </div>
           </section>
 
@@ -230,43 +354,67 @@ export default function AboutPage() {
                 </p>
 
                 <h2 className="mt-3 text-3xl font-bold">
-                  Clear, practical, and user-friendly
+                  Clear, practical, and user-focused
                 </h2>
 
                 <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
                   LifeSeos is built around a simple idea: useful SEO tools
-                  should be easy to understand and quick to use.
+                  should be understandable, practical, and straightforward to
+                  use.
                 </p>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <ValueCard
                   title="Clarity"
-                  description="Present results in a way that is easy to understand."
+                  description="Present results and explanations in a way that is easier to understand."
                 />
 
                 <ValueCard
                   title="Practicality"
-                  description="Focus on useful checks and actionable improvements."
+                  description="Focus on checks and recommendations that can support real website improvements."
                 />
 
                 <ValueCard
-                  title="Accessibility"
-                  description="Keep core SEO tools simple and approachable."
+                  title="Transparency"
+                  description="Treat automated results as indicators rather than promises of search performance."
                 />
 
                 <ValueCard
                   title="Privacy"
-                  description="Handle account and saved report data responsibly."
+                  description="Handle account, report and website usage information responsibly."
                 />
               </div>
             </div>
           </section>
 
+          {/* IMPORTANT NOTE */}
+          <section className="mt-16 rounded-[30px] border border-amber-400/15 bg-amber-400/[0.04] p-7 sm:p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-300">
+              Important
+            </p>
+
+            <h2 className="mt-3 text-2xl font-bold">
+              SEO results can vary
+            </h2>
+
+            <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
+              LifeSeos tools and guides provide informational analysis and
+              recommendations. Search engine rankings depend on many factors,
+              and no SEO tool can guarantee a specific ranking, traffic level,
+              indexing outcome, or search performance result.
+            </p>
+
+            <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
+              Users should review recommendations in the context of their own
+              website, audience, technical environment, and business goals.
+            </p>
+          </section>
+
           {/* CTA */}
           <section className="mt-16 rounded-[30px] border border-white/10 bg-gradient-to-r from-blue-500/10 via-violet-500/10 to-fuchsia-500/10 p-8 text-center sm:p-10">
             <p className="text-sm font-semibold text-violet-300">
-              Ready to improve your website?
+              Ready to review your website?
             </p>
 
             <h2 className="mt-3 text-3xl font-bold">
@@ -274,8 +422,8 @@ export default function AboutPage() {
             </h2>
 
             <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-slate-400">
-              Run an SEO audit, review your website signals, and discover areas
-              that may need improvement.
+              Run an SEO audit, review your website signals, and identify
+              areas that may need further attention.
             </p>
 
             <div className="mt-7 flex flex-wrap justify-center gap-4">
@@ -303,6 +451,10 @@ export default function AboutPage() {
 
             <Link href="/tools" className="transition hover:text-white">
               Tools
+            </Link>
+
+            <Link href="/blog" className="transition hover:text-white">
+              Blog
             </Link>
 
             <Link href="/contact" className="transition hover:text-white">
@@ -395,5 +547,21 @@ function ValueCard({
         {description}
       </p>
     </div>
+  );
+}
+
+function SimpleListItem({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <li className="flex items-start gap-3">
+      <span className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-400/10 text-[10px] font-bold text-blue-300">
+        ✓
+      </span>
+
+      <span>{children}</span>
+    </li>
   );
 }
