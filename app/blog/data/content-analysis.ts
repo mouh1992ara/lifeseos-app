@@ -58,6 +58,13 @@ export const contentAnalysisArticle: BlogArticle = {
         "Discover content improvement opportunities"
       ],
 
+      links: [
+        {
+          label: "Read the On-Page SEO Checklist",
+          href: "/blog/on-page-seo-checklist",
+        },
+      ],
+
       tip:
         "Analyze content from the user's perspective first. A page can be technically optimized and still be weak if it does not answer the visitor's real question."
     },
@@ -317,6 +324,13 @@ export const contentAnalysisArticle: BlogArticle = {
         "Prioritize search intent over frequency"
       ],
 
+      links: [
+        {
+          label: "Read the Keyword Density Guide",
+          href: "/blog/keyword-density-guide",
+        },
+      ],
+
       tip:
         "Use the Keyword Density Checker when you need to review repetition, but make the final decision based on readability and context."
     },
@@ -372,6 +386,13 @@ export const contentAnalysisArticle: BlogArticle = {
         "Review traffic trends",
         "Compare performance before and after updates",
         "Investigate sudden drops carefully"
+      ],
+
+      links: [
+        {
+          label: "Read the SEO Meta Tags Guide",
+          href: "/blog/seo-meta-tags-guide",
+        },
       ],
 
       tip:
@@ -494,6 +515,13 @@ export const contentAnalysisArticle: BlogArticle = {
         "Overlapping pages have been reviewed",
         "Content gaps are addressed",
         "Performance is monitored after updates"
+      ],
+
+      links: [
+        {
+          label: "Read the Complete SEO Audit Guide",
+          href: "/blog/complete-seo-audit-guide",
+        },
       ],
 
       tip:

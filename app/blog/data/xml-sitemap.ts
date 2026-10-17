@@ -85,6 +85,14 @@ export const xmlSitemapArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the Technical SEO Guide",
+          href: "/blog/technical-seo-guide",
+        },
+      ],
+
+
       tip:
         "Think of the sitemap as a discovery aid, not a ranking tool. Including a page in a sitemap does not guarantee that it will be indexed or ranked."
 
@@ -218,6 +226,14 @@ export const xmlSitemapArticle: BlogArticle = {
 
         "Temporary or test URLs"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the HTTP Status Codes Guide",
+          href: "/blog/http-status-codes-seo-guide",
+        },
       ],
 
 
@@ -386,6 +402,14 @@ export const xmlSitemapArticle: BlogArticle = {
 
         "Update the sitemap when website content changes"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Robots.txt Guide",
+          href: "/blog/robots-txt-guide",
+        },
       ],
 
 
@@ -558,6 +582,14 @@ export const xmlSitemapArticle: BlogArticle = {
 
         "Use both systems together"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the On-Page SEO Checklist",
+          href: "/blog/on-page-seo-checklist",
+        },
       ]
 
     },
@@ -698,6 +730,14 @@ export const xmlSitemapArticle: BlogArticle = {
 
         "The sitemap is updated when the website changes"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Complete SEO Audit Guide",
+          href: "/blog/complete-seo-audit-guide",
+        },
       ],
 
 

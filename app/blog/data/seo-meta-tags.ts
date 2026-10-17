@@ -85,6 +85,14 @@ export const seoMetaTagsArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the On-Page SEO Checklist",
+          href: "/blog/on-page-seo-checklist",
+        },
+      ],
+
+
       tip:
         "Do not optimize metadata in isolation. The title and description should accurately reflect the content users will actually find on the page."
 
@@ -221,6 +229,14 @@ export const seoMetaTagsArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the Content Analysis SEO Guide",
+          href: "/blog/content-analysis-seo-guide",
+        },
+      ],
+
+
       tip:
         "A good meta description should summarize the page, not function as a list of keywords."
 
@@ -294,6 +310,18 @@ export const seoMetaTagsArticle: BlogArticle = {
 
         "nofollow — requests that links not be followed"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Technical SEO Guide",
+          href: "/blog/technical-seo-guide",
+        },
+        {
+          label: "Read the Robots.txt Guide",
+          href: "/blog/robots-txt-guide",
+        },
       ],
 
 
@@ -462,6 +490,14 @@ export const seoMetaTagsArticle: BlogArticle = {
 
         "Open Graph images that are missing or unrelated"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Complete SEO Audit Guide",
+          href: "/blog/complete-seo-audit-guide",
+        },
       ],
 
 

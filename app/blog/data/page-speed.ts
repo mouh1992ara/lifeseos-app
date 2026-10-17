@@ -85,6 +85,14 @@ export const pageSpeedArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the Technical SEO Guide",
+          href: "/blog/technical-seo-guide",
+        },
+      ],
+
+
       tip:
         "Measure performance before making changes. Without a baseline, it is difficult to know whether an optimization actually improved the page."
 
@@ -297,6 +305,14 @@ export const pageSpeedArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the Complete SEO Audit Guide",
+          href: "/blog/complete-seo-audit-guide",
+        },
+      ],
+
+
       tip:
         "Prioritize the resources that consume the most loading time or block important content. Small optimizations should come later."
 
@@ -340,6 +356,14 @@ export const pageSpeedArticle: BlogArticle = {
 
         "Provide width and height information where appropriate"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the On-Page SEO Checklist",
+          href: "/blog/on-page-seo-checklist",
+        },
       ]
 
     },
@@ -596,6 +620,18 @@ export const pageSpeedArticle: BlogArticle = {
 
         "Evaluate speed together with content and technical SEO"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Content Analysis SEO Guide",
+          href: "/blog/content-analysis-seo-guide",
+        },
+        {
+          label: "Read the Technical SEO Guide",
+          href: "/blog/technical-seo-guide",
+        },
       ]
 
     },
@@ -686,6 +722,14 @@ export const pageSpeedArticle: BlogArticle = {
 
         "Performance is retested after major changes"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Complete SEO Audit Guide",
+          href: "/blog/complete-seo-audit-guide",
+        },
       ],
 
 

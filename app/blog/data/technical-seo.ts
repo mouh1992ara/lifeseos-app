@@ -95,6 +95,14 @@ export const technicalSeoArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the Complete SEO Audit Guide",
+          href: "/blog/complete-seo-audit-guide",
+        },
+      ],
+
+
       tip:
         "Start technical SEO by checking whether search engines can access your important pages. Optimization has limited value if those pages cannot be crawled or indexed correctly."
 
@@ -185,6 +193,14 @@ export const technicalSeoArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the Robots.txt Guide",
+          href: "/blog/robots-txt-guide",
+        },
+      ],
+
+
       tip:
         "Use the LifeSeos Robots.txt Generator when you need to create or review a basic robots.txt structure."
 
@@ -228,6 +244,14 @@ export const technicalSeoArticle: BlogArticle = {
 
         "Submit the sitemap through search engine tools when appropriate"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the XML Sitemap Guide",
+          href: "/blog/xml-sitemap-guide",
+        },
       ],
 
 
@@ -316,6 +340,14 @@ export const technicalSeoArticle: BlogArticle = {
 
         "Update internal links to final URLs where possible"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the HTTP Status Codes Guide",
+          href: "/blog/http-status-codes-seo-guide",
+        },
       ],
 
 
@@ -408,6 +440,14 @@ export const technicalSeoArticle: BlogArticle = {
 
         "Avoid creating orphan pages"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the On-Page SEO Checklist",
+          href: "/blog/on-page-seo-checklist",
+        },
       ]
 
     },
@@ -578,6 +618,14 @@ export const technicalSeoArticle: BlogArticle = {
 
         "Keep each important page focused on a clear purpose"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Content Analysis SEO Guide",
+          href: "/blog/content-analysis-seo-guide",
+        },
       ]
 
     },
@@ -620,6 +668,14 @@ export const technicalSeoArticle: BlogArticle = {
 
         "Review server response time"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Page Speed SEO Guide",
+          href: "/blog/page-speed-seo-guide",
+        },
       ],
 
 

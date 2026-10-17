@@ -8,6 +8,11 @@ export type ArticleSection = {
   bullets?: string[];
 
   tip?: string;
+
+  links?: {
+    label: string;
+    href: string;
+  }[];
 };
 
 

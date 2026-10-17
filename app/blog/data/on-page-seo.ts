@@ -93,6 +93,14 @@ export const onPageSeoArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the Technical SEO Guide",
+          href: "/blog/technical-seo-guide",
+        },
+      ],
+
+
       tip:
         "Think of on-page SEO as improving the clarity and usefulness of one page rather than optimizing the entire website at once."
 
@@ -187,6 +195,14 @@ export const onPageSeoArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the SEO Meta Tags Guide",
+          href: "/blog/seo-meta-tags-guide",
+        },
+      ],
+
+
       tip:
         "Use the LifeSeos Meta Tag Generator and SERP Snippet Preview when you want to review metadata in more detail."
 
@@ -232,6 +248,14 @@ export const onPageSeoArticle: BlogArticle = {
 
         "Provide a useful next step"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Content Analysis SEO Guide",
+          href: "/blog/content-analysis-seo-guide",
+        },
       ]
 
     },
@@ -320,6 +344,14 @@ export const onPageSeoArticle: BlogArticle = {
 
         "Redirect permanently moved pages correctly"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the HTTP Status Codes Guide",
+          href: "/blog/http-status-codes-seo-guide",
+        },
       ]
 
     },
@@ -362,6 +394,14 @@ export const onPageSeoArticle: BlogArticle = {
 
         "Prioritize search intent over frequency"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Keyword Density Guide",
+          href: "/blog/keyword-density-guide",
+        },
       ],
 
 
@@ -581,6 +621,14 @@ export const onPageSeoArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the Page Speed SEO Guide",
+          href: "/blog/page-speed-seo-guide",
+        },
+      ],
+
+
       tip:
         "Evaluate the page as a visitor. Search engines are not the only audience."
 
@@ -734,6 +782,7 @@ export const onPageSeoArticle: BlogArticle = {
         "A structured workflow makes on-page optimization easier and reduces unnecessary changes.",
 
         "Start with the purpose of the page, then review content and supporting elements in a logical order."
+
       ],
 
 
@@ -764,6 +813,7 @@ export const onPageSeoArticle: BlogArticle = {
 
       tip:
         "Avoid changing every element just because an SEO checklist mentions it. Improve the areas that actually make the page clearer or more useful."
+
     },
 
 
@@ -784,6 +834,7 @@ export const onPageSeoArticle: BlogArticle = {
         "The goal is not to satisfy a checklist mechanically. The goal is to create a page that clearly serves its purpose.",
 
         "Review important pages periodically as content, search behavior and website structure change."
+
       ],
 
 
@@ -822,8 +873,17 @@ export const onPageSeoArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the Complete SEO Audit Guide",
+          href: "/blog/complete-seo-audit-guide",
+        },
+      ],
+
+
       tip:
         "Use the LifeSeos SEO Analyzer to review important on-page signals, then use the results as a starting point for manual evaluation."
+
     }
 
   ],

@@ -202,7 +202,25 @@ export default function ArticleView({
               )}
 
 
+{section.links && section.links.length > 0 && (
 
+  <div className="mb-6 flex flex-wrap gap-3">
+
+    {section.links.map((link) => (
+
+      <Link
+        key={link.href}
+        href={link.href}
+        className="text-sm font-semibold text-cyan-300 hover:text-cyan-200"
+      >
+        {link.label} →
+      </Link>
+
+    ))}
+
+  </div>
+
+)}
 
 
 

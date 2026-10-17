@@ -85,6 +85,14 @@ export const robotsTxtArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the Technical SEO Guide",
+          href: "/blog/technical-seo-guide",
+        },
+      ],
+
+
       tip:
         "Anything listed in robots.txt is publicly visible. Never use it to hide sensitive URLs, passwords, private files or confidential information."
 
@@ -295,6 +303,14 @@ export const robotsTxtArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the XML Sitemap Guide",
+          href: "/blog/xml-sitemap-guide",
+        },
+      ],
+
+
       tip:
         "Keep the sitemap reference simple, for example: Sitemap: https://example.com/sitemap.xml."
 
@@ -338,6 +354,14 @@ export const robotsTxtArticle: BlogArticle = {
 
         "Requires careful maintenance"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Complete SEO Audit Guide",
+          href: "/blog/complete-seo-audit-guide",
+        },
       ],
 
 
@@ -696,6 +720,14 @@ export const robotsTxtArticle: BlogArticle = {
 
         "The file is reviewed after major website changes"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Technical SEO Guide",
+          href: "/blog/technical-seo-guide",
+        },
       ],
 
 

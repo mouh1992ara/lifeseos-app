@@ -56,6 +56,13 @@ export const httpStatusArticle: BlogArticle = {
         "5xx — server-side errors"
       ],
 
+      links: [
+        {
+          label: "Read the Technical SEO Guide",
+          href: "/blog/technical-seo-guide",
+        },
+      ],
+
       tip:
         "Always check the actual HTTP response, not only what appears in the browser. A page can look normal while returning an incorrect status code."
     },
@@ -84,6 +91,13 @@ export const httpStatusArticle: BlogArticle = {
         "Reveal server problems",
         "Support cleaner internal linking",
         "Reduce unnecessary redirect chains"
+      ],
+
+      links: [
+        {
+          label: "Read the Complete SEO Audit Guide",
+          href: "/blog/complete-seo-audit-guide",
+        },
       ]
     },
 
@@ -298,6 +312,13 @@ export const httpStatusArticle: BlogArticle = {
         "Check firewall or security rules",
         "Confirm public pages are accessible",
         "Avoid blocking legitimate crawlers accidentally"
+      ],
+
+      links: [
+        {
+          label: "Read the Robots.txt Guide",
+          href: "/blog/robots-txt-guide",
+        },
       ]
     },
 
@@ -377,6 +398,13 @@ export const httpStatusArticle: BlogArticle = {
         "Fix internal 404 links",
         "Investigate server errors",
         "Review navigation after URL changes"
+      ],
+
+      links: [
+        {
+          label: "Read the On-Page SEO Checklist",
+          href: "/blog/on-page-seo-checklist",
+        },
       ]
     },
 
@@ -404,6 +432,13 @@ export const httpStatusArticle: BlogArticle = {
         "Check for redirect chains",
         "Review important 404 responses",
         "Update internal links and sitemap URLs"
+      ],
+
+      links: [
+        {
+          label: "Read the XML Sitemap Guide",
+          href: "/blog/xml-sitemap-guide",
+        },
       ],
 
       tip:
@@ -520,6 +555,13 @@ export const httpStatusArticle: BlogArticle = {
         "Server errors are monitored",
         "Migration redirects are tested",
         "Important URLs are checked regularly"
+      ],
+
+      links: [
+        {
+          label: "Read the Technical SEO Guide",
+          href: "/blog/technical-seo-guide",
+        },
       ],
 
       tip:

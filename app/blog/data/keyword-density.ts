@@ -57,6 +57,13 @@ export const keywordDensityArticle: BlogArticle = {
         "Needs to be evaluated together with readability and relevance"
       ],
 
+      links: [
+        {
+          label: "Read the Content Analysis SEO Guide",
+          href: "/blog/content-analysis-seo-guide",
+        },
+      ],
+
       tip:
         "Use keyword density to detect unnatural repetition, not to force content toward a specific percentage."
     },
@@ -110,6 +117,13 @@ export const keywordDensityArticle: BlogArticle = {
         "Search intent matters more than repetition",
         "Useful content should remain the main priority",
         "Readability should not be sacrificed for keyword frequency"
+      ],
+
+      links: [
+        {
+          label: "Read the On-Page SEO Checklist",
+          href: "/blog/on-page-seo-checklist",
+        },
       ],
 
       tip:
@@ -170,6 +184,13 @@ export const keywordDensityArticle: BlogArticle = {
         "Explain related concepts",
         "Avoid repeating identical wording unnecessarily",
         "Prefer clear sentences over keyword-heavy sentences"
+      ],
+
+      links: [
+        {
+          label: "Read the SEO Meta Tags Guide",
+          href: "/blog/seo-meta-tags-guide",
+        },
       ]
     },
 
@@ -456,6 +477,13 @@ export const keywordDensityArticle: BlogArticle = {
         "Content remains readable",
         "Similar pages have distinct purposes",
         "Keyword frequency is reviewed after writing"
+      ],
+
+      links: [
+        {
+          label: "Read the Complete SEO Audit Guide",
+          href: "/blog/complete-seo-audit-guide",
+        },
       ],
 
       tip:

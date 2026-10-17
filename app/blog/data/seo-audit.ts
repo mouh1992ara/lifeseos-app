@@ -181,6 +181,14 @@ export const seoAuditArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the Technical SEO Guide",
+          href: "/blog/technical-seo-guide",
+        },
+      ],
+
+
       tip:
         "If an important page is blocked, broken or returning a server error, fix that problem before spending time on smaller on-page SEO improvements."
 
@@ -229,6 +237,18 @@ export const seoAuditArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the Robots.txt Guide",
+          href: "/blog/robots-txt-guide",
+        },
+        {
+          label: "Read the XML Sitemap Guide",
+          href: "/blog/xml-sitemap-guide",
+        },
+      ],
+
+
       tip:
         "LifeSeos includes a Robots.txt Generator and XML Sitemap Generator that can help you create or review these files."
 
@@ -268,6 +288,14 @@ export const seoAuditArticle: BlogArticle = {
 
         "500 — server-side error"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the HTTP Status Codes Guide",
+          href: "/blog/http-status-codes-seo-guide",
+        },
       ],
 
 
@@ -316,6 +344,14 @@ export const seoAuditArticle: BlogArticle = {
 
         "Test important pages again after making changes"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Page Speed SEO Guide",
+          href: "/blog/page-speed-seo-guide",
+        },
       ],
 
 
@@ -369,6 +405,18 @@ export const seoAuditArticle: BlogArticle = {
       ],
 
 
+      links: [
+        {
+          label: "Read the On-Page SEO Checklist",
+          href: "/blog/on-page-seo-checklist",
+        },
+        {
+          label: "Read the SEO Meta Tags Guide",
+          href: "/blog/seo-meta-tags-guide",
+        },
+      ],
+
+
       tip:
         "You can use the LifeSeos Meta Tag Generator and SERP Snippet Preview to review titles and descriptions before publishing changes."
 
@@ -416,6 +464,14 @@ export const seoAuditArticle: BlogArticle = {
 
         "Review pages that cover very similar topics"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Content Analysis SEO Guide",
+          href: "/blog/content-analysis-seo-guide",
+        },
       ],
 
 
@@ -502,6 +558,14 @@ export const seoAuditArticle: BlogArticle = {
 
         "Review unusually high keyword repetition"
 
+      ],
+
+
+      links: [
+        {
+          label: "Read the Keyword Density Guide",
+          href: "/blog/keyword-density-guide",
+        },
       ],
 
 
