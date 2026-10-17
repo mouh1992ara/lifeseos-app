@@ -129,14 +129,12 @@ export const metadata: Metadata = {
     },
   },
 
-  verification: {
-    other: {
-      "baidu-site-verification": [
-        "codeva-GvjC1X0P41",
-        "codeva-qOIDHgcBnq",
-      ],
-    },
+verification: {
+  other: {
+    "baidu-site-verification":
+      "codeva-GvjC1XoP41",
   },
+},
 };
 
 const websiteJsonLd = {
