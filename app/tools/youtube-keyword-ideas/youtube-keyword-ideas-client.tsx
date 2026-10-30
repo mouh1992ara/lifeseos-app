@@ -4,13 +4,13 @@
 
 import Link from "next/link";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import {
 
-  BarChart3,
-
   Check,
+
+  ClipboardCopy,
 
   Compass,
 
@@ -20,13 +20,13 @@ import {
 
   FileText,
 
+  Hash,
+
   Lightbulb,
 
-  MousePointerClick,
+  ListFilter,
 
   Play,
-
-  RefreshCw,
 
   Search,
 
@@ -38,7 +38,9 @@ import {
 
   Target,
 
-  TextCursorInput,
+  TextSearch,
+
+  TrendingUp,
 
   Users,
 
@@ -48,45 +50,47 @@ import {
 
 
 
-type TitleStyle =
+type Intent =
 
-  | "SEO Focused"
+  | "Broad Discovery"
 
   | "How-To"
 
-  | "Curiosity"
+  | "Beginner"
 
-  | "List"
+  | "Comparison"
 
-  | "Beginner Friendly"
+  | "Problem Solving"
 
-  | "Professional";
+  | "Review";
 
 
 
-type GeneratedTitle = {
+type KeywordGroup = {
 
   title: string;
 
-  style: TitleStyle;
+  description: string;
+
+  items: string[];
 
 };
 
 
 
-const TITLE_STYLES: TitleStyle[] = [
+const INTENTS: Intent[] = [
 
-  "SEO Focused",
+  "Broad Discovery",
 
   "How-To",
 
-  "Curiosity",
+  "Beginner",
 
-  "List",
+  "Comparison",
 
-  "Beginner Friendly",
+  "Problem Solving",
 
-  "Professional",
+  "Review",
 
 ];
 
@@ -122,183 +126,357 @@ function titleCase(value: string) {
 
 
 
-function generateTitles(
+function unique(items: string[]) {
+
+  return Array.from(new Set(items.map((item) => cleanText(item)).filter(Boolean)));
+
+}
+
+
+
+function buildKeywordGroups(
 
   topic: string,
 
-  keyword: string,
+  seedKeyword: string,
 
-  style: TitleStyle,
+  intent: Intent,
 
   audience: string
 
-): GeneratedTitle[] {
+): KeywordGroup[] {
 
-  const cleanTopic = titleCase(cleanText(topic));
+  const cleanTopic = cleanText(topic);
 
-  const cleanKeyword = titleCase(cleanText(keyword || topic));
+  const cleanSeed = cleanText(seedKeyword || topic);
 
   const cleanAudience = cleanText(audience);
 
 
 
-  const audienceText = cleanAudience ? ` for ${cleanAudience}` : "";
+  const topicLower = cleanTopic.toLowerCase();
+
+  const seedLower = cleanSeed.toLowerCase();
+
+  const audienceSuffix = cleanAudience ? ` for ${cleanAudience}` : "";
 
 
 
-  const templates: Record<TitleStyle, string[]> = {
+  const core = unique([
 
-    "SEO Focused": [
+    seedLower,
 
-      `${cleanKeyword}: Complete Guide to ${cleanTopic}`,
+    topicLower,
 
-      `How to Improve ${cleanKeyword}${audienceText}`,
+    `${seedLower} tips`,
 
-      `${cleanKeyword} Explained: What You Need to Know`,
+    `${seedLower} guide`,
 
-      `Best Ways to Improve ${cleanKeyword}`,
+    `${seedLower} tutorial`,
 
-      `${cleanTopic}: A Practical Guide to Better Results`,
+    `${seedLower} strategy`,
 
-      `How ${cleanKeyword} Can Help You Improve ${cleanTopic}`,
+    `${seedLower} explained`,
 
-      `${cleanKeyword} Tips You Should Know`,
+    `${seedLower} ideas`,
 
-      `The Complete ${cleanKeyword} Guide${audienceText}`,
+    `${topicLower} tips`,
 
-      `${cleanTopic} Strategy: Improve Your ${cleanKeyword}`,
+    `${topicLower} guide`,
 
-      `Master ${cleanKeyword}: A Step-by-Step Guide`,
+  ]);
+
+
+
+  const longTail = unique([
+
+    `how to ${seedLower}`,
+
+    `best way to ${seedLower}`,
+
+    `${seedLower} for beginners`,
+
+    `${seedLower} step by step`,
+
+    `${seedLower} tutorial for beginners`,
+
+    `${seedLower} tips that actually help`,
+
+    `how to improve ${seedLower}`,
+
+    `${seedLower}${audienceSuffix}`,
+
+    `complete guide to ${seedLower}`,
+
+    `${seedLower} mistakes to avoid`,
+
+  ]);
+
+
+
+  const questions = unique([
+
+    `what is ${seedLower}`,
+
+    `how does ${seedLower} work`,
+
+    `is ${seedLower} worth it`,
+
+    `why is ${seedLower} important`,
+
+    `how do i start with ${seedLower}`,
+
+    `what are the best ${seedLower} tips`,
+
+    `how can i improve ${seedLower}`,
+
+    `what should beginners know about ${seedLower}`,
+
+  ]);
+
+
+
+  const howTo = unique([
+
+    `how to start ${seedLower}`,
+
+    `how to learn ${seedLower}`,
+
+    `how to improve ${seedLower}`,
+
+    `how to use ${seedLower}`,
+
+    `how to master ${seedLower}`,
+
+    `how to fix ${seedLower} mistakes`,
+
+    `how to get better at ${seedLower}`,
+
+    `how to create a ${seedLower} strategy`,
+
+  ]);
+
+
+
+  const beginner = unique([
+
+    `${seedLower} for beginners`,
+
+    `${seedLower} basics`,
+
+    `${seedLower} beginner guide`,
+
+    `getting started with ${seedLower}`,
+
+    `${seedLower} explained simply`,
+
+    `${seedLower} step by step for beginners`,
+
+    `learn ${seedLower} from scratch`,
+
+    `${seedLower} beginner mistakes`,
+
+  ]);
+
+
+
+  const comparison = unique([
+
+    `${seedLower} vs alternatives`,
+
+    `${seedLower} vs traditional methods`,
+
+    `best ${seedLower} tools`,
+
+    `${seedLower} comparison`,
+
+    `${seedLower} pros and cons`,
+
+    `${seedLower} review`,
+
+    `${seedLower} alternatives`,
+
+    `which ${seedLower} option is best`,
+
+  ]);
+
+
+
+  const problem = unique([
+
+    `why ${seedLower} is not working`,
+
+    `${seedLower} mistakes`,
+
+    `${seedLower} problems`,
+
+    `how to fix ${seedLower}`,
+
+    `common ${seedLower} mistakes`,
+
+    `${seedLower} not getting results`,
+
+    `why people struggle with ${seedLower}`,
+
+    `${seedLower} troubleshooting`,
+
+  ]);
+
+
+
+  const review = unique([
+
+    `${seedLower} review`,
+
+    `is ${seedLower} worth it`,
+
+    `${seedLower} honest review`,
+
+    `${seedLower} results`,
+
+    `${seedLower} test`,
+
+    `${seedLower} experience`,
+
+    `${seedLower} pros and cons`,
+
+    `${seedLower} before and after`,
+
+  ]);
+
+
+
+  const intentMap: Record<Intent, string[]> = {
+
+    "Broad Discovery": longTail,
+
+    "How-To": howTo,
+
+    Beginner: beginner,
+
+    Comparison: comparison,
+
+    "Problem Solving": problem,
+
+    Review: review,
+
+  };
+
+
+
+  return [
+
+    {
+
+      title: "Core Keywords",
+
+      description: "Short seed phrases related to your main topic.",
+
+      items: core,
+
+    },
+
+    {
+
+      title: "Long-Tail Keywords",
+
+      description: "More specific phrases that can inspire focused video ideas.",
+
+      items: longTail,
+
+    },
+
+    {
+
+      title: "Question Keywords",
+
+      description: "Question-based phrases that can become useful video topics.",
+
+      items: questions,
+
+    },
+
+    {
+
+      title: `${intent} Ideas`,
+
+      description: `Keyword ideas shaped around the ${intent.toLowerCase()} intent you selected.`,
+
+      items: intentMap[intent],
+
+    },
+
+  ];
+
+}
+
+
+
+function buildVideoAngles(topic: string, seedKeyword: string, intent: Intent) {
+
+  const base = titleCase(cleanText(seedKeyword || topic));
+
+
+
+  const intentAngles: Record<Intent, string[]> = {
+
+    "Broad Discovery": [
+
+      `${base}: What You Need to Know`,
+
+      `7 ${base} Tips for Better Results`,
+
+      `${base} Explained for Beginners`,
 
     ],
-
-
 
     "How-To": [
 
-      `How to ${cleanTopic}`,
+      `How to ${base} Step by Step`,
 
-      `How to Improve ${cleanKeyword} Step by Step`,
+      `How to Improve ${base}`,
 
-      `How to Get Better Results with ${cleanKeyword}`,
-
-      `How to Master ${cleanTopic}${audienceText}`,
-
-      `How to Start with ${cleanKeyword}`,
-
-      `How to Use ${cleanKeyword} the Right Way`,
-
-      `How to Improve ${cleanTopic} Without Overcomplicating It`,
-
-      `How to Get Started with ${cleanTopic}`,
-
-      `How to Fix Common ${cleanKeyword} Mistakes`,
-
-      `How to Make ${cleanTopic} Work Better`,
+      `How to Get Started with ${base}`,
 
     ],
 
+    Beginner: [
 
+      `${base} for Beginners`,
 
-    Curiosity: [
+      `A Beginner's Guide to ${base}`,
 
-      `Why Your ${cleanKeyword} Is Not Working`,
-
-      `The Truth About ${cleanTopic}`,
-
-      `What Nobody Tells You About ${cleanKeyword}`,
-
-      `Are You Making These ${cleanKeyword} Mistakes?`,
-
-      `The Biggest Mistake People Make with ${cleanTopic}`,
-
-      `Why Most People Get ${cleanKeyword} Wrong`,
-
-      `What Happens When You Improve ${cleanKeyword}?`,
-
-      `The Hidden Problem with ${cleanTopic}`,
-
-      `Is ${cleanKeyword} Really Worth It?`,
-
-      `The Simple Change That Can Improve ${cleanTopic}`,
+      `${base} Basics Explained Simply`,
 
     ],
 
+    Comparison: [
 
+      `${base} vs Alternatives`,
 
-    List: [
+      `Best ${base} Options Compared`,
 
-      `7 Ways to Improve ${cleanKeyword}`,
-
-      `10 ${cleanKeyword} Tips You Should Know`,
-
-      `5 Common ${cleanKeyword} Mistakes to Avoid`,
-
-      `8 Simple Ways to Improve ${cleanTopic}`,
-
-      `6 Things You Need to Know About ${cleanKeyword}`,
-
-      `9 Powerful ${cleanKeyword} Tips${audienceText}`,
-
-      `5 Easy Steps to Better ${cleanTopic}`,
-
-      `7 ${cleanKeyword} Strategies That Actually Make Sense`,
-
-      `10 Ideas to Improve ${cleanTopic}`,
-
-      `6 Practical Tips for Better ${cleanKeyword}`,
+      `${base}: Pros, Cons and Alternatives`,
 
     ],
 
+    "Problem Solving": [
 
+      `Why Your ${base} Is Not Working`,
 
-    "Beginner Friendly": [
+      `Common ${base} Mistakes to Avoid`,
 
-      `${cleanKeyword} for Beginners: Start Here`,
-
-      `A Beginner's Guide to ${cleanTopic}`,
-
-      `${cleanTopic} Made Simple`,
-
-      `How to Start with ${cleanKeyword} as a Beginner`,
-
-      `${cleanKeyword} Explained for Beginners`,
-
-      `Everything Beginners Need to Know About ${cleanTopic}`,
-
-      `Simple ${cleanKeyword} Tips for Beginners`,
-
-      `Getting Started with ${cleanTopic}`,
-
-      `${cleanKeyword} Basics: A Simple Guide`,
-
-      `Learn ${cleanTopic} Step by Step`,
+      `How to Fix ${base} Problems`,
 
     ],
 
+    Review: [
 
+      `${base} Review: Is It Worth It?`,
 
-    Professional: [
+      `${base}: Pros and Cons`,
 
-      `A Practical Guide to ${cleanTopic}`,
-
-      `${cleanKeyword}: Strategies, Tips and Best Practices`,
-
-      `Improving ${cleanKeyword}: A Professional Approach`,
-
-      `${cleanTopic}: Key Strategies for Better Results`,
-
-      `A Strategic Approach to ${cleanKeyword}`,
-
-      `${cleanKeyword} Best Practices${audienceText}`,
-
-      `How to Build a Strong ${cleanKeyword} Strategy`,
-
-      `${cleanTopic}: Practical Insights and Recommendations`,
-
-      `Optimizing ${cleanKeyword} for Better Performance`,
-
-      `A Complete Framework for ${cleanTopic}`,
+      `My Experience with ${base}`,
 
     ],
 
@@ -306,149 +484,107 @@ function generateTitles(
 
 
 
-  return templates[style].map((title) => ({
-
-    title,
-
-    style,
-
-  }));
+  return intentAngles[intent];
 
 }
 
 
 
-function getLengthStatus(length: number) {
-
-  if (length < 35) {
-
-    return {
-
-      label: "Short",
-
-      className: "text-amber-300 bg-amber-400/10 border-amber-400/20",
-
-    };
-
-  }
-
-
-
-  if (length <= 65) {
-
-    return {
-
-      label: "Good length",
-
-      className:
-
-        "text-emerald-300 bg-emerald-400/10 border-emerald-400/20",
-
-    };
-
-  }
-
-
-
-  return {
-
-    label: "Long",
-
-    className: "text-red-300 bg-red-400/10 border-red-400/20",
-
-  };
-
-}
-
-
-
-export default function YouTubeTitleGeneratorClient() {
+export default function YouTubeKeywordIdeasClient() {
 
   const [topic, setTopic] = useState("");
 
-  const [keyword, setKeyword] = useState("");
+  const [seedKeyword, setSeedKeyword] = useState("");
+
+  const [intent, setIntent] = useState<Intent>("Broad Discovery");
 
   const [audience, setAudience] = useState("");
 
-  const [style, setStyle] = useState<TitleStyle>("SEO Focused");
+  const [groups, setGroups] = useState<KeywordGroup[]>([]);
 
-
-
-  const [titles, setTitles] = useState<GeneratedTitle[]>([]);
-
-  const [selectedTitle, setSelectedTitle] = useState("");
-
-  const [copiedTitle, setCopiedTitle] = useState("");
-
-  const [shareCopied, setShareCopied] = useState(false);
+  const [videoAngles, setVideoAngles] = useState<string[]>([]);
 
   const [error, setError] = useState("");
 
+  const [copiedItem, setCopiedItem] = useState("");
+
+  const [shareCopied, setShareCopied] = useState(false);
 
 
-  const selectedLength = selectedTitle.length;
 
+  
+  const hasTrackedUse = useRef(false);
 
-
-  const reasons = useMemo(() => {
-
-    if (!selectedTitle) {
-
-      return [];
-
+  async function recordToolUseOnce() {
+    if (hasTrackedUse.current) {
+      return;
     }
 
+    hasTrackedUse.current = true;
 
+    try {
+      const response = await fetch("/api/tool-events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tool_name: "YouTube Keyword Ideas",
+        }),
+      });
 
-    const checks: string[] = [];
-
-
-
-    if (
-
-      keyword &&
-
-      selectedTitle.toLowerCase().includes(keyword.trim().toLowerCase())
-
-    ) {
-
-      checks.push("Includes your main keyword");
-
+      if (!response.ok) {
+        console.error(
+          "Failed to record YouTube Keyword Ideas usage."
+        );
+      }
+    } catch (trackingError) {
+      console.error(
+        "Unable to record tool usage:",
+        trackingError
+      );
     }
+  }
+
+const allKeywords = useMemo(
+
+    () => unique(groups.flatMap((group) => group.items)),
+
+    [groups]
+
+  );
 
 
 
-    if (selectedLength >= 35 && selectedLength <= 65) {
+  const totalIdeas = allKeywords.length;
 
-      checks.push("Uses a clear and practical title length");
+  const longTailCount = useMemo(
 
-    }
+    () =>
 
+      allKeywords.filter((keyword) => keyword.trim().split(/\s+/).length >= 4)
 
+        .length,
 
-    if (
+    [allKeywords]
 
-      selectedTitle.toLowerCase().includes("how") ||
-
-      selectedTitle.includes("?") ||
-
-      /\d/.test(selectedTitle)
-
-    ) {
-
-      checks.push("Uses a format that clearly communicates the video angle");
-
-    }
+  );
 
 
 
-    checks.push("Makes the video topic easy to understand");
+  const questionCount = useMemo(
 
+    () =>
 
+      allKeywords.filter((keyword) =>
 
-    return checks;
+        /^(what|why|how|is|are|can|should|which)\b/i.test(keyword)
 
-  }, [selectedTitle, keyword, selectedLength]);
+      ).length,
+
+    [allKeywords]
+
+  );
 
 
 
@@ -460,7 +596,7 @@ export default function YouTubeTitleGeneratorClient() {
 
     if (!cleanText(topic)) {
 
-      setError("Please enter a video topic before generating titles.");
+      setError("Please enter a video topic before generating keyword ideas.");
 
       return;
 
@@ -468,61 +604,79 @@ export default function YouTubeTitleGeneratorClient() {
 
 
 
-    const generated = generateTitles(topic, keyword, style, audience);
+    const generatedGroups = buildKeywordGroups(
+
+      topic,
+
+      seedKeyword,
+
+      intent,
+
+      audience
+
+    );
 
 
 
-    setTitles(generated);
+    setGroups(generatedGroups);
 
-    setSelectedTitle(generated[0]?.title ?? "");
+    setVideoAngles(buildVideoAngles(topic, seedKeyword, intent));
 
-
-
-    void fetch("/api/tool-events", {
-
-      method: "POST",
-
-      headers: {
-
-        "Content-Type": "application/json",
-
-      },
-
-      body: JSON.stringify({
-
-        tool_name: "YouTube Keyword Ideas",
-
-      }),
-
-    }).catch(() => {
-
-      // Tracking should never interrupt the tool.
-
-    });
+    void recordToolUseOnce();
 
   }
 
 
 
-  async function handleCopy(title: string) {
+  async function handleCopy(text: string) {
 
     try {
 
-      await navigator.clipboard.writeText(title);
+      await navigator.clipboard.writeText(text);
 
-      setCopiedTitle(title);
+      setCopiedItem(text);
 
 
 
       window.setTimeout(() => {
 
-        setCopiedTitle("");
+        setCopiedItem("");
 
       }, 1800);
 
     } catch {
 
-      setCopiedTitle("");
+      setCopiedItem("");
+
+    }
+
+  }
+
+
+
+  async function handleCopyAll() {
+
+    if (!allKeywords.length) return;
+
+
+
+    try {
+
+      await navigator.clipboard.writeText(allKeywords.join("\n"));
+
+      setCopiedItem("__all__");
+
+
+
+      window.setTimeout(() => {
+
+        setCopiedItem("");
+
+      }, 1800);
+
+    } catch {
+
+      setCopiedItem("");
 
     }
 
@@ -534,9 +688,9 @@ export default function YouTubeTitleGeneratorClient() {
 
     const shareData = {
 
-      title: "Free YouTube Title Generator | LifeSeos",
+      title: "Free YouTube Keyword Ideas Tool | LifeSeos",
 
-      text: "Generate YouTube title ideas with the free LifeSeos YouTube Title Generator.",
+      text: "Generate YouTube keyword and topic ideas with LifeSeos.",
 
       url: window.location.href,
 
@@ -578,32 +732,6 @@ export default function YouTubeTitleGeneratorClient() {
 
 
 
-  function handleGenerateMore() {
-
-    if (!cleanText(topic)) {
-
-      return;
-
-    }
-
-
-
-    const generated = generateTitles(topic, keyword, style, audience);
-
-
-
-    const rotated = [...generated.slice(3), ...generated.slice(0, 3)];
-
-
-
-    setTitles(rotated);
-
-    setSelectedTitle(rotated[0]?.title ?? "");
-
-  }
-
-
-
   return (
 
     <main className="min-h-screen bg-slate-950 text-white">
@@ -638,11 +766,11 @@ export default function YouTubeTitleGeneratorClient() {
 
           <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
 
-            Generate better
+            Discover better
 
             <span className="block bg-gradient-to-r from-red-400 via-rose-300 to-white bg-clip-text text-transparent">
 
-              YouTube titles.
+              YouTube keyword ideas.
 
             </span>
 
@@ -652,9 +780,9 @@ export default function YouTubeTitleGeneratorClient() {
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-400">
 
-            Turn your video topic and keyword into clear, engaging YouTube title
+            Turn a video topic into useful keyword phrases, long-tail ideas,
 
-            ideas in seconds.
+            questions and content angles for future YouTube videos.
 
           </p>
 
@@ -676,7 +804,7 @@ export default function YouTubeTitleGeneratorClient() {
 
               <Check className="h-4 w-4 text-red-400" />
 
-              No account required
+              Multiple keyword groups
 
             </span>
 
@@ -686,7 +814,7 @@ export default function YouTubeTitleGeneratorClient() {
 
               <Check className="h-4 w-4 text-red-400" />
 
-              Multiple title styles
+              Video topic ideas
 
             </span>
 
@@ -712,7 +840,7 @@ export default function YouTubeTitleGeneratorClient() {
 
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-red-400/10">
 
-                <Sparkles className="h-5 w-5 text-red-400" />
+                <Tags className="h-5 w-5 text-red-400" />
 
               </div>
 
@@ -722,13 +850,17 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <h2 className="text-xl font-semibold">
 
-                  Create YouTube title ideas
+                  Generate YouTube keyword ideas
 
                 </h2>
 
+
+
                 <p className="mt-1 text-sm text-slate-400">
 
-                  Add your topic and customize the type of title you want.
+                  Start with a topic, then shape the ideas around your content
+
+                  intent.
 
                 </p>
 
@@ -744,7 +876,7 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <label
 
-                  htmlFor="video-topic"
+                  htmlFor="keyword-topic"
 
                   className="mb-2 block text-sm font-medium text-slate-200"
 
@@ -758,13 +890,13 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <input
 
-                  id="video-topic"
+                  id="keyword-topic"
 
                   value={topic}
 
                   onChange={(event) => setTopic(event.target.value)}
 
-                  placeholder="e.g. How to grow a YouTube channel"
+                  placeholder="e.g. YouTube growth"
 
                   className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-red-400/50 focus:ring-2 focus:ring-red-400/10"
 
@@ -778,13 +910,15 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <label
 
-                  htmlFor="main-keyword"
+                  htmlFor="seed-keyword"
 
                   className="mb-2 block text-sm font-medium text-slate-200"
 
                 >
 
-                  Main Keyword
+                  Seed Keyword
+
+                  <span className="ml-2 text-slate-500">Optional</span>
 
                 </label>
 
@@ -792,11 +926,11 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <input
 
-                  id="main-keyword"
+                  id="seed-keyword"
 
-                  value={keyword}
+                  value={seedKeyword}
 
-                  onChange={(event) => setKeyword(event.target.value)}
+                  onChange={(event) => setSeedKeyword(event.target.value)}
 
                   placeholder="e.g. YouTube SEO"
 
@@ -808,7 +942,7 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <p className="mt-2 text-xs text-slate-500">
 
-                  Optional. If empty, your video topic will be used instead.
+                  If empty, your video topic will be used as the seed phrase.
 
                 </p>
 
@@ -820,13 +954,13 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <label
 
-                  htmlFor="title-style"
+                  htmlFor="keyword-intent"
 
                   className="mb-2 block text-sm font-medium text-slate-200"
 
                 >
 
-                  Title Style
+                  Content Intent
 
                 </label>
 
@@ -834,13 +968,13 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <select
 
-                  id="title-style"
+                  id="keyword-intent"
 
-                  value={style}
+                  value={intent}
 
                   onChange={(event) =>
 
-                    setStyle(event.target.value as TitleStyle)
+                    setIntent(event.target.value as Intent)
 
                   }
 
@@ -848,11 +982,11 @@ export default function YouTubeTitleGeneratorClient() {
 
                 >
 
-                  {TITLE_STYLES.map((titleStyle) => (
+                  {INTENTS.map((item) => (
 
-                    <option key={titleStyle} value={titleStyle}>
+                    <option key={item} value={item}>
 
-                      {titleStyle}
+                      {item}
 
                     </option>
 
@@ -868,7 +1002,7 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <label
 
-                  htmlFor="target-audience"
+                  htmlFor="keyword-audience"
 
                   className="mb-2 block text-sm font-medium text-slate-200"
 
@@ -884,13 +1018,13 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <input
 
-                  id="target-audience"
+                  id="keyword-audience"
 
                   value={audience}
 
                   onChange={(event) => setAudience(event.target.value)}
 
-                  placeholder="e.g. Small business owners"
+                  placeholder="e.g. New creators"
 
                   className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-red-400/50 focus:ring-2 focus:ring-red-400/10"
 
@@ -922,9 +1056,9 @@ export default function YouTubeTitleGeneratorClient() {
 
               >
 
-                <Play className="h-4 w-4 fill-current" />
+                <Search className="h-4 w-4" />
 
-                Generate YouTube Titles
+                Generate Keyword Ideas
 
               </button>
 
@@ -934,7 +1068,7 @@ export default function YouTubeTitleGeneratorClient() {
 
 
 
-          {/* PREVIEW */}
+          {/* QUICK INSIGHTS */}
 
 
 
@@ -946,7 +1080,7 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-red-400">
 
-                  Preview
+                  Keyword Map
 
                 </p>
 
@@ -954,7 +1088,7 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <h2 className="mt-2 text-xl font-semibold">
 
-                  YouTube-style title preview
+                  YouTube keyword idea preview
 
                 </h2>
 
@@ -962,9 +1096,9 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <p className="mt-2 max-w-md text-sm leading-6 text-slate-500">
 
-                  See how your generated title may look in a video-style card
+                  See the topic, intent and keyword mix generated from your
 
-                  and review a few useful title signals at a glance.
+                  inputs.
 
                 </p>
 
@@ -982,13 +1116,9 @@ export default function YouTubeTitleGeneratorClient() {
 
 
 
-            {/* VIDEO CARD */}
-
-
-
             <div className="mt-7 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/70 shadow-xl">
 
-              <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-slate-800 via-slate-900 to-black">
+              <div className="relative min-h-[250px] overflow-hidden bg-gradient-to-br from-slate-800 via-slate-900 to-black p-5">
 
                 <div className="absolute inset-0">
 
@@ -1000,33 +1130,21 @@ export default function YouTubeTitleGeneratorClient() {
 
 
 
-                <div className="absolute left-4 top-4 rounded-full border border-white/10 bg-black/40 px-3 py-1.5 text-xs font-medium text-slate-200 backdrop-blur">
+                <div className="relative">
 
-                  Preview only
+                  <div className="flex items-center justify-between gap-4">
 
-                </div>
+                    <span className="rounded-full border border-white/10 bg-black/30 px-3 py-1.5 text-xs text-slate-300 backdrop-blur">
 
+                      Preview only
 
-
-                <div className="absolute inset-0 flex items-center justify-center">
-
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-500 shadow-[0_12px_40px_rgba(239,68,68,0.35)] transition duration-300 hover:scale-105">
-
-                    <Play className="ml-1 h-7 w-7 fill-white text-white" />
-
-                  </div>
-
-                </div>
+                    </span>
 
 
 
-                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
+                    <span className="rounded-full border border-red-400/20 bg-red-400/10 px-3 py-1.5 text-xs font-medium text-red-300">
 
-                  <div className="max-w-[75%]">
-
-                    <span className="inline-flex rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1 text-[11px] font-medium text-slate-300 backdrop-blur">
-
-                      YouTube SEO
+                      {intent}
 
                     </span>
 
@@ -1034,59 +1152,69 @@ export default function YouTubeTitleGeneratorClient() {
 
 
 
-                  <span className="rounded-md bg-black/80 px-2 py-1 text-xs font-semibold text-white">
+                  <div className="mt-10">
 
-                    8:42
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
 
-                  </span>
+                      Seed topic
 
-                </div>
-
-              </div>
+                    </p>
 
 
 
-              <div className="p-5">
+                    <h3 className="mt-2 text-2xl font-bold">
 
-                <div className="flex gap-3">
+                      {cleanText(seedKeyword || topic) || "Your keyword"}
 
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-red-500 to-rose-700 shadow-lg">
-
-                    <Youtube className="h-5 w-5 text-white" />
+                    </h3>
 
                   </div>
 
 
 
-                  <div className="min-w-0 flex-1">
+                  <div className="mt-7 flex flex-wrap gap-2">
 
-                    <h3 className="line-clamp-2 text-[15px] font-semibold leading-6 text-white">
+                    {[
 
-                      {selectedTitle ||
+                      cleanText(seedKeyword || topic),
 
-                        "Your generated YouTube title will appear here"}
+                      cleanText(seedKeyword || topic)
 
-                    </h3>
+                        ? `${cleanText(seedKeyword || topic)} tips`
 
+                        : "",
 
+                      cleanText(seedKeyword || topic)
 
-                    <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
+                        ? `how to ${cleanText(seedKeyword || topic)}`
 
-                      <span>LifeSeos Creator</span>
+                        : "",
 
-                      <span className="text-slate-700">•</span>
+                      cleanText(seedKeyword || topic)
 
-                      <span>Preview</span>
+                        ? `${cleanText(seedKeyword || topic)} guide`
 
-                    </div>
+                        : "",
 
+                    ]
 
+                      .filter(Boolean)
 
-                    <p className="mt-1 text-xs text-slate-600">
+                      .map((item) => (
 
-                      Sample display only
+                        <span
 
-                    </p>
+                          key={item}
+
+                          className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1.5 text-xs text-slate-300"
+
+                        >
+
+                          {item}
+
+                        </span>
+
+                      ))}
 
                   </div>
 
@@ -1098,29 +1226,21 @@ export default function YouTubeTitleGeneratorClient() {
 
 
 
-            {/* QUICK TITLE REVIEW */}
-
-
-
             <div className="mt-6">
 
-              <div>
+              <p className="text-sm font-semibold text-slate-200">
 
-                <p className="text-sm font-semibold text-slate-200">
+                Quick keyword review
 
-                  Quick title review
-
-                </p>
+              </p>
 
 
 
-                <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 text-xs text-slate-500">
 
-                  Live signals based on the generated title you selected.
+                Live signals based on your generated keyword set.
 
-                </p>
-
-              </div>
+              </p>
 
 
 
@@ -1130,7 +1250,29 @@ export default function YouTubeTitleGeneratorClient() {
 
                   <p className="text-xs uppercase tracking-wider text-slate-500">
 
-                    Length
+                    Ideas
+
+                  </p>
+
+
+
+                  <div className="mt-2 flex items-end justify-between gap-3">
+
+                    <span className="text-lg font-semibold">{totalIdeas}</span>
+
+                    <Hash className="h-5 w-5 text-slate-400" />
+
+                  </div>
+
+                </div>
+
+
+
+                <div className="rounded-xl border border-white/10 bg-slate-950/40 p-4">
+
+                  <p className="text-xs uppercase tracking-wider text-slate-500">
+
+                    Long-tail
 
                   </p>
 
@@ -1140,45 +1282,11 @@ export default function YouTubeTitleGeneratorClient() {
 
                     <span className="text-lg font-semibold">
 
-                      {selectedLength || 0}
+                      {longTailCount}
 
                     </span>
 
-
-
-                    <span
-
-                      className={`text-xs font-medium ${
-
-                        selectedLength >= 35 && selectedLength <= 65
-
-                          ? "text-emerald-300"
-
-                          : selectedLength === 0
-
-                            ? "text-slate-500"
-
-                            : "text-amber-300"
-
-                      }`}
-
-                    >
-
-                      {selectedLength === 0
-
-                        ? "Waiting"
-
-                        : selectedLength >= 35 && selectedLength <= 65
-
-                          ? "Good"
-
-                          : selectedLength < 35
-
-                            ? "Short"
-
-                            : "Long"}
-
-                    </span>
+                    <TrendingUp className="h-5 w-5 text-slate-400" />
 
                   </div>
 
@@ -1190,7 +1298,7 @@ export default function YouTubeTitleGeneratorClient() {
 
                   <p className="text-xs uppercase tracking-wider text-slate-500">
 
-                    Keyword
+                    Questions
 
                   </p>
 
@@ -1198,177 +1306,19 @@ export default function YouTubeTitleGeneratorClient() {
 
                   <div className="mt-2 flex items-end justify-between gap-3">
 
-                    <Target className="h-5 w-5 text-slate-400" />
+                    <span className="text-lg font-semibold">
 
-
-
-                    <span
-
-                      className={`text-xs font-medium ${
-
-                        !cleanText(keyword)
-
-                          ? "text-slate-500"
-
-                          : selectedTitle
-
-                              .toLowerCase()
-
-                              .includes(cleanText(keyword).toLowerCase())
-
-                            ? "text-emerald-300"
-
-                            : "text-amber-300"
-
-                      }`}
-
-                    >
-
-                      {!cleanText(keyword)
-
-                        ? "Not set"
-
-                        : selectedTitle
-
-                            .toLowerCase()
-
-                            .includes(cleanText(keyword).toLowerCase())
-
-                          ? "Found"
-
-                          : "Missing"}
+                      {questionCount}
 
                     </span>
 
-                  </div>
-
-                </div>
-
-
-
-                <div className="rounded-xl border border-white/10 bg-slate-950/40 p-4">
-
-                  <p className="text-xs uppercase tracking-wider text-slate-500">
-
-                    Clarity
-
-                  </p>
-
-
-
-                  <div className="mt-2 flex items-end justify-between gap-3">
-
-                    <Lightbulb className="h-5 w-5 text-slate-400" />
-
-
-
-                    <span
-
-                      className={`text-xs font-medium ${
-
-                        !selectedTitle
-
-                          ? "text-slate-500"
-
-                          : selectedTitle.split(" ").length >= 5
-
-                            ? "text-emerald-300"
-
-                            : "text-amber-300"
-
-                      }`}
-
-                    >
-
-                      {!selectedTitle
-
-                        ? "Waiting"
-
-                        : selectedTitle.split(" ").length >= 5
-
-                          ? "Clear"
-
-                          : "Basic"}
-
-                    </span>
+                    <Compass className="h-5 w-5 text-slate-400" />
 
                   </div>
 
                 </div>
 
               </div>
-
-
-
-              {selectedTitle ? (
-
-                <div className="mt-5 rounded-xl border border-white/10 bg-slate-950/30 p-4">
-
-                  <div className="flex items-center justify-between gap-3">
-
-                    <span className="text-sm text-slate-400">
-
-                      Title length
-
-                    </span>
-
-
-
-                    <span className="text-sm font-medium">
-
-                      {selectedLength} characters
-
-                    </span>
-
-                  </div>
-
-
-
-                  <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
-
-                    <div
-
-                      className={`h-full rounded-full transition-all duration-500 ${
-
-                        selectedLength >= 35 && selectedLength <= 65
-
-                          ? "bg-emerald-400"
-
-                          : "bg-red-500"
-
-                      }`}
-
-                      style={{
-
-                        width: `${Math.min(
-
-                          Math.max((selectedLength / 70) * 100, 4),
-
-                          100
-
-                        )}%`,
-
-                      }}
-
-                    />
-
-                  </div>
-
-
-
-                  <div className="mt-2 flex justify-between text-[11px] text-slate-600">
-
-                    <span>Short</span>
-
-                    <span>Balanced</span>
-
-                    <span>Long</span>
-
-                  </div>
-
-                </div>
-
-              ) : null}
 
             </div>
 
@@ -1384,257 +1334,267 @@ export default function YouTubeTitleGeneratorClient() {
 
 
 
-      {titles.length > 0 ? (
+      {groups.length > 0 ? (
 
-        <section className="px-6 pb-24 sm:px-10 lg:px-16">
+        <>
 
-          <div className="mx-auto max-w-6xl">
+          <section className="px-6 pb-20 sm:px-10 lg:px-16">
 
-            <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+            <div className="mx-auto max-w-6xl">
 
-              <div>
+              <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
 
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
+                <div>
 
-                  Generated Titles
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
 
-                </p>
+                    Keyword Ideas
 
-
-
-                <h2 className="mt-3 text-3xl font-bold">
-
-                  Choose your favorite title
-
-                </h2>
+                  </p>
 
 
 
-                <p className="mt-3 max-w-2xl text-slate-400">
+                  <h2 className="mt-3 text-3xl font-bold">
 
-                  Select a title to preview it, then copy the version you want
+                    Explore your YouTube keyword set
 
-                  to use.
+                  </h2>
 
-                </p>
+
+
+                  <p className="mt-3 max-w-2xl text-slate-400">
+
+                    Browse keyword groups, copy individual phrases or copy the
+
+                    complete set at once.
+
+                  </p>
+
+                </div>
+
+
+
+                <button
+
+                  type="button"
+
+                  onClick={handleCopyAll}
+
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-red-400/30 hover:bg-white/[0.05]"
+
+                >
+
+                  {copiedItem === "__all__" ? (
+
+                    <>
+
+                      <Check className="h-4 w-4 text-emerald-400" />
+
+                      Copied all
+
+                    </>
+
+                  ) : (
+
+                    <>
+
+                      <ClipboardCopy className="h-4 w-4" />
+
+                      Copy all keywords
+
+                    </>
+
+                  )}
+
+                </button>
 
               </div>
 
 
 
-              <button
+              <div className="mt-10 grid gap-6 lg:grid-cols-2">
 
-                type="button"
-
-                onClick={handleGenerateMore}
-
-                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-red-400/30 hover:bg-white/[0.05]"
-
-              >
-
-                <RefreshCw className="h-4 w-4" />
-
-                Generate More
-
-              </button>
-
-            </div>
-
-
-
-            <div className="mt-10 grid gap-4">
-
-              {titles.map((item, index) => {
-
-                const lengthStatus = getLengthStatus(item.title.length);
-
-                const isSelected = item.title === selectedTitle;
-
-                const isCopied = item.title === copiedTitle;
-
-
-
-                return (
+                {groups.map((group) => (
 
                   <div
 
-                    key={`${item.title}-${index}`}
+                    key={group.title}
 
-                    className={`rounded-2xl border p-5 transition duration-300 ${
-
-                      isSelected
-
-                        ? "border-red-400/40 bg-red-400/[0.05]"
-
-                        : "border-white/10 bg-white/[0.02] hover:border-white/20"
-
-                    }`}
+                    className="rounded-[26px] border border-white/10 bg-white/[0.025] p-6"
 
                   >
 
-                    <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+                    <div className="flex items-start justify-between gap-4">
 
-                      <button
+                      <div>
 
-                        type="button"
+                        <h3 className="text-xl font-semibold">
 
-                        onClick={() => setSelectedTitle(item.title)}
-
-                        className="flex-1 text-left"
-
-                      >
-
-                        <div className="flex flex-wrap items-center gap-2">
-
-                          <span className="rounded-full border border-red-400/20 bg-red-400/10 px-2.5 py-1 text-xs font-medium text-red-300">
-
-                            {item.style}
-
-                          </span>
-
-
-
-                          <span
-
-                            className={`rounded-full border px-2.5 py-1 text-xs font-medium ${lengthStatus.className}`}
-
-                          >
-
-                            {lengthStatus.label}
-
-                          </span>
-
-
-
-                          <span className="text-xs text-slate-500">
-
-                            {item.title.length} characters
-
-                          </span>
-
-                        </div>
-
-
-
-                        <h3 className="mt-3 text-lg font-semibold leading-7 text-white">
-
-                          {item.title}
+                          {group.title}
 
                         </h3>
 
-                      </button>
+
+
+                        <p className="mt-2 text-sm leading-6 text-slate-500">
+
+                          {group.description}
+
+                        </p>
+
+                      </div>
 
 
 
-                      <button
+                      <span className="rounded-full border border-red-400/20 bg-red-400/10 px-2.5 py-1 text-xs font-medium text-red-300">
 
-                        type="button"
+                        {group.items.length} ideas
 
-                        onClick={() => handleCopy(item.title)}
+                      </span>
 
-                        className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-red-400/30 hover:text-white"
+                    </div>
 
-                      >
 
-                        {isCopied ? (
 
-                          <>
+                    <div className="mt-6 space-y-3">
 
-                            <Check className="h-4 w-4 text-emerald-400" />
+                      {group.items.map((item) => {
 
-                            Copied
+                        const isCopied = copiedItem === item;
 
-                          </>
 
-                        ) : (
 
-                          <>
+                        return (
 
-                            <Copy className="h-4 w-4" />
+                          <div
 
-                            Copy
+                            key={item}
 
-                          </>
+                            className="flex items-center justify-between gap-4 rounded-xl border border-white/10 bg-slate-950/40 px-4 py-3"
 
-                        )}
+                          >
 
-                      </button>
+                            <span className="text-sm leading-6 text-slate-300">
+
+                              {item}
+
+                            </span>
+
+
+
+                            <button
+
+                              type="button"
+
+                              onClick={() => handleCopy(item)}
+
+                              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-slate-400 transition hover:border-red-400/30 hover:text-white"
+
+                              aria-label={`Copy ${item}`}
+
+                            >
+
+                              {isCopied ? (
+
+                                <Check className="h-4 w-4 text-emerald-400" />
+
+                              ) : (
+
+                                <Copy className="h-4 w-4" />
+
+                              )}
+
+                            </button>
+
+                          </div>
+
+                        );
+
+                      })}
 
                     </div>
 
                   </div>
 
-                );
+                ))}
 
-              })}
+              </div>
 
             </div>
 
-
-
-            {/* WHY THIS TITLE WORKS */}
-
-
-
-            {selectedTitle ? (
-
-              <div className="mt-8 rounded-[26px] border border-white/10 bg-white/[0.025] p-7">
-
-                <div className="flex items-start gap-4">
-
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-400/10">
-
-                    <Lightbulb className="h-5 w-5 text-amber-300" />
-
-                  </div>
+          </section>
 
 
 
-                  <div>
-
-                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-amber-300">
-
-                      Title Insights
-
-                    </p>
+          {/* VIDEO ANGLES */}
 
 
 
-                    <h2 className="mt-2 text-xl font-semibold">
+          <section className="px-6 pb-20 sm:px-10 lg:px-16">
 
-                      Why this title works
+            <div className="mx-auto max-w-6xl rounded-[28px] border border-white/10 bg-gradient-to-br from-white/[0.045] to-white/[0.015] p-7 sm:p-8">
 
-                    </h2>
+              <div className="flex items-start gap-4">
 
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-400/10">
 
+                  <Lightbulb className="h-5 w-5 text-amber-300" />
 
-                    <div className="mt-5 grid gap-3 sm:grid-cols-2">
-
-                      {reasons.map((reason) => (
-
-                        <div
-
-                          key={reason}
-
-                          className="flex items-start gap-3 rounded-xl border border-white/10 bg-slate-950/40 p-4"
-
-                        >
-
-                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                </div>
 
 
 
-                          <span className="text-sm leading-6 text-slate-300">
+                <div className="flex-1">
 
-                            {reason}
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-amber-300">
 
-                          </span>
+                    Suggested Video Angles
 
-                        </div>
+                  </p>
 
-                      ))}
 
-                    </div>
+
+                  <h2 className="mt-2 text-2xl font-semibold">
+
+                    Turn keywords into video ideas
+
+                  </h2>
+
+
+
+                  <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400">
+
+                    Use these as starting points for video concepts, then adapt
+
+                    the wording so it accurately reflects your content.
+
+                  </p>
+
+
+
+                  <div className="mt-6 grid gap-3 md:grid-cols-3">
+
+                    {videoAngles.map((angle) => (
+
+                      <div
+
+                        key={angle}
+
+                        className="rounded-xl border border-white/10 bg-slate-950/40 p-4"
+
+                      >
+
+                        <Play className="h-4 w-4 text-red-400" />
+
+                        <p className="mt-3 text-sm font-semibold leading-6">
+
+                          {angle}
+
+                        </p>
+
+                      </div>
+
+                    ))}
 
                   </div>
 
@@ -1642,11 +1602,11 @@ export default function YouTubeTitleGeneratorClient() {
 
               </div>
 
-            ) : null}
+            </div>
 
-          </div>
+          </section>
 
-        </section>
+        </>
 
       ) : null}
 
@@ -1676,11 +1636,13 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <h2 className="font-semibold">Share this tool</h2>
 
+
+
                 <p className="mt-1 text-sm leading-6 text-slate-400">
 
-                  Know a creator who needs better video title ideas? Share the
+                  Share the YouTube Keyword Ideas tool with creators looking for
 
-                  YouTube Title Generator with them.
+                  new video topics and keyword angles.
 
                 </p>
 
@@ -1732,7 +1694,7 @@ export default function YouTubeTitleGeneratorClient() {
 
 
 
-      {/* TITLE OPTIMIZATION */}
+      {/* KEYWORD FACTORS */}
 
 
 
@@ -1744,7 +1706,7 @@ export default function YouTubeTitleGeneratorClient() {
 
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
 
-              YouTube Title Optimization
+              YouTube Keyword Research
 
             </p>
 
@@ -1752,7 +1714,7 @@ export default function YouTubeTitleGeneratorClient() {
 
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
 
-              Build titles that are clear, relevant and easy to understand
+              Explore different keyword angles for your videos
 
             </h2>
 
@@ -1760,13 +1722,11 @@ export default function YouTubeTitleGeneratorClient() {
 
             <p className="mt-5 leading-8 text-slate-400">
 
-              A useful YouTube title should quickly communicate what the video
+              LifeSeos groups your topic into practical keyword formats so you
 
-              is about while matching the topic, keyword and audience you want
+              can explore broader ideas, specific phrases and question-based
 
-              to reach. LifeSeos helps you explore different title angles
-
-              without making unrealistic ranking promises.
+              video concepts.
 
             </p>
 
@@ -1780,21 +1740,21 @@ export default function YouTubeTitleGeneratorClient() {
 
               {
 
-                icon: Search,
+                icon: Hash,
 
-                title: "Keyword Relevance",
+                title: "Core Keywords",
 
-                text: "Keep the main topic or keyword visible when it helps viewers understand the video.",
+                text: "Start with short phrases that describe the main subject of your video.",
 
               },
 
               {
 
-                icon: TextCursorInput,
+                icon: TrendingUp,
 
-                title: "Title Clarity",
+                title: "Long-Tail Ideas",
 
-                text: "Make the subject easy to understand instead of relying on vague wording.",
+                text: "Explore more specific phrases that can inspire focused video topics.",
 
               },
 
@@ -1802,29 +1762,19 @@ export default function YouTubeTitleGeneratorClient() {
 
                 icon: Compass,
 
+                title: "Question Keywords",
+
+                text: "Turn common questions into useful educational or explanatory videos.",
+
+              },
+
+              {
+
+                icon: ListFilter,
+
                 title: "Search Intent",
 
-                text: "Use a title format that matches what someone may be trying to learn or discover.",
-
-              },
-
-              {
-
-                icon: MousePointerClick,
-
-                title: "Click Appeal",
-
-                text: "Create interest with specific, useful wording without misleading the viewer.",
-
-              },
-
-              {
-
-                icon: BarChart3,
-
-                title: "Title Length",
-
-                text: "Keep an eye on title length so the important information remains easy to scan.",
+                text: "Shape ideas around how-to, beginner, comparison, review or problem-solving content.",
 
               },
 
@@ -1834,7 +1784,17 @@ export default function YouTubeTitleGeneratorClient() {
 
                 title: "Audience Fit",
 
-                text: "Adapt wording to the people the video is intended to help or entertain.",
+                text: "Use audience context to make some keyword ideas more specific.",
+
+              },
+
+              {
+
+                icon: Play,
+
+                title: "Video Angles",
+
+                text: "Transform keyword phrases into practical starting points for video titles.",
 
               },
 
@@ -1908,7 +1868,7 @@ export default function YouTubeTitleGeneratorClient() {
 
               <h2 className="mt-3 text-3xl font-bold">
 
-                How to use the YouTube Title Generator
+                How to use YouTube Keyword Ideas
 
               </h2>
 
@@ -1916,11 +1876,9 @@ export default function YouTubeTitleGeneratorClient() {
 
               <p className="mt-5 leading-8 text-slate-400">
 
-                Create title ideas in a few simple steps, compare the options
+                Start with a broad topic and use the generated groups to explore
 
-                and use the preview to choose the version that best matches
-
-                your video.
+                different video directions.
 
               </p>
 
@@ -1938,7 +1896,7 @@ export default function YouTubeTitleGeneratorClient() {
 
                   title: "Enter your video topic",
 
-                  text: "Describe what your video is about in a clear phrase.",
+                  text: "Describe the main subject you want to create content about.",
 
                 },
 
@@ -1946,9 +1904,9 @@ export default function YouTubeTitleGeneratorClient() {
 
                   number: "2",
 
-                  title: "Add a keyword and audience",
+                  title: "Add a seed keyword",
 
-                  text: "Add an optional main keyword and target audience to make the ideas more specific.",
+                  text: "Optionally add a more specific phrase you want the ideas to focus on.",
 
                 },
 
@@ -1956,9 +1914,9 @@ export default function YouTubeTitleGeneratorClient() {
 
                   number: "3",
 
-                  title: "Choose a title style",
+                  title: "Choose your content intent",
 
-                  text: "Select SEO Focused, How-To, Curiosity, List, Beginner Friendly or Professional.",
+                  text: "Select broad discovery, how-to, beginner, comparison, problem solving or review.",
 
                 },
 
@@ -1966,9 +1924,9 @@ export default function YouTubeTitleGeneratorClient() {
 
                   number: "4",
 
-                  title: "Generate, preview and copy",
+                  title: "Explore and copy ideas",
 
-                  text: "Compare the title ideas, preview your favorite and copy it when you are ready.",
+                  text: "Review keyword groups, copy useful phrases and turn them into video concepts.",
 
                 },
 
@@ -1994,6 +1952,8 @@ export default function YouTubeTitleGeneratorClient() {
 
                     <h3 className="font-semibold">{step.title}</h3>
 
+
+
                     <p className="mt-1.5 text-sm leading-6 text-slate-400">
 
                       {step.text}
@@ -2016,7 +1976,7 @@ export default function YouTubeTitleGeneratorClient() {
 
 
 
-      {/* WHY TITLES MATTER */}
+      {/* WHY KEYWORDS MATTER */}
 
 
 
@@ -2036,7 +1996,7 @@ export default function YouTubeTitleGeneratorClient() {
 
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
 
-              Why YouTube titles matter
+              Why YouTube keyword ideas matter
 
             </h2>
 
@@ -2044,13 +2004,11 @@ export default function YouTubeTitleGeneratorClient() {
 
             <p className="mt-5 leading-8 text-slate-400">
 
-              Your title is one of the first pieces of information viewers see
+              Keyword research can help creators think about the language people
 
-              when deciding whether a video matches what they want. Clear titles
+              may use when looking for videos about a topic. It is also useful
 
-              can help communicate the topic, set expectations and make your
-
-              content easier to understand.
+              for finding narrower questions, problems and content angles.
 
             </p>
 
@@ -2058,11 +2016,11 @@ export default function YouTubeTitleGeneratorClient() {
 
             <p className="mt-4 leading-8 text-slate-400">
 
-              A title works best as part of the complete video package,
+              This tool generates ideas from your inputs. It does not provide
 
-              including the thumbnail, description, content quality and how
+              official YouTube search volume, competition data or guaranteed
 
-              well the video satisfies its audience.
+              ranking predictions.
 
             </p>
 
@@ -2076,33 +2034,33 @@ export default function YouTubeTitleGeneratorClient() {
 
               {
 
-                title: "Communicate the topic",
+                title: "Find new topics",
 
-                text: "Tell viewers what they can expect before they click.",
-
-              },
-
-              {
-
-                title: "Support search relevance",
-
-                text: "Use topic wording that reflects the content of the video.",
+                text: "Turn one broad subject into multiple possible video directions.",
 
               },
 
               {
 
-                title: "Set expectations",
+                title: "Explore search language",
 
-                text: "Match the promise in the title with what the video actually delivers.",
+                text: "Think about different ways viewers may describe the same subject.",
 
               },
 
               {
 
-                title: "Improve consistency",
+                title: "Build content clusters",
 
-                text: "Use a clear title together with a relevant thumbnail and description.",
+                text: "Group related phrases into a series of connected videos.",
+
+              },
+
+              {
+
+                title: "Improve planning",
+
+                text: "Use keyword ideas as a starting point for titles, descriptions and future videos.",
 
               },
 
@@ -2118,7 +2076,11 @@ export default function YouTubeTitleGeneratorClient() {
 
                 <Check className="h-5 w-5 text-emerald-400" />
 
+
+
                 <h3 className="mt-4 font-semibold">{item.title}</h3>
+
+
 
                 <p className="mt-2 text-sm leading-6 text-slate-400">
 
@@ -2161,21 +2123,18 @@ export default function YouTubeTitleGeneratorClient() {
 
           <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
 
-            <Link
-              href="/tools/youtube-keyword-ideas"
-              className="group rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition hover:-translate-y-0.5 hover:border-red-400/30 hover:bg-white/[0.04]"
-            >
+            <div className="rounded-2xl border border-red-400/30 bg-red-400/[0.055] p-6">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-400/10">
                   <Tags className="h-5 w-5 text-red-400" />
                 </div>
 
-                <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                  Step 1
+                <span className="rounded-full border border-red-400/25 bg-red-400/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-red-300">
+                  Step 1 · Current
                 </span>
               </div>
 
-              <h3 className="mt-5 font-semibold transition group-hover:text-red-300">
+              <h3 className="mt-5 font-semibold">
                 YouTube Keyword Ideas
               </h3>
 
@@ -2185,34 +2144,37 @@ export default function YouTubeTitleGeneratorClient() {
               </p>
 
               <div className="mt-5 text-sm font-semibold text-red-300">
-                Find keywords →
+                Find keywords ✓
               </div>
-            </Link>
+            </div>
 
-            <div className="rounded-2xl border border-red-400/30 bg-red-400/[0.055] p-6">
+            <Link
+              href="/tools/youtube-title-generator"
+              className="group rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition hover:-translate-y-0.5 hover:border-red-400/30 hover:bg-white/[0.04]"
+            >
               <div className="flex items-center justify-between gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-400/10">
                   <Sparkles className="h-5 w-5 text-red-400" />
                 </div>
 
-                <span className="rounded-full border border-red-400/25 bg-red-400/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-red-300">
-                  Step 2 · Current
+                <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                  Step 2
                 </span>
               </div>
 
-              <h3 className="mt-5 font-semibold">
+              <h3 className="mt-5 font-semibold transition group-hover:text-red-300">
                 YouTube Title Generator
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Turn your topic and keyword into multiple title ideas using the
-                style and audience you select.
+                Turn your strongest keyword or topic into multiple title ideas
+                for the video.
               </p>
 
               <div className="mt-5 text-sm font-semibold text-red-300">
-                Generate titles ✓
+                Generate titles →
               </div>
-            </div>
+            </Link>
 
             <Link
               href="/tools/youtube-title-analyzer"
@@ -2220,7 +2182,7 @@ export default function YouTubeTitleGeneratorClient() {
             >
               <div className="flex items-center justify-between gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-400/10">
-                  <BarChart3 className="h-5 w-5 text-rose-400" />
+                  <TextSearch className="h-5 w-5 text-rose-400" />
                 </div>
 
                 <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
