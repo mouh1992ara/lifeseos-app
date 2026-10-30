@@ -149,14 +149,14 @@ export default function KeywordDensityCheckerPage() {
             Free Keyword Density Checker
 
             <span className="mt-2 block bg-gradient-to-r from-amber-300 via-orange-300 to-fuchsia-400 bg-clip-text text-transparent">
-              Analyze Keyword Frequency
+              Check Keyword Frequency & Density
             </span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
-            Check how often words appear in your
-            content, compare keyword frequency and
-            review density percentages instantly.
+            Check keyword density and frequency in your
+            content, see how often words appear and
+            review keyword density percentages instantly.
           </p>
 
         </div>
