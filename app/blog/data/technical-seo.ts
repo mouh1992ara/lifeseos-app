@@ -100,7 +100,12 @@ export const technicalSeoArticle: BlogArticle = {
           label: "Read the Complete SEO Audit Guide",
           href: "/blog/complete-seo-audit-guide",
         },
-      ],
+
+    { label: "HTTP Status Code Checker", href: "/tools/http-status-checker" },
+    { label: "Robots.txt Generator", href: "/tools/robots-txt-generator" },
+    { label: "XML Sitemap Generator", href: "/tools/xml-sitemap-generator" },
+    { label: "SEO Page Analyzer", href: "/tools/seo-page-analyzer" },
+  ],
 
 
       tip:

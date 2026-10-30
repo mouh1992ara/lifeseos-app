@@ -98,7 +98,11 @@ export const onPageSeoArticle: BlogArticle = {
           label: "Read the Technical SEO Guide",
           href: "/blog/technical-seo-guide",
         },
-      ],
+
+    { label: "SEO Page Analyzer", href: "/tools/seo-page-analyzer" },
+    { label: "Free SEO Meta Tag Generator", href: "/tools/meta-tag-generator" },
+    { label: "SERP Snippet Preview", href: "/tools/serp-snippet-preview" },
+  ],
 
 
       tip:

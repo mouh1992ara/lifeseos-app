@@ -90,7 +90,9 @@ export const robotsTxtArticle: BlogArticle = {
           label: "Read the Technical SEO Guide",
           href: "/blog/technical-seo-guide",
         },
-      ],
+
+    { label: "XML Sitemap Generator", href: "/tools/xml-sitemap-generator" },
+  ],
 
 
       tip:

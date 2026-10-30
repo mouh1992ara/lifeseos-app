@@ -90,7 +90,10 @@ export const seoMetaTagsArticle: BlogArticle = {
           label: "Read the On-Page SEO Checklist",
           href: "/blog/on-page-seo-checklist",
         },
-      ],
+
+    { label: "Live SERP Preview Tool", href: "/tools/serp-snippet-preview" },
+    { label: "SEO Page Analyzer", href: "/tools/seo-page-analyzer" },
+  ],
 
 
       tip:

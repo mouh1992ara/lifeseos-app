@@ -186,7 +186,9 @@ export const seoAuditArticle: BlogArticle = {
           label: "Read the Technical SEO Guide",
           href: "/blog/technical-seo-guide",
         },
-      ],
+
+    { label: "SEO Page Analyzer", href: "/tools/seo-page-analyzer" },
+  ],
 
 
       tip:
