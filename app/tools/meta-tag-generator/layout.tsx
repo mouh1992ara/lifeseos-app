@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Meta Tag Generator - Free SEO Title & Description Tool",
+  title: "Free SEO Meta Tag Generator - Titles & Descriptions",
 
   description:
-    "Create optimized SEO titles and meta descriptions for your web pages with the free LifeSeos Meta Tag Generator.",
+    "Generate SEO meta tags, page titles and meta descriptions with the free LifeSeos Meta Tag Generator.",
 
   alternates: {
     canonical: "/tools/meta-tag-generator",

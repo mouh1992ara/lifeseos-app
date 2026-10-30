@@ -148,7 +148,7 @@ async function copyField(field: string, value: string) {
 
   async function handleShare() {
     const shareData = {
-      title: "Free SERP Snippet Preview Tool | LifeSeos",
+      title: "Free SERP Preview Tool - Live Snippet Preview | LifeSeos",
       text: "Preview page titles and meta descriptions before publishing.",
       url: window.location.href,
     };
@@ -185,15 +185,15 @@ async function copyField(field: string, value: string) {
           </div>
 
           <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-            Preview your search result
+            Free SERP Preview Tool
             <span className="block bg-gradient-to-r from-blue-400 via-cyan-300 to-white bg-clip-text text-transparent">
-              before you publish.
+              Live Snippet Preview
             </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-400">
-            See how your page title, URL and meta description may look in a
-            search result and review their length before publishing.
+            Preview your page title, URL and meta description with a live SERP
+            snippet preview and review their length before publishing.
           </p>
 
           <div className="mt-7 flex flex-wrap justify-center gap-4 text-sm text-slate-400">

@@ -153,7 +153,7 @@ export default function MetaTagGeneratorPage() {
           </div>
 
           <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Free Meta Tag Generator
+            Free SEO Meta Tag Generator
 
             <span className="mt-2 block bg-gradient-to-r from-fuchsia-400 via-violet-400 to-cyan-300 bg-clip-text text-transparent">
               Create SEO Titles & Descriptions

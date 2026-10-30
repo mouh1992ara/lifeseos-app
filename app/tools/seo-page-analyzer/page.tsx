@@ -141,10 +141,10 @@ export default function SeoPageAnalyzerPage() {
           </div>
 
           <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Free On-Page SEO Checker
+            Free SEO Page Analyzer
 
             <span className="mt-2 block bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400 bg-clip-text text-transparent">
-              Analyze Any Web Page
+              Run an On-Page SEO Analysis
             </span>
           </h1>
 

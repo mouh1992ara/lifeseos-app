@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import SerpSnippetPreviewClient from "./serp-snippet-preview-client";
 
 export const metadata: Metadata = {
-  title: "Free SERP Snippet Preview Tool | LifeSeos",
+  title: "Free SERP Preview Tool - Live Snippet Preview | LifeSeos",
   description:
-    "Preview how your page title, URL and meta description may appear in Google search results with the free LifeSeos SERP Snippet Preview tool.",
+    "Use a free live SERP preview tool to preview your page title, URL and meta description before publishing in Google search results.",
   alternates: {
     canonical: "/tools/serp-snippet-preview",
   },
   openGraph: {
-    title: "Free SERP Snippet Preview Tool | LifeSeos",
+    title: "Free SERP Preview Tool - Live Snippet Preview | LifeSeos",
     description:
       "Preview and improve your page title, URL and meta description before publishing with LifeSeos.",
     url: "/tools/serp-snippet-preview",

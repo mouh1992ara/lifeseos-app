@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "SEO Page Analyzer - Free On-Page SEO Checker",
+  title: "Free SEO Page Analyzer - On-Page SEO Analysis Tool",
 
   description:
-    "Analyze on-page SEO elements including page titles, meta descriptions, headings, canonical tags, links and image alt text with the free LifeSeos SEO Page Analyzer.",
+    "Run a free SEO page analysis to check page titles, meta descriptions, headings, canonical tags, links and image alt text with LifeSeos.",
 
   alternates: {
     canonical: "/tools/seo-page-analyzer",
   },
 
   openGraph: {
-    title: "SEO Page Analyzer - Free On-Page SEO Checker | LifeSeos",
+    title: "Free SEO Page Analyzer - On-Page SEO Analysis Tool | LifeSeos",
     description:
       "Analyze titles, meta descriptions, headings, canonical tags, links and image SEO with the free LifeSeos SEO Page Analyzer.",
     url: "/tools/seo-page-analyzer",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "SEO Page Analyzer - Free On-Page SEO Checker | LifeSeos",
+    title: "Free SEO Page Analyzer - On-Page SEO Analysis Tool | LifeSeos",
     description:
       "Analyze titles, meta descriptions, headings, canonical tags, links and image SEO with the free LifeSeos SEO Page Analyzer.",
     images: ["/social/seo-page-analyzer.png"],
