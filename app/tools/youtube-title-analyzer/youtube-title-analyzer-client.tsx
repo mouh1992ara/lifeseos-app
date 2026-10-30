@@ -816,7 +816,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
     const shareData = {
 
-      title: "Free YouTube Title Analyzer | LifeSeos",
+      title: "Free YouTube Title Checker & Analyzer | LifeSeos",
 
       text: "Analyze and improve a YouTube video title with LifeSeos.",
 
@@ -908,9 +908,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-400">
 
-            Review title length, keyword use, clarity, specificity and click
-
-            appeal with practical recommendations.
+            Use this free YouTube SEO title checker and title tester to review length, keyword use, clarity, specificity and click appeal before publishing. The score evaluates title signals and does not predict YouTube rankings.
 
           </p>
 
@@ -978,7 +976,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 <h2 className="text-xl font-semibold">
 
-                  Analyze your YouTube title
+                  Check and analyze your YouTube title
 
                 </h2>
 

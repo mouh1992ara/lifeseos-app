@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import YouTubeTitleAnalyzerClient from "./youtube-title-analyzer-client";
 
 export const metadata: Metadata = {
-  title: "Free YouTube Title Analyzer | LifeSeos",
+  title: "Free YouTube Title Checker & Analyzer | LifeSeos",
   description:
-    "Analyze your YouTube title for clarity, keyword use, structure, length and click appeal with the free LifeSeos YouTube Title Analyzer.",
+    "Use the free LifeSeos YouTube Title Checker and Analyzer to review title length, keyword use, clarity, structure and click appeal before publishing.",
   alternates: {
     canonical: "/tools/youtube-title-analyzer",
   },
   openGraph: {
-    title: "Free YouTube Title Analyzer | LifeSeos",
+    title: "Free YouTube Title Checker & Analyzer | LifeSeos",
     description:
-      "Review and improve your YouTube video title with practical title insights from LifeSeos.",
+      "Check and test your YouTube video title for clarity, keyword use, length and click appeal with LifeSeos.",
     url: "/tools/youtube-title-analyzer",
     type: "website",
   },
@@ -26,7 +26,7 @@ export default function YouTubeTitleAnalyzerPage() {
     operatingSystem: "Web",
     url: "https://www.lifeseos.com/tools/youtube-title-analyzer",
     description:
-      "Analyze YouTube titles for clarity, keyword use, title structure, length and click appeal.",
+      "Check and analyze YouTube titles for clarity, keyword use, title structure, length and click appeal.",
     offers: {
       "@type": "Offer",
       price: "0",
