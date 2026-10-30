@@ -28,7 +28,7 @@ export const seoAuditArticle: BlogArticle = {
 
 
   updatedAt:
-    "2026-10-17",
+    "2026-10-30",
 
 
   readTime:
@@ -764,9 +764,90 @@ export const seoAuditArticle: BlogArticle = {
       tip:
         "Treat SEO audits as an ongoing process of identifying problems, making controlled improvements and measuring the results."
 
-    }
+    },
 
-  ],
+      {
+        id: "complete-seo-audit-checklist",
+
+        title:
+          "Complete SEO Audit Checklist",
+
+        paragraphs: [
+          "A complete SEO audit reviews the technical, on-page, content and performance signals that affect how a website can be crawled, understood and used. The goal is not simply to collect errors, but to identify which issues have the greatest potential impact on search visibility and user experience.",
+
+          "Start with crawlability and indexability before moving into metadata, page structure, content quality and performance. This order helps prevent time being spent optimizing pages that search engines cannot reliably access or index."
+        ],
+
+        bullets: [
+          "Check crawling and indexing controls",
+          "Review robots.txt and XML sitemap configuration",
+          "Check important URLs and HTTP status codes",
+          "Review titles and meta descriptions",
+          "Check heading structure and internal links",
+          "Find missing image alt text",
+          "Review content quality and search intent",
+          "Check mobile usability and page performance",
+          "Prioritize issues by severity and business impact"
+        ],
+
+        tip:
+          "A useful SEO audit should end with a prioritized action list rather than an unstructured collection of warnings."
+      },
+
+
+      {
+        id: "how-to-perform-full-seo-audit",
+
+        title:
+          "How to Perform a Full SEO Audit",
+
+        paragraphs: [
+          "A full SEO audit should move from site-wide technical checks to individual page analysis. First confirm that important pages are accessible, indexable and returning the expected HTTP responses. Then review on-page elements such as titles, descriptions, headings, canonical tags, images and internal links.",
+
+          "After the technical and on-page review, examine whether important pages satisfy their intended search purpose. Pages with weak, duplicated or incomplete content may need improvement even when their technical configuration is correct."
+        ],
+
+        bullets: [
+          "Crawl or review important website URLs",
+          "Identify indexing and accessibility problems",
+          "Check redirects, broken URLs and server errors",
+          "Analyze key on-page SEO elements",
+          "Review content relevance and duplication",
+          "Check website performance",
+          "Group findings by priority",
+          "Fix critical problems before minor improvements"
+        ]
+      },
+
+
+      {
+        id: "comprehensive-seo-audit-priorities",
+
+        title:
+          "What a Comprehensive SEO Audit Should Prioritize",
+
+        paragraphs: [
+          "A comprehensive SEO audit does not treat every issue as equally important. Problems that prevent crawling, indexing or access to important pages usually deserve attention before cosmetic metadata changes or minor content refinements.",
+
+          "After critical technical issues are resolved, prioritize pages that already receive impressions or serve important business goals. Improving pages that Google is already discovering can often be more practical than making broad changes across low-value pages."
+        ],
+
+        bullets: [
+          "Critical crawl and indexing problems",
+          "Incorrect status codes and redirect issues",
+          "Important pages with missing or weak metadata",
+          "Poor internal linking to priority pages",
+          "Pages with search impressions but weak rankings",
+          "Slow or unstable important pages",
+          "Thin, duplicated or outdated content",
+          "Lower-impact cosmetic issues"
+        ],
+
+        tip:
+          "Use audit findings to decide what to fix first; do not assume that the longest list of issues represents the highest SEO impact."
+      },
+
+],
 
 
   toolName:
