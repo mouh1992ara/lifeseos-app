@@ -174,10 +174,11 @@ export default function RobotsTxtGeneratorPage() {
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
-            Create a clean robots.txt file,
-            define crawler access rules and
-            optionally include your XML sitemap
-            URL.
+            Create a free robots.txt file for your
+            website, define crawler access rules,
+            add your XML sitemap and generate a
+            ready-to-use robots.txt file for
+            search engines.
           </p>
 
         </div>
@@ -383,7 +384,7 @@ export default function RobotsTxtGeneratorPage() {
             </p>
 
             <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Understand How Robots.txt Works
+              What the Robots.txt Generator Creates
             </h2>
 
             <p className="mt-5 leading-8 text-slate-400">
