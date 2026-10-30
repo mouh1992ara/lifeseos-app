@@ -777,18 +777,19 @@ export default function SEOAnalyzerPage() {
           </div>
 
           <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Free SEO Analyzer
+            Free Website SEO Analyzer
 
             <span className="mt-2 block bg-gradient-to-r from-blue-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
-              Audit Your Website SEO
+              Run a Website SEO Audit
             </span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
-            Analyze your website for technical SEO,
-            content, metadata, image optimization and
-            social sharing issues, then get actionable
-            recommendations to improve your pages.
+            Use the free LifeSeos website SEO analyzer to
+            audit technical SEO, on-page content, metadata,
+            images and social sharing signals. Review your
+            SEO score, find issues and get actionable
+            recommendations to improve your website.
           </p>
 
         </div>
@@ -1439,17 +1440,17 @@ export default function SEOAnalyzerPage() {
             </p>
 
             <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Understand Your Website&apos;s SEO Health
+              What the LifeSeos SEO Analyzer Checks
             </h2>
 
             <p className="mt-5 text-base leading-8 text-slate-400">
-              The LifeSeos SEO Analyzer helps you review
-              important on-page and technical SEO signals
-              in one place. Use the results to identify
-              missing metadata, page structure issues,
-              image optimization gaps and social sharing
-              problems before they affect your website&apos;s
-              search visibility.
+              The LifeSeos SEO Analyzer provides a free
+              website SEO audit covering important technical
+              and on-page signals. Check metadata, heading
+              structure, canonical and robots directives,
+              image ALT coverage and Open Graph metadata,
+              then use the report to identify issues and
+              prioritize SEO improvements.
             </p>
 
           </div>
