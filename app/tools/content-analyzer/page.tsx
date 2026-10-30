@@ -350,18 +350,18 @@ export default function ContentAnalyzerPage() {
           </div>
 
           <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Free SEO Content Analyzer
+            Free SEO Content Analysis Tool
 
             <span className="mt-2 block bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-300 bg-clip-text text-transparent">
-              Improve Content Quality
+              Analyze Keywords, Readability & SEO
             </span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
-            Analyze content length, readability,
-            keyword usage, keyword density and
-            basic SEO quality signals directly in
-            your browser.
+            Run a free SEO content analysis to review
+            content length, readability, keyword usage,
+            keyword density and basic on-page SEO
+            quality signals directly in your browser.
           </p>
 
         </div>
