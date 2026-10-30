@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "HTTP Status Checker - Free Website Response Code Tool",
+  title: "HTTP Status Code Checker - Check URL Response & Redirects",
 
   description:
     "Check website HTTP response codes, redirects and page availability with the free LifeSeos HTTP Status Checker.",

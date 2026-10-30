@@ -266,7 +266,7 @@ export default function HttpStatusCheckerPage() {
           </div>
 
           <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Free HTTP Status Checker
+            Free HTTP Status Code Checker
 
             <span className="mt-2 block bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400 bg-clip-text text-transparent">
               Check Response Codes & Redirects
@@ -274,10 +274,10 @@ export default function HttpStatusCheckerPage() {
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
-            Check a URL&apos;s HTTP response status,
-            final destination and redirect behavior
-            to identify successful pages, broken URLs
-            and server errors.
+            Check any URL&apos;s HTTP status code,
+            response, redirects and final destination.
+            Find 200, 301, 302, 404 and server errors
+            with the free LifeSeos HTTP status checker.
           </p>
 
         </div>
