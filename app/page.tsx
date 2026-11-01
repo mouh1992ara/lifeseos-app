@@ -462,7 +462,7 @@ export default async function Home() {
               <div className="flex items-center justify-between border-b border-white/10 pb-5">
                 <div>
                   <p className="text-sm text-slate-500">Website overview</p>
-                  <p className="mt-1 font-semibold">example.com</p>
+                  <p className="mt-1 font-semibold">example.com <span className="ml-2 text-xs font-normal text-slate-500">Sample report</span></p>
                 </div>
 
                 <div className="rounded-lg bg-emerald-400/10 px-3 py-1.5 text-sm font-medium text-emerald-300">
@@ -711,8 +711,8 @@ export default async function Home() {
               {[
                 ["Technical SEO", "86", "Good"],
                 ["Indexability", "94", "Strong"],
-                ["On-Page SEO", "82", "Good"],
-                ["Performance", "74", "Needs work"],
+                ["On-Page SEO", "91", "Strong"],
+                ["Performance", "78", "Needs work"],
               ].map(([label, value, state]) => (
                 <div
                   key={label}
