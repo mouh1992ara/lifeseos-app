@@ -35,19 +35,6 @@ export const metadata: Metadata = {
   publisher:
     "LifeSeos",
 
-  keywords: [
-    "SEO tools",
-    "free SEO tools",
-    "SEO analyzer",
-    "website SEO checker",
-    "technical SEO",
-    "on-page SEO",
-    "XML sitemap generator",
-    "robots.txt generator",
-    "page speed analyzer",
-    "content analyzer",
-  ],
-
   alternates: {
     canonical:
       "/",

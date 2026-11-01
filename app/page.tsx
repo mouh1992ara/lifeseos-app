@@ -25,7 +25,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Free SEO Tools for Website Analysis and Optimization",
+  title: {
+    absolute: "LifeSeos – Free SEO Tools for Website Analysis",
+  },
   description:
     "Analyze websites, improve content, generate schema markup, optimize YouTube metadata and solve technical SEO issues with free LifeSeos tools.",
   alternates: {
@@ -36,7 +38,16 @@ export const metadata: Metadata = {
     description:
       "Analyze websites, improve content, generate structured data and use practical SEO and YouTube optimization tools with LifeSeos.",
     url: "/",
+    siteName: "LifeSeos",
     type: "website",
+    images: [
+      {
+        url: "/social/home.png",
+        width: 1200,
+        height: 630,
+        alt: "LifeSeos SEO Tools",
+      },
+    ],
   },
 };
 
@@ -931,7 +942,7 @@ export default async function Home() {
               {
                 title: "HTTP Status Codes for SEO",
                 text: "Learn what common HTTP status codes mean for crawling and indexing.",
-                href: "/blog/http-status-codes-seo",
+                href: "/blog/http-status-codes-seo-guide",
               },
               {
                 title: "Technical SEO Guide",

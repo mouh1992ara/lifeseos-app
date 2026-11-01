@@ -57,7 +57,7 @@ const articleVisuals: Record<string, ArticleVisual> = {
     accent: "text-fuchsia-300",
   },
 
-  "http-status-codes-seo": {
+  "http-status-codes-seo-guide": {
     icon: "server",
     gradient:
       "from-orange-500/30 via-amber-400/10 to-transparent",

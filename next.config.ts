@@ -3,6 +3,12 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      // Blog: old HTTP status guide URL
+      {
+        source: "/blog/http-status-codes-seo",
+        destination: "/blog/http-status-codes-seo-guide",
+        permanent: true,
+      },
       {
         source: "/es",
         destination: "/",
