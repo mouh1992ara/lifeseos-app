@@ -38,6 +38,27 @@ export default function SiteFooter() {
             </Link>
 
             <Link
+              href="/for/youtubers"
+              className="transition hover:text-white"
+            >
+              For YouTubers
+            </Link>
+
+            <Link
+              href="/for/bloggers"
+              className="transition hover:text-white"
+            >
+              For Bloggers
+            </Link>
+
+            <Link
+              href="/for/agencies"
+              className="transition hover:text-white"
+            >
+              For Agencies
+            </Link>
+
+            <Link
               href="/about"
               className="transition hover:text-white"
             >
