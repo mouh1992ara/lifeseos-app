@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 
 import Logo from "@/components/logo";
+import { SolutionsMenu } from "@/components/solutions-menu";
 
 
 export default function SiteHeader() {
@@ -77,7 +78,7 @@ async function SiteHeaderContent() {
 
         <div
           className="
-            flex
+            relative flex
             w-full
             items-center
             justify-between
@@ -101,6 +102,18 @@ async function SiteHeaderContent() {
           >
             Tools
           </Link>
+
+          <SolutionsMenu
+            variant="sheet"
+            className="
+              inline-flex
+              items-center
+              gap-1
+              text-xs
+              text-slate-300
+              hover:text-white
+            "
+          />
 
 
 
@@ -250,6 +263,24 @@ async function SiteHeaderContent() {
           >
             Tools
           </Link>
+
+          <SolutionsMenu
+            className="
+              inline-flex
+              items-center
+              gap-1.5
+              rounded-lg
+              px-4
+              py-2
+              text-sm
+              text-slate-300
+              transition
+              hover:bg-white/10
+              hover:text-white
+              aria-expanded:bg-white/10
+              aria-expanded:text-white
+            "
+          />
 
 
 
