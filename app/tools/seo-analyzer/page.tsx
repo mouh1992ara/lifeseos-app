@@ -11,6 +11,7 @@ import {
 
 import ShareTool from "@/components/share-tool";
 import { createClient } from "@/lib/supabase/client";
+import { getFixLink } from "@/lib/fix-links";
 
 type SEOResult = {
   url?: string;
@@ -1340,6 +1341,10 @@ export default function SEOAnalyzerPage() {
                         text={
                           item
                         }
+                        fix={getFixLink(
+                          item,
+                          result
+                        )}
                       />
 
                     )
@@ -2776,9 +2781,11 @@ function StatusList({
 function RecommendationCard({
   number,
   text,
+  fix,
 }: {
   number: number;
   text: string;
+  fix?: { href: string; label: string } | null;
 }) {
   return (
     <div className="group flex items-start gap-4 rounded-2xl border border-white/5 bg-black/10 p-4 transition hover:border-violet-400/20 hover:bg-white/[0.04]">
@@ -2798,6 +2805,15 @@ function RecommendationCard({
         <p className="mt-1 text-sm leading-6 text-slate-400">
           {text}
         </p>
+
+        {fix ? (
+          <Link
+            href={fix.href}
+            className="mt-3 inline-flex items-center gap-2 rounded-xl border border-violet-400/30 bg-violet-400/10 px-3 py-1.5 text-xs font-semibold text-violet-200 transition hover:border-violet-300/60 hover:bg-violet-400/20"
+          >
+            {fix.label} →
+          </Link>
+        ) : null}
 
       </div>
 
