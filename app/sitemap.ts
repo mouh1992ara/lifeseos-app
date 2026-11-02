@@ -24,6 +24,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "seo-page-analyzer",
   ];
 
+  // Reciprocal hreflang annotations for the English/Arabic analyzer pair.
+  const analyzerAlternates = {
+    languages: {
+      en: `${baseUrl}/tools/seo-analyzer`,
+      ar: `${baseUrl}/ar/tools/seo-analyzer`,
+      "x-default": `${baseUrl}/tools/seo-analyzer`,
+    },
+  };
+
   const monthlyTools = [
     "robots-txt-generator",
     "xml-sitemap-generator",
@@ -77,7 +86,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/tools/${slug}`,
       changeFrequency: "weekly" as const,
       priority: 0.9,
+      ...(slug === "seo-analyzer"
+        ? { alternates: analyzerAlternates }
+        : {}),
     })),
+
+    {
+      url: `${baseUrl}/ar/tools/seo-analyzer`,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+      alternates: analyzerAlternates,
+    },
 
     ...monthlyTools.map((slug) => ({
       url: `${baseUrl}/tools/${slug}`,
