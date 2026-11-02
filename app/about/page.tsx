@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -37,6 +38,33 @@ export const metadata: Metadata = {
   },
 };
 
+/*
+ * FOUNDER SECTION
+ * Fill in real details below to show the "Meet the founder" section.
+ * While `name` or `story` is empty the section (and the Person schema)
+ * stays hidden, so nothing placeholder-like is ever published.
+ */
+const founder: {
+  name: string;
+  role: string;
+  photo: string; // e.g. "/about/founder.jpg" (file placed in /public/about/)
+  story: string[]; // one string per paragraph
+  contactLabel: string; // e.g. "Email me"
+  contactHref: string; // e.g. "mailto:you@example.com" or a profile URL
+  profiles: string[]; // public profile URLs (LinkedIn, X, GitHub...)
+} = {
+  name: "",
+  role: "",
+  photo: "",
+  story: [],
+  contactLabel: "",
+  contactHref: "",
+  profiles: [],
+};
+
+const showFounder =
+  Boolean(founder.name.trim()) && founder.story.length > 0;
+
 const aboutJsonLd = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
@@ -48,6 +76,18 @@ const aboutJsonLd = {
     "@type": "Organization",
     name: "LifeSeos",
     url: "https://www.lifeseos.com",
+    ...(showFounder
+      ? {
+          founder: {
+            "@type": "Person",
+            name: founder.name,
+            ...(founder.role ? { jobTitle: founder.role } : {}),
+            ...(founder.profiles.length > 0
+              ? { sameAs: founder.profiles }
+              : {}),
+          },
+        }
+      : {}),
   },
 };
 
@@ -84,6 +124,80 @@ export default function AboutPage() {
               improvement.
             </p>
           </section>
+
+          {/* FOUNDER */}
+          {showFounder ? (
+            <section className="mt-16 rounded-[32px] border border-white/10 bg-slate-900/80 p-7 sm:p-10">
+              <div className="grid gap-8 lg:grid-cols-[0.6fr_1.4fr] lg:items-center">
+                <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+                  {founder.photo ? (
+                    <Image
+                      src={founder.photo}
+                      alt={founder.name}
+                      width={160}
+                      height={160}
+                      className="mb-5 h-40 w-40 rounded-[28px] border border-white/10 object-cover"
+                    />
+                  ) : null}
+
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-300">
+                    Meet the founder
+                  </p>
+
+                  <h2 className="mt-3 text-3xl font-bold">
+                    {founder.name}
+                  </h2>
+
+                  {founder.role ? (
+                    <p className="mt-2 text-sm text-slate-400">
+                      {founder.role}
+                    </p>
+                  ) : null}
+                </div>
+
+                <div>
+                  {founder.story.map((paragraph, index) => (
+                    <p
+                      key={index}
+                      className={`text-sm leading-7 text-slate-400 sm:text-base ${
+                        index === 0 ? "" : "mt-4"
+                      }`}
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+
+                  {founder.contactHref || founder.profiles.length > 0 ? (
+                    <div className="mt-6 flex flex-wrap gap-4 text-sm font-semibold">
+                      {founder.contactHref ? (
+                        <a
+                          href={founder.contactHref}
+                          className="text-emerald-300 transition hover:text-emerald-200"
+                        >
+                          {founder.contactLabel || "Get in touch"} →
+                        </a>
+                      ) : null}
+
+                      {founder.profiles.map((profile) => (
+                        <a
+                          key={profile}
+                          href={profile}
+                          target="_blank"
+                          rel="noopener noreferrer me"
+                          className="text-blue-300 transition hover:text-blue-200"
+                        >
+                          {profile
+                            .replace(/^https?:\/\/(www\.)?/, "")
+                            .replace(/\/$/, "")}{" "}
+                          ↗
+                        </a>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            </section>
+          ) : null}
 
           {/* MISSION */}
           <section className="mt-16 grid gap-6 lg:grid-cols-2">
