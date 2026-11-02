@@ -61,6 +61,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
 
+    ...["youtubers", "bloggers", "agencies"].map((slug) => ({
+      url: `${baseUrl}/for/${slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+
     ...blogPosts.map((slug) => ({
       url: `${baseUrl}/blog/${slug}`,
       changeFrequency: "monthly" as const,
