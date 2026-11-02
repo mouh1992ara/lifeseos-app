@@ -23,6 +23,7 @@ import {
   Youtube,
   Zap,
 } from "lucide-react";
+import AudienceCards from "@/components/audience-cards";
 
 export const metadata: Metadata = {
   title: {
@@ -678,6 +679,8 @@ export default async function Home() {
       </section>
 
       {/* SEO COMMAND CENTER */}
+      <AudienceCards />
+
 
       <section className="px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-7xl rounded-[32px] border border-white/10 bg-gradient-to-br from-white/[0.05] to-white/[0.015] p-8 sm:p-12 lg:p-16">
