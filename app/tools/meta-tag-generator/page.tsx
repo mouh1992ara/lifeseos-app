@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import ShareTool from "@/components/share-tool";
 
@@ -10,6 +10,37 @@ export default function MetaTagGeneratorPage() {
   const [description, setDescription] = useState("");
 
   const hasTrackedUse = useRef(false);
+  const prefillHandledRef = useRef(false);
+
+  useEffect(() => {
+    if (prefillHandledRef.current) {
+      return;
+    }
+
+    prefillHandledRef.current = true;
+
+    const params = new URLSearchParams(
+      window.location.search
+    );
+
+    const incomingTitle = params
+      .get("title")
+      ?.trim()
+      .slice(0, 200);
+
+    const incomingDescription = params
+      .get("description")
+      ?.trim()
+      .slice(0, 400);
+
+    if (incomingTitle) {
+      setTitle(incomingTitle);
+    }
+
+    if (incomingDescription) {
+      setDescription(incomingDescription);
+    }
+  }, []);
 
   const titleLength = title.length;
   const descriptionLength = description.length;
