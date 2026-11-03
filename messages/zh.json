@@ -1,0 +1,6 @@
+{
+  "Header": { "tools": "工具", "blog": "博客", "dashboard": "控制台", "signIn": "登录", "getStarted": "立即开始", "signOut": "退出登录" },
+  "Footer": { "tagline": "助力网站智能增长的 SEO 工具。", "home": "首页", "tools": "工具", "blog": "博客", "about": "关于", "contact": "联系", "privacy": "隐私", "terms": "条款", "rights": "© 2026 LifeSeos. 保留所有权利。", "built": "为更高效的 SEO 工作流而生。" },
+  "Language": { "label": "语言" },
+  "Banner": { "text": "此页面尚未翻译，目前以英文显示。", "action": "打开英文版" }
+}
