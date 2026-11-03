@@ -793,6 +793,16 @@ export default function SEOAnalyzerPage() {
             recommendations to improve your website.
           </p>
 
+          <Link
+            href="/ar/tools/seo-analyzer"
+            hrefLang="ar"
+            lang="ar"
+            className="mt-5 inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-300 transition hover:border-emerald-300/50 hover:bg-emerald-400/20"
+          >
+            <span aria-hidden="true">🌐</span>
+            <span>جرّب الأداة بالعربية</span>
+          </Link>
+
         </div>
 
 
