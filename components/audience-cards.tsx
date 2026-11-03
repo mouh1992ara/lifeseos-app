@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { LucideIcon } from "lucide-react";
 import { ArrowRight, Briefcase, FileText, Youtube } from "lucide-react";
 import { audiences, type AudienceSlug } from "@/lib/audiences";

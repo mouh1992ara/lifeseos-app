@@ -1,0 +1,6 @@
+{
+  "Header": { "tools": "Outils", "blog": "Blog", "dashboard": "Tableau de bord", "signIn": "Se connecter", "getStarted": "Commencer", "signOut": "Se déconnecter" },
+  "Footer": { "tagline": "Des outils SEO pour développer votre site plus intelligemment.", "home": "Accueil", "tools": "Outils", "blog": "Blog", "about": "À propos", "contact": "Contact", "privacy": "Confidentialité", "terms": "Conditions", "rights": "© 2026 LifeSeos. Tous droits réservés.", "built": "Conçu pour de meilleurs workflows SEO." },
+  "Language": { "label": "Langue" },
+  "Banner": { "text": "Cette page n'est pas encore traduite ; elle s'affiche en anglais.", "action": "Ouvrir la version anglaise" }
+}

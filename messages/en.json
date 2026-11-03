@@ -1,0 +1,6 @@
+{
+  "Header": { "tools": "Tools", "blog": "Blog", "dashboard": "Dashboard", "signIn": "Sign in", "getStarted": "Get started", "signOut": "Sign out" },
+  "Footer": { "tagline": "SEO tools for smarter website growth.", "home": "Home", "tools": "Tools", "blog": "Blog", "about": "About", "contact": "Contact", "privacy": "Privacy", "terms": "Terms", "rights": "© 2026 LifeSeos. All rights reserved.", "built": "Built for better SEO workflows." },
+  "Language": { "label": "Language" },
+  "Banner": { "text": "This page isn't translated yet, so it's shown in English.", "action": "Open the English version" }
+}
