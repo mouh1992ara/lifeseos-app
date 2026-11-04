@@ -1,21 +1,18 @@
 import type { Metadata } from "next";
 import YouTubeDescriptionGeneratorClient from "./youtube-description-generator-client";
+import { buildToolMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Free YouTube Description Generator | LifeSeos",
-  description:
-    "Generate clear and structured YouTube video descriptions based on your topic, keyword, audience and content style with the free LifeSeos YouTube Description Generator.",
-  alternates: {
-    canonical: "/tools/youtube-description-generator",
-  },
-  openGraph: {
-    title: "Free YouTube Description Generator | LifeSeos",
-    description:
-      "Create structured YouTube video descriptions with keyword ideas, calls to action and practical formatting using LifeSeos.",
-    url: "/tools/youtube-description-generator",
-    type: "website",
-  },
-};
+type MetaProps = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: MetaProps): Promise<Metadata> {
+  const { locale } = await params;
+  return buildToolMetadata({
+    locale,
+    path: "/tools/youtube-description-generator",
+    toolKey: "youtubeDescriptionGenerator",
+  });
+}
+
 
 export default function YouTubeDescriptionGeneratorPage() {
   const softwareApplicationJsonLd = {

@@ -1,8 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { NextResponse, type NextRequest } from "next/server";
 
-import { routing } from "@/i18n/routing";
-import { isTranslated } from "@/i18n/translated";
+import { routing } from "@/i18n/config";
 import { updateSession } from "@/lib/supabase/proxy";
 
 const handleI18n = createMiddleware(routing);
@@ -22,7 +21,7 @@ function splitLocale(pathname: string) {
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const { locale, path } = splitLocale(pathname);
+  const { path } = splitLocale(pathname);
 
   const bypassI18n =
     pathname === "/api" ||
@@ -42,11 +41,7 @@ export async function proxy(request: NextRequest) {
     .getAll()
     .forEach((cookie) => response.cookies.set(cookie));
 
-  // Untranslated pages shown inside a non-default locale must not be indexed.
-  if (locale !== routing.defaultLocale && !isTranslated(locale, path)) {
-    response.headers.set("X-Robots-Tag", "noindex, follow");
-  }
-
+  // Every locale route is fully translated now, so nothing needs noindex.
   return response;
 }
 

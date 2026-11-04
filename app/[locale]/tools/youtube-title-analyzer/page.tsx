@@ -1,21 +1,18 @@
 import type { Metadata } from "next";
 import YouTubeTitleAnalyzerClient from "./youtube-title-analyzer-client";
+import { buildToolMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Free YouTube Title Checker & Analyzer | LifeSeos",
-  description:
-    "Use the free LifeSeos YouTube Title Checker and Analyzer to review title length, keyword use, clarity, structure and click appeal before publishing.",
-  alternates: {
-    canonical: "/tools/youtube-title-analyzer",
-  },
-  openGraph: {
-    title: "Free YouTube Title Checker & Analyzer | LifeSeos",
-    description:
-      "Check and test your YouTube video title for clarity, keyword use, length and click appeal with LifeSeos.",
-    url: "/tools/youtube-title-analyzer",
-    type: "website",
-  },
-};
+type MetaProps = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: MetaProps): Promise<Metadata> {
+  const { locale } = await params;
+  return buildToolMetadata({
+    locale,
+    path: "/tools/youtube-title-analyzer",
+    toolKey: "youtubeTitleAnalyzer",
+  });
+}
+
 
 export default function YouTubeTitleAnalyzerPage() {
   const softwareApplicationJsonLd = {

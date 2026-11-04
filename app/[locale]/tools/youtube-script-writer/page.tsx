@@ -1,21 +1,18 @@
 import type { Metadata } from "next";
 import YouTubeScriptWriterClient from "./youtube-script-writer-client";
+import { buildToolMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Free YouTube Script Writer | LifeSeos",
-  description:
-    "Generate structured YouTube video scripts with hooks, introductions, main points, transitions, calls to action and outros using the free LifeSeos YouTube Script Writer.",
-  alternates: {
-    canonical: "/tools/youtube-script-writer",
-  },
-  openGraph: {
-    title: "Free YouTube Script Writer | LifeSeos",
-    description:
-      "Create structured YouTube video scripts based on your topic, audience, video length and content style with LifeSeos.",
-    url: "/tools/youtube-script-writer",
-    type: "website",
-  },
-};
+type MetaProps = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: MetaProps): Promise<Metadata> {
+  const { locale } = await params;
+  return buildToolMetadata({
+    locale,
+    path: "/tools/youtube-script-writer",
+    toolKey: "youtubeScriptWriter",
+  });
+}
+
 
 export default function YouTubeScriptWriterPage() {
   const softwareApplicationJsonLd = {

@@ -1,131 +1,86 @@
 import type { MetadataRoute } from "next";
 
+import {
+  buildLanguageAlternates,
+  defaultLocale,
+  locales,
+  localizePath,
+} from "@/i18n/config";
+import { audienceSlugs } from "@/lib/audiences";
+import { ARTICLE_SLUGS } from "@/lib/blog";
+
 const baseUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://www.lifeseos.com"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.lifeseos.com"
 ).replace(/\/+$/, "");
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const blogPosts = [
-    "complete-seo-audit-guide",
-    "seo-meta-tags-guide",
-    "page-speed-seo-guide",
-    "technical-seo-guide",
-    "xml-sitemap-guide",
-    "robots-txt-guide",
-    "http-status-codes-seo-guide",
-    "keyword-density-guide",
-    "content-analysis-seo-guide",
-    "on-page-seo-checklist",
-  ];
+type Freq = "daily" | "weekly" | "monthly" | "yearly";
 
-  const weeklyTools = [
-    "seo-analyzer",
-    "seo-page-analyzer",
-  ];
+const PAGES: { path: string; freq: Freq; priority: number }[] = [
+  { path: "/", freq: "weekly", priority: 1 },
+  { path: "/tools", freq: "weekly", priority: 0.9 },
+  { path: "/blog", freq: "weekly", priority: 0.9 },
 
-  // Reciprocal hreflang annotations for the English/Arabic analyzer pair.
-  const analyzerAlternates = {
-    languages: {
-      en: `${baseUrl}/tools/seo-analyzer`,
-      ar: `${baseUrl}/ar/tools/seo-analyzer`,
-      "x-default": `${baseUrl}/tools/seo-analyzer`,
-    },
-  };
+  ...audienceSlugs.map((slug) => ({
+    path: `/for/${slug}`,
+    freq: "monthly" as Freq,
+    priority: 0.8,
+  })),
 
-  const monthlyTools = [
-    "robots-txt-generator",
+  ...ARTICLE_SLUGS.map((slug) => ({
+    path: `/blog/${slug}`,
+    freq: "monthly" as Freq,
+    priority: 0.8,
+  })),
+
+  // High-demand tools are crawled more often.
+  { path: "/tools/seo-analyzer", freq: "weekly", priority: 0.9 },
+  { path: "/tools/seo-page-analyzer", freq: "weekly", priority: 0.9 },
+
+  ...[
+    "page-speed",
+    "content-analyzer",
+    "http-status-checker",
     "xml-sitemap-generator",
     "meta-tag-generator",
     "serp-snippet-preview",
+    "robots-txt-generator",
     "keyword-density-checker",
-    "article-rewriter",
-    "http-status-checker",
-    "page-speed",
-    "content-analyzer",
     "schema-markup-generator",
+    "article-rewriter",
     "youtube-keyword-ideas",
     "youtube-title-generator",
     "youtube-title-analyzer",
     "youtube-description-generator",
     "youtube-script-writer",
-  ];
+  ].map((slug) => ({
+    path: `/tools/${slug}`,
+    freq: "monthly" as Freq,
+    priority: 0.8,
+  })),
 
-  return [
-    {
-      url: baseUrl,
-      changeFrequency: "weekly",
-      priority: 1,
-    },
+  { path: "/about", freq: "monthly", priority: 0.6 },
+  { path: "/contact", freq: "monthly", priority: 0.6 },
+  { path: "/privacy", freq: "yearly", priority: 0.3 },
+  { path: "/terms", freq: "yearly", priority: 0.3 },
+];
 
-    {
-      url: `${baseUrl}/tools`,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
+export default function sitemap(): MetadataRoute.Sitemap {
+  const entries: MetadataRoute.Sitemap = [];
 
-    {
-      url: `${baseUrl}/blog`,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
+  for (const page of PAGES) {
+    // Every locale carries the full hreflang cluster so search engines can pick
+    // the right regional variant for any page.
+    const languages = buildLanguageAlternates(baseUrl, page.path);
 
-    ...["youtubers", "bloggers", "agencies"].map((slug) => ({
-      url: `${baseUrl}/for/${slug}`,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
+    for (const locale of locales) {
+      entries.push({
+        url: baseUrl + localizePath(locale, page.path),
+        changeFrequency: page.freq,
+        priority: locale === defaultLocale ? page.priority : Number((page.priority * 0.9).toFixed(2)),
+        alternates: { languages },
+      });
+    }
+  }
 
-    ...blogPosts.map((slug) => ({
-      url: `${baseUrl}/blog/${slug}`,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
-
-    ...weeklyTools.map((slug) => ({
-      url: `${baseUrl}/tools/${slug}`,
-      changeFrequency: "weekly" as const,
-      priority: 0.9,
-      ...(slug === "seo-analyzer"
-        ? { alternates: analyzerAlternates }
-        : {}),
-    })),
-
-    {
-      url: `${baseUrl}/ar/tools/seo-analyzer`,
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-      alternates: analyzerAlternates,
-    },
-
-    ...monthlyTools.map((slug) => ({
-      url: `${baseUrl}/tools/${slug}`,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
-
-    {
-      url: `${baseUrl}/about`,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-
-    {
-      url: `${baseUrl}/contact`,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-
-    {
-      url: `${baseUrl}/privacy`,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-
-    {
-      url: `${baseUrl}/terms`,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-  ];
+  return entries;
 }

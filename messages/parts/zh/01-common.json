@@ -1,0 +1,114 @@
+{
+  "Header": {
+    "tools": "工具",
+    "solutions": "解决方案",
+    "blog": "博客",
+    "dashboard": "控制台",
+    "signIn": "登录",
+    "signOut": "退出登录",
+    "getStarted": "开始使用",
+    "primaryNav": "主导航",
+    "mobileNav": "移动端导航"
+  },
+  "Footer": {
+    "tagline": "让网站增长更聪明的 SEO 工具。",
+    "home": "首页",
+    "tools": "工具",
+    "blog": "博客",
+    "about": "关于",
+    "contact": "联系我们",
+    "privacy": "隐私",
+    "terms": "条款",
+    "rights": "© {year} LifeSeos. 保留所有权利。",
+    "built": "为更高效的 SEO 工作流而生。",
+    "navLabel": "页脚导航"
+  },
+  "Language": {
+    "label": "语言",
+    "change": "切换语言",
+    "current": "当前语言：{language}"
+  },
+  "Logo": {
+    "alt": "LifeSeos — 让增长更聪明的 SEO 工具",
+    "tagline": "更智能的 SEO 增长工具"
+  },
+  "Solutions": {
+    "label": "解决方案",
+    "title": "贴合你的工作方式",
+    "subtitle": "选择你的工作流，从合适的工具开始。",
+    "seeTools": "查看工具",
+    "items": {
+      "youtubers": {
+        "title": "YouTuber 与创作者",
+        "description": "为你的频道搞定关键词、标题、简介与脚本。"
+      },
+      "bloggers": {
+        "title": "博主与作者",
+        "description": "发布前完成内容检查、摘要预览与结构化数据配置。"
+      },
+      "agencies": {
+        "title": "代理机构与自由职业者",
+        "description": "审计客户网站、状态码、网站地图与 robots 文件。"
+      }
+    }
+  },
+  "Common": {
+    "readMore": "阅读更多",
+    "learnMore": "了解更多",
+    "openTool": "打开工具",
+    "viewAllTools": "查看全部工具",
+    "backHome": "返回首页",
+    "loading": "加载中…",
+    "tryAgain": "重试",
+    "copy": "复制",
+    "copied": "已复制",
+    "copyLink": "复制链接",
+    "share": "分享",
+    "free": "免费",
+    "optional": "可选",
+    "required": "必填",
+    "close": "关闭",
+    "step": "第 {number} 步",
+    "yes": "是",
+    "no": "否",
+    "example": "示例",
+    "result": "结果",
+    "score": "评分",
+    "status": "状态",
+    "details": "详情",
+    "urlLabel": "网站 URL",
+    "urlPlaceholder": "https://example.com"
+  },
+  "Share": {
+    "title": "分享这个工具",
+    "body": "觉得这个工具好用？分享给更多人。",
+    "defaultText": "试试 LifeSeos 的这款免费 SEO 工具。",
+    "copy": "复制链接",
+    "copied": "链接已复制",
+    "copyError": "无法复制链接。"
+  },
+  "State": {
+    "good": "良好",
+    "warning": "需要关注",
+    "error": "发现问题",
+    "neutral": "提示",
+    "passed": "通过",
+    "failed": "未通过",
+    "improve": "优化",
+    "fixIssue": "修复问题",
+    "strong": "优秀",
+    "needsWork": "待改进",
+    "excellent": "极佳",
+    "average": "一般",
+    "poor": "较差"
+  },
+  "Errors": {
+    "generic": "出了点问题。",
+    "genericBody": "请稍后重试。",
+    "network": "无法连接服务器。请检查网络后重试。",
+    "urlRequired": "请输入网站 URL。",
+    "urlInvalid": "请输入有效 URL，例如 https://example.com",
+    "rateLimited": "请求过于频繁。请稍等片刻后重试。",
+    "timeout": "请求超时。请重试。"
+  }
+}

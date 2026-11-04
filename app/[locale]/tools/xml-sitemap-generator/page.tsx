@@ -6,10 +6,15 @@ import {
   useRef,
   useState,
 } from "react";
+import { useTranslations } from "next-intl";
 
 import ShareTool from "@/components/share-tool";
 
 export default function XmlSitemapGeneratorPage() {
+  const t = useTranslations("Tool.xmlSitemap");
+  const tc = useTranslations("Tools.catalog");
+  const tCommon = useTranslations("Common");
+
   const [urls, setUrls] =
     useState("");
 
@@ -217,26 +222,23 @@ ${entries}
         <div className="mx-auto max-w-4xl text-center">
 
           <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-400/10 px-4 py-2 text-sm font-medium text-blue-300">
-            <span>⌘</span>
+            <span aria-hidden="true">⌘</span>
 
             <span>
-              LifeSeos XML Sitemap Generator
+              {t("badge")}
             </span>
           </div>
 
           <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Free XML Sitemap Generator
+            {t("titleLine1")}
 
             <span className="mt-2 block bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-300 bg-clip-text text-transparent">
-              Create Your Sitemap.xml
+              {t("titleAccent")}
             </span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
-            Create a valid XML sitemap
-            from a list of website URLs,
-            then copy or download the
-            generated sitemap.xml file.
+            {t("subtitle")}
           </p>
 
         </div>
@@ -253,11 +255,11 @@ ${entries}
               <div>
 
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-300">
-                  Sitemap URLs
+                  {t("urlsEyebrow")}
                 </p>
 
                 <h2 className="mt-2 text-2xl font-bold">
-                  Add Your Website Pages
+                  {t("urlsTitle")}
                 </h2>
 
               </div>
@@ -265,7 +267,7 @@ ${entries}
               <div className="rounded-xl border border-white/10 bg-slate-900 px-3 py-2 text-center">
 
                 <p className="text-xs text-slate-500">
-                  URLs
+                  {t("urlsCountLabel")}
                 </p>
 
                 <p className="mt-1 font-bold text-cyan-300">
@@ -281,7 +283,7 @@ ${entries}
               htmlFor="website-urls"
               className="mt-6 block text-sm font-semibold text-slate-200"
             >
-              Website URLs
+              {t("urlsLabel")}
             </label>
 
             <textarea
@@ -290,17 +292,14 @@ ${entries}
               onChange={
                 handleUrlsChange
               }
-              placeholder={
-                "https://example.com/\nhttps://example.com/about\nhttps://example.com/contact"
-              }
+              placeholder={t("urlsPlaceholder")}
               rows={12}
-              className="mt-3 w-full resize-y rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 leading-7 text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60"
+              dir="ltr"
+              className="mt-3 w-full resize-y rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-start leading-7 text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60"
             />
 
             <p className="mt-2 text-xs leading-5 text-slate-500">
-              Enter one complete absolute
-              URL per line, including
-              https://.
+              {t("urlsHint")}
             </p>
 
 
@@ -312,7 +311,7 @@ ${entries}
                   htmlFor="change-frequency"
                   className="text-sm font-semibold text-slate-200"
                 >
-                  Change frequency
+                  {t("freqLabel")}
                 </label>
 
                 <select
@@ -328,31 +327,31 @@ ${entries}
                   className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-white outline-none transition focus:border-blue-400/60"
                 >
                   <option value="always">
-                    Always
+                    {t("freqAlways")}
                   </option>
 
                   <option value="hourly">
-                    Hourly
+                    {t("freqHourly")}
                   </option>
 
                   <option value="daily">
-                    Daily
+                    {t("freqDaily")}
                   </option>
 
                   <option value="weekly">
-                    Weekly
+                    {t("freqWeekly")}
                   </option>
 
                   <option value="monthly">
-                    Monthly
+                    {t("freqMonthly")}
                   </option>
 
                   <option value="yearly">
-                    Yearly
+                    {t("freqYearly")}
                   </option>
 
                   <option value="never">
-                    Never
+                    {t("freqNever")}
                   </option>
                 </select>
 
@@ -365,7 +364,7 @@ ${entries}
                   htmlFor="priority"
                   className="text-sm font-semibold text-slate-200"
                 >
-                  Priority
+                  {t("priorityLabel")}
                 </label>
 
                 <select
@@ -411,13 +410,7 @@ ${entries}
             <div className="mt-5 rounded-2xl border border-amber-400/15 bg-amber-400/[0.04] p-4">
 
               <p className="text-xs leading-6 text-amber-100/70">
-                Change frequency and
-                priority are optional
-                sitemap protocol fields.
-                Google currently ignores
-                both values, so treat them
-                only as optional metadata
-                for compatible consumers.
+                {t("priorityNote")}
               </p>
 
             </div>
@@ -434,11 +427,11 @@ ${entries}
               <div>
 
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
-                  Generated output
+                  {t("outputEyebrow")}
                 </p>
 
                 <h2 className="mt-2 text-2xl font-bold">
-                  Generated Sitemap
+                  {t("outputTitle")}
                 </h2>
 
               </div>
@@ -453,7 +446,7 @@ ${entries}
                   }
                   className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-200 transition hover:bg-white/[0.07]"
                 >
-                  Copy
+                  {tCommon("copy")}
                 </button>
 
                 <button
@@ -463,7 +456,7 @@ ${entries}
                   }
                   className="rounded-xl bg-gradient-to-r from-blue-400 to-cyan-400 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:from-blue-300 hover:to-cyan-300"
                 >
-                  Download
+                  {t("download")}
                 </button>
 
               </div>
@@ -473,7 +466,7 @@ ${entries}
 
             <div className="mt-5 max-h-[470px] overflow-auto rounded-2xl border border-white/5 bg-black/30 p-5">
 
-              <pre className="whitespace-pre-wrap break-words text-sm leading-7 text-emerald-300">
+              <pre className="whitespace-pre-wrap break-words text-sm leading-7 text-emerald-300" data-ltr-text>
                 {sitemap}
               </pre>
 
@@ -489,14 +482,11 @@ ${entries}
                 </div>
 
                 <p className="text-sm leading-6 text-slate-400">
-                  When ready, upload the
-                  file as{" "}
-                  <span className="font-medium text-slate-200">
+                  {t("outputNoteStart")}{" "}
+                  <span className="font-medium text-slate-200" data-ltr-text>
                     sitemap.xml
                   </span>{" "}
-                  on your website and submit
-                  its URL through your search
-                  engine webmaster tools.
+                  {t("outputNoteEnd")}
                 </p>
 
               </div>
@@ -511,8 +501,8 @@ ${entries}
         <div className="mt-10">
 
           <ShareTool
-            title="XML Sitemap Generator"
-            description="Create and download an XML sitemap for your website with this free LifeSeos tool."
+            title={tc("xmlSitemapGenerator.title")}
+            description={t("shareBody")}
           />
 
         </div>
@@ -531,21 +521,15 @@ ${entries}
           <div className="mx-auto max-w-3xl text-center">
 
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
-              URL Discovery
+              {t("introEyebrow")}
             </p>
 
             <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Help Search Engines Discover Your Pages
+              {t("introTitle")}
             </h2>
 
             <p className="mt-5 leading-8 text-slate-400">
-              An XML sitemap is a file
-              containing information about
-              URLs you consider important on
-              your website. Search engines can
-              use the sitemap as an additional
-              source for discovering and
-              crawling those URLs.
+              {t("introP1")}
             </p>
 
           </div>
@@ -557,26 +541,26 @@ ${entries}
 
             <ElementCard
               tag="<urlset>"
-              title="Sitemap Container"
-              description="The main XML element that contains the URL entries in a standard XML sitemap."
+              title={t("elUrlsetTitle")}
+              description={t("elUrlsetBody")}
             />
 
             <ElementCard
               tag="<url>"
-              title="URL Entry"
-              description="Groups the information associated with one webpage in the sitemap."
+              title={t("elUrlTitle")}
+              description={t("elUrlBody")}
             />
 
             <ElementCard
               tag="<loc>"
-              title="Page Location"
-              description="Contains the complete absolute URL of the page included in the sitemap."
+              title={t("elLocTitle")}
+              description={t("elLocBody")}
             />
 
             <ElementCard
               tag="Optional"
-              title="Additional Fields"
-              description="Protocol fields such as changefreq and priority may be included, although individual search engines may ignore them."
+              title={t("elOptionalTitle")}
+              description={t("elOptionalBody")}
             />
 
           </div>
@@ -591,18 +575,15 @@ ${entries}
               <div>
 
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
-                  How it works
+                  {t("howEyebrow")}
                 </p>
 
                 <h2 className="mt-4 text-3xl font-bold">
-                  How to Use the XML Sitemap Generator
+                  {t("howTitle")}
                 </h2>
 
                 <p className="mt-4 leading-7 text-slate-400">
-                  Build a sitemap from your
-                  important website URLs and
-                  make it accessible to search
-                  engines.
+                  {t("howBody")}
                 </p>
 
               </div>
@@ -612,26 +593,26 @@ ${entries}
 
                 <StepCard
                   number="1"
-                  title="Add your URLs"
-                  description="Enter one complete website URL per line, including the protocol and domain."
+                  title={t("how1Title")}
+                  description={t("how1Body")}
                 />
 
                 <StepCard
                   number="2"
-                  title="Choose optional settings"
-                  description="Select change frequency and priority values if you want them included in the XML output."
+                  title={t("how2Title")}
+                  description={t("how2Body")}
                 />
 
                 <StepCard
                   number="3"
-                  title="Download sitemap.xml"
-                  description="Review the generated XML, then copy it or download the sitemap.xml file."
+                  title={t("how3Title")}
+                  description={t("how3Body")}
                 />
 
                 <StepCard
                   number="4"
-                  title="Publish and submit it"
-                  description="Place the sitemap on your website and submit its URL through the relevant webmaster tools."
+                  title={t("how4Title")}
+                  description={t("how4Body")}
                 />
 
               </div>
@@ -655,24 +636,15 @@ ${entries}
               <div>
 
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-violet-300">
-                  Important SEO distinction
+                  {t("distEyebrow")}
                 </p>
 
                 <h2 className="mt-3 text-2xl font-bold sm:text-3xl">
-                  A Sitemap Helps Discovery, but Does Not Guarantee Indexing
+                  {t("distTitle")}
                 </h2>
 
                 <p className="mt-4 max-w-4xl leading-8 text-slate-400">
-                  Submitting a sitemap helps
-                  search engines discover the
-                  URLs you want them to know
-                  about. However, inclusion in
-                  a sitemap does not guarantee
-                  that every URL will be
-                  crawled, indexed or ranked.
-                  Each page still needs to be
-                  accessible and suitable for
-                  indexing.
+                  {t("distBody")}
                 </p>
 
               </div>
@@ -689,27 +661,19 @@ ${entries}
             <div>
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
-                Sitemap quality
+                {t("tipsEyebrow")}
               </p>
 
               <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
-                XML Sitemap Best Practices
+                {t("tipsTitle")}
               </h2>
 
               <p className="mt-5 leading-8 text-slate-400">
-                A sitemap should contain the
-                URLs you actually want search
-                engines to discover and
-                potentially show in search
-                results.
+                {t("tipsP1")}
               </p>
 
               <p className="mt-4 leading-8 text-slate-400">
-                Use complete canonical URLs,
-                avoid broken or redirected
-                pages where possible and keep
-                your sitemap updated as your
-                website changes.
+                {t("tipsP2")}
               </p>
 
             </div>
@@ -718,23 +682,23 @@ ${entries}
             <div className="grid gap-4 sm:grid-cols-2">
 
               <BestPracticeCard
-                title="Use absolute URLs"
-                description="Include complete URLs such as https://example.com/page rather than relative paths."
+                title={t("tip1Title")}
+                description={t("tip1Body")}
               />
 
               <BestPracticeCard
-                title="Use canonical URLs"
-                description="Prefer the URL version you want search engines to treat as the primary version of the page."
+                title={t("tip2Title")}
+                description={t("tip2Body")}
               />
 
               <BestPracticeCard
-                title="Include important pages"
-                description="Focus the sitemap on public pages that you actually want search engines to discover."
+                title={t("tip3Title")}
+                description={t("tip3Body")}
               />
 
               <BestPracticeCard
-                title="Keep it updated"
-                description="Update your sitemap when important pages are added, removed or significantly changed."
+                title={t("tip4Title")}
+                description={t("tip4Body")}
               />
 
             </div>
@@ -749,11 +713,11 @@ ${entries}
             <div className="mx-auto max-w-3xl text-center">
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-amber-300">
-                Avoid mistakes
+                {t("problemsEyebrow")}
               </p>
 
               <h2 className="mt-4 text-3xl font-bold">
-                Common Sitemap Problems
+                {t("problemsTitle")}
               </h2>
 
             </div>
@@ -762,18 +726,18 @@ ${entries}
             <div className="mt-8 grid gap-4 md:grid-cols-3">
 
               <ProblemCard
-                title="Relative URLs"
-                description="Sitemap entries should use complete absolute URLs rather than paths such as /about."
+                title={t("problem1Title")}
+                description={t("problem1Body")}
               />
 
               <ProblemCard
-                title="Broken URLs"
-                description="Including error pages or invalid URLs can reduce the usefulness and cleanliness of your sitemap."
+                title={t("problem2Title")}
+                description={t("problem2Body")}
               />
 
               <ProblemCard
-                title="Non-canonical URLs"
-                description="Listing duplicate or alternate URL versions can send inconsistent signals about which URL you prefer."
+                title={t("problem3Title")}
+                description={t("problem3Body")}
               />
 
             </div>
@@ -788,16 +752,15 @@ ${entries}
             <div className="mx-auto max-w-3xl text-center">
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
-                Continue Your Technical SEO Workflow
+                {t("nextEyebrow")}
               </p>
 
               <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                Control crawling, improve discovery and audit your site
+                {t("nextTitle")}
               </h2>
 
               <p className="mt-4 leading-8 text-slate-400">
-                Use these tools together to manage crawler access, publish a
-                clean sitemap and then run a broader SEO audit.
+                {t("nextBody")}
               </p>
 
             </div>
@@ -817,22 +780,24 @@ ${entries}
                   </div>
 
                   <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
-                    Step 1
+                    {t("wfStep1")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-emerald-300">
-                  Robots.txt Generator
+                  {tc("robotsTxtGenerator.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Configure crawler access rules and reference the sitemap from
-                  your robots.txt file.
+                  {t("wf1Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-emerald-300">
-                  Configure crawling →
+                  {t("wf1Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
 
               </Link>
@@ -847,22 +812,24 @@ ${entries}
                   </div>
 
                   <span className="rounded-full border border-blue-400/25 bg-blue-400/10 px-3 py-1 text-xs font-semibold text-blue-300">
-                    Step 2 · Current
+                    {t("wfStep2")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold">
-                  XML Sitemap Generator
+                  {tc("xmlSitemapGenerator.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Create an XML sitemap that lists important canonical URLs and
-                  helps search engines discover your website structure.
+                  {t("wf2Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-blue-300">
-                  Create sitemap ✓
+                  {t("wf2Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block">
+                    ✓
+                  </span>
                 </div>
 
               </div>
@@ -880,22 +847,24 @@ ${entries}
                   </div>
 
                   <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
-                    Step 3
+                    {t("wfStep3")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-cyan-300">
-                  SEO Analyzer
+                  {tc("seoAnalyzer.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Run a broader SEO audit after configuring crawling and URL
-                  discovery to review additional technical and content signals.
+                  {t("wf3Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-cyan-300">
-                  Run SEO audit →
+                  {t("wf3Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
 
               </Link>
@@ -909,28 +878,40 @@ ${entries}
                 href="/tools/http-status-checker"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-blue-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                HTTP Status Checker →
+                {tc("httpStatusChecker.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools/seo-page-analyzer"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-blue-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                SEO Page Analyzer →
+                {tc("seoPageAnalyzer.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools/page-speed"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-blue-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                Page Speed Analyzer →
+                {tc("pageSpeed.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-blue-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                View All Tools →
+                {tCommon("viewAllTools")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
             </div>
@@ -958,7 +939,7 @@ function ElementCard({
   return (
     <div className="rounded-[24px] border border-white/10 bg-slate-900/70 p-6">
 
-      <div className="inline-flex rounded-xl border border-blue-400/20 bg-blue-400/10 px-3 py-2 font-mono text-xs font-bold text-blue-300">
+      <div className="inline-flex rounded-xl border border-blue-400/20 bg-blue-400/10 px-3 py-2 font-mono text-xs font-bold text-blue-300" data-ltr-text>
         {tag}
       </div>
 
@@ -987,7 +968,7 @@ function StepCard({
   return (
     <div className="flex gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-5">
 
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 font-bold text-blue-300">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 font-bold text-blue-300" data-ltr-text>
         {number}
       </div>
 
@@ -1058,43 +1039,5 @@ function ProblemCard({
       </p>
 
     </div>
-  );
-}
-
-
-function RelatedToolCard({
-  href,
-  icon,
-  title,
-  description,
-}: {
-  href: string;
-  icon: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:-translate-y-1 hover:border-blue-400/20 hover:bg-white/[0.05]"
-    >
-
-      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg">
-        {icon}
-      </div>
-
-      <h3 className="mt-4 font-semibold text-white transition group-hover:text-blue-300">
-        {title}
-      </h3>
-
-      <p className="mt-2 text-sm leading-6 text-slate-400">
-        {description}
-      </p>
-
-      <div className="mt-4 text-sm font-semibold text-blue-300">
-        Open tool →
-      </div>
-
-    </Link>
   );
 }

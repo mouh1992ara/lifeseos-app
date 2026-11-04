@@ -1,0 +1,402 @@
+{
+  "slug": "on-page-seo-checklist",
+  "title": "Checklist SEO on-page\u00A0: guide complet d’optimisation",
+  "description": "Découvrez comment optimiser vos pages web grâce à une checklist SEO on-page complète couvrant les balises title, le contenu, les intertitres, les URL, le maillage interne, les images et l’expérience utilisateur.",
+  "category": "SEO on-page",
+  "author": "LifeSeos",
+  "publishedAt": "2026-10-07",
+  "updatedAt": "2026-10-17",
+  "readTime": "17 min de lecture",
+  "featuredImage": "/blog/on-page-seo-checklist.webp",
+  "imageAlt": "Checklist SEO on-page complète et guide d’optimisation des pages web",
+  "sections": [
+    {
+      "id": "on-page-seo-introduction",
+      "title": "Qu’est-ce que le SEO on-page\u00A0?",
+      "paragraphs": [
+        "Le SEO on-page consiste à améliorer chaque page web individuellement afin qu’elle soit plus facile à comprendre pour les utilisateurs et les moteurs de recherche.",
+        "Il regroupe les éléments que le propriétaire du site peut maîtriser directement\u00A0: balises title, intertitres, qualité du contenu, liens internes, URL, images et structure de la page.",
+        "Le SEO on-page ne vise pas à accumuler un maximum de mots-clés. Son objectif est de rendre le sujet clair, de répondre à l’intention de recherche et de créer une expérience de page utile.",
+        "Un SEO on-page efficace s’appuie sur un SEO technique sain, dans lequel la page peut être explorée et indexée correctement."
+      ],
+      "bullets": [
+        "Balises title et méta-descriptions",
+        "Intention de recherche",
+        "Qualité du contenu",
+        "Structure des intertitres",
+        "Structure des URL",
+        "Liens internes",
+        "Images et texte alternatif",
+        "Utilisabilité de la page",
+        "Données structurées",
+        "Actualité du contenu"
+      ],
+      "links": [
+        {
+          "label": "Lire le guide du SEO technique",
+          "href": "/blog/technical-seo-guide"
+        },
+        {
+          "label": "Analyseur de page SEO",
+          "href": "/tools/seo-page-analyzer"
+        },
+        {
+          "label": "Générateur de balises meta SEO gratuit",
+          "href": "/tools/meta-tag-generator"
+        },
+        {
+          "label": "Aperçu d’extrait SERP",
+          "href": "/tools/serp-snippet-preview"
+        }
+      ],
+      "tip": "Considérez le SEO on-page comme l’amélioration de la clarté et de l’utilité d’une page, et non comme l’optimisation simultanée de tout le site."
+    },
+    {
+      "id": "search-intent",
+      "title": "Commencez par l’intention de recherche",
+      "paragraphs": [
+        "Avant de modifier les titres, les intertitres ou les mots-clés, identifiez ce que l’utilisateur cherche à accomplir.",
+        "Une page qui vise la mauvaise intention de recherche peut rester faible même si chaque élément technique on-page est optimisé.",
+        "Par exemple, un utilisateur qui recherche «\u00A0vérificateur de densité de mots-clés gratuit\u00A0» souhaite probablement un outil, tandis qu’une personne qui recherche «\u00A0qu’est-ce que la densité de mots-clés\u00A0» attend plutôt une explication.",
+        "Le format de la page, la balise title, l’introduction et le contenu principal doivent tous servir le même objectif utilisateur."
+      ],
+      "bullets": [
+        "Identifiez l’objectif principal de l’utilisateur",
+        "Déterminez si la requête est informationnelle ou orientée vers une tâche",
+        "Adaptez le format de la page à l’intention",
+        "Répondez à la question principale dès le début",
+        "Évitez d’ajouter des informations sans rapport",
+        "Rendez l’action suivante évidente"
+      ],
+      "tip": "L’intention de recherche doit guider la page avant le placement des mots-clés."
+    },
+    {
+      "id": "title-and-meta-optimization",
+      "title": "Optimiser les balises title et les méta-descriptions",
+      "paragraphs": [
+        "La balise title aide à communiquer le sujet principal de la page et apparaît souvent comme le titre cliquable dans les résultats de recherche.",
+        "Un bon titre décrit la page avec exactitude, la distingue des autres pages et emploie naturellement les termes importants.",
+        "Les méta-descriptions aident les utilisateurs à comprendre ce que propose la page avant de cliquer, même si les moteurs de recherche génèrent parfois un extrait différent.",
+        "Les titres et les descriptions doivent refléter le contenu réel de la page plutôt que promettre ce qu’elle ne propose pas."
+      ],
+      "bullets": [
+        "Rédigez une balise title unique pour chaque page importante",
+        "Décrivez la page avec exactitude",
+        "Employez naturellement les termes importants",
+        "Évitez la répétition de mots-clés",
+        "Rédigez une méta-description utile",
+        "Alignez les métadonnées sur l’intention de recherche",
+        "Évitez les formulations trompeuses ou exagérées"
+      ],
+      "links": [
+        {
+          "label": "Lire le guide des balises meta SEO",
+          "href": "/blog/seo-meta-tags-guide"
+        }
+      ],
+      "tip": "Utilisez le Générateur de balises meta et l’Aperçu d’extrait SERP LifeSeos lorsque vous souhaitez examiner les métadonnées plus en détail."
+    },
+    {
+      "id": "content-optimization",
+      "title": "Créer un contenu utile et pertinent",
+      "paragraphs": [
+        "Le contenu est au cœur de la plupart des travaux de SEO on-page, car il détermine si la page répond réellement au besoin du visiteur.",
+        "Un contenu utile explique clairement le sujet, répond aux questions importantes et fournit des informations pratiques lorsque c’est pertinent.",
+        "Un contenu plus long n’est pas automatiquement meilleur. Une page ciblée qui résout le problème de l’utilisateur peut avoir plus de valeur qu’une longue page remplie de répétitions.",
+        "Vérifiez que chaque section apporte quelque chose d’utile au lieu d’exister uniquement pour placer des mots-clés."
+      ],
+      "bullets": [
+        "Répondez clairement à la question principale",
+        "Fournissez suffisamment d’informations complémentaires",
+        "Employez des exemples lorsque c’est utile",
+        "Supprimez les répétitions inutiles",
+        "Actualisez les informations obsolètes",
+        "Gardez le contenu ciblé",
+        "Proposez une étape suivante utile"
+      ],
+      "links": [
+        {
+          "label": "Lire le guide SEO d’analyse de contenu",
+          "href": "/blog/content-analysis-seo-guide"
+        }
+      ]
+    },
+    {
+      "id": "heading-and-structure",
+      "title": "Optimiser les intertitres et la structure de la page",
+      "paragraphs": [
+        "Les intertitres structurent la page et rendent les contenus longs plus faciles à parcourir.",
+        "Le titre principal doit décrire clairement le sujet de la page, tandis que les intertitres secondaires divisent le contenu en sections logiques.",
+        "La structure des intertitres doit refléter la hiérarchie de l’information, et non servir simplement de support pour ajouter des mots-clés.",
+        "Des sections claires aident aussi les utilisateurs à trouver rapidement l’information recherchée."
+      ],
+      "bullets": [
+        "Utilisez un seul titre principal clair par page",
+        "Utilisez des intertitres H2 pour les grandes sections",
+        "Utilisez des intertitres H3 pour les sous-sections pertinentes",
+        "Gardez des intertitres explicites",
+        "Évitez les niveaux de titre inutiles",
+        "Maintenez un enchaînement logique du contenu"
+      ],
+      "tip": "Ne forcez pas le même mot-clé dans chaque intertitre. Chaque intertitre doit décrire fidèlement la section qui le suit."
+    },
+    {
+      "id": "url-optimization",
+      "title": "Utiliser des URL claires et cohérentes",
+      "paragraphs": [
+        "Les URL doivent être faciles à comprendre et rester stables autant que possible.",
+        "Une URL explicite aide les utilisateurs à comprendre la destination avant de la visiter et rend le site plus facile à gérer.",
+        "Évitez de modifier des URL établies sans raison claire, car les changements inutiles créent des redirections et des liens brisés.",
+        "Lorsqu’une URL doit changer définitivement, mettez à jour les liens internes et utilisez la redirection appropriée."
+      ],
+      "bullets": [
+        "Employez des mots lisibles",
+        "Gardez des URL concises lorsque c’est possible",
+        "Évitez les paramètres inutiles",
+        "Utilisez systématiquement des minuscules",
+        "Évitez de modifier les URL sans raison",
+        "Redirigez correctement les pages déplacées définitivement"
+      ],
+      "links": [
+        {
+          "label": "Lire le guide des codes de statut HTTP",
+          "href": "/blog/http-status-codes-seo-guide"
+        }
+      ]
+    },
+    {
+      "id": "keyword-usage",
+      "title": "Employer les mots-clés naturellement",
+      "paragraphs": [
+        "Les mots-clés aident à communiquer le sujet d’une page, mais leur valeur tient à la pertinence plutôt qu’à la répétition.",
+        "Le sujet principal peut apparaître naturellement dans la balise title, le titre, l’introduction et le corps du texte.",
+        "Une terminologie associée permet d’expliquer le sujet plus complètement sans imposer sans cesse la même expression exacte.",
+        "Il n’est pas nécessaire de viser un pourcentage de densité de mots-clés fixe."
+      ],
+      "bullets": [
+        "Employez le sujet principal naturellement",
+        "Évitez la suractivation de mots-clés",
+        "Utilisez une terminologie associée à bon escient",
+        "Gardez des phrases lisibles",
+        "Ne forcez pas de mots-clés dans chaque intertitre",
+        "Privilégiez l’intention de recherche sur la fréquence"
+      ],
+      "links": [
+        {
+          "label": "Lire le guide de la densité de mots-clés",
+          "href": "/blog/keyword-density-guide"
+        }
+      ],
+      "tip": "Utilisez le Vérificateur de densité de mots-clés comme outil de diagnostic si vous soupçonnez des répétitions artificielles."
+    },
+    {
+      "id": "internal-linking",
+      "title": "Améliorer le maillage interne",
+      "paragraphs": [
+        "Les liens internes relient les pages apparentées et aident les utilisateurs à poursuivre leur parcours sur le site.",
+        "Ils aident aussi les moteurs de recherche à découvrir les pages importantes et à comprendre les relations entre les sujets.",
+        "Les liens internes doivent être pertinents dans leur contexte et employer un texte d’ancrage explicite lorsque c’est possible.",
+        "Les pages importantes ne doivent pas être isolées ni accessibles uniquement via un sitemap."
+      ],
+      "bullets": [
+        "Créez des liens vers les pages complémentaires pertinentes",
+        "Employez un texte d’ancrage explicite",
+        "Évitez les liens brisés",
+        "Mettez à jour les URL internes redirigées",
+        "Reliez les articles et les outils associés",
+        "Rendez les pages importantes faciles d’accès"
+      ]
+    },
+    {
+      "id": "external-links",
+      "title": "Utiliser des liens externes lorsqu’ils apportent de la valeur",
+      "paragraphs": [
+        "Les liens externes peuvent étayer une affirmation, apporter un contexte complémentaire et orienter les lecteurs vers des ressources de référence.",
+        "Ils doivent être ajoutés parce qu’ils améliorent l’utilité de la page, et non parce qu’une page doit comporter un certain nombre de liens sortants.",
+        "Vérifiez régulièrement les liens externes, car les pages de destination peuvent être déplacées ou disparaître.",
+        "Lorsque vous citez des faits importants, renvoyez si possible vers des sources primaires fiables ou faisant autorité."
+      ],
+      "bullets": [
+        "Créez des liens vers des sources pertinentes",
+        "Privilégiez les références faisant autorité",
+        "Évitez les liens sortants sans rapport",
+        "Recherchez les liens externes brisés",
+        "Utilisez des liens qui aident réellement le lecteur"
+      ]
+    },
+    {
+      "id": "image-optimization",
+      "title": "Optimiser les images pour le SEO on-page",
+      "paragraphs": [
+        "Les images peuvent faciliter la compréhension et l’usage d’une page, mais elles doivent être optimisées avec soin.",
+        "Des fichiers image volumineux ralentissent le chargement, tandis que l’absence de dimensions contribue aux décalages de mise en page.",
+        "Le texte alternatif d’une image doit la décrire lorsque cette description est utile à l’accessibilité et au contexte.",
+        "N’utilisez pas le texte alternatif pour répéter des mots-clés qui ne décrivent pas l’image."
+      ],
+      "bullets": [
+        "Compressez les images volumineuses",
+        "Utilisez des dimensions adaptées",
+        "Employez des formats d’image efficaces",
+        "Ajoutez un texte alternatif descriptif lorsque c’est pertinent",
+        "Évitez les textes alternatifs surchargés de mots-clés",
+        "Utilisez des noms de fichiers explicites lorsque c’est possible"
+      ],
+      "tip": "L’optimisation des images doit améliorer à la fois l’accessibilité et la performance, et pas seulement le SEO."
+    },
+    {
+      "id": "content-readability",
+      "title": "Améliorer la lisibilité",
+      "paragraphs": [
+        "Une page doit être facile à lire et à comprendre, en particulier sur les petits écrans.",
+        "Un contenu lisible repose sur un langage clair, des paragraphes maîtrisés et une mise en forme logique.",
+        "Une terminologie technique peut être adaptée lorsque le public l’attend, mais les termes inconnus doivent être expliqués si nécessaire.",
+        "Les listes, les intertitres et les sections courtes rendent les informations complexes plus faciles à parcourir."
+      ],
+      "bullets": [
+        "Employez des phrases claires",
+        "Découpez les paragraphes longs",
+        "Utilisez des listes lorsque c’est utile",
+        "Expliquez les termes peu familiers",
+        "Gardez des sections ciblées",
+        "Vérifiez la lisibilité sur mobile"
+      ]
+    },
+    {
+      "id": "user-experience-optimization",
+      "title": "Améliorer l’expérience de page",
+      "paragraphs": [
+        "L’optimisation on-page doit prendre en compte le ressenti d’usage de la page, et pas seulement son apparence pour les moteurs de recherche.",
+        "Les visiteurs doivent pouvoir lire le contenu, interagir avec les boutons et naviguer dans la page sans friction inutile.",
+        "La performance, l’utilisabilité sur mobile et la stabilité de la mise en page contribuent toutes à l’expérience globale de la page.",
+        "Une page qui se charge rapidement mais reste difficile à comprendre ou à parcourir n’est toujours pas bien optimisée."
+      ],
+      "bullets": [
+        "Vérifiez l’utilisabilité sur mobile",
+        "Examinez la vitesse de page",
+        "Utilisez une navigation claire",
+        "Gardez des boutons faciles à utiliser",
+        "Évitez les éléments intrusifs",
+        "Maintenez des mises en page stables"
+      ],
+      "links": [
+        {
+          "label": "Lire le guide SEO de la vitesse de page",
+          "href": "/blog/page-speed-seo-guide"
+        }
+      ],
+      "tip": "Évaluez la page avec le regard d’un visiteur. Les moteurs de recherche ne sont pas le seul public."
+    },
+    {
+      "id": "structured-data",
+      "title": "Utiliser les données structurées lorsque c’est pertinent",
+      "paragraphs": [
+        "Les données structurées fournissent des informations lisibles par machine sur certains types de contenu de page.",
+        "Elles ne doivent être utilisées que lorsque le type de schéma correspond au contenu visible de la page.",
+        "Les données structurées ne remplacent pas un contenu de qualité et ne doivent pas être ajoutées dans le seul but de donner à une page une apparence plus optimisée.",
+        "Validez le balisage après l’implémentation et mettez-le à jour dès que des informations importantes de la page changent."
+      ],
+      "bullets": [
+        "Choisissez un type de schéma pertinent",
+        "Alignez le balisage sur le contenu visible",
+        "Évitez les données structurées trompeuses",
+        "Validez le balisage",
+        "Maintenez les données structurées à jour"
+      ],
+      "tip": "Utilisez le Générateur de balisage Schema LifeSeos lorsque vous avez besoin d’aide pour créer des données structurées."
+    },
+    {
+      "id": "content-freshness",
+      "title": "Tenir à jour les contenus importants",
+      "paragraphs": [
+        "Certaines pages restent exactes longtemps, tandis que d’autres nécessitent des mises à jour régulières.",
+        "Révisez le contenu lorsque les produits changent, que les logiciels évoluent, que les règles sont mises à jour ou que les recommandations deviennent obsolètes.",
+        "Mettre à jour une page suppose de réelles améliorations, et non un simple changement de date.",
+        "Lors de la révision d’un contenu ancien, vérifiez les exemples, les captures d’écran, les liens et les instructions techniques."
+      ],
+      "bullets": [
+        "Examinez les informations obsolètes",
+        "Actualisez les anciens exemples",
+        "Vérifiez les captures d’écran",
+        "Validez les liens externes",
+        "Supprimez les conseils dépassés",
+        "Mettez la date à jour après des modifications substantielles"
+      ]
+    },
+    {
+      "id": "on-page-seo-analysis",
+      "title": "Relire toute la page avant publication",
+      "paragraphs": [
+        "Les éléments on-page doivent fonctionner ensemble plutôt que d’être optimisés séparément.",
+        "Un bon titre ne compense pas un contenu faible, et un contenu utile peut rester difficile à découvrir si la structure de la page est confuse.",
+        "Avant de publier, relisez la page comme une expérience globale et vérifiez que chaque élément soutient le même sujet et la même intention utilisateur.",
+        "Cette relecture finale est également utile après des mises à jour importantes de contenu."
+      ],
+      "bullets": [
+        "Vérifiez la balise title",
+        "Examinez le titre principal",
+        "Confirmez l’intention de recherche",
+        "Examinez la qualité du contenu",
+        "Vérifiez les liens internes",
+        "Examinez les images",
+        "Vérifiez l’utilisabilité sur mobile",
+        "Confirmez que la page propose une étape suivante claire"
+      ]
+    },
+    {
+      "id": "on-page-workflow",
+      "title": "Un processus concret de SEO on-page",
+      "paragraphs": [
+        "Un processus structuré facilite l’optimisation on-page et limite les modifications inutiles.",
+        "Commencez par l’objectif de la page, puis examinez le contenu et les éléments complémentaires dans un ordre logique."
+      ],
+      "bullets": [
+        "Étape 1 — Identifiez l’intention de recherche de la page",
+        "Étape 2 — Examinez la balise title et le titre principal",
+        "Étape 3 — Vérifiez la qualité et la complétude du contenu",
+        "Étape 4 — Examinez les intertitres et la structure",
+        "Étape 5 — Contrôlez l’usage des mots-clés",
+        "Étape 6 — Examinez l’URL",
+        "Étape 7 — Ajoutez des liens internes utiles",
+        "Étape 8 — Optimisez les images",
+        "Étape 9 — Vérifiez l’utilisabilité sur mobile et la performance",
+        "Étape 10 — Testez la page complète avant publication"
+      ],
+      "tip": "Ne modifiez pas chaque élément au seul motif qu’une checklist SEO le mentionne. Améliorez les points qui rendent réellement la page plus claire ou plus utile."
+    },
+    {
+      "id": "on-page-seo-checklist",
+      "title": "Checklist finale de SEO on-page",
+      "paragraphs": [
+        "Un SEO on-page réussi associe une communication claire, un contenu utile et une structure de page qui sert à la fois les utilisateurs et les moteurs de recherche.",
+        "L’objectif n’est pas de cocher une checklist de façon mécanique, mais de créer une page qui remplit clairement sa fonction.",
+        "Révisez régulièrement les pages importantes à mesure que le contenu, les comportements de recherche et la structure du site évoluent."
+      ],
+      "bullets": [
+        "L’intention de recherche est claire",
+        "La balise title décrit fidèlement la page",
+        "La méta-description est utile",
+        "Le titre principal correspond au sujet",
+        "Le contenu est utile et complet",
+        "La structure des intertitres est logique",
+        "Les mots-clés sont employés naturellement",
+        "L’URL est claire",
+        "Les liens internes sont pertinents",
+        "Les images sont optimisées",
+        "Le texte alternatif est descriptif lorsque c’est pertinent",
+        "La page fonctionne bien sur mobile",
+        "La performance est acceptable",
+        "Les données structurées correspondent au contenu visible",
+        "Les informations obsolètes ont été examinées"
+      ],
+      "links": [
+        {
+          "label": "Lire le guide complet d’audit SEO",
+          "href": "/blog/complete-seo-audit-guide"
+        }
+      ],
+      "tip": "Utilisez l’Analyseur SEO LifeSeos pour examiner les principaux signaux on-page, puis servez-vous des résultats comme point de départ d’une évaluation manuelle."
+    }
+  ],
+  "toolName": "Analyseur SEO",
+  "toolUrl": "/tools/seo-analyzer"
+}

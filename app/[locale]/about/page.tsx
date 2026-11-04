@@ -1,42 +1,55 @@
 import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Image from "next/image";
+
+import {
+  buildLanguageAlternates,
+  localeMeta,
+  localizePath,
+  type Locale,
+} from "@/i18n/config";
 import { Link } from "@/i18n/navigation";
 
-export const metadata: Metadata = {
-  title: "About LifeSeos - Free SEO Tools",
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.lifeseos.com"
+).replace(/\/+$/, "");
 
-  description:
-    "Learn about LifeSeos, our mission, and the SEO tools and educational resources we build to make website analysis, technical SEO and content optimization simpler.",
+type Props = { params: Promise<{ locale: string }> };
 
-  alternates: {
-    canonical: "/about",
-  },
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "About" });
+  const meta = localeMeta[locale as Locale] ?? localeMeta.en;
+  const path = "/about";
+  const title = t("meta.title");
+  const description = t("meta.description");
 
-  openGraph: {
-    title: "About LifeSeos",
-    description:
-      "Learn about LifeSeos and our mission to make SEO analysis, technical optimization and content improvement simpler and more accessible.",
-    url: "/about",
-    type: "website",
-    siteName: "LifeSeos",
-    images: [
-      {
-        url: "/social/about.png",
-        width: 1200,
-        height: 630,
-        alt: "About LifeSeos",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "About LifeSeos",
-    description:
-      "Learn about LifeSeos and our mission to make SEO analysis and website optimization simpler and more accessible.",
-    images: ["/social/about.png"],
-  },
-};
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: localizePath(locale as Locale, path),
+      languages: buildLanguageAlternates(siteUrl, path),
+    },
+    openGraph: {
+      title,
+      description,
+      url: siteUrl + localizePath(locale as Locale, path),
+      type: "website",
+      siteName: "LifeSeos",
+      locale: meta.ogLocale,
+      images: [
+        { url: "/social/about.png", width: 1200, height: 630, alt: title },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/social/about.png"],
+    },
+  };
+}
 
 /*
  * FOUNDER SECTION
@@ -47,11 +60,11 @@ export const metadata: Metadata = {
 const founder: {
   name: string;
   role: string;
-  photo: string; // e.g. "/about/founder.jpg" (file placed in /public/about/)
-  story: string[]; // one string per paragraph
-  contactLabel: string; // e.g. "Email me"
-  contactHref: string; // e.g. "mailto:you@example.com" or a profile URL
-  profiles: string[]; // public profile URLs (LinkedIn, X, GitHub...)
+  photo: string;
+  story: string[];
+  contactLabel: string;
+  contactHref: string;
+  profiles: string[];
 } = {
   name: "",
   role: "",
@@ -62,43 +75,63 @@ const founder: {
   profiles: [],
 };
 
-const showFounder =
-  Boolean(founder.name.trim()) && founder.story.length > 0;
+const showFounder = Boolean(founder.name.trim()) && founder.story.length > 0;
 
-const aboutJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  name: "About LifeSeos",
-  url: "https://www.lifeseos.com/about",
-  description:
-    "Learn about LifeSeos and our mission to make SEO analysis, technical optimization and content improvement simpler and more accessible.",
-  mainEntity: {
-    "@type": "Organization",
-    name: "LifeSeos",
-    url: "https://www.lifeseos.com",
-    ...(showFounder
-      ? {
-          founder: {
-            "@type": "Person",
-            name: founder.name,
-            ...(founder.role ? { jobTitle: founder.role } : {}),
-            ...(founder.profiles.length > 0
-              ? { sameAs: founder.profiles }
-              : {}),
-          },
-        }
-      : {}),
+const TOOL_LINKS = [
+  { key: "seoAnalyzer", href: "/tools/seo-analyzer", icon: "🔍" },
+  { key: "seoPageAnalyzer", href: "/tools/seo-page-analyzer", icon: "📄" },
+  { key: "metaTagGenerator", href: "/tools/meta-tag-generator", icon: "✨" },
+  { key: "robotsTxtGenerator", href: "/tools/robots-txt-generator", icon: "🤖" },
+  { key: "xmlSitemapGenerator", href: "/tools/xml-sitemap-generator", icon: "🌐" },
+  {
+    key: "keywordDensityChecker",
+    href: "/tools/keyword-density-checker",
+    icon: "📊",
   },
-};
+  { key: "httpStatusChecker", href: "/tools/http-status-checker", icon: "⚡" },
+  { key: "pageSpeed", href: "/tools/page-speed", icon: "🚀" },
+  { key: "contentAnalyzer", href: "/tools/content-analyzer", icon: "📝" },
+] as const;
 
-export default function AboutPage() {
+const FOCUS_ITEMS = ["analysis", "recs", "tools", "guidance", "history"] as const;
+const PRINCIPLES = [1, 2, 3, 4, 5] as const;
+
+export default async function AboutPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations("About");
+  const tc = await getTranslations("Tools.catalog");
+
+  const aboutJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: t("meta.title"),
+    url: siteUrl + localizePath(locale as Locale, "/about"),
+    inLanguage: locale,
+    description: t("meta.description"),
+    mainEntity: {
+      "@type": "Organization",
+      name: "LifeSeos",
+      url: "https://www.lifeseos.com",
+      ...(showFounder
+        ? {
+            founder: {
+              "@type": "Person",
+              name: founder.name,
+              ...(founder.role ? { jobTitle: founder.role } : {}),
+              ...(founder.profiles.length > 0 ? { sameAs: founder.profiles } : {}),
+            },
+          }
+        : {}),
+    },
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(aboutJsonLd),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
       />
 
       <main className="min-h-screen bg-slate-950 text-white">
@@ -106,22 +139,19 @@ export default function AboutPage() {
           {/* HERO */}
           <section className="text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-sm font-medium text-violet-300">
-              <span>✦</span>
-              <span>About LifeSeos</span>
+              <span aria-hidden="true">✦</span>
+              <span>{t("badge")}</span>
             </div>
 
-            <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              SEO tools built to make
+            <h1 className="text-balance mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+              {t("titleLine1")}
               <span className="mt-2 block bg-gradient-to-r from-blue-400 via-violet-400 to-emerald-400 bg-clip-text text-transparent">
-                optimization simpler
+                {t("titleAccent")}
               </span>
             </h1>
 
             <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-slate-400 sm:text-lg">
-              LifeSeos provides practical SEO tools and educational resources
-              designed to help creators, developers, marketers, and website
-              owners understand their websites and identify opportunities for
-              improvement.
+              {t("subtitle")}
             </p>
           </section>
 
@@ -129,7 +159,7 @@ export default function AboutPage() {
           {showFounder ? (
             <section className="mt-16 rounded-[32px] border border-white/10 bg-slate-900/80 p-7 sm:p-10">
               <div className="grid gap-8 lg:grid-cols-[0.6fr_1.4fr] lg:items-center">
-                <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+                <div className="flex flex-col items-center text-center lg:items-start lg:text-start">
                   {founder.photo ? (
                     <Image
                       src={founder.photo}
@@ -141,17 +171,13 @@ export default function AboutPage() {
                   ) : null}
 
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-300">
-                    Meet the founder
+                    {t("founder.eyebrow")}
                   </p>
 
-                  <h2 className="mt-3 text-3xl font-bold">
-                    {founder.name}
-                  </h2>
+                  <h2 className="mt-3 text-3xl font-bold">{founder.name}</h2>
 
                   {founder.role ? (
-                    <p className="mt-2 text-sm text-slate-400">
-                      {founder.role}
-                    </p>
+                    <p className="mt-2 text-sm text-slate-400">{founder.role}</p>
                   ) : null}
                 </div>
 
@@ -174,7 +200,7 @@ export default function AboutPage() {
                           href={founder.contactHref}
                           className="text-emerald-300 transition hover:text-emerald-200"
                         >
-                          {founder.contactLabel || "Get in touch"} →
+                          {founder.contactLabel || t("founder.contact")}
                         </a>
                       ) : null}
 
@@ -185,11 +211,11 @@ export default function AboutPage() {
                           target="_blank"
                           rel="noopener noreferrer me"
                           className="text-blue-300 transition hover:text-blue-200"
+                          data-ltr-text
                         >
                           {profile
                             .replace(/^https?:\/\/(www\.)?/, "")
-                            .replace(/\/$/, "")}{" "}
-                          ↗
+                            .replace(/\/$/, "")}
                         </a>
                       ))}
                     </div>
@@ -203,63 +229,35 @@ export default function AboutPage() {
           <section className="mt-16 grid gap-6 lg:grid-cols-2">
             <div className="rounded-[30px] border border-white/10 bg-slate-900/80 p-7 sm:p-8">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-300">
-                Our Mission
+                {t("mission.eyebrow")}
               </p>
 
-              <h2 className="mt-3 text-3xl font-bold">
-                Make SEO easier to understand
-              </h2>
+              <h2 className="mt-3 text-3xl font-bold">{t("mission.title")}</h2>
 
               <p className="mt-5 text-sm leading-7 text-slate-400 sm:text-base">
-                SEO can feel complicated, especially when technical issues,
-                metadata, content structure, performance, and search engine
-                requirements are spread across many different tools and
-                resources.
+                {t("mission.p1")}
               </p>
-
               <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
-                LifeSeos aims to bring useful SEO checks into one simple
-                workspace, with clear results, practical recommendations, and
-                tools that are easy to use.
+                {t("mission.p2")}
               </p>
-
               <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
-                We also publish educational SEO guides that explain the ideas
-                behind the tools so users can understand why an issue matters
-                instead of relying only on an automated score.
+                {t("mission.p3")}
               </p>
             </div>
 
             <div className="rounded-[30px] border border-white/10 bg-gradient-to-br from-blue-500/10 via-violet-500/10 to-emerald-500/10 p-7 sm:p-8">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-300">
-                What We Focus On
+                {t("focus.eyebrow")}
               </p>
 
               <div className="mt-6 space-y-4">
-                <FeatureItem
-                  title="Simple analysis"
-                  description="Turn technical SEO signals into clearer results that are easier to review."
-                />
-
-                <FeatureItem
-                  title="Useful recommendations"
-                  description="Highlight potential issues and provide practical next steps for further evaluation."
-                />
-
-                <FeatureItem
-                  title="Practical tools"
-                  description="Help users complete common SEO tasks without unnecessary complexity."
-                />
-
-                <FeatureItem
-                  title="Educational guidance"
-                  description="Explain SEO concepts so users can make informed optimization decisions."
-                />
-
-                <FeatureItem
-                  title="Account-based history"
-                  description="Allow signed-in users to save supported SEO reports and review them later."
-                />
+                {FOCUS_ITEMS.map((key) => (
+                  <FeatureItem
+                    key={key}
+                    title={t(`focus.${key}Title`)}
+                    description={t(`focus.${key}Body`)}
+                  />
+                ))}
               </div>
             </div>
           </section>
@@ -268,36 +266,24 @@ export default function AboutPage() {
           <section className="mt-16">
             <div className="text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
-                How LifeSeos Works
+                {t("how.eyebrow")}
               </p>
 
-              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                Tools support decisions — they do not replace them
-              </h2>
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">{t("how.title")}</h2>
 
               <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-slate-400 sm:text-base">
-                LifeSeos combines automated checks with explanatory guidance.
-                The tools can identify patterns, technical signals, metadata,
-                content characteristics, and other SEO-related information,
-                but automated results should always be reviewed in context.
+                {t("how.body")}
               </p>
             </div>
 
             <div className="mt-10 grid gap-5 md:grid-cols-3">
-              <ValueCard
-                title="1. Analyze"
-                description="Use a LifeSeos tool to inspect a webpage, text, metadata, performance signal, or other supported SEO element."
-              />
-
-              <ValueCard
-                title="2. Understand"
-                description="Review the results together with explanations, recommendations, and related educational guides."
-              />
-
-              <ValueCard
-                title="3. Improve"
-                description="Decide which changes are appropriate for your website, then test and monitor the results."
-              />
+              {[1, 2, 3].map((n) => (
+                <ValueCard
+                  key={n}
+                  title={t(`how.step${n}Title`)}
+                  description={t(`how.step${n}Body`)}
+                />
+              ))}
             </div>
           </section>
 
@@ -305,91 +291,39 @@ export default function AboutPage() {
           <section className="mt-16">
             <div className="text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
-                LifeSeos Toolkit
+                {t("toolkit.eyebrow")}
               </p>
 
               <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                Tools designed for everyday SEO work
+                {t("toolkit.title")}
               </h2>
 
               <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">
-                LifeSeos combines practical SEO utilities in one place so you
-                can analyze, generate, check, measure, and improve important
-                website signals.
+                {t("toolkit.body")}
               </p>
             </div>
 
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              <ToolCard
-                href="/tools/seo-analyzer"
-                icon="🔍"
-                title="SEO Analyzer"
-                description="Analyze important technical, content, image, and social SEO signals."
-              />
-
-              <ToolCard
-                href="/tools/seo-page-analyzer"
-                icon="📄"
-                title="SEO Page Analyzer"
-                description="Review titles, descriptions, headings, links, canonical tags and image SEO."
-              />
-
-              <ToolCard
-                href="/tools/meta-tag-generator"
-                icon="✨"
-                title="Meta Tag Generator"
-                description="Create title and description ideas for your pages."
-              />
-
-              <ToolCard
-                href="/tools/robots-txt-generator"
-                icon="🤖"
-                title="Robots.txt Generator"
-                description="Generate crawler instructions for search engines."
-              />
-
-              <ToolCard
-                href="/tools/xml-sitemap-generator"
-                icon="🌐"
-                title="XML Sitemap Generator"
-                description="Create sitemap structures that help search engines discover pages."
-              />
-
-              <ToolCard
-                href="/tools/keyword-density-checker"
-                icon="📊"
-                title="Keyword Density Checker"
-                description="Review keyword frequency, density and content balance."
-              />
-
-              <ToolCard
-                href="/tools/http-status-checker"
-                icon="⚡"
-                title="HTTP Status Checker"
-                description="Check redirects, errors and HTTP response information."
-              />
-
-              <ToolCard
-                href="/tools/page-speed"
-                icon="🚀"
-                title="Page Speed Analyzer"
-                description="Review loading performance and important performance metrics."
-              />
-
-              <ToolCard
-                href="/tools/content-analyzer"
-                icon="📝"
-                title="Content Analyzer"
-                description="Analyze readability, content length, keywords and SEO-related content signals."
-              />
+              {TOOL_LINKS.map(({ key, href, icon }) => (
+                <ToolCard
+                  key={key}
+                  href={href}
+                  icon={icon}
+                  title={tc(`${key}.title`)}
+                  description={tc(`${key}.long`)}
+                />
+              ))}
             </div>
 
             <div className="mt-7 text-center">
               <Link
                 href="/tools"
-                className="inline-flex font-semibold text-emerald-300 transition hover:text-emerald-200"
+                className="inline-flex items-center gap-2 font-semibold text-emerald-300 transition hover:text-emerald-200"
               >
-                View all LifeSeos tools →
+                {t("toolkit.viewAll")}
+                <span aria-hidden="true" className="rtl:rotate-180">
+                  →
+                </span>
               </Link>
             </div>
           </section>
@@ -399,61 +333,36 @@ export default function AboutPage() {
             <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-300">
-                  SEO Learning
+                  {t("learning.eyebrow")}
                 </p>
 
-                <h2 className="mt-3 text-3xl font-bold">
-                  Practical guides alongside the tools
-                </h2>
+                <h2 className="mt-3 text-3xl font-bold">{t("learning.title")}</h2>
 
                 <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
-                  Our SEO guides cover topics such as technical SEO, on-page
-                  optimization, metadata, page speed, HTTP status codes,
-                  robots.txt, XML sitemaps, keyword usage, and content
-                  analysis.
+                  {t("learning.p1")}
                 </p>
-
                 <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
-                  The goal is to provide useful context so users can understand
-                  what a tool is measuring and make their own informed
-                  decisions.
+                  {t("learning.p2")}
                 </p>
               </div>
 
               <div className="rounded-[26px] border border-white/10 bg-black/10 p-6 sm:p-7">
-                <h3 className="text-xl font-semibold">
-                  Our content principles
-                </h3>
+                <h3 className="text-xl font-semibold">{t("learning.principlesTitle")}</h3>
 
                 <ul className="mt-5 space-y-4 text-sm leading-6 text-slate-400">
-                  <SimpleListItem>
-                    Explain SEO concepts in clear and practical language.
-                  </SimpleListItem>
-
-                  <SimpleListItem>
-                    Avoid presenting arbitrary SEO scores as guarantees.
-                  </SimpleListItem>
-
-                  <SimpleListItem>
-                    Distinguish automated checks from editorial judgment.
-                  </SimpleListItem>
-
-                  <SimpleListItem>
-                    Update important guidance when tools, practices, or
-                    standards change.
-                  </SimpleListItem>
-
-                  <SimpleListItem>
-                    Focus on information that helps users make better website
-                    decisions.
-                  </SimpleListItem>
+                  {PRINCIPLES.map((n) => (
+                    <SimpleListItem key={n}>{t(`learning.principle${n}`)}</SimpleListItem>
+                  ))}
                 </ul>
 
                 <Link
                   href="/blog"
-                  className="mt-6 inline-flex font-semibold text-blue-300 transition hover:text-blue-200"
+                  className="mt-6 inline-flex items-center gap-2 font-semibold text-blue-300 transition hover:text-blue-200"
                 >
-                  Explore SEO guides →
+                  {t("learning.browse")}
+                  <span aria-hidden="true" className="rtl:rotate-180">
+                    →
+                  </span>
                 </Link>
               </div>
             </div>
@@ -464,40 +373,26 @@ export default function AboutPage() {
             <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
-                  Our Approach
+                  {t("approach.eyebrow")}
                 </p>
 
-                <h2 className="mt-3 text-3xl font-bold">
-                  Clear, practical, and user-focused
-                </h2>
+                <h2 className="mt-3 text-3xl font-bold">{t("approach.title")}</h2>
 
                 <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
-                  LifeSeos is built around a simple idea: useful SEO tools
-                  should be understandable, practical, and straightforward to
-                  use.
+                  {t("approach.body")}
                 </p>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <ValueCard
-                  title="Clarity"
-                  description="Present results and explanations in a way that is easier to understand."
-                />
-
-                <ValueCard
-                  title="Practicality"
-                  description="Focus on checks and recommendations that can support real website improvements."
-                />
-
-                <ValueCard
-                  title="Transparency"
-                  description="Treat automated results as indicators rather than promises of search performance."
-                />
-
-                <ValueCard
-                  title="Privacy"
-                  description="Handle account, report and website usage information responsibly."
-                />
+                {(["clarity", "practicality", "transparency", "privacy"] as const).map(
+                  (key) => (
+                    <ValueCard
+                      key={key}
+                      title={t(`approach.${key}Title`)}
+                      description={t(`approach.${key}Body`)}
+                    />
+                  ),
+                )}
               </div>
             </div>
           </section>
@@ -505,39 +400,27 @@ export default function AboutPage() {
           {/* IMPORTANT NOTE */}
           <section className="mt-16 rounded-[30px] border border-amber-400/15 bg-amber-400/[0.04] p-7 sm:p-8">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-300">
-              Important
+              {t("note.eyebrow")}
             </p>
 
-            <h2 className="mt-3 text-2xl font-bold">
-              SEO results can vary
-            </h2>
+            <h2 className="mt-3 text-2xl font-bold">{t("note.title")}</h2>
 
             <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
-              LifeSeos tools and guides provide informational analysis and
-              recommendations. Search engine rankings depend on many factors,
-              and no SEO tool can guarantee a specific ranking, traffic level,
-              indexing outcome, or search performance result.
+              {t("note.p1")}
             </p>
-
             <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">
-              Users should review recommendations in the context of their own
-              website, audience, technical environment, and business goals.
+              {t("note.p2")}
             </p>
           </section>
 
           {/* CTA */}
           <section className="mt-16 rounded-[30px] border border-white/10 bg-gradient-to-r from-blue-500/10 via-violet-500/10 to-fuchsia-500/10 p-8 text-center sm:p-10">
-            <p className="text-sm font-semibold text-violet-300">
-              Ready to review your website?
-            </p>
+            <p className="text-sm font-semibold text-violet-300">{t("cta.eyebrow")}</p>
 
-            <h2 className="mt-3 text-3xl font-bold">
-              Start with a free SEO analysis
-            </h2>
+            <h2 className="mt-3 text-3xl font-bold">{t("cta.title")}</h2>
 
             <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-slate-400">
-              Run an SEO audit, review your website signals, and identify
-              areas that may need further attention.
+              {t("cta.body")}
             </p>
 
             <div className="mt-7 flex flex-wrap justify-center gap-4">
@@ -545,44 +428,17 @@ export default function AboutPage() {
                 href="/tools/seo-analyzer"
                 className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-emerald-400 to-cyan-400 px-6 py-3.5 font-semibold text-slate-950 transition hover:-translate-y-0.5"
               >
-                Analyze Website
+                {t("cta.primary")}
               </Link>
 
               <Link
                 href="/tools"
                 className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-6 py-3.5 font-semibold text-slate-300 transition hover:bg-white/10 hover:text-white"
               >
-                Explore Tools
+                {t("cta.secondary")}
               </Link>
             </div>
           </section>
-
-          {/* NAVIGATION */}
-          <div className="mt-10 flex flex-wrap justify-center gap-5 text-sm text-slate-500">
-            <Link href="/" className="transition hover:text-white">
-              Home
-            </Link>
-
-            <Link href="/tools" className="transition hover:text-white">
-              Tools
-            </Link>
-
-            <Link href="/blog" className="transition hover:text-white">
-              Blog
-            </Link>
-
-            <Link href="/contact" className="transition hover:text-white">
-              Contact
-            </Link>
-
-            <Link href="/privacy" className="transition hover:text-white">
-              Privacy
-            </Link>
-
-            <Link href="/terms" className="transition hover:text-white">
-              Terms
-            </Link>
-          </div>
         </div>
       </main>
     </>
@@ -605,10 +461,7 @@ function FeatureItem({
 
         <div>
           <h3 className="font-semibold text-white">{title}</h3>
-
-          <p className="mt-1 text-sm leading-6 text-slate-500">
-            {description}
-          </p>
+          <p className="mt-1 text-sm leading-6 text-slate-500">{description}</p>
         </div>
       </div>
     </div>
@@ -639,9 +492,7 @@ function ToolCard({
         {title}
       </h3>
 
-      <p className="mt-2 text-sm leading-6 text-slate-500">
-        {description}
-      </p>
+      <p className="mt-2 text-sm leading-6 text-slate-500">{description}</p>
     </Link>
   );
 }
@@ -656,25 +507,17 @@ function ValueCard({
   return (
     <div className="rounded-2xl border border-white/10 bg-black/10 p-5">
       <h3 className="font-semibold text-slate-200">{title}</h3>
-
-      <p className="mt-2 text-sm leading-6 text-slate-500">
-        {description}
-      </p>
+      <p className="mt-2 text-sm leading-6 text-slate-500">{description}</p>
     </div>
   );
 }
 
-function SimpleListItem({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function SimpleListItem({ children }: { children: React.ReactNode }) {
   return (
     <li className="flex items-start gap-3">
       <span className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-400/10 text-[10px] font-bold text-blue-300">
         ✓
       </span>
-
       <span>{children}</span>
     </li>
   );

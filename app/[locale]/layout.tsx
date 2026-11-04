@@ -6,15 +6,20 @@ import {
   Noto_Serif_SC,
 } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
 
-import ContentShell from "@/components/content-shell";
 import LivePresence from "@/components/live-presence";
 import MotionProvider from "@/components/motion-provider";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
-import { routing } from "@/i18n/routing";
+import {
+  buildLanguageAlternates,
+  localeMeta,
+  localizePath,
+  routing,
+  type Locale,
+} from "@/i18n/config";
 
 import PageVisitTracker from "../page-visit-tracker";
 import "../globals.css";
@@ -41,14 +46,9 @@ const zhSerif = Noto_Serif_SC({
   variable: "--font-zh-serif",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lifeseos.com";
-
-const OG_LOCALE: Record<string, string> = {
-  en: "en_US",
-  ar: "ar_AR",
-  fr: "fr_FR",
-  zh: "zh_CN",
-};
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.lifeseos.com"
+).replace(/\/+$/, "");
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -60,35 +60,39 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Meta" });
+  const meta = localeMeta[locale as Locale] ?? localeMeta.en;
+  const canonical = localizePath(locale as Locale, "/");
 
   return {
     metadataBase: new URL(siteUrl),
     title: {
-      default: "LifeSeos - Free SEO Tools for Smarter Growth",
-      template: "%s | LifeSeos",
+      default: t("siteTitle"),
+      template: `%s | LifeSeos`,
     },
-    description:
-      "Free SEO tools for website analysis, technical SEO, on-page optimization, content analysis, page speed, metadata, sitemaps and smarter search growth.",
+    description: t("siteDescription"),
     applicationName: "LifeSeos",
     creator: "LifeSeos",
     publisher: "LifeSeos",
-    alternates: { canonical: locale === "en" ? "/" : `/${locale}` },
+    alternates: {
+      canonical,
+      languages: buildLanguageAlternates(siteUrl, "/"),
+    },
     openGraph: {
       type: "website",
-      locale: OG_LOCALE[locale] ?? "en_US",
-      url: siteUrl,
+      locale: meta.ogLocale,
+      url: siteUrl + canonical,
       siteName: "LifeSeos",
-      title: "LifeSeos - Free SEO Tools for Smarter Growth",
-      description:
-        "Analyze websites, discover SEO issues and optimize your website with free LifeSeos SEO tools.",
+      title: t("siteTitle"),
+      description: t("siteDescription"),
       images: [
-        { url: "/social/home.png", width: 1200, height: 630, alt: "LifeSeos SEO Tools" },
+        { url: "/social/home.png", width: 1200, height: 630, alt: t("siteTitle") },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: "LifeSeos - Free SEO Tools for Smarter Growth",
-      description: "Free SEO tools for website analysis and optimization.",
+      title: t("siteTitle"),
+      description: t("siteDescription"),
       images: ["/social/home.png"],
     },
     robots: {
@@ -138,7 +142,8 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
-  const dir = locale === "ar" ? "rtl" : "ltr";
+  const meta = localeMeta[locale as Locale];
+  const dir = meta.dir;
   const fontClass =
     locale === "ar"
       ? arabic.variable
@@ -147,7 +152,7 @@ export default async function LocaleLayout({
         : "";
 
   return (
-    <html lang={locale} dir={dir} suppressHydrationWarning>
+    <html lang={meta.htmlLang} dir={dir} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionBootstrap }} />
         <script
@@ -170,8 +175,6 @@ export default async function LocaleLayout({
         />
 
         <NextIntlClientProvider>
-          <PageVisitTracker />
-
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
@@ -184,13 +187,12 @@ export default async function LocaleLayout({
               <SiteHeader />
               <LivePresence />
 
-              <main className="flex-1">
-                <ContentShell>{children}</ContentShell>
-              </main>
+              <main className="flex-1">{children}</main>
 
               <SiteFooter />
             </div>
           </ThemeProvider>
+          <PageVisitTracker />
         </NextIntlClientProvider>
       </body>
     </html>

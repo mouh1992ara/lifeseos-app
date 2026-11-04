@@ -1,21 +1,18 @@
 import type { Metadata } from "next";
 import SchemaMarkupGeneratorClient from "./schema-markup-generator-client";
+import { buildToolMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Free Schema Markup Generator | LifeSeos",
-  description:
-    "Generate JSON-LD schema markup for articles, FAQs, products, local businesses, breadcrumbs, organizations, websites and people with the free LifeSeos Schema Markup Generator.",
-  alternates: {
-    canonical: "/tools/schema-markup-generator",
-  },
-  openGraph: {
-    title: "Free Schema Markup Generator | LifeSeos",
-    description:
-      "Create structured JSON-LD schema markup for common website content types with LifeSeos.",
-    url: "https://www.lifeseos.com/tools/schema-markup-generator",
-    type: "website",
-  },
-};
+type MetaProps = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: MetaProps): Promise<Metadata> {
+  const { locale } = await params;
+  return buildToolMetadata({
+    locale,
+    path: "/tools/schema-markup-generator",
+    toolKey: "schemaMarkupGenerator",
+  });
+}
+
 
 const softwareApplicationJsonLd = {
   "@context": "https://schema.org",

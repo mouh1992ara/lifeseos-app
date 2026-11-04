@@ -1,0 +1,7 @@
+{
+  "Protected": {
+    "backToDashboard": "返回控制台",
+    "notice": "这是一个受保护的页面，仅登录用户可以查看。",
+    "detailsTitle": "你的账户信息"
+  }
+}

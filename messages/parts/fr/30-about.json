@@ -1,0 +1,92 @@
+{
+  "About": {
+    "meta": {
+      "title": "À propos de LifeSeos — Outils SEO gratuits",
+      "description": "Découvrez LifeSeos, notre mission, ainsi que les outils SEO et les ressources pédagogiques que nous créons pour simplifier l’analyse de sites, le SEO technique et l’optimisation de contenu."
+    },
+    "badge": "À propos de LifeSeos",
+    "titleLine1": "Des outils SEO conçus pour rendre",
+    "titleAccent": "l’optimisation plus simple",
+    "subtitle": "LifeSeos propose des outils SEO concrets et des ressources pédagogiques pensés pour aider les créateurs, les développeurs, les marketeurs et les propriétaires de sites à comprendre leur site et à identifier des pistes d’amélioration.",
+    "founder": {
+      "eyebrow": "Rencontrez le fondateur",
+      "contact": "Nous écrire"
+    },
+    "mission": {
+      "eyebrow": "Notre mission",
+      "title": "Rendre le SEO plus facile à comprendre",
+      "p1": "Le SEO peut sembler complexe, surtout lorsque les problèmes techniques, les métadonnées, la structure du contenu, la performance et les exigences des moteurs de recherche sont répartis entre de nombreux outils et ressources.",
+      "p2": "LifeSeos vise à réunir des contrôles SEO utiles dans un espace de travail simple, avec des résultats clairs, des recommandations concrètes et des outils faciles à prendre en main.",
+      "p3": "Nous publions aussi des guides SEO pédagogiques qui expliquent les principes derrière les outils, afin que chacun comprenne pourquoi un problème compte au lieu de se fier uniquement à un score automatisé."
+    },
+    "focus": {
+      "eyebrow": "Ce sur quoi nous nous concentrons",
+      "analysisTitle": "Analyse simple",
+      "analysisBody": "Transformer les signaux de SEO technique en résultats plus clairs et plus faciles à examiner.",
+      "recsTitle": "Recommandations utiles",
+      "recsBody": "Mettre en évidence les problèmes potentiels et proposer des prochaines étapes concrètes.",
+      "toolsTitle": "Outils concrets",
+      "toolsBody": "Aider les utilisateurs à accomplir les tâches SEO courantes sans complexité inutile.",
+      "guidanceTitle": "Accompagnement pédagogique",
+      "guidanceBody": "Expliquer les concepts SEO pour permettre des décisions d’optimisation éclairées.",
+      "historyTitle": "Historique lié au compte",
+      "historyBody": "Permettre aux utilisateurs connectés d’enregistrer les rapports SEO pris en charge et de les consulter plus tard."
+    },
+    "how": {
+      "eyebrow": "Comment fonctionne LifeSeos",
+      "title": "Les outils éclairent les décisions, ils ne les remplacent pas",
+      "body": "LifeSeos associe des contrôles automatisés à des explications. Les outils peuvent identifier des schémas, des signaux techniques, des métadonnées, des caractéristiques de contenu et d’autres informations liées au SEO, mais les résultats automatisés doivent toujours être examinés dans leur contexte.",
+      "step1Title": "1. Analyser",
+      "step1Body": "Utilisez un outil LifeSeos pour inspecter une page, un texte, des métadonnées, un signal de performance ou un autre élément SEO pris en charge.",
+      "step2Title": "2. Comprendre",
+      "step2Body": "Examinez les résultats avec les explications, les recommandations et les guides pédagogiques associés.",
+      "step3Title": "3. Améliorer",
+      "step3Body": "Déterminez les changements adaptés à votre site, puis testez et suivez les résultats."
+    },
+    "toolkit": {
+      "eyebrow": "Boîte à outils LifeSeos",
+      "title": "Des outils pensés pour le SEO au quotidien",
+      "body": "LifeSeos réunit des utilitaires SEO concrets au même endroit pour analyser, générer, vérifier, mesurer et améliorer les signaux importants de votre site.",
+      "viewAll": "Voir tous les outils LifeSeos"
+    },
+    "learning": {
+      "eyebrow": "Apprendre le SEO",
+      "title": "Des guides pratiques à côté des outils",
+      "p1": "Nos guides SEO couvrent des sujets comme le SEO technique, l’optimisation on-page, les métadonnées, la vitesse de page, les codes de statut HTTP, robots.txt, les sitemaps XML, l’usage des mots-clés et l’analyse de contenu.",
+      "p2": "L’objectif est d’apporter un contexte utile pour que chacun comprenne ce que mesure un outil et prenne ses propres décisions de façon éclairée.",
+      "principlesTitle": "Nos principes de contenu",
+      "principle1": "Expliquer les concepts SEO dans un langage clair et concret.",
+      "principle2": "Éviter de présenter des scores SEO arbitraires comme des garanties.",
+      "principle3": "Distinguer les contrôles automatisés du jugement éditorial.",
+      "principle4": "Mettre à jour les conseils importants lorsque les outils, les pratiques ou les normes évoluent.",
+      "principle5": "Privilégier les informations qui aident à prendre de meilleures décisions pour son site.",
+      "browse": "Explorer les guides SEO"
+    },
+    "approach": {
+      "eyebrow": "Notre approche",
+      "title": "Clair, concret et centré sur l’utilisateur",
+      "body": "LifeSeos repose sur une idée simple\u00a0: des outils SEO utiles doivent être compréhensibles, pratiques et simples à utiliser.",
+      "clarityTitle": "Clarté",
+      "clarityBody": "Présenter les résultats et les explications de façon plus facile à comprendre.",
+      "practicalityTitle": "Concret",
+      "practicalityBody": "Se concentrer sur les contrôles et recommandations qui soutiennent de vraies améliorations.",
+      "transparencyTitle": "Transparence",
+      "transparencyBody": "Traiter les résultats automatisés comme des indicateurs, non comme des promesses de performance.",
+      "privacyTitle": "Confidentialité",
+      "privacyBody": "Traiter de façon responsable les informations de compte, de rapport et d’usage du site."
+    },
+    "note": {
+      "eyebrow": "Important",
+      "title": "Les résultats SEO peuvent varier",
+      "p1": "Les outils et guides LifeSeos fournissent des analyses et des recommandations à titre informatif. Le classement dans les moteurs de recherche dépend de nombreux facteurs, et aucun outil SEO ne peut garantir un classement, un niveau de trafic, un résultat d’indexation ou une performance de recherche précis.",
+      "p2": "Les utilisateurs doivent examiner les recommandations au regard de leur propre site, de leur audience, de leur environnement technique et de leurs objectifs business."
+    },
+    "cta": {
+      "eyebrow": "Prêt à faire le point sur votre site\u00a0?",
+      "title": "Commencez par une analyse SEO gratuite",
+      "body": "Lancez un audit SEO, examinez les signaux de votre site et identifiez les points qui méritent peut-être une attention supplémentaire.",
+      "primary": "Analyser le site",
+      "secondary": "Découvrir les outils"
+    }
+  }
+}

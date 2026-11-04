@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { contactRatelimit } from "@/lib/ratelimit";
+import { getContactRatelimit } from "@/lib/ratelimit";
 
 export async function POST(request: Request) {
   try {
@@ -11,18 +11,22 @@ export async function POST(request: Request) {
       request.headers.get("x-real-ip") ||
       "local";
 
-    const { success } = await contactRatelimit.limit(ip);
+    // Rate limiting is skipped when Redis is not configured.
+    const limiter = getContactRatelimit();
+    if (limiter) {
+      const { success } = await limiter.limit(ip);
 
-    if (!success) {
-      return NextResponse.json(
-        {
-          error:
-            "Too many contact requests. Please wait a few minutes and try again.",
-        },
-        {
-          status: 429,
-        }
-      );
+      if (!success) {
+        return NextResponse.json(
+          {
+            error:
+              "Too many contact requests. Please wait a few minutes and try again.",
+          },
+          {
+            status: 429,
+          }
+        );
+      }
     }
 
     const body = await request.json();

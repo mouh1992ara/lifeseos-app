@@ -1,3 +1,5 @@
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
 import {
   Card,
   CardContent,
@@ -6,23 +8,25 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function Page() {
+type Props = { params: Promise<{ locale: string }> };
+
+export default async function Page({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations("Auth.success");
+
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
         <div className="flex flex-col gap-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">
-                Thank you for signing up!
-              </CardTitle>
-              <CardDescription>Check your email to confirm</CardDescription>
+              <CardTitle className="text-2xl">{t("title")}</CardTitle>
+              <CardDescription>{t("description")}</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">
-                You&apos;ve successfully signed up. Please check your email to
-                confirm your account before signing in.
-              </p>
+              <p className="text-sm text-muted-foreground">{t("body")}</p>
             </CardContent>
           </Card>
         </div>

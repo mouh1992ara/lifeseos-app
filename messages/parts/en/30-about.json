@@ -1,0 +1,92 @@
+{
+  "About": {
+    "meta": {
+      "title": "About LifeSeos — Free SEO Tools",
+      "description": "Learn about LifeSeos, our mission, and the SEO tools and educational resources we build to make website analysis, technical SEO and content optimization simpler."
+    },
+    "badge": "About LifeSeos",
+    "titleLine1": "SEO tools built to make",
+    "titleAccent": "optimization simpler",
+    "subtitle": "LifeSeos provides practical SEO tools and educational resources designed to help creators, developers, marketers, and website owners understand their websites and identify opportunities for improvement.",
+    "founder": {
+      "eyebrow": "Meet the founder",
+      "contact": "Get in touch"
+    },
+    "mission": {
+      "eyebrow": "Our mission",
+      "title": "Make SEO easier to understand",
+      "p1": "SEO can feel complicated, especially when technical issues, metadata, content structure, performance, and search engine requirements are spread across many different tools and resources.",
+      "p2": "LifeSeos aims to bring useful SEO checks into one simple workspace, with clear results, practical recommendations, and tools that are easy to use.",
+      "p3": "We also publish educational SEO guides that explain the ideas behind the tools so users can understand why an issue matters instead of relying only on an automated score."
+    },
+    "focus": {
+      "eyebrow": "What we focus on",
+      "analysisTitle": "Simple analysis",
+      "analysisBody": "Turn technical SEO signals into clearer results that are easier to review.",
+      "recsTitle": "Useful recommendations",
+      "recsBody": "Highlight potential issues and provide practical next steps for further evaluation.",
+      "toolsTitle": "Practical tools",
+      "toolsBody": "Help users complete common SEO tasks without unnecessary complexity.",
+      "guidanceTitle": "Educational guidance",
+      "guidanceBody": "Explain SEO concepts so users can make informed optimization decisions.",
+      "historyTitle": "Account-based history",
+      "historyBody": "Allow signed-in users to save supported SEO reports and review them later."
+    },
+    "how": {
+      "eyebrow": "How LifeSeos works",
+      "title": "Tools support decisions — they do not replace them",
+      "body": "LifeSeos combines automated checks with explanatory guidance. The tools can identify patterns, technical signals, metadata, content characteristics, and other SEO-related information, but automated results should always be reviewed in context.",
+      "step1Title": "1. Analyze",
+      "step1Body": "Use a LifeSeos tool to inspect a webpage, text, metadata, performance signal, or other supported SEO element.",
+      "step2Title": "2. Understand",
+      "step2Body": "Review the results together with explanations, recommendations, and related educational guides.",
+      "step3Title": "3. Improve",
+      "step3Body": "Decide which changes are appropriate for your website, then test and monitor the results."
+    },
+    "toolkit": {
+      "eyebrow": "LifeSeos toolkit",
+      "title": "Tools designed for everyday SEO work",
+      "body": "LifeSeos combines practical SEO utilities in one place so you can analyze, generate, check, measure, and improve important website signals.",
+      "viewAll": "View all LifeSeos tools"
+    },
+    "learning": {
+      "eyebrow": "SEO learning",
+      "title": "Practical guides alongside the tools",
+      "p1": "Our SEO guides cover topics such as technical SEO, on-page optimization, metadata, page speed, HTTP status codes, robots.txt, XML sitemaps, keyword usage, and content analysis.",
+      "p2": "The goal is to provide useful context so users can understand what a tool is measuring and make their own informed decisions.",
+      "principlesTitle": "Our content principles",
+      "principle1": "Explain SEO concepts in clear and practical language.",
+      "principle2": "Avoid presenting arbitrary SEO scores as guarantees.",
+      "principle3": "Distinguish automated checks from editorial judgment.",
+      "principle4": "Update important guidance when tools, practices, or standards change.",
+      "principle5": "Focus on information that helps users make better website decisions.",
+      "browse": "Explore SEO guides"
+    },
+    "approach": {
+      "eyebrow": "Our approach",
+      "title": "Clear, practical, and user-focused",
+      "body": "LifeSeos is built around a simple idea: useful SEO tools should be understandable, practical, and straightforward to use.",
+      "clarityTitle": "Clarity",
+      "clarityBody": "Present results and explanations in a way that is easier to understand.",
+      "practicalityTitle": "Practicality",
+      "practicalityBody": "Focus on checks and recommendations that can support real website improvements.",
+      "transparencyTitle": "Transparency",
+      "transparencyBody": "Treat automated results as indicators rather than promises of search performance.",
+      "privacyTitle": "Privacy",
+      "privacyBody": "Handle account, report and website usage information responsibly."
+    },
+    "note": {
+      "eyebrow": "Important",
+      "title": "SEO results can vary",
+      "p1": "LifeSeos tools and guides provide informational analysis and recommendations. Search engine rankings depend on many factors, and no SEO tool can guarantee a specific ranking, traffic level, indexing outcome, or search performance result.",
+      "p2": "Users should review recommendations in the context of their own website, audience, technical environment, and business goals."
+    },
+    "cta": {
+      "eyebrow": "Ready to review your website?",
+      "title": "Start with a free SEO analysis",
+      "body": "Run an SEO audit, review your website signals, and identify areas that may need further attention.",
+      "primary": "Analyze website",
+      "secondary": "Explore tools"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "NotFound": {
+    "meta": {
+      "title": "Page introuvable"
+    },
+    "badge": "404",
+    "badgeLabel": "Page introuvable",
+    "titleLine1": "Perdu dans les",
+    "titleAccent": "résultats de recherche\u00a0?",
+    "body": "La page que vous cherchez n’existe pas, a peut-être été déplacée, ou l’URL est incorrecte.",
+    "backHome": "Retour à l’accueil",
+    "exploreTools": "Découvrir les outils",
+    "dashboard": "Tableau de bord",
+    "quickAnalyzerTitle": "Analyseur SEO",
+    "quickAnalyzerBody": "Lancez un audit SEO de site.",
+    "quickAboutTitle": "À propos",
+    "quickAboutBody": "En savoir plus sur LifeSeos.",
+    "quickContactTitle": "Contact",
+    "quickContactBody": "Obtenez de l’aide ou envoyez un retour."
+  }
+}

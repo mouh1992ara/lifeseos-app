@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { isIP } from "node:net";
-import { analyzeRatelimit } from "@/lib/ratelimit";
+import { getAnalyzeRatelimit } from "@/lib/ratelimit";
 
 const MAX_REDIRECTS = 5;
 const MAX_RESPONSE_BYTES = 5 * 1024 * 1024;
@@ -197,18 +197,22 @@ export async function POST(request: Request) {
       request.headers.get("x-real-ip") ||
       "local";
 
-    const { success } = await analyzeRatelimit.limit(ip);
+    // Rate limiting is skipped when Redis is not configured.
+    const limiter = getAnalyzeRatelimit();
+    if (limiter) {
+      const { success } = await limiter.limit(ip);
 
-    if (!success) {
-      return NextResponse.json(
-        {
-          error:
-            "Too many SEO analysis requests. Please wait a moment and try again.",
-        },
-        {
-          status: 429,
-        }
-      );
+      if (!success) {
+        return NextResponse.json(
+          {
+            error:
+              "Too many SEO analysis requests. Please wait a moment and try again.",
+          },
+          {
+            status: 429,
+          }
+        );
+      }
     }
 
     const body = await request.json();

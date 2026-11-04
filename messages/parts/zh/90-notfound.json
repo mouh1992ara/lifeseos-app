@@ -1,0 +1,21 @@
+{
+  "NotFound": {
+    "meta": {
+      "title": "页面未找到"
+    },
+    "badge": "404",
+    "badgeLabel": "页面未找到",
+    "titleLine1": "在搜索结果里",
+    "titleAccent": "迷路了？",
+    "body": "你要找的页面不存在，可能已被移动，或者 URL 有误。",
+    "backHome": "返回首页",
+    "exploreTools": "浏览工具",
+    "dashboard": "控制台",
+    "quickAnalyzerTitle": "SEO 分析器",
+    "quickAnalyzerBody": "运行一次网站 SEO 审计。",
+    "quickAboutTitle": "关于",
+    "quickAboutBody": "进一步了解 LifeSeos。",
+    "quickContactTitle": "联系我们",
+    "quickContactBody": "获取帮助或提交反馈。"
+  }
+}

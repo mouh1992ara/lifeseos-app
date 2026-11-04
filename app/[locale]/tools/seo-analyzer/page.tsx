@@ -1,47 +1,58 @@
 import type { Metadata } from "next";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import ArabicAnalyzer from "./ar-client";
-import EnglishAnalyzer from "./en-client";
+import {
+  buildLanguageAlternates,
+  localeMeta,
+  localizePath,
+  type Locale,
+} from "@/i18n/config";
+
+import SEOAnalyzerClient from "./en-client";
+
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.lifeseos.com"
+).replace(/\/+$/, "");
+
+const PATH = "/tools/seo-analyzer";
 
 type Props = { params: Promise<{ locale: string }> };
 
-const arTitle = "محلل السيو المجاني: افحص موقعك في ثوانٍ";
-const arDescription =
-  "أداة مجانية لتحليل السيو بالعربية: افحص عنوان الصفحة ووصف الميتا وH1 والرابط الأساسي والصور وبيانات المشاركة، واحصل على توصيات واضحة وأزرار لإصلاح المشاكل.";
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  // Other locales inherit the English metadata from the tool layout.
-  if (locale !== "ar") return {};
+  const t = await getTranslations({ locale, namespace: "Tool.seoAnalyzer" });
+  const meta = localeMeta[locale as Locale] ?? localeMeta.en;
+  const title = t("meta.title");
+  const description = t("meta.description");
 
   return {
-    title: arTitle,
-    description: arDescription,
+    title,
+    description,
     alternates: {
-      canonical: "/ar/tools/seo-analyzer",
-      languages: {
-        en: "/tools/seo-analyzer",
-        ar: "/ar/tools/seo-analyzer",
-        "x-default": "/tools/seo-analyzer",
-      },
+      canonical: localizePath(locale as Locale, PATH),
+      languages: buildLanguageAlternates(siteUrl, PATH),
     },
     openGraph: {
-      title: arTitle,
-      description: arDescription,
-      url: "/ar/tools/seo-analyzer",
+      title,
+      description,
+      url: siteUrl + localizePath(locale as Locale, PATH),
       type: "website",
       siteName: "LifeSeos",
-      locale: "ar_AR",
+      locale: meta.ogLocale,
       images: [
-        { url: "/social/home.png", width: 1200, height: 630, alt: "محلل السيو من LifeSeos" },
+        {
+          url: "/social/seo-analyzer.png",
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: arTitle,
-      description: arDescription,
-      images: ["/social/home.png"],
+      title,
+      description,
+      images: ["/social/seo-analyzer.png"],
     },
   };
 }
@@ -50,14 +61,6 @@ export default async function SeoAnalyzerPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  if (locale === "ar") {
-    // data-no-motion: the Arabic analyzer ships its own ar-* animations.
-    return (
-      <div dir="rtl" lang="ar" data-no-motion="">
-        <ArabicAnalyzer />
-      </div>
-    );
-  }
-
-  return <EnglishAnalyzer />;
+  // One analyzer for every locale: all copy comes from Tool.seoAnalyzer.
+  return <SEOAnalyzerClient />;
 }

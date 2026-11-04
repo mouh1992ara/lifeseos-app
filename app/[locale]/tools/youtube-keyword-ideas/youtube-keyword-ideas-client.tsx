@@ -6,6 +6,8 @@ import { Link } from "@/i18n/navigation";
 
 import { useMemo, useRef, useState } from "react";
 
+import { useTranslations } from "next-intl";
+
 import {
 
   Check,
@@ -36,7 +38,6 @@ import {
 
   Tags,
 
-  Target,
 
   TextSearch,
 
@@ -68,9 +69,11 @@ type Intent =
 
 type KeywordGroup = {
 
-  title: string;
+  titleKey: string;
 
-  description: string;
+  descriptionKey: string;
+
+  intentKey?: string;
 
   items: string[];
 
@@ -93,6 +96,22 @@ const INTENTS: Intent[] = [
   "Review",
 
 ];
+
+const INTENT_KEYS: Record<Intent, string> = {
+
+  "Broad Discovery": "broadDiscovery",
+
+  "How-To": "howTo",
+
+  Beginner: "beginner",
+
+  Comparison: "comparison",
+
+  "Problem Solving": "problemSolving",
+
+  Review: "review",
+
+};
 
 
 
@@ -368,9 +387,9 @@ function buildKeywordGroups(
 
     {
 
-      title: "Core Keywords",
+      titleKey: "groups.core.title",
 
-      description: "Short seed phrases related to your main topic.",
+      descriptionKey: "groups.core.description",
 
       items: core,
 
@@ -378,9 +397,9 @@ function buildKeywordGroups(
 
     {
 
-      title: "Long-Tail Keywords",
+      titleKey: "groups.longTail.title",
 
-      description: "More specific phrases that can inspire focused video ideas.",
+      descriptionKey: "groups.longTail.description",
 
       items: longTail,
 
@@ -388,9 +407,9 @@ function buildKeywordGroups(
 
     {
 
-      title: "Question Keywords",
+      titleKey: "groups.questions.title",
 
-      description: "Question-based phrases that can become useful video topics.",
+      descriptionKey: "groups.questions.description",
 
       items: questions,
 
@@ -398,9 +417,11 @@ function buildKeywordGroups(
 
     {
 
-      title: `${intent} Ideas`,
+      titleKey: "groups.intent.title",
 
-      description: `Keyword ideas shaped around the ${intent.toLowerCase()} intent you selected.`,
+      descriptionKey: "groups.intent.description",
+
+      intentKey: INTENT_KEYS[intent],
 
       items: intentMap[intent],
 
@@ -491,6 +512,12 @@ function buildVideoAngles(topic: string, seedKeyword: string, intent: Intent) {
 
 
 export default function YouTubeKeywordIdeasClient() {
+
+  const t = useTranslations("Tool.youtubeKeywordIdeas");
+
+  const tc = useTranslations("Tools.catalog");
+
+  const tCommon = useTranslations("Common");
 
   const [topic, setTopic] = useState("");
 
@@ -588,6 +615,32 @@ const allKeywords = useMemo(
 
 
 
+  function localizeGroup(group: KeywordGroup) {
+
+    if (!group.intentKey) {
+
+      return {
+
+        title: t(group.titleKey),
+
+        description: t(group.descriptionKey),
+
+      };
+
+    }
+
+    const intentLabel = t(`intents.${group.intentKey}`);
+
+    return {
+
+      title: t(group.titleKey, { intent: intentLabel }),
+
+      description: t(group.descriptionKey, { intent: intentLabel }),
+
+    };
+
+  }
+
   function handleGenerate() {
 
     setError("");
@@ -596,7 +649,7 @@ const allKeywords = useMemo(
 
     if (!cleanText(topic)) {
 
-      setError("Please enter a video topic before generating keyword ideas.");
+      setError(t("errorTopicRequired"));
 
       return;
 
@@ -688,9 +741,9 @@ const allKeywords = useMemo(
 
     const shareData = {
 
-      title: "Free YouTube Keyword Ideas Tool | LifeSeos",
+      title: t("shareMessageTitle"),
 
-      text: "Generate YouTube keyword and topic ideas with LifeSeos.",
+      text: t("shareMessageText"),
 
       url: window.location.href,
 
@@ -758,7 +811,7 @@ const allKeywords = useMemo(
 
             <Youtube className="h-4 w-4" />
 
-            YouTube SEO Tools
+            {t("badge")}
 
           </div>
 
@@ -766,11 +819,11 @@ const allKeywords = useMemo(
 
           <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
 
-            Discover better
+            {t("titleLine1")}
 
             <span className="block bg-gradient-to-r from-red-400 via-rose-300 to-white bg-clip-text text-transparent">
 
-              YouTube keyword ideas.
+              {t("titleAccent")}
 
             </span>
 
@@ -780,9 +833,7 @@ const allKeywords = useMemo(
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-400">
 
-            Turn a video topic into useful keyword phrases, long-tail ideas,
-
-            questions and content angles for future YouTube videos.
+            {t("subtitle")}
 
           </p>
 
@@ -794,7 +845,7 @@ const allKeywords = useMemo(
 
               <Check className="h-4 w-4 text-red-400" />
 
-              Free to use
+              {t("perks.free")}
 
             </span>
 
@@ -804,7 +855,7 @@ const allKeywords = useMemo(
 
               <Check className="h-4 w-4 text-red-400" />
 
-              Multiple keyword groups
+              {t("perks.groups")}
 
             </span>
 
@@ -814,7 +865,7 @@ const allKeywords = useMemo(
 
               <Check className="h-4 w-4 text-red-400" />
 
-              Video topic ideas
+              {t("perks.topics")}
 
             </span>
 
@@ -850,7 +901,7 @@ const allKeywords = useMemo(
 
                 <h2 className="text-xl font-semibold">
 
-                  Generate YouTube keyword ideas
+                  {t("formTitle")}
 
                 </h2>
 
@@ -858,9 +909,7 @@ const allKeywords = useMemo(
 
                 <p className="mt-1 text-sm text-slate-400">
 
-                  Start with a topic, then shape the ideas around your content
-
-                  intent.
+                  {t("formSubtitle")}
 
                 </p>
 
@@ -882,7 +931,7 @@ const allKeywords = useMemo(
 
                 >
 
-                  Video Topic
+                  {t("topicLabel")}
 
                 </label>
 
@@ -896,7 +945,7 @@ const allKeywords = useMemo(
 
                   onChange={(event) => setTopic(event.target.value)}
 
-                  placeholder="e.g. YouTube growth"
+                  placeholder={t("topicPlaceholder")}
 
                   className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-red-400/50 focus:ring-2 focus:ring-red-400/10"
 
@@ -916,9 +965,9 @@ const allKeywords = useMemo(
 
                 >
 
-                  Seed Keyword
+                  {t("seedLabel")}
 
-                  <span className="ml-2 text-slate-500">Optional</span>
+                  <span className="ms-2 text-slate-500">{tCommon("optional")}</span>
 
                 </label>
 
@@ -932,7 +981,7 @@ const allKeywords = useMemo(
 
                   onChange={(event) => setSeedKeyword(event.target.value)}
 
-                  placeholder="e.g. YouTube SEO"
+                  placeholder={t("seedPlaceholder")}
 
                   className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-red-400/50 focus:ring-2 focus:ring-red-400/10"
 
@@ -942,7 +991,7 @@ const allKeywords = useMemo(
 
                 <p className="mt-2 text-xs text-slate-500">
 
-                  If empty, your video topic will be used as the seed phrase.
+                  {t("seedHint")}
 
                 </p>
 
@@ -960,7 +1009,7 @@ const allKeywords = useMemo(
 
                 >
 
-                  Content Intent
+                  {t("intentLabel")}
 
                 </label>
 
@@ -986,7 +1035,7 @@ const allKeywords = useMemo(
 
                     <option key={item} value={item}>
 
-                      {item}
+                      {t(`intents.${INTENT_KEYS[item]}`)}
 
                     </option>
 
@@ -1008,9 +1057,9 @@ const allKeywords = useMemo(
 
                 >
 
-                  Target Audience
+                  {t("audienceLabel")}
 
-                  <span className="ml-2 text-slate-500">Optional</span>
+                  <span className="ms-2 text-slate-500">{tCommon("optional")}</span>
 
                 </label>
 
@@ -1024,7 +1073,7 @@ const allKeywords = useMemo(
 
                   onChange={(event) => setAudience(event.target.value)}
 
-                  placeholder="e.g. New creators"
+                  placeholder={t("audiencePlaceholder")}
 
                   className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-red-400/50 focus:ring-2 focus:ring-red-400/10"
 
@@ -1058,7 +1107,7 @@ const allKeywords = useMemo(
 
                 <Search className="h-4 w-4" />
 
-                Generate Keyword Ideas
+                {t("submit")}
 
               </button>
 
@@ -1080,7 +1129,7 @@ const allKeywords = useMemo(
 
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-red-400">
 
-                  Keyword Map
+                  {t("sideEyebrow")}
 
                 </p>
 
@@ -1088,7 +1137,7 @@ const allKeywords = useMemo(
 
                 <h2 className="mt-2 text-xl font-semibold">
 
-                  YouTube keyword idea preview
+                  {t("sideTitle")}
 
                 </h2>
 
@@ -1096,9 +1145,7 @@ const allKeywords = useMemo(
 
                 <p className="mt-2 max-w-md text-sm leading-6 text-slate-500">
 
-                  See the topic, intent and keyword mix generated from your
-
-                  inputs.
+                  {t("sideDesc")}
 
                 </p>
 
@@ -1136,7 +1183,7 @@ const allKeywords = useMemo(
 
                     <span className="rounded-full border border-white/10 bg-black/30 px-3 py-1.5 text-xs text-slate-300 backdrop-blur">
 
-                      Preview only
+                      {t("previewBadge")}
 
                     </span>
 
@@ -1144,7 +1191,7 @@ const allKeywords = useMemo(
 
                     <span className="rounded-full border border-red-400/20 bg-red-400/10 px-3 py-1.5 text-xs font-medium text-red-300">
 
-                      {intent}
+                      {t(`intents.${INTENT_KEYS[intent]}`)}
 
                     </span>
 
@@ -1156,15 +1203,18 @@ const allKeywords = useMemo(
 
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
 
-                      Seed topic
+                      {t("seedTopicLabel")}
 
                     </p>
 
 
 
-                    <h3 className="mt-2 text-2xl font-bold">
+                    <h3
+                      className="mt-2 text-2xl font-bold"
+                      data-ltr-text
+                    >
 
-                      {cleanText(seedKeyword || topic) || "Your keyword"}
+                      {cleanText(seedKeyword || topic) || t("seedTopicFallback")}
 
                     </h3>
 
@@ -1207,7 +1257,7 @@ const allKeywords = useMemo(
                           key={item}
 
                           className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1.5 text-xs text-slate-300"
-
+                          data-ltr-text
                         >
 
                           {item}
@@ -1230,7 +1280,7 @@ const allKeywords = useMemo(
 
               <p className="text-sm font-semibold text-slate-200">
 
-                Quick keyword review
+                {t("quickReviewTitle")}
 
               </p>
 
@@ -1238,7 +1288,7 @@ const allKeywords = useMemo(
 
               <p className="mt-1 text-xs text-slate-500">
 
-                Live signals based on your generated keyword set.
+                {t("quickReviewHint")}
 
               </p>
 
@@ -1250,7 +1300,7 @@ const allKeywords = useMemo(
 
                   <p className="text-xs uppercase tracking-wider text-slate-500">
 
-                    Ideas
+                    {t("stats.ideas")}
 
                   </p>
 
@@ -1272,7 +1322,7 @@ const allKeywords = useMemo(
 
                   <p className="text-xs uppercase tracking-wider text-slate-500">
 
-                    Long-tail
+                    {t("stats.longTail")}
 
                   </p>
 
@@ -1298,7 +1348,7 @@ const allKeywords = useMemo(
 
                   <p className="text-xs uppercase tracking-wider text-slate-500">
 
-                    Questions
+                    {t("stats.questions")}
 
                   </p>
 
@@ -1348,7 +1398,7 @@ const allKeywords = useMemo(
 
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
 
-                    Keyword Ideas
+                    {t("resultsEyebrow")}
 
                   </p>
 
@@ -1356,7 +1406,7 @@ const allKeywords = useMemo(
 
                   <h2 className="mt-3 text-3xl font-bold">
 
-                    Explore your YouTube keyword set
+                    {t("resultsTitle")}
 
                   </h2>
 
@@ -1364,9 +1414,7 @@ const allKeywords = useMemo(
 
                   <p className="mt-3 max-w-2xl text-slate-400">
 
-                    Browse keyword groups, copy individual phrases or copy the
-
-                    complete set at once.
+                    {t("resultsDesc")}
 
                   </p>
 
@@ -1390,7 +1438,7 @@ const allKeywords = useMemo(
 
                       <Check className="h-4 w-4 text-emerald-400" />
 
-                      Copied all
+                      {t("copiedAll")}
 
                     </>
 
@@ -1400,7 +1448,7 @@ const allKeywords = useMemo(
 
                       <ClipboardCopy className="h-4 w-4" />
 
-                      Copy all keywords
+                      {t("copyAll")}
 
                     </>
 
@@ -1418,7 +1466,7 @@ const allKeywords = useMemo(
 
                   <div
 
-                    key={group.title}
+                    key={group.titleKey}
 
                     className="rounded-[26px] border border-white/10 bg-white/[0.025] p-6"
 
@@ -1430,7 +1478,7 @@ const allKeywords = useMemo(
 
                         <h3 className="text-xl font-semibold">
 
-                          {group.title}
+                          {localizeGroup(group).title}
 
                         </h3>
 
@@ -1438,7 +1486,7 @@ const allKeywords = useMemo(
 
                         <p className="mt-2 text-sm leading-6 text-slate-500">
 
-                          {group.description}
+                          {localizeGroup(group).description}
 
                         </p>
 
@@ -1448,7 +1496,7 @@ const allKeywords = useMemo(
 
                       <span className="rounded-full border border-red-400/20 bg-red-400/10 px-2.5 py-1 text-xs font-medium text-red-300">
 
-                        {group.items.length} ideas
+                        {t("ideasCount", { count: group.items.length })}
 
                       </span>
 
@@ -1474,7 +1522,10 @@ const allKeywords = useMemo(
 
                           >
 
-                            <span className="text-sm leading-6 text-slate-300">
+                            <span
+                              className="text-sm leading-6 text-slate-300"
+                              data-ltr-text
+                            >
 
                               {item}
 
@@ -1490,7 +1541,7 @@ const allKeywords = useMemo(
 
                               className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-slate-400 transition hover:border-red-400/30 hover:text-white"
 
-                              aria-label={`Copy ${item}`}
+                              aria-label={t("copyItem", { item })}
 
                             >
 
@@ -1548,7 +1599,7 @@ const allKeywords = useMemo(
 
                   <p className="text-sm font-semibold uppercase tracking-[0.18em] text-amber-300">
 
-                    Suggested Video Angles
+                    {t("anglesEyebrow")}
 
                   </p>
 
@@ -1556,7 +1607,7 @@ const allKeywords = useMemo(
 
                   <h2 className="mt-2 text-2xl font-semibold">
 
-                    Turn keywords into video ideas
+                    {t("anglesTitle")}
 
                   </h2>
 
@@ -1564,9 +1615,7 @@ const allKeywords = useMemo(
 
                   <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400">
 
-                    Use these as starting points for video concepts, then adapt
-
-                    the wording so it accurately reflects your content.
+                  {t("anglesDesc")}
 
                   </p>
 
@@ -1586,7 +1635,10 @@ const allKeywords = useMemo(
 
                         <Play className="h-4 w-4 text-red-400" />
 
-                        <p className="mt-3 text-sm font-semibold leading-6">
+                        <p
+                          className="mt-3 text-sm font-semibold leading-6"
+                          data-ltr-text
+                        >
 
                           {angle}
 
@@ -1634,15 +1686,13 @@ const allKeywords = useMemo(
 
               <div>
 
-                <h2 className="font-semibold">Share this tool</h2>
+                <h2 className="font-semibold">{t("shareTitle")}</h2>
 
 
 
                 <p className="mt-1 text-sm leading-6 text-slate-400">
 
-                  Share the YouTube Keyword Ideas tool with creators looking for
-
-                  new video topics and keyword angles.
+                  {t("shareDesc")}
 
                 </p>
 
@@ -1668,7 +1718,7 @@ const allKeywords = useMemo(
 
                   <Check className="h-4 w-4 text-emerald-400" />
 
-                  Link copied
+                  {t("linkCopied")}
 
                 </>
 
@@ -1678,7 +1728,7 @@ const allKeywords = useMemo(
 
                   <Share2 className="h-4 w-4" />
 
-                  Share tool
+                  {t("shareButton")}
 
                 </>
 
@@ -1706,7 +1756,7 @@ const allKeywords = useMemo(
 
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
 
-              YouTube Keyword Research
+              {t("factorsEyebrow")}
 
             </p>
 
@@ -1714,7 +1764,7 @@ const allKeywords = useMemo(
 
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
 
-              Explore different keyword angles for your videos
+              {t("factorsTitle")}
 
             </h2>
 
@@ -1722,11 +1772,7 @@ const allKeywords = useMemo(
 
             <p className="mt-5 leading-8 text-slate-400">
 
-              LifeSeos groups your topic into practical keyword formats so you
-
-              can explore broader ideas, specific phrases and question-based
-
-              video concepts.
+              {t("factorsBody")}
 
             </p>
 
@@ -1742,9 +1788,7 @@ const allKeywords = useMemo(
 
                 icon: Hash,
 
-                title: "Core Keywords",
-
-                text: "Start with short phrases that describe the main subject of your video.",
+                key: "core",
 
               },
 
@@ -1752,9 +1796,7 @@ const allKeywords = useMemo(
 
                 icon: TrendingUp,
 
-                title: "Long-Tail Ideas",
-
-                text: "Explore more specific phrases that can inspire focused video topics.",
+                key: "longTail",
 
               },
 
@@ -1762,9 +1804,7 @@ const allKeywords = useMemo(
 
                 icon: Compass,
 
-                title: "Question Keywords",
-
-                text: "Turn common questions into useful educational or explanatory videos.",
+                key: "questions",
 
               },
 
@@ -1772,9 +1812,7 @@ const allKeywords = useMemo(
 
                 icon: ListFilter,
 
-                title: "Search Intent",
-
-                text: "Shape ideas around how-to, beginner, comparison, review or problem-solving content.",
+                key: "intent",
 
               },
 
@@ -1782,9 +1820,7 @@ const allKeywords = useMemo(
 
                 icon: Users,
 
-                title: "Audience Fit",
-
-                text: "Use audience context to make some keyword ideas more specific.",
+                key: "audience",
 
               },
 
@@ -1792,9 +1828,7 @@ const allKeywords = useMemo(
 
                 icon: Play,
 
-                title: "Video Angles",
-
-                text: "Transform keyword phrases into practical starting points for video titles.",
+                key: "angles",
 
               },
 
@@ -1808,7 +1842,7 @@ const allKeywords = useMemo(
 
                 <div
 
-                  key={item.title}
+                  key={item.key}
 
                   className="rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition duration-300 hover:-translate-y-0.5 hover:border-red-400/25 hover:bg-white/[0.04]"
 
@@ -1822,13 +1856,15 @@ const allKeywords = useMemo(
 
 
 
-                  <h3 className="mt-5 text-lg font-semibold">{item.title}</h3>
+                  <h3 className="mt-5 text-lg font-semibold">
+                    {t(`factors.${item.key}.title`)}
+                  </h3>
 
 
 
                   <p className="mt-3 text-sm leading-7 text-slate-400">
 
-                    {item.text}
+                    {t(`factors.${item.key}.text`)}
 
                   </p>
 
@@ -1860,7 +1896,7 @@ const allKeywords = useMemo(
 
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
 
-                How It Works
+                {t("howEyebrow")}
 
               </p>
 
@@ -1868,7 +1904,7 @@ const allKeywords = useMemo(
 
               <h2 className="mt-3 text-3xl font-bold">
 
-                How to use YouTube Keyword Ideas
+                {t("howTitle")}
 
               </h2>
 
@@ -1876,9 +1912,7 @@ const allKeywords = useMemo(
 
               <p className="mt-5 leading-8 text-slate-400">
 
-                Start with a broad topic and use the generated groups to explore
-
-                different video directions.
+                {t("howBody")}
 
               </p>
 
@@ -1894,9 +1928,7 @@ const allKeywords = useMemo(
 
                   number: "1",
 
-                  title: "Enter your video topic",
 
-                  text: "Describe the main subject you want to create content about.",
 
                 },
 
@@ -1904,9 +1936,7 @@ const allKeywords = useMemo(
 
                   number: "2",
 
-                  title: "Add a seed keyword",
 
-                  text: "Optionally add a more specific phrase you want the ideas to focus on.",
 
                 },
 
@@ -1914,9 +1944,7 @@ const allKeywords = useMemo(
 
                   number: "3",
 
-                  title: "Choose your content intent",
 
-                  text: "Select broad discovery, how-to, beginner, comparison, problem solving or review.",
 
                 },
 
@@ -1924,9 +1952,7 @@ const allKeywords = useMemo(
 
                   number: "4",
 
-                  title: "Explore and copy ideas",
 
-                  text: "Review keyword groups, copy useful phrases and turn them into video concepts.",
 
                 },
 
@@ -1950,13 +1976,15 @@ const allKeywords = useMemo(
 
                   <div>
 
-                    <h3 className="font-semibold">{step.title}</h3>
+                    <h3 className="font-semibold">
+                      {t(`steps.${step.number}.title`)}
+                    </h3>
 
 
 
                     <p className="mt-1.5 text-sm leading-6 text-slate-400">
 
-                      {step.text}
+                      {t(`steps.${step.number}.text`)}
 
                     </p>
 
@@ -1988,7 +2016,7 @@ const allKeywords = useMemo(
 
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
 
-              Video Discovery
+              {t("whyEyebrow")}
 
             </p>
 
@@ -1996,7 +2024,7 @@ const allKeywords = useMemo(
 
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
 
-              Why YouTube keyword ideas matter
+              {t("whyTitle")}
 
             </h2>
 
@@ -2004,11 +2032,7 @@ const allKeywords = useMemo(
 
             <p className="mt-5 leading-8 text-slate-400">
 
-              Keyword research can help creators think about the language people
-
-              may use when looking for videos about a topic. It is also useful
-
-              for finding narrower questions, problems and content angles.
+              {t("whyP1")}
 
             </p>
 
@@ -2016,11 +2040,7 @@ const allKeywords = useMemo(
 
             <p className="mt-4 leading-8 text-slate-400">
 
-              This tool generates ideas from your inputs. It does not provide
-
-              official YouTube search volume, competition data or guaranteed
-
-              ranking predictions.
+              {t("whyP2")}
 
             </p>
 
@@ -2034,33 +2054,25 @@ const allKeywords = useMemo(
 
               {
 
-                title: "Find new topics",
-
-                text: "Turn one broad subject into multiple possible video directions.",
+                key: "discover",
 
               },
 
               {
 
-                title: "Explore search language",
-
-                text: "Think about different ways viewers may describe the same subject.",
+                key: "language",
 
               },
 
               {
 
-                title: "Build content clusters",
-
-                text: "Group related phrases into a series of connected videos.",
+                key: "clusters",
 
               },
 
               {
 
-                title: "Improve planning",
-
-                text: "Use keyword ideas as a starting point for titles, descriptions and future videos.",
+                key: "planning",
 
               },
 
@@ -2068,7 +2080,7 @@ const allKeywords = useMemo(
 
               <div
 
-                key={item.title}
+                key={item.key}
 
                 className="rounded-2xl border border-white/10 bg-white/[0.025] p-5"
 
@@ -2078,13 +2090,15 @@ const allKeywords = useMemo(
 
 
 
-                <h3 className="mt-4 font-semibold">{item.title}</h3>
+                <h3 className="mt-4 font-semibold">
+                  {t(`benefits.${item.key}.title`)}
+                </h3>
 
 
 
                 <p className="mt-2 text-sm leading-6 text-slate-400">
 
-                  {item.text}
+                  {t(`benefits.${item.key}.text`)}
 
                 </p>
 
@@ -2107,17 +2121,15 @@ const allKeywords = useMemo(
 
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
-              Continue Your YouTube SEO Workflow
+              {t("workflowEyebrow")}
             </p>
 
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-              Go from keyword research to a complete video plan
+              {t("workflowTitle")}
             </h2>
 
             <p className="mt-4 leading-7 text-slate-400">
-              Use the YouTube SEO tools in sequence to find keyword angles,
-              create a title, review it, build the description and then draft
-              the full video script.
+              {t("workflowBody")}
             </p>
           </div>
 
@@ -2130,21 +2142,20 @@ const allKeywords = useMemo(
                 </div>
 
                 <span className="rounded-full border border-red-400/25 bg-red-400/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-red-300">
-                  Step 1 · Current
+                  {t("workflow.current", { number: 1 })}
                 </span>
               </div>
 
               <h3 className="mt-5 font-semibold">
-                YouTube Keyword Ideas
+                {tc("youtubeKeywordIdeas.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Discover keyword groups, long-tail phrases, questions and video
-                angles from your main topic.
+                {t("workflow.items.keywords.desc")}
               </p>
 
               <div className="mt-5 text-sm font-semibold text-red-300">
-                Find keywords ✓
+                {t("workflow.items.keywords.cta")} ✓
               </div>
             </div>
 
@@ -2158,21 +2169,23 @@ const allKeywords = useMemo(
                 </div>
 
                 <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                  Step 2
+                  {t("workflow.step", { number: 2 })}
                 </span>
               </div>
 
               <h3 className="mt-5 font-semibold transition group-hover:text-red-300">
-                YouTube Title Generator
+                {tc("youtubeTitleGenerator.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Turn your strongest keyword or topic into multiple title ideas
-                for the video.
+                {t("workflow.items.titleGenerator.desc")}
               </p>
 
               <div className="mt-5 text-sm font-semibold text-red-300">
-                Generate titles →
+                {t("workflow.items.titleGenerator.cta")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </div>
             </Link>
 
@@ -2186,21 +2199,23 @@ const allKeywords = useMemo(
                 </div>
 
                 <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                  Step 3
+                  {t("workflow.step", { number: 3 })}
                 </span>
               </div>
 
               <h3 className="mt-5 font-semibold transition group-hover:text-rose-300">
-                YouTube Title Analyzer
+                {tc("youtubeTitleAnalyzer.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Review a candidate title for clarity, structure, length and
-                keyword usage before publishing.
+                {t("workflow.items.titleAnalyzer.desc")}
               </p>
 
               <div className="mt-5 text-sm font-semibold text-rose-300">
-                Analyze title →
+                {t("workflow.items.titleAnalyzer.cta")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </div>
             </Link>
 
@@ -2214,21 +2229,23 @@ const allKeywords = useMemo(
                 </div>
 
                 <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                  Step 4
+                  {t("workflow.step", { number: 4 })}
                 </span>
               </div>
 
               <h3 className="mt-5 font-semibold transition group-hover:text-fuchsia-300">
-                YouTube Description Generator
+                {tc("youtubeDescriptionGenerator.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Build a structured description using the topic, title and
-                important keywords from your video plan.
+                {t("workflow.items.descriptionGenerator.desc")}
               </p>
 
               <div className="mt-5 text-sm font-semibold text-fuchsia-300">
-                Create description →
+                {t("workflow.items.descriptionGenerator.cta")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </div>
             </Link>
 
@@ -2242,21 +2259,23 @@ const allKeywords = useMemo(
                 </div>
 
                 <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                  Step 5
+                  {t("workflow.step", { number: 5 })}
                 </span>
               </div>
 
               <h3 className="mt-5 font-semibold transition group-hover:text-pink-300">
-                YouTube Script Writer
+                {tc("youtubeScriptWriter.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Turn the completed video concept into a structured script with
-                a hook, main sections and closing.
+                {t("workflow.items.scriptWriter.desc")}
               </p>
 
               <div className="mt-5 text-sm font-semibold text-pink-300">
-                Write script →
+                {t("workflow.items.scriptWriter.cta")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </div>
             </Link>
 
@@ -2267,7 +2286,7 @@ const allKeywords = useMemo(
               href="/tools"
               className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-red-400/20 hover:bg-white/[0.05] hover:text-white"
             >
-              View All Tools
+              {tCommon("viewAllTools")}
               <ExternalLink className="h-4 w-4" />
             </Link>
           </div>

@@ -1,0 +1,119 @@
+{
+  "Tools": {
+    "meta": {
+      "indexTitle": "Free SEO Tools for Websites, Content and YouTube",
+      "indexDescription": "A collection of free SEO tools for website analysis, technical SEO, content optimization, structured data, page speed, search visibility and YouTube SEO."
+    },
+    "index": {
+      "badge": "LifeSeos Tool Library",
+      "titleLine1": "Powerful SEO tools",
+      "titleLine2": "for every website",
+      "subtitle": "Analyze websites, improve content, generate structured data and optimize YouTube content with free LifeSeos tools.",
+      "searchPlaceholder": "Search SEO tools…",
+      "searchLabel": "Search SEO tools",
+      "resultCount": "{count, plural, =0 {No tools found.} one {# tool found} other {# tools found}}",
+      "noResultsTitle": "No tools found",
+      "noResultsBody": "Try another tool name or category.",
+      "clearSearch": "Clear search",
+      "statsTools": "Free tools",
+      "statsCategories": "Tool categories",
+      "statsAccess": "Instant access",
+      "statsAccessValue": "Instant"
+    },
+    "categories": {
+      "technical": "Technical SEO",
+      "content": "Content SEO",
+      "performance": "Performance",
+      "management": "Content Management",
+      "youtube": "YouTube SEO"
+    },
+    "youtubeBlurb": "Discover video keywords, create stronger titles and descriptions, analyze title quality and build structured scripts.",
+    "catalog": {
+      "seoAnalyzer": {
+        "title": "SEO Analyzer",
+        "short": "Analyze website health, technical SEO issues and optimization opportunities.",
+        "long": "Analyze your website health, technical SEO and optimization opportunities."
+      },
+      "seoPageAnalyzer": {
+        "title": "SEO Page Analyzer",
+        "short": "Analyze titles, headings, links, metadata and other important on-page SEO elements.",
+        "long": "Review titles, descriptions, headings, links and image alt text."
+      },
+      "robotsTxtGenerator": {
+        "title": "Robots.txt Generator",
+        "short": "Create crawler-friendly robots.txt files for search engines.",
+        "long": "Generate crawler rules and improve search engine accessibility."
+      },
+      "xmlSitemapGenerator": {
+        "title": "XML Sitemap Generator",
+        "short": "Generate SEO-friendly sitemap structures for better crawling and indexing.",
+        "long": "Create search-engine friendly sitemap structures."
+      },
+      "schemaMarkupGenerator": {
+        "title": "Schema Markup Generator",
+        "short": "Generate JSON-LD structured data for articles, FAQs, products, businesses and more.",
+        "long": "Generate JSON-LD structured data for articles, FAQs, products and businesses."
+      },
+      "metaTagGenerator": {
+        "title": "Meta Tag Generator",
+        "short": "Create optimized title and meta description ideas for search visibility.",
+        "long": "Create optimized titles and descriptions for better search visibility."
+      },
+      "serpSnippetPreview": {
+        "title": "SERP Snippet Preview",
+        "short": "Preview how your page title, URL and meta description may appear in search results.",
+        "long": "Preview how your title, meta description and URL may appear in Google search results."
+      },
+      "keywordDensityChecker": {
+        "title": "Keyword Density Checker",
+        "short": "Analyze keyword frequency and content usage across your text.",
+        "long": "Understand keyword usage and improve your content strategy."
+      },
+      "articleRewriter": {
+        "title": "SEO Article Rewriter",
+        "short": "Rewrite website articles for better clarity, readability, tone and SEO consistency.",
+        "long": "Rewrite website content for better clarity, readability, tone and SEO consistency."
+      },
+      "httpStatusChecker": {
+        "title": "HTTP Status Checker",
+        "short": "Check redirects, errors and HTTP response codes instantly.",
+        "long": "Detect redirects, errors and technical website issues."
+      },
+      "pageSpeed": {
+        "title": "Page Speed Analyzer",
+        "short": "Measure website performance, loading speed and important Lighthouse metrics.",
+        "long": "Review website performance, loading speed and important Lighthouse metrics."
+      },
+      "contentAnalyzer": {
+        "title": "Content Analyzer",
+        "short": "Analyze content quality, readability, keyword usage and SEO opportunities.",
+        "long": "Analyze content length, readability, keywords and basic SEO quality signals."
+      },
+      "youtubeKeywordIdeas": {
+        "title": "YouTube Keyword Ideas",
+        "short": "Discover keyword groups, long-tail phrases and useful video topic ideas.",
+        "long": "Generate useful keyword groups, long-tail phrases and video topic ideas."
+      },
+      "youtubeTitleGenerator": {
+        "title": "YouTube Title Generator",
+        "short": "Generate engaging YouTube title ideas based on your topic, keyword, style and audience.",
+        "long": "Create engaging YouTube title ideas based on your topic, keyword and audience."
+      },
+      "youtubeTitleAnalyzer": {
+        "title": "YouTube Title Analyzer",
+        "short": "Analyze YouTube titles for clarity, keyword use, structure, length and click appeal.",
+        "long": "Review title clarity, structure, keyword use, length and click appeal."
+      },
+      "youtubeDescriptionGenerator": {
+        "title": "YouTube Description Generator",
+        "short": "Create structured YouTube descriptions with keyword support, hashtags and calls to action.",
+        "long": "Create structured YouTube descriptions with keyword support and calls to action."
+      },
+      "youtubeScriptWriter": {
+        "title": "YouTube Script Writer",
+        "short": "Create structured video scripts with hooks, main points, transitions, CTAs and outros.",
+        "long": "Build structured video scripts with hooks, main points, transitions and CTAs."
+      }
+    }
+  }
+}

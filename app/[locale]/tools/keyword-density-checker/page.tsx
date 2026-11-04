@@ -6,10 +6,15 @@ import {
   useRef,
   useState,
 } from "react";
+import { useTranslations } from "next-intl";
 
 import ShareTool from "@/components/share-tool";
 
 export default function KeywordDensityCheckerPage() {
+  const t = useTranslations("Tool.keywordDensity");
+  const tc = useTranslations("Tools.catalog");
+  const tCommon = useTranslations("Common");
+
   const [text, setText] = useState("");
 
   const hasTrackedUse = useRef(false);
@@ -138,25 +143,23 @@ export default function KeywordDensityCheckerPage() {
         <div className="mx-auto max-w-4xl text-center">
 
           <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/20 bg-amber-400/10 px-4 py-2 text-sm font-medium text-amber-300">
-            <span>%</span>
+            <span aria-hidden="true">%</span>
 
             <span>
-              LifeSeos Keyword Density Checker
+              {t("badge")}
             </span>
           </div>
 
           <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Free Keyword Density Checker
+            {t("titleLine1")}
 
             <span className="mt-2 block bg-gradient-to-r from-amber-300 via-orange-300 to-fuchsia-400 bg-clip-text text-transparent">
-              Check Keyword Frequency & Density
+              {t("titleAccent")}
             </span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
-            Check keyword density and frequency in your
-            content, see how often words appear and
-            review keyword density percentages instantly.
+            {t("subtitle")}
           </p>
 
         </div>
@@ -169,11 +172,11 @@ export default function KeywordDensityCheckerPage() {
           <section className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
 
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-300">
-              Content input
+              {t("inputEyebrow")}
             </p>
 
             <h2 className="mt-2 text-2xl font-bold">
-              Paste Your Content
+              {t("inputTitle")}
             </h2>
 
             <textarea
@@ -181,7 +184,7 @@ export default function KeywordDensityCheckerPage() {
               onChange={
                 handleTextChange
               }
-              placeholder="Paste your article, landing page copy, or SEO content here..."
+              placeholder={t("inputPlaceholder")}
               rows={18}
               className="mt-5 w-full resize-y rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 leading-7 text-white outline-none transition placeholder:text-slate-600 focus:border-amber-400/60"
             />
@@ -189,14 +192,14 @@ export default function KeywordDensityCheckerPage() {
             <div className="mt-4 grid grid-cols-2 gap-4">
 
               <MetricCard
-                label="Total Words"
+                label={t("totalWords")}
                 value={String(
                   analysis.totalWords
                 )}
               />
 
               <MetricCard
-                label="Unique Words"
+                label={t("uniqueWords")}
                 value={String(
                   analysis.uniqueWords
                 )}
@@ -205,8 +208,7 @@ export default function KeywordDensityCheckerPage() {
             </div>
 
             <p className="mt-4 text-xs leading-5 text-slate-500">
-              Your text is analyzed directly in the
-              browser as you type or paste content.
+              {t("inputNote")}
             </p>
 
           </section>
@@ -221,11 +223,11 @@ export default function KeywordDensityCheckerPage() {
               <div>
 
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-fuchsia-300">
-                  Keyword analysis
+                  {t("resultsEyebrow")}
                 </p>
 
                 <h2 className="mt-2 text-2xl font-bold">
-                  Top Keywords
+                  {t("resultsTitle")}
                 </h2>
 
               </div>
@@ -233,7 +235,7 @@ export default function KeywordDensityCheckerPage() {
               <div className="rounded-xl border border-white/10 bg-slate-900 px-3 py-2 text-center">
 
                 <p className="text-xs text-slate-500">
-                  Shown
+                  {t("shown")}
                 </p>
 
                 <p className="mt-1 font-bold text-amber-300">
@@ -252,8 +254,7 @@ export default function KeywordDensityCheckerPage() {
             0 ? (
 
               <p className="mt-6 text-sm leading-7 text-slate-500">
-                Paste some text to see keyword
-                frequency and density.
+                {t("empty")}
               </p>
 
             ) : (
@@ -263,15 +264,15 @@ export default function KeywordDensityCheckerPage() {
                 <div className="grid grid-cols-3 bg-white/[0.04] px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
 
                   <span>
-                    Keyword
+                    {t("colKeyword")}
                   </span>
 
                   <span className="text-center">
-                    Count
+                    {t("colCount")}
                   </span>
 
-                  <span className="text-right">
-                    Density
+                  <span className="text-end">
+                    {t("colDensity")}
                   </span>
 
                 </div>
@@ -287,7 +288,7 @@ export default function KeywordDensityCheckerPage() {
                       className="grid grid-cols-3 border-t border-white/10 px-4 py-3 text-sm"
                     >
 
-                      <span className="truncate">
+                      <span className="truncate" data-ltr-text>
                         {
                           item.keyword
                         }
@@ -299,7 +300,7 @@ export default function KeywordDensityCheckerPage() {
                         }
                       </span>
 
-                      <span className="text-right font-medium text-amber-300">
+                      <span className="text-end font-medium text-amber-300" data-ltr-text>
                         {item.density.toFixed(
                           2
                         )}
@@ -323,8 +324,8 @@ export default function KeywordDensityCheckerPage() {
         <div className="mt-10">
 
           <ShareTool
-            title="Keyword Density Checker"
-            description="Analyze keyword frequency and density in your content with this free LifeSeos tool."
+            title={tc("keywordDensityChecker.title")}
+            description={t("shareBody")}
           />
 
         </div>
@@ -343,20 +344,15 @@ export default function KeywordDensityCheckerPage() {
           <div className="mx-auto max-w-3xl text-center">
 
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-amber-300">
-              Keyword Analysis
+              {t("introEyebrow")}
             </p>
 
             <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Understand How Keywords Are Used in Your Content
+              {t("introTitle")}
             </h2>
 
             <p className="mt-5 leading-8 text-slate-400">
-              Keyword density measures how frequently
-              a word appears compared with the total
-              number of words in your content. It can
-              be useful for spotting repetition, but
-              it should be treated as a diagnostic
-              metric rather than a target score.
+              {t("introP1")}
             </p>
 
           </div>
@@ -368,20 +364,20 @@ export default function KeywordDensityCheckerPage() {
 
             <InfoCard
               symbol="#"
-              title="Keyword Frequency"
-              description="Shows the number of times a specific word appears in the analyzed content."
+              title={t("freqTitle")}
+              description={t("freqBody")}
             />
 
             <InfoCard
               symbol="%"
-              title="Keyword Density"
-              description="Shows the percentage of total words represented by a particular keyword."
+              title={t("densityTitle")}
+              description={t("densityBody")}
             />
 
             <InfoCard
               symbol="Aa"
-              title="Unique Words"
-              description="Shows how many different words appear in the text and gives context to vocabulary variety."
+              title={t("uniqueTitle")}
+              description={t("uniqueBody")}
             />
 
           </div>
@@ -396,19 +392,15 @@ export default function KeywordDensityCheckerPage() {
               <div>
 
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-fuchsia-300">
-                  Understanding the metric
+                  {t("formulaEyebrow")}
                 </p>
 
                 <h2 className="mt-4 text-3xl font-bold">
-                  How Keyword Density Is Calculated
+                  {t("formulaTitle")}
                 </h2>
 
                 <p className="mt-4 leading-7 text-slate-400">
-                  The tool divides the number of
-                  times a keyword appears by the
-                  total number of words, then
-                  converts the result into a
-                  percentage.
+                  {t("formulaBody")}
                 </p>
 
               </div>
@@ -417,16 +409,15 @@ export default function KeywordDensityCheckerPage() {
               <div className="rounded-[24px] border border-amber-400/15 bg-amber-400/[0.04] p-6">
 
                 <p className="font-mono text-sm text-amber-300">
-                  Keyword Density =
+                  {t("formulaLabel")}
                 </p>
 
                 <p className="mt-3 text-xl font-bold text-white sm:text-2xl">
-                  Keyword Count ÷ Total Words × 100
+                  {t("formulaExpr")}
                 </p>
 
                 <p className="mt-4 text-sm leading-6 text-slate-400">
-                  Example: if a word appears 5 times
-                  in 200 words, its density is 2.5%.
+                  {t("formulaExample")}
                 </p>
 
               </div>
@@ -445,17 +436,15 @@ export default function KeywordDensityCheckerPage() {
               <div>
 
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
-                  How it works
+                  {t("howEyebrow")}
                 </p>
 
                 <h2 className="mt-4 text-3xl font-bold">
-                  How to Use the Keyword Density Checker
+                  {t("howTitle")}
                 </h2>
 
                 <p className="mt-4 leading-7 text-slate-400">
-                  Use the report to understand which
-                  words dominate your content and
-                  whether repetition appears natural.
+                  {t("howBody")}
                 </p>
 
               </div>
@@ -465,26 +454,26 @@ export default function KeywordDensityCheckerPage() {
 
                 <StepCard
                   number="1"
-                  title="Paste your content"
-                  description="Add an article, landing page, product description or any other text you want to review."
+                  title={t("how1Title")}
+                  description={t("how1Body")}
                 />
 
                 <StepCard
                   number="2"
-                  title="Check total and unique words"
-                  description="Use the word counts to understand the overall size and vocabulary of the content."
+                  title={t("how2Title")}
+                  description={t("how2Body")}
                 />
 
                 <StepCard
                   number="3"
-                  title="Review keyword frequency"
-                  description="See which words appear most often and how many times each one is used."
+                  title={t("how3Title")}
+                  description={t("how3Body")}
                 />
 
                 <StepCard
                   number="4"
-                  title="Review density in context"
-                  description="Look for unnatural repetition rather than trying to reach a fixed percentage."
+                  title={t("how4Title")}
+                  description={t("how4Body")}
                 />
 
               </div>
@@ -507,21 +496,15 @@ export default function KeywordDensityCheckerPage() {
               <div>
 
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-violet-300">
-                  Important SEO note
+                  {t("noteEyebrow")}
                 </p>
 
                 <h2 className="mt-3 text-2xl font-bold sm:text-3xl">
-                  There Is No Universal “Perfect” Keyword Density
+                  {t("noteTitle")}
                 </h2>
 
                 <p className="mt-4 max-w-4xl leading-8 text-slate-400">
-                  Keyword density should not be treated
-                  as a formula for rankings. A useful
-                  page should cover its topic naturally
-                  and clearly. Repeating the same phrase
-                  simply to increase a percentage can
-                  make the content less readable and
-                  less useful.
+                  {t("noteBody")}
                 </p>
 
               </div>
@@ -538,26 +521,19 @@ export default function KeywordDensityCheckerPage() {
             <div>
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-rose-300">
-                Avoid over-optimization
+                {t("avoidEyebrow")}
               </p>
 
               <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
-                Avoid Unnatural Keyword Stuffing
+                {t("avoidTitle")}
               </h2>
 
               <p className="mt-5 leading-8 text-slate-400">
-                Repeating a word or phrase more often
-                than necessary can make writing sound
-                unnatural. Density data is most useful
-                when it helps you notice that kind of
-                repetition.
+                {t("avoidP1")}
               </p>
 
               <p className="mt-4 leading-8 text-slate-400">
-                Instead of forcing exact-match keywords
-                into every paragraph, focus on answering
-                the topic clearly and use related terms
-                where they make sense.
+                {t("avoidP2")}
               </p>
 
             </div>
@@ -566,23 +542,23 @@ export default function KeywordDensityCheckerPage() {
             <div className="grid gap-4 sm:grid-cols-2">
 
               <PracticeCard
-                title="Write naturally"
-                description="Use keywords where they genuinely help explain the topic."
+                title={t("practice1Title")}
+                description={t("practice1Body")}
               />
 
               <PracticeCard
-                title="Check repetition"
-                description="Review unusually frequent words and decide whether repeated uses are necessary."
+                title={t("practice2Title")}
+                description={t("practice2Body")}
               />
 
               <PracticeCard
-                title="Use related language"
-                description="Cover the subject comprehensively instead of repeating only one exact phrase."
+                title={t("practice3Title")}
+                description={t("practice3Body")}
               />
 
               <PracticeCard
-                title="Prioritize readers"
-                description="Make clarity, usefulness and search intent more important than a density percentage."
+                title={t("practice4Title")}
+                description={t("practice4Body")}
               />
 
             </div>
@@ -597,16 +573,15 @@ export default function KeywordDensityCheckerPage() {
             <div className="mx-auto max-w-3xl text-center">
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-amber-300">
-                Continue Your Content SEO Workflow
+                {t("nextEyebrow")}
               </p>
 
               <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                Rewrite, analyze and refine your content
+                {t("nextTitle")}
               </h2>
 
               <p className="mt-4 leading-8 text-slate-400">
-                Use these tools together to improve your draft, review content
-                quality and finish by checking keyword frequency and density.
+                {t("nextBody")}
               </p>
 
             </div>
@@ -626,22 +601,24 @@ export default function KeywordDensityCheckerPage() {
                   </div>
 
                   <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
-                    Step 1
+                    {t("wfStep1")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-blue-300">
-                  SEO Article Rewriter
+                  {tc("articleRewriter.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Improve clarity, tone and structure before evaluating the
-                  content in more detail.
+                  {t("wf1Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-blue-300">
-                  Rewrite content →
+                  {t("wf1Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
 
               </Link>
@@ -659,22 +636,24 @@ export default function KeywordDensityCheckerPage() {
                   </div>
 
                   <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
-                    Step 2
+                    {t("wfStep2")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-violet-300">
-                  Content Analyzer
+                  {tc("contentAnalyzer.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Review readability, structure, vocabulary and overall content
-                  quality before checking keyword repetition.
+                  {t("wf2Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-violet-300">
-                  Analyze content →
+                  {t("wf2Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
 
               </Link>
@@ -689,22 +668,24 @@ export default function KeywordDensityCheckerPage() {
                   </div>
 
                   <span className="rounded-full border border-amber-400/25 bg-amber-400/10 px-3 py-1 text-xs font-semibold text-amber-300">
-                    Step 3 · Current
+                    {t("wfStep3")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold">
-                  Keyword Density Checker
+                  {tc("keywordDensityChecker.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Finish the workflow by reviewing keyword frequency, density
-                  and potentially unnatural repetition.
+                  {t("wf3Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-amber-300">
-                  Check keyword usage ✓
+                  {t("wf3Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block">
+                    ✓
+                  </span>
                 </div>
 
               </div>
@@ -718,21 +699,30 @@ export default function KeywordDensityCheckerPage() {
                 href="/tools/seo-page-analyzer"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-amber-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                SEO Page Analyzer →
+                {tc("seoPageAnalyzer.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools/meta-tag-generator"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-amber-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                Meta Tag Generator →
+                {tc("metaTagGenerator.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-amber-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                View All Tools →
+                {tCommon("viewAllTools")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
             </div>
@@ -762,7 +752,7 @@ function MetricCard({
         {label}
       </p>
 
-      <p className="mt-2 text-2xl font-bold text-amber-300">
+      <p className="mt-2 text-2xl font-bold text-amber-300" data-ltr-text>
         {value}
       </p>
 
@@ -783,7 +773,7 @@ function InfoCard({
   return (
     <div className="rounded-[24px] border border-white/10 bg-slate-900/70 p-6">
 
-      <div className="flex h-10 min-w-10 items-center justify-center rounded-xl border border-amber-400/20 bg-amber-400/10 px-2 text-sm font-bold text-amber-300">
+      <div className="flex h-10 min-w-10 items-center justify-center rounded-xl border border-amber-400/20 bg-amber-400/10 px-2 text-sm font-bold text-amber-300" data-ltr-text>
         {symbol}
       </div>
 
@@ -812,7 +802,7 @@ function StepCard({
   return (
     <div className="flex gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-5">
 
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 font-bold text-amber-300">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 font-bold text-amber-300" data-ltr-text>
         {number}
       </div>
 
@@ -856,43 +846,5 @@ function PracticeCard({
       </p>
 
     </div>
-  );
-}
-
-
-function RelatedToolCard({
-  href,
-  icon,
-  title,
-  description,
-}: {
-  href: string;
-  icon: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:-translate-y-1 hover:border-amber-400/20 hover:bg-white/[0.05]"
-    >
-
-      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg">
-        {icon}
-      </div>
-
-      <h3 className="mt-4 font-semibold text-white transition group-hover:text-amber-300">
-        {title}
-      </h3>
-
-      <p className="mt-2 text-sm leading-6 text-slate-400">
-        {description}
-      </p>
-
-      <div className="mt-4 text-sm font-semibold text-amber-300">
-        Open tool →
-      </div>
-
-    </Link>
   );
 }

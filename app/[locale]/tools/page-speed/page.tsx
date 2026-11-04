@@ -2,6 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import ShareTool from "@/components/share-tool";
 
@@ -17,7 +18,39 @@ type PageSpeedResult = {
   strategy: string;
 };
 
+type MetricStatusKey =
+  | "scoreReview"
+  | "scoreGood"
+  | "scoreNeedsImprovement"
+  | "scorePoor";
+
+type ScoreKey =
+  | "scoreUnavailable"
+  | "scoreGood"
+  | "scoreNeedsImprovement"
+  | "scorePoor";
+
+const RELATED = [
+  { href: "/tools/seo-analyzer", icon: "⌕", key: "seoAnalyzer" },
+  { href: "/tools/seo-page-analyzer", icon: "◎", key: "seoPageAnalyzer" },
+  { href: "/tools/content-analyzer", icon: "▤", key: "contentAnalyzer" },
+  { href: "/tools/meta-tag-generator", icon: "<>", key: "metaTagGenerator" },
+  { href: "/tools/xml-sitemap-generator", icon: "⌘", key: "xmlSitemapGenerator" },
+  { href: "/tools/http-status-checker", icon: "↔", key: "httpStatusChecker" },
+] as const;
+
+const STEPS = ["1", "2", "3", "4"] as const;
+const BENEFITS = ["1", "2", "3", "4"] as const;
+const METRIC_INFO = ["1", "2", "3", "4", "5", "6"] as const;
+const METRIC_ABBREVIATIONS = ["Score", "FCP", "LCP", "CLS", "TBT", "SI"] as const;
+
 export default function PageSpeedAnalyzerPage() {
+  const t = useTranslations("Tool.pageSpeed");
+  const tc = useTranslations("Tools.catalog");
+  const tCommon = useTranslations("Common");
+  const tRelated = useTranslations("ToolShared.related");
+  const tErr = useTranslations("Errors");
+
   const [url, setUrl] = useState("");
   const [result, setResult] =
     useState<PageSpeedResult | null>(null);
@@ -76,9 +109,7 @@ export default function PageSpeedAnalyzerPage() {
     setResult(null);
 
     if (!cleanUrl) {
-      setError(
-        "Please enter a website URL."
-      );
+      setError(tErr("urlRequired"));
       return;
     }
 
@@ -104,8 +135,7 @@ export default function PageSpeedAnalyzerPage() {
 
       if (!response.ok) {
         setError(
-          data.error ||
-            "Unable to analyze page speed."
+          data.error || t("errorFallback")
         );
         return;
       }
@@ -114,9 +144,7 @@ export default function PageSpeedAnalyzerPage() {
 
       setResult(data);
     } catch {
-      setError(
-        "Unable to analyze page speed."
-      );
+      setError(t("errorFallback"));
     } finally {
       setLoading(false);
     }
@@ -209,22 +237,22 @@ export default function PageSpeedAnalyzerPage() {
     );
   }, []);
 
-  function getScoreLabel(
+  function getScoreKey(
     score: number | null
-  ) {
+  ): ScoreKey {
     if (score === null) {
-      return "Unavailable";
+      return "scoreUnavailable";
     }
 
     if (score >= 90) {
-      return "Good";
+      return "scoreGood";
     }
 
     if (score >= 50) {
-      return "Needs Improvement";
+      return "scoreNeedsImprovement";
     }
 
-    return "Poor";
+    return "scorePoor";
   }
 
   function getScoreClass(
@@ -246,9 +274,12 @@ export default function PageSpeedAnalyzerPage() {
   }
 
   function getMetricStatus(
-    label: string,
+    metric: string,
     value: string
-  ) {
+  ): {
+    key: MetricStatusKey;
+    className: string;
+  } {
     const numeric =
       Number.parseFloat(value);
 
@@ -256,19 +287,19 @@ export default function PageSpeedAnalyzerPage() {
       Number.isNaN(numeric)
     ) {
       return {
-        label: "Review",
+        key: "scoreReview",
         className:
           "border-white/10 bg-white/5 text-slate-400",
       };
     }
 
     if (
-      label ===
+      metric ===
       "Cumulative Layout Shift"
     ) {
       if (numeric <= 0.1) {
         return {
-          label: "Good",
+          key: "scoreGood",
           className:
             "border-emerald-400/20 bg-emerald-400/10 text-emerald-300",
         };
@@ -276,15 +307,14 @@ export default function PageSpeedAnalyzerPage() {
 
       if (numeric <= 0.25) {
         return {
-          label:
-            "Needs Improvement",
+          key: "scoreNeedsImprovement",
           className:
             "border-amber-400/20 bg-amber-400/10 text-amber-300",
         };
       }
 
       return {
-        label: "Poor",
+        key: "scorePoor",
         className:
           "border-rose-400/20 bg-rose-400/10 text-rose-300",
       };
@@ -320,11 +350,11 @@ export default function PageSpeedAnalyzerPage() {
     };
 
     const threshold =
-      limits[label];
+      limits[metric];
 
     if (!threshold) {
       return {
-        label: "Review",
+        key: "scoreReview",
         className:
           "border-white/10 bg-white/5 text-slate-400",
       };
@@ -332,7 +362,7 @@ export default function PageSpeedAnalyzerPage() {
 
     if (seconds <= threshold[0]) {
       return {
-        label: "Good",
+        key: "scoreGood",
         className:
           "border-emerald-400/20 bg-emerald-400/10 text-emerald-300",
       };
@@ -340,15 +370,14 @@ export default function PageSpeedAnalyzerPage() {
 
     if (seconds <= threshold[1]) {
       return {
-        label:
-          "Needs Improvement",
+        key: "scoreNeedsImprovement",
         className:
           "border-amber-400/20 bg-amber-400/10 text-amber-300",
       };
     }
 
     return {
-      label: "Poor",
+      key: "scorePoor",
       className:
         "border-rose-400/20 bg-rose-400/10 text-rose-300",
     };
@@ -360,25 +389,25 @@ export default function PageSpeedAnalyzerPage() {
           result.performanceScore !==
             null &&
           result.performanceScore < 90
-            ? "Reduce unnecessary JavaScript, optimize images and review render-blocking resources."
+            ? t("recPerformance")
             : null,
           getMetricStatus(
             "Largest Contentful Paint",
             result.largestContentfulPaint
-          ).label !== "Good"
-            ? "Improve Largest Contentful Paint by optimizing the main above-the-fold element and server response."
+          ).key !== "scoreGood"
+            ? t("recLcp")
             : null,
           getMetricStatus(
             "Cumulative Layout Shift",
             result.cumulativeLayoutShift
-          ).label !== "Good"
-            ? "Reserve space for images, embeds and dynamic content to reduce layout shifts."
+          ).key !== "scoreGood"
+            ? t("recCls")
             : null,
           getMetricStatus(
             "Total Blocking Time",
             result.totalBlockingTime
-          ).label !== "Good"
-            ? "Break up long JavaScript tasks and reduce main-thread work."
+          ).key !== "scoreGood"
+            ? t("recTbt")
             : null,
         ].filter(
           (
@@ -387,6 +416,41 @@ export default function PageSpeedAnalyzerPage() {
             Boolean(item)
         )
       : [];
+
+  const metrics = result
+    ? [
+        {
+          id: "First Contentful Paint",
+          label: t("metricFcpLabel"),
+          value: result.firstContentfulPaint,
+          description: t("metricFcpDesc"),
+        },
+        {
+          id: "Largest Contentful Paint",
+          label: t("metricLcpLabel"),
+          value: result.largestContentfulPaint,
+          description: t("metricLcpDesc"),
+        },
+        {
+          id: "Cumulative Layout Shift",
+          label: t("metricClsLabel"),
+          value: result.cumulativeLayoutShift,
+          description: t("metricClsDesc"),
+        },
+        {
+          id: "Total Blocking Time",
+          label: t("metricTbtLabel"),
+          value: result.totalBlockingTime,
+          description: t("metricTbtDesc"),
+        },
+        {
+          id: "Speed Index",
+          label: t("metricSiLabel"),
+          value: result.speedIndex,
+          description: t("metricSiDesc"),
+        },
+      ]
+    : [];
 
   return (
     <main className="min-h-screen bg-slate-950 text-white">
@@ -398,24 +462,22 @@ export default function PageSpeedAnalyzerPage() {
         <div className="mx-auto max-w-4xl text-center">
 
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-300">
-            <span>⚡</span>
+            <span aria-hidden="true">⚡</span>
             <span>
-              LifeSeos Page Speed Analyzer
+              {t("badge")}
             </span>
           </div>
 
           <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Free Page Speed Analyzer
+            {t("titleLine1")}
 
             <span className="mt-2 block bg-gradient-to-r from-emerald-300 via-cyan-300 to-blue-400 bg-clip-text text-transparent">
-              Test Website Performance
+              {t("titleAccent")}
             </span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
-            Measure website speed and Lighthouse
-            performance metrics including loading,
-            rendering and layout stability signals.
+            {t("subtitle")}
           </p>
 
         </div>
@@ -425,13 +487,17 @@ export default function PageSpeedAnalyzerPage() {
 
         <section className="mx-auto mt-10 max-w-4xl rounded-[28px] border border-white/10 bg-white/[0.03] p-5 shadow-2xl shadow-black/20 sm:p-6">
 
-          <label className="text-sm font-semibold text-slate-200">
-            Page URL
+          <label
+            htmlFor="page-speed-url"
+            className="text-sm font-semibold text-slate-200"
+          >
+            {t("urlLabel")}
           </label>
 
           <div className="mt-3 flex flex-col gap-3 sm:flex-row">
 
             <input
+              id="page-speed-url"
               value={url}
               onChange={(e) =>
                 setUrl(
@@ -443,11 +509,12 @@ export default function PageSpeedAnalyzerPage() {
                   e.key ===
                   "Enter"
                 ) {
-                  analyzeSpeed();
+                  void analyzeSpeed();
                 }
               }}
-              placeholder="https://example.com"
-              className="flex-1 rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/60"
+              placeholder={tCommon("urlPlaceholder")}
+              dir="ltr"
+              className="flex-1 rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-start text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/60"
             />
 
             <button
@@ -459,15 +526,14 @@ export default function PageSpeedAnalyzerPage() {
               className="rounded-2xl bg-gradient-to-r from-emerald-400 to-cyan-400 px-7 py-3.5 font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:from-emerald-300 hover:to-cyan-300 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading
-                ? "Analyzing..."
-                : "Analyze speed"}
+                ? t("submitLoading")
+                : t("submit")}
             </button>
 
           </div>
 
           <p className="mt-3 text-sm text-slate-500">
-            The analysis uses a mobile Lighthouse
-            performance test for the submitted page.
+            {t("hint")}
           </p>
 
           {error && (
@@ -514,29 +580,35 @@ export default function PageSpeedAnalyzerPage() {
                           : "border-rose-400/20 bg-rose-400/10 text-rose-300"
                       }`}
                     >
-                      {getScoreLabel(
+                      {t(getScoreKey(
                         result.performanceScore
-                      )}
+                      ))}
                     </span>
 
-                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-slate-300">
+                    <span
+                      className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-slate-300"
+                      data-ltr-text
+                    >
                       {result.strategy}
                     </span>
                   </div>
 
                   <h2 className="mt-5 text-2xl font-bold sm:text-3xl">
-                    Page Performance Overview
+                    {t("resultTitle")}
                   </h2>
 
                   <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">
-                    Review your Lighthouse performance score together with loading, interactivity and layout stability metrics.
+                    {t("resultBody")}
                   </p>
 
                   <div className="mt-5 rounded-2xl border border-white/5 bg-black/10 px-4 py-3 text-sm text-slate-400">
-                    <span className="mr-2 text-slate-500">
-                      Tested URL
+                    <span className="me-2 text-slate-500">
+                      {t("testedUrl")}
                     </span>
-                    <span className="break-all text-slate-200">
+                    <span
+                      className="break-all text-slate-200"
+                      data-ltr-text
+                    >
                       {result.finalUrl}
                     </span>
                   </div>
@@ -545,61 +617,27 @@ export default function PageSpeedAnalyzerPage() {
             </section>
 
             <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-              {[
-                {
-                  label:
-                    "First Contentful Paint",
-                  value:
-                    result.firstContentfulPaint,
-                  description:
-                    "First visible content",
-                },
-                {
-                  label:
-                    "Largest Contentful Paint",
-                  value:
-                    result.largestContentfulPaint,
-                  description:
-                    "Largest visible element",
-                },
-                {
-                  label:
-                    "Cumulative Layout Shift",
-                  value:
-                    result.cumulativeLayoutShift,
-                  description:
-                    "Visual stability",
-                },
-                {
-                  label:
-                    "Total Blocking Time",
-                  value:
-                    result.totalBlockingTime,
-                  description:
-                    "Main-thread blocking",
-                },
-                {
-                  label:
-                    "Speed Index",
-                  value:
-                    result.speedIndex,
-                  description:
-                    "Visual loading speed",
-                },
-              ].map((metric) => (
-                <MetricCard
-                  key={metric.label}
-                  label={metric.label}
-                  value={metric.value}
-                  description={
-                    metric.description
-                  }
-                  status={getMetricStatus(
-                    metric.label,
-                    metric.value
-                  )}
-                />
-              ))}
+              {metrics.map((metric) => {
+                const status = getMetricStatus(
+                  metric.id,
+                  metric.value
+                );
+
+                return (
+                  <MetricCard
+                    key={metric.id}
+                    label={metric.label}
+                    value={metric.value}
+                    description={
+                      metric.description
+                    }
+                    status={{
+                      label: t(status.key),
+                      className: status.className,
+                    }}
+                  />
+                );
+              })}
             </section>
 
             <section className="rounded-[28px] border border-white/10 bg-slate-900/80 p-6 sm:p-8">
@@ -608,33 +646,33 @@ export default function PageSpeedAnalyzerPage() {
 
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300">
-                    Test information
+                    {t("detailsEyebrow")}
                   </p>
 
                   <h2 className="mt-2 text-2xl font-bold">
-                    Analysis Details
+                    {t("detailsTitle")}
                   </h2>
                 </div>
 
                 <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-400">
-                  Lighthouse performance
+                  {t("detailsBadge")}
                 </span>
               </div>
 
               <div className="mt-6 grid gap-4 md:grid-cols-3">
 
                 <DetailCard
-                  label="Requested URL"
+                  label={t("requestedUrl")}
                   value={result.requestedUrl}
                 />
 
                 <DetailCard
-                  label="Final URL"
+                  label={t("finalUrl")}
                   value={result.finalUrl}
                 />
 
                 <DetailCard
-                  label="Strategy"
+                  label={t("strategy")}
                   value={result.strategy}
                 />
 
@@ -652,11 +690,11 @@ export default function PageSpeedAnalyzerPage() {
 
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-300/70">
-                    Performance action plan
+                    {t("recsEyebrow")}
                   </p>
 
                   <h2 className="mt-1 text-2xl font-bold">
-                    Recommended Improvements
+                    {t("recsTitle")}
                   </h2>
                 </div>
               </div>
@@ -672,7 +710,10 @@ export default function PageSpeedAnalyzerPage() {
                         className="flex gap-4 rounded-2xl border border-white/10 bg-slate-950/40 p-5"
                       >
 
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-400/10 text-sm font-bold text-amber-300">
+                        <div
+                          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-400/10 text-sm font-bold text-amber-300"
+                          data-ltr-text
+                        >
                           {index + 1}
                         </div>
 
@@ -686,7 +727,7 @@ export default function PageSpeedAnalyzerPage() {
                 ) : (
 
                   <div className="rounded-2xl border border-emerald-400/15 bg-emerald-400/5 px-5 py-4 text-sm text-emerald-300">
-                    The measured performance signals look strong. Continue monitoring after major website changes.
+                    {t("recNone")}
                   </div>
 
                 )}
@@ -701,15 +742,15 @@ export default function PageSpeedAnalyzerPage() {
 
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                    Recommended next tool
+                    {t("nextEyebrow")}
                   </p>
 
                   <h2 className="mt-2 text-2xl font-bold">
-                    Run a complete SEO audit
+                    {t("nextTitle")}
                   </h2>
 
                   <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400">
-                    Page speed is only one part of SEO. Use the SEO Analyzer to review technical, content, image and social metadata signals for the same page.
+                    {t("nextBody")}
                   </p>
                 </div>
 
@@ -719,8 +760,8 @@ export default function PageSpeedAnalyzerPage() {
                   )}`}
                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-cyan-200"
                 >
-                  Open SEO Analyzer
-                  <span>→</span>
+                  {t("nextCta")}
+                  <span aria-hidden="true" className="rtl:rotate-180">→</span>
                 </Link>
 
               </div>
@@ -734,8 +775,8 @@ export default function PageSpeedAnalyzerPage() {
         <div className="mt-10">
 
           <ShareTool
-            title="Page Speed Analyzer"
-            description="Measure website performance, loading speed and Lighthouse metrics with this free LifeSeos tool."
+            title={tc("pageSpeed.title")}
+            description={t("shareDescription")}
           />
 
         </div>
@@ -752,20 +793,15 @@ export default function PageSpeedAnalyzerPage() {
           <div className="mx-auto max-w-3xl text-center">
 
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
-              Website Performance
+              {t("infoEyebrow")}
             </p>
 
             <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Understand Your Page Speed Metrics
+              {t("infoTitle")}
             </h2>
 
             <p className="mt-5 leading-8 text-slate-400">
-              Website performance is more than a single
-              score. The LifeSeos Page Speed Analyzer
-              displays several Lighthouse metrics that
-              help you understand how quickly a page
-              begins rendering, how stable the layout is
-              and whether browser tasks delay interaction.
+              {t("infoBody")}
             </p>
 
           </div>
@@ -775,41 +811,14 @@ export default function PageSpeedAnalyzerPage() {
 
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
 
-            <MetricInfoCard
-              abbreviation="Score"
-              title="Performance Score"
-              description="A combined Lighthouse performance score that summarizes several loading and rendering measurements."
-            />
-
-            <MetricInfoCard
-              abbreviation="FCP"
-              title="First Contentful Paint"
-              description="Measures when the browser first displays visible page content such as text, images or graphics."
-            />
-
-            <MetricInfoCard
-              abbreviation="LCP"
-              title="Largest Contentful Paint"
-              description="Measures how long it takes for the largest visible content element in the viewport to render."
-            />
-
-            <MetricInfoCard
-              abbreviation="CLS"
-              title="Cumulative Layout Shift"
-              description="Measures visual stability by tracking unexpected movement of page elements during loading."
-            />
-
-            <MetricInfoCard
-              abbreviation="TBT"
-              title="Total Blocking Time"
-              description="Measures time when long main-thread tasks can delay the browser from responding quickly."
-            />
-
-            <MetricInfoCard
-              abbreviation="SI"
-              title="Speed Index"
-              description="Estimates how quickly the visible parts of a page are displayed during the loading process."
-            />
+            {METRIC_INFO.map((n, index) => (
+              <MetricInfoCard
+                key={n}
+                abbreviation={METRIC_ABBREVIATIONS[index]}
+                title={t(`info${n}Title`)}
+                description={t(`info${n}Body`)}
+              />
+            ))}
 
           </div>
 
@@ -823,17 +832,15 @@ export default function PageSpeedAnalyzerPage() {
               <div>
 
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
-                  How it works
+                  {t("howEyebrow")}
                 </p>
 
                 <h2 className="mt-4 text-3xl font-bold">
-                  How to Use the Page Speed Analyzer
+                  {t("howTitle")}
                 </h2>
 
                 <p className="mt-4 leading-7 text-slate-400">
-                  Test any publicly accessible page and
-                  use the results to identify areas that
-                  may need performance optimization.
+                  {t("howBody")}
                 </p>
 
               </div>
@@ -841,29 +848,14 @@ export default function PageSpeedAnalyzerPage() {
 
               <div className="space-y-4">
 
-                <StepCard
-                  number="1"
-                  title="Enter the page URL"
-                  description="Paste the complete public URL you want to test, including https://."
-                />
-
-                <StepCard
-                  number="2"
-                  title="Run the performance test"
-                  description="LifeSeos sends the page to the performance analysis service and retrieves Lighthouse metrics."
-                />
-
-                <StepCard
-                  number="3"
-                  title="Review the metrics"
-                  description="Check the overall performance score together with FCP, LCP, CLS, TBT and Speed Index."
-                />
-
-                <StepCard
-                  number="4"
-                  title="Investigate slow areas"
-                  description="Use weak metrics as signals for deeper investigation into images, scripts, rendering and page structure."
-                />
+                {STEPS.map((number) => (
+                  <StepCard
+                    key={number}
+                    number={number}
+                    title={t(`how${number}Title`)}
+                    description={t(`how${number}Body`)}
+                  />
+                ))}
 
               </div>
 
@@ -879,26 +871,19 @@ export default function PageSpeedAnalyzerPage() {
             <div>
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-violet-300">
-                Performance matters
+                {t("whyEyebrow")}
               </p>
 
               <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
-                Why Website Speed Matters
+                {t("whyTitle")}
               </h2>
 
               <p className="mt-5 leading-8 text-slate-400">
-                Slow pages can create a poor browsing
-                experience, especially for users on mobile
-                devices or slower networks. Heavy images,
-                large scripts and inefficient rendering
-                can all increase loading time.
+                {t("whyP1")}
               </p>
 
               <p className="mt-4 leading-8 text-slate-400">
-                Performance testing helps you identify
-                pages that deserve closer attention and
-                gives you measurable values that can be
-                compared after optimization work.
+                {t("whyP2")}
               </p>
 
             </div>
@@ -906,25 +891,13 @@ export default function PageSpeedAnalyzerPage() {
 
             <div className="grid gap-4 sm:grid-cols-2">
 
-              <BenefitCard
-                title="Faster loading"
-                description="Identify pages that take longer to display meaningful content."
-              />
-
-              <BenefitCard
-                title="Better stability"
-                description="Spot layout movement that can make pages difficult or frustrating to use."
-              />
-
-              <BenefitCard
-                title="Mobile performance"
-                description="Review page performance using the mobile testing strategy used by the tool."
-              />
-
-              <BenefitCard
-                title="Track improvements"
-                description="Run another test after optimization and compare the resulting performance metrics."
-              />
+              {BENEFITS.map((n) => (
+                <BenefitCard
+                  key={n}
+                  title={t(`benefit${n}Title`)}
+                  description={t(`benefit${n}Body`)}
+                />
+              ))}
 
             </div>
 
@@ -940,11 +913,11 @@ export default function PageSpeedAnalyzerPage() {
               <div>
 
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
-                  Continue optimizing
+                  {tRelated("eyebrow")}
                 </p>
 
                 <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                  Related SEO Tools
+                  {tRelated("title")}
                 </h2>
 
               </div>
@@ -954,7 +927,10 @@ export default function PageSpeedAnalyzerPage() {
                 href="/tools"
                 className="text-sm font-semibold text-cyan-300 transition hover:text-cyan-200"
               >
-                View all tools →
+                {tRelated("viewAll")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
             </div>
@@ -962,47 +938,16 @@ export default function PageSpeedAnalyzerPage() {
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 
-              <RelatedToolCard
-                href="/tools/seo-analyzer"
-                icon="⌕"
-                title="SEO Analyzer"
-                description="Run a broader website SEO audit and identify technical and on-page issues."
-              />
-
-              <RelatedToolCard
-                href="/tools/seo-page-analyzer"
-                icon="◎"
-                title="SEO Page Analyzer"
-                description="Inspect an individual page and review important on-page SEO elements."
-              />
-
-              <RelatedToolCard
-                href="/tools/content-analyzer"
-                icon="▤"
-                title="Content Analyzer"
-                description="Analyze page content and identify opportunities to improve SEO relevance."
-              />
-
-              <RelatedToolCard
-                href="/tools/meta-tag-generator"
-                icon="<>"
-                title="Meta Tag Generator"
-                description="Create optimized page titles, descriptions and social metadata."
-              />
-
-              <RelatedToolCard
-                href="/tools/xml-sitemap-generator"
-                icon="⌘"
-                title="XML Sitemap Generator"
-                description="Create an XML sitemap to help search engines discover important pages."
-              />
-
-              <RelatedToolCard
-                href="/tools/http-status-checker"
-                icon="↔"
-                title="HTTP Status Checker"
-                description="Check HTTP response codes and verify whether URLs return the expected status."
-              />
+              {RELATED.map((item) => (
+                <RelatedToolCard
+                  key={item.key}
+                  href={item.href}
+                  icon={item.icon}
+                  title={tc(`${item.key}.title`)}
+                  description={tc(`${item.key}.short`)}
+                  openLabel={tCommon("openTool")}
+                />
+              ))}
 
             </div>
 
@@ -1022,6 +967,8 @@ function PerformanceScoreRing({
 }: {
   score: number;
 }) {
+  const t = useTranslations("Tool.pageSpeed");
+
   const safeScore =
     Math.max(
       0,
@@ -1058,16 +1005,17 @@ function PerformanceScoreRing({
           style={{
             color,
           }}
+          data-ltr-text
         >
           {safeScore}
         </div>
 
         <div className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-          Performance
+          {t("ringLabel")}
         </div>
 
         <div className="mt-1 text-xs text-slate-600">
-          out of 100
+          {t("ringOutOf")}
         </div>
 
       </div>
@@ -1108,7 +1056,10 @@ function MetricCard({
 
       </div>
 
-      <p className="mt-4 text-2xl font-bold text-white">
+      <p
+        className="mt-4 text-2xl font-bold text-white"
+        data-ltr-text
+      >
         {value}
       </p>
 
@@ -1135,7 +1086,10 @@ function DetailCard({
         {label}
       </p>
 
-      <p className="mt-2 break-all text-sm leading-6 text-slate-300">
+      <p
+        className="mt-2 break-all text-sm leading-6 text-slate-300"
+        data-ltr-text
+      >
         {value}
       </p>
 
@@ -1156,7 +1110,10 @@ function MetricInfoCard({
   return (
     <div className="rounded-[24px] border border-white/10 bg-slate-900/70 p-6 transition duration-300 hover:-translate-y-0.5 hover:border-emerald-400/20 hover:bg-slate-900">
 
-      <div className="inline-flex rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 text-sm font-bold text-emerald-300">
+      <div
+        className="inline-flex rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 text-sm font-bold text-emerald-300"
+        data-ltr-text
+      >
         {abbreviation}
       </div>
 
@@ -1185,7 +1142,10 @@ function StepCard({
   return (
     <div className="flex gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-5 transition duration-300 hover:border-cyan-400/20 hover:bg-slate-900/80">
 
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 font-bold text-emerald-300">
+      <div
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 font-bold text-emerald-300"
+        data-ltr-text
+      >
         {number}
       </div>
 
@@ -1238,11 +1198,13 @@ function RelatedToolCard({
   icon,
   title,
   description,
+  openLabel,
 }: {
   href: string;
   icon: string;
   title: string;
   description: string;
+  openLabel: string;
 }) {
   return (
     <Link
@@ -1263,7 +1225,10 @@ function RelatedToolCard({
       </p>
 
       <div className="mt-4 text-sm font-semibold text-emerald-300">
-        Open tool →
+        {openLabel}
+        <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+          →
+        </span>
       </div>
 
     </Link>

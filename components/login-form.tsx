@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -20,6 +21,7 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const t = useTranslations("Auth.login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -49,9 +51,7 @@ export function LoginForm({
       router.refresh();
     } catch (error: unknown) {
       setError(
-        error instanceof Error
-          ? error.message
-          : "An error occurred while logging in."
+        error instanceof Error ? error.message : t("errorFallback")
       );
     } finally {
       setIsLoading(false);
@@ -62,27 +62,24 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">
-            Login
-          </CardTitle>
+          <CardTitle className="text-2xl">{t("title")}</CardTitle>
 
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
+          <CardDescription>{t("description")}</CardDescription>
         </CardHeader>
 
         <CardContent>
           <form onSubmit={handleLogin}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
-                <Label htmlFor="email">
-                  Email
-                </Label>
+                <Label htmlFor="email">{t("email")}</Label>
 
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder={t("emailPlaceholder")}
+                  dir="ltr"
+                  className="text-start"
+                  autoComplete="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -91,49 +88,42 @@ export function LoginForm({
 
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="password">
-                    Password
-                  </Label>
+                  <Label htmlFor="password">{t("password")}</Label>
 
                   <Link
                     href="/auth/forgot-password"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    className="ms-auto inline-block text-sm underline-offset-4 hover:underline"
                   >
-                    Forgot your password?
+                    {t("forgot")}
                   </Link>
                 </div>
 
                 <Input
                   id="password"
                   type="password"
+                  dir="ltr"
+                  className="text-start"
+                  autoComplete="current-password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
 
-              {error && (
-                <p className="text-sm text-red-500">
-                  {error}
-                </p>
-              )}
+              {error && <p className="text-sm text-red-500">{error}</p>}
 
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
-                {isLoading ? "Logging in..." : "Login"}
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? t("submitting") : t("submit")}
               </Button>
             </div>
 
             <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
+              {t("noAccount")}{" "}
               <Link
                 href="/auth/sign-up"
                 className="underline underline-offset-4"
               >
-                Sign up
+                {t("signUpLink")}
               </Link>
             </div>
           </form>

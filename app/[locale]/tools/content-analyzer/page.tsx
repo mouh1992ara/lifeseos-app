@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { useTranslations } from "next-intl";
 
 import ShareTool from "@/components/share-tool";
 
@@ -15,7 +16,27 @@ type KeywordItem = {
   density: number;
 };
 
+type Recommendation = {
+  key: string;
+  keyword?: string;
+};
+
+type ScoreKey =
+  | "scoreExcellent"
+  | "scoreGood"
+  | "scoreNeedsImprovement"
+  | "scorePoor";
+
+const INFO_CARDS = ["1", "2", "3", "4", "5", "6"] as const;
+const INFO_ICONS = ["▤", "◎", "%", "Aa", "¶", "◷"] as const;
+const STEPS = ["1", "2", "3", "4"] as const;
+const BENEFITS = ["1", "2", "3", "4"] as const;
+
 export default function ContentAnalyzerPage() {
+  const t = useTranslations("Tool.contentAnalyzer");
+  const tc = useTranslations("Tools.catalog");
+  const tCommon = useTranslations("Common");
+
   const [text, setText] = useState("");
 
   const hasTrackedUse = useRef(false);
@@ -86,7 +107,7 @@ export default function ContentAnalyzerPage() {
           [] as KeywordItem[],
         score: 0,
         recommendations:
-          [] as string[],
+          [] as Recommendation[],
       };
     }
 
@@ -198,14 +219,14 @@ export default function ContentAnalyzerPage() {
         : 0;
 
     const recommendations:
-      string[] = [];
+      Recommendation[] = [];
 
     let score = 100;
 
     if (words.length < 300) {
-      recommendations.push(
-        "Consider adding more useful content. Pages with very little text may not fully answer search intent."
-      );
+      recommendations.push({
+        key: "recThin",
+      });
 
       score -= 20;
     }
@@ -215,9 +236,9 @@ export default function ContentAnalyzerPage() {
         25 &&
       sentences > 0
     ) {
-      recommendations.push(
-        "Some sentences may be too long. Shorter sentences can improve readability."
-      );
+      recommendations.push({
+        key: "recLongSentences",
+      });
 
       score -= 10;
     }
@@ -226,9 +247,9 @@ export default function ContentAnalyzerPage() {
       paragraphs <= 1 &&
       words.length > 150
     ) {
-      recommendations.push(
-        "Break long blocks of text into multiple paragraphs to improve readability."
-      );
+      recommendations.push({
+        key: "recParagraphs",
+      });
 
       score -= 10;
     }
@@ -239,9 +260,9 @@ export default function ContentAnalyzerPage() {
         words.length <
         0.35
     ) {
-      recommendations.push(
-        "The content contains a high amount of repeated vocabulary. Consider using more natural variation."
-      );
+      recommendations.push({
+        key: "recRepetition",
+      });
 
       score -= 10;
     }
@@ -255,9 +276,11 @@ export default function ContentAnalyzerPage() {
     if (
       highDensityKeyword
     ) {
-      recommendations.push(
-        `The keyword "${highDensityKeyword.keyword}" appears frequently. Review the content to avoid unnatural repetition.`
-      );
+      recommendations.push({
+        key: "recHighDensity",
+        keyword:
+          highDensityKeyword.keyword,
+      });
 
       score -= 10;
     }
@@ -268,18 +291,18 @@ export default function ContentAnalyzerPage() {
         25 &&
       paragraphs >= 2
     ) {
-      recommendations.push(
-        "The content has a solid basic structure with reasonable length and readability."
-      );
+      recommendations.push({
+        key: "recGood",
+      });
     }
 
     if (
       recommendations.length ===
       0
     ) {
-      recommendations.push(
-        "The content structure looks balanced. Review it manually for search intent, accuracy and usefulness."
-      );
+      recommendations.push({
+        key: "recBalanced",
+      });
     }
 
     score = Math.max(
@@ -314,22 +337,22 @@ export default function ContentAnalyzerPage() {
     };
   }, [text]);
 
-  function getScoreLabel(
+  function getScoreKey(
     score: number
-  ) {
+  ): ScoreKey {
     if (score >= 90) {
-      return "Excellent";
+      return "scoreExcellent";
     }
 
     if (score >= 75) {
-      return "Good";
+      return "scoreGood";
     }
 
     if (score >= 60) {
-      return "Needs Improvement";
+      return "scoreNeedsImprovement";
     }
 
-    return "Poor";
+    return "scorePoor";
   }
 
   return (
@@ -342,26 +365,23 @@ export default function ContentAnalyzerPage() {
         <div className="mx-auto max-w-4xl text-center">
 
           <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-sm font-medium text-violet-300">
-            <span>▤</span>
+            <span aria-hidden="true">▤</span>
 
             <span>
-              LifeSeos Content Analyzer
+              {t("badge")}
             </span>
           </div>
 
           <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Free SEO Content Analysis Tool
+            {t("titleLine1")}
 
             <span className="mt-2 block bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-300 bg-clip-text text-transparent">
-              Analyze Keywords, Readability & SEO
+              {t("titleAccent")}
             </span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
-            Run a free SEO content analysis to review
-            content length, readability, keyword usage,
-            keyword density and basic on-page SEO
-            quality signals directly in your browser.
+            {t("subtitle")}
           </p>
 
         </div>
@@ -373,24 +393,28 @@ export default function ContentAnalyzerPage() {
 
           <section className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
 
-            <label className="text-sm font-semibold text-slate-200">
-              Paste your content
+            <label
+              htmlFor="content-analyzer-input"
+              className="text-sm font-semibold text-slate-200"
+            >
+              {t("inputLabel")}
             </label>
 
             <textarea
+              id="content-analyzer-input"
               value={text}
               onChange={
                 handleTextChange
               }
-              placeholder="Paste your article, landing page copy, blog post, or other SEO content here..."
+              placeholder={t("inputPlaceholder")}
               rows={20}
               className="mt-3 w-full resize-y rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 leading-7 text-white outline-none transition placeholder:text-slate-600 focus:border-violet-400/60"
             />
 
             <div className="mt-3 flex items-center gap-2 text-sm text-slate-500">
-              <span>✓</span>
+              <span aria-hidden="true">✓</span>
               <span>
-                Your text is analyzed directly in the browser.
+                {t("privacyNote")}
               </span>
             </div>
 
@@ -404,35 +428,40 @@ export default function ContentAnalyzerPage() {
               <div>
 
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                  Content Score
+                  {t("scoreLabel")}
                 </p>
 
-                <p className="mt-2 text-5xl font-bold text-emerald-400">
+                <p
+                  className="mt-2 text-5xl font-bold text-emerald-400"
+                  data-ltr-text
+                >
                   {analysis.score}
                 </p>
 
                 <p className="mt-1 text-sm text-slate-400">
                   {text.trim()
-                    ? getScoreLabel(
+                    ? t(getScoreKey(
                         analysis.score
-                      )
-                    : "Add content to begin"}
+                      ))
+                    : t("scoreEmpty")}
                 </p>
 
               </div>
 
 
-              <div className="rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-right">
+              <div className="rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-end">
 
                 <p className="text-xs uppercase tracking-wider text-slate-500">
-                  Reading time
+                  {t("readingTimeLabel")}
                 </p>
 
                 <p className="mt-1 text-lg font-bold">
-                  {
-                    analysis.readingTime
-                  }{" "}
-                  min
+                  <span data-ltr-text>
+                    {
+                      analysis.readingTime
+                    }
+                  </span>{" "}
+                  {t("minUnit")}
                 </p>
 
               </div>
@@ -443,28 +472,28 @@ export default function ContentAnalyzerPage() {
             <div className="mt-6 grid grid-cols-2 gap-4">
 
               <MetricCard
-                label="Words"
+                label={t("wordsLabel")}
                 value={String(
                   analysis.words
                 )}
               />
 
               <MetricCard
-                label="Unique Words"
+                label={t("uniqueWordsLabel")}
                 value={String(
                   analysis.uniqueWords
                 )}
               />
 
               <MetricCard
-                label="Sentences"
+                label={t("sentencesLabel")}
                 value={String(
                   analysis.sentences
                 )}
               />
 
               <MetricCard
-                label="Paragraphs"
+                label={t("paragraphsLabel")}
                 value={String(
                   analysis.paragraphs
                 )}
@@ -476,20 +505,20 @@ export default function ContentAnalyzerPage() {
             <div className="mt-4 grid grid-cols-2 gap-4">
 
               <MetricCard
-                label="Characters"
+                label={t("charactersLabel")}
                 value={String(
                   analysis.characters
                 )}
               />
 
               <MetricCard
-                label="Avg. Sentence"
+                label={t("avgSentenceLabel")}
                 value={
                   analysis.words > 0
                     ? `${analysis.averageSentenceLength.toFixed(
                         1
-                      )} words`
-                    : "0 words"
+                      )} ${t("wordsUnit")}`
+                    : `0 ${t("wordsUnit")}`
                 }
               />
 
@@ -507,20 +536,18 @@ export default function ContentAnalyzerPage() {
           <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
 
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-300">
-              Keyword analysis
+              {t("keywordsEyebrow")}
             </p>
 
             <h2 className="mt-2 text-2xl font-bold">
-              Top Keywords
+              {t("keywordsTitle")}
             </h2>
 
             {analysis.topKeywords.length ===
             0 ? (
 
               <p className="mt-5 text-sm leading-7 text-slate-500">
-                Paste some content to see the most
-                frequently used words and their keyword
-                density.
+                {t("keywordsEmpty")}
               </p>
 
             ) : (
@@ -530,15 +557,15 @@ export default function ContentAnalyzerPage() {
                 <div className="grid grid-cols-3 bg-white/[0.04] px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
 
                   <span>
-                    Keyword
+                    {t("colKeyword")}
                   </span>
 
                   <span className="text-center">
-                    Count
+                    {t("colCount")}
                   </span>
 
-                  <span className="text-right">
-                    Density
+                  <span className="text-end">
+                    {t("colDensity")}
                   </span>
 
                 </div>
@@ -560,13 +587,19 @@ export default function ContentAnalyzerPage() {
                         }
                       </span>
 
-                      <span className="text-center text-slate-300">
+                      <span
+                        className="text-center text-slate-300"
+                        data-ltr-text
+                      >
                         {
                           item.count
                         }
                       </span>
 
-                      <span className="text-right text-emerald-400">
+                      <span
+                        className="text-end text-emerald-400"
+                        data-ltr-text
+                      >
                         {item.density.toFixed(
                           2
                         )}
@@ -588,11 +621,11 @@ export default function ContentAnalyzerPage() {
           <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
 
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">
-              Content guidance
+              {t("guidanceEyebrow")}
             </p>
 
             <h2 className="mt-2 text-2xl font-bold">
-              SEO Recommendations
+              {t("guidanceTitle")}
             </h2>
 
 
@@ -607,18 +640,29 @@ export default function ContentAnalyzerPage() {
                   ) => (
 
                     <div
-                      key={`${item}-${index}`}
+                      key={`${item.key}-${index}`}
                       className="rounded-2xl border border-white/10 bg-slate-900 p-4"
                     >
 
                       <div className="flex gap-3">
 
-                        <span className="text-emerald-400">
+                        <span
+                          className="text-emerald-400"
+                          aria-hidden="true"
+                        >
                           ✓
                         </span>
 
                         <p className="text-sm leading-6 text-slate-300">
-                          {item}
+                          {t(
+                            item.key,
+                            item.keyword
+                              ? {
+                                  keyword:
+                                    item.keyword,
+                                }
+                              : undefined
+                          )}
                         </p>
 
                       </div>
@@ -633,8 +677,7 @@ export default function ContentAnalyzerPage() {
             ) : (
 
               <p className="mt-5 text-sm leading-7 text-slate-500">
-                Paste some content to receive SEO and
-                readability recommendations.
+                {t("guidanceEmpty")}
               </p>
 
             )}
@@ -649,31 +692,31 @@ export default function ContentAnalyzerPage() {
         <section className="mt-8 rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
 
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
-            Content metrics
+            {t("detailsEyebrow")}
           </p>
 
           <h2 className="mt-2 text-2xl font-bold">
-            Detailed Content Statistics
+            {t("detailsTitle")}
           </h2>
 
           <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
             <DetailCard
-              label="Characters with spaces"
+              label={t("detailCharsWithSpaces")}
               value={String(
                 analysis.characters
               )}
             />
 
             <DetailCard
-              label="Characters without spaces"
+              label={t("detailCharsNoSpaces")}
               value={String(
                 analysis.charactersWithoutSpaces
               )}
             />
 
             <DetailCard
-              label="Vocabulary ratio"
+              label={t("detailVocabularyRatio")}
               value={
                 analysis.words > 0
                   ? `${(
@@ -688,8 +731,8 @@ export default function ContentAnalyzerPage() {
             />
 
             <DetailCard
-              label="Reading time"
-              value={`${analysis.readingTime} min`}
+              label={t("readingTimeLabel")}
+              value={`${analysis.readingTime} ${t("minUnit")}`}
             />
 
           </div>
@@ -700,8 +743,8 @@ export default function ContentAnalyzerPage() {
         <div className="mt-10">
 
           <ShareTool
-            title="Content Analyzer"
-            description="Analyze content length, readability, keyword usage and SEO quality signals with this free LifeSeos tool."
+            title={tc("contentAnalyzer.title")}
+            description={t("shareDescription")}
           />
 
         </div>
@@ -718,20 +761,15 @@ export default function ContentAnalyzerPage() {
           <div className="mx-auto max-w-3xl text-center">
 
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-violet-300">
-              Content SEO Analysis
+              {t("infoEyebrow")}
             </p>
 
             <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Understand the Structure of Your Content
+              {t("infoTitle")}
             </h2>
 
             <p className="mt-5 leading-8 text-slate-400">
-              Good SEO content should be useful and
-              natural while also being easy to read and
-              well structured. The LifeSeos Content
-              Analyzer helps you inspect measurable
-              content signals before publishing or
-              updating a page.
+              {t("infoBody")}
             </p>
 
           </div>
@@ -741,41 +779,14 @@ export default function ContentAnalyzerPage() {
 
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
 
-            <InfoCard
-              icon="▤"
-              title="Content Length"
-              description="Review word count, character count, sentence count and paragraph structure."
-            />
-
-            <InfoCard
-              icon="◎"
-              title="Keyword Usage"
-              description="See the most frequently used words and how often they appear in the text."
-            />
-
-            <InfoCard
-              icon="%"
-              title="Keyword Density"
-              description="Measure the percentage of your content represented by frequently repeated words."
-            />
-
-            <InfoCard
-              icon="Aa"
-              title="Vocabulary Variety"
-              description="Compare unique words with total words to identify excessive repetition."
-            />
-
-            <InfoCard
-              icon="¶"
-              title="Sentence Structure"
-              description="Review average sentence length as a basic readability indicator."
-            />
-
-            <InfoCard
-              icon="◷"
-              title="Reading Time"
-              description="Estimate approximately how long a reader may need to read the content."
-            />
+            {INFO_CARDS.map((n, index) => (
+              <InfoCard
+                key={n}
+                icon={INFO_ICONS[index]}
+                title={t(`info${n}Title`)}
+                description={t(`info${n}Body`)}
+              />
+            ))}
 
           </div>
 
@@ -789,17 +800,15 @@ export default function ContentAnalyzerPage() {
               <div>
 
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
-                  How it works
+                  {t("howEyebrow")}
                 </p>
 
                 <h2 className="mt-4 text-3xl font-bold">
-                  How to Use the Content Analyzer
+                  {t("howTitle")}
                 </h2>
 
                 <p className="mt-4 leading-7 text-slate-400">
-                  Use the analyzer while writing,
-                  editing or reviewing content before it
-                  is published.
+                  {t("howBody")}
                 </p>
 
               </div>
@@ -807,29 +816,14 @@ export default function ContentAnalyzerPage() {
 
               <div className="space-y-4">
 
-                <StepCard
-                  number="1"
-                  title="Paste your content"
-                  description="Add your article, landing page copy, product description or other written content."
-                />
-
-                <StepCard
-                  number="2"
-                  title="Review the content score"
-                  description="Use the score as a quick summary of the basic content signals checked by the tool."
-                />
-
-                <StepCard
-                  number="3"
-                  title="Check keywords and structure"
-                  description="Review frequently used words, density, sentence length and paragraph structure."
-                />
-
-                <StepCard
-                  number="4"
-                  title="Improve the writing naturally"
-                  description="Use recommendations as guidance while keeping the content useful, accurate and relevant to readers."
-                />
+                {STEPS.map((number) => (
+                  <StepCard
+                    key={number}
+                    number={number}
+                    title={t(`how${number}Title`)}
+                    description={t(`how${number}Body`)}
+                  />
+                ))}
 
               </div>
 
@@ -845,26 +839,19 @@ export default function ContentAnalyzerPage() {
             <div>
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
-                Better content decisions
+                {t("whyEyebrow")}
               </p>
 
               <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
-                Why Content Analysis Matters for SEO
+                {t("whyTitle")}
               </h2>
 
               <p className="mt-5 leading-8 text-slate-400">
-                Search-focused content should answer the
-                reader&apos;s needs clearly without relying
-                on repetitive keywords or unnecessarily
-                complex writing.
+                {t("whyP1")}
               </p>
 
               <p className="mt-4 leading-8 text-slate-400">
-                Content analysis provides measurable
-                signals that can help you identify thin
-                content, repetitive vocabulary, long
-                sentences and weak paragraph structure
-                before publishing.
+                {t("whyP2")}
               </p>
 
             </div>
@@ -872,25 +859,13 @@ export default function ContentAnalyzerPage() {
 
             <div className="grid gap-4 sm:grid-cols-2">
 
-              <BenefitCard
-                title="Identify thin content"
-                description="Spot pages with limited text that may need more useful information."
-              />
-
-              <BenefitCard
-                title="Avoid keyword repetition"
-                description="Review frequently repeated words and unusually high keyword density."
-              />
-
-              <BenefitCard
-                title="Improve readability"
-                description="Use sentence and paragraph metrics to identify content that may be difficult to scan."
-              />
-
-              <BenefitCard
-                title="Review before publishing"
-                description="Analyze drafts before they go live and make improvements early."
-              />
+              {BENEFITS.map((n) => (
+                <BenefitCard
+                  key={n}
+                  title={t(`benefit${n}Title`)}
+                  description={t(`benefit${n}Body`)}
+                />
+              ))}
 
             </div>
 
@@ -904,16 +879,15 @@ export default function ContentAnalyzerPage() {
             <div className="mx-auto max-w-3xl text-center">
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-violet-300">
-                Continue Your Content SEO Workflow
+                {t("workflowEyebrow")}
               </p>
 
               <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                Rewrite, analyze and refine your content
+                {t("workflowTitle")}
               </h2>
 
               <p className="mt-4 leading-8 text-slate-400">
-                Use these tools together to improve your draft, review content
-                quality and then check keyword frequency in greater detail.
+                {t("workflowBody")}
               </p>
 
             </div>
@@ -933,22 +907,24 @@ export default function ContentAnalyzerPage() {
                   </div>
 
                   <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
-                    Step 1
+                    {tCommon("step", { number: 1 })}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-blue-300">
-                  SEO Article Rewriter
+                  {tc("articleRewriter.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Improve clarity, tone and structure before running a deeper
-                  content analysis.
+                  {t("card1Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-blue-300">
-                  Rewrite content →
+                  {t("card1Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
 
               </Link>
@@ -963,22 +939,24 @@ export default function ContentAnalyzerPage() {
                   </div>
 
                   <span className="rounded-full border border-violet-400/25 bg-violet-400/10 px-3 py-1 text-xs font-semibold text-violet-300">
-                    Step 2 · Current
+                    {tCommon("step", { number: 2 })} · {t("stepCurrent")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold">
-                  Content Analyzer
+                  {tc("contentAnalyzer.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Review readability, structure, vocabulary, keyword usage and
-                  other measurable content quality signals.
+                  {t("card2Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-violet-300">
-                  Analyze content ✓
+                  {t("card2Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block">
+                    ✓
+                  </span>
                 </div>
 
               </div>
@@ -996,22 +974,24 @@ export default function ContentAnalyzerPage() {
                   </div>
 
                   <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
-                    Step 3
+                    {tCommon("step", { number: 3 })}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-cyan-300">
-                  Keyword Density Checker
+                  {tc("keywordDensityChecker.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Inspect keyword frequency and density in greater detail after
-                  reviewing the overall content structure.
+                  {t("card3Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-cyan-300">
-                  Check keyword usage →
+                  {t("card3Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
 
               </Link>
@@ -1025,21 +1005,30 @@ export default function ContentAnalyzerPage() {
                 href="/tools/seo-page-analyzer"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-violet-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                SEO Page Analyzer →
+                {tc("seoPageAnalyzer.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools/meta-tag-generator"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-violet-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                Meta Tag Generator →
+                {tc("metaTagGenerator.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-violet-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                View All Tools →
+                {tCommon("viewAllTools")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
             </div>
@@ -1069,7 +1058,10 @@ function MetricCard({
         {label}
       </p>
 
-      <p className="mt-2 text-2xl font-bold">
+      <p
+        className="mt-2 text-2xl font-bold"
+        data-ltr-text
+      >
         {value}
       </p>
 
@@ -1092,7 +1084,10 @@ function DetailCard({
         {label}
       </p>
 
-      <p className="mt-2 text-lg font-semibold text-white">
+      <p
+        className="mt-2 text-lg font-semibold text-white"
+        data-ltr-text
+      >
         {value}
       </p>
 
@@ -1113,7 +1108,10 @@ function InfoCard({
   return (
     <div className="rounded-[24px] border border-white/10 bg-slate-900/70 p-6">
 
-      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-violet-400/20 bg-violet-400/10 text-sm font-bold text-violet-300">
+      <div
+        className="flex h-10 w-10 items-center justify-center rounded-xl border border-violet-400/20 bg-violet-400/10 text-sm font-bold text-violet-300"
+        data-ltr-text
+      >
         {icon}
       </div>
 
@@ -1142,7 +1140,10 @@ function StepCard({
   return (
     <div className="flex gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-5">
 
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 font-bold text-violet-300">
+      <div
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 font-bold text-violet-300"
+        data-ltr-text
+      >
         {number}
       </div>
 
@@ -1186,43 +1187,5 @@ function BenefitCard({
       </p>
 
     </div>
-  );
-}
-
-
-function RelatedToolCard({
-  href,
-  icon,
-  title,
-  description,
-}: {
-  href: string;
-  icon: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:-translate-y-1 hover:border-violet-400/20 hover:bg-white/[0.05]"
-    >
-
-      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg">
-        {icon}
-      </div>
-
-      <h3 className="mt-4 font-semibold text-white transition group-hover:text-violet-300">
-        {title}
-      </h3>
-
-      <p className="mt-2 text-sm leading-6 text-slate-400">
-        {description}
-      </p>
-
-      <div className="mt-4 text-sm font-semibold text-violet-300">
-        Open tool →
-      </div>
-
-    </Link>
   );
 }

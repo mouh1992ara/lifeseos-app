@@ -1,0 +1,402 @@
+{
+  "slug": "complete-seo-audit-guide",
+  "title": "Guide complet d’audit SEO\u00A0: identifier et corriger les problèmes SEO d’un site",
+  "description": "Un guide pratique d’audit SEO qui explique comment identifier les problèmes techniques, évaluer la qualité du contenu, améliorer la performance du site et renforcer sa visibilité dans les résultats de recherche.",
+  "category": "Audits SEO",
+  "author": "LifeSeos",
+  "publishedAt": "2026-10-07",
+  "updatedAt": "2026-10-30",
+  "readTime": "18 min de lecture",
+  "featuredImage": "/blog/seo-audit-guide.webp",
+  "imageAlt": "Guide complet d’audit SEO et checklist d’optimisation d’un site web",
+  "sections": [
+    {
+      "id": "seo-audit-introduction",
+      "title": "Audit SEO\u00A0: le fondement d’une stratégie SEO réussie",
+      "paragraphs": [
+        "Un site web peut proposer des informations utiles, de bons produits ou des outils précieux et pourtant avoir du mal à apparaître dans les résultats de recherche.",
+        "La visibilité dans les résultats de recherche ne dépend pas de la seule publication de contenu. Les moteurs de recherche doivent pouvoir accéder au site, comprendre ses pages, identifier les URL importantes et offrir une bonne expérience aux utilisateurs.",
+        "Un audit SEO est un examen systématique de ces aspects. Il aide les propriétaires de sites à identifier les problèmes techniques, les contenus faibles, les problèmes de performance et les pistes d’amélioration.",
+        "Plutôt que d’apporter des modifications SEO au hasard, un audit établit un point de départ clair et vous aide à décider quels problèmes corriger en priorité."
+      ],
+      "bullets": [
+        "Les moteurs de recherche peuvent-ils accéder à vos pages importantes\u00A0?",
+        "Les URL importantes sont-elles indexées correctement\u00A0?",
+        "Les balises title et les méta-descriptions sont-elles claires et pertinentes\u00A0?",
+        "Existe-t-il des liens brisés ou des redirections incorrectes\u00A0?",
+        "Le site est-il performant sur les appareils mobiles\u00A0?",
+        "Le contenu répond-il à l’intention de recherche du visiteur\u00A0?"
+      ],
+      "tip": "Commencez par les problèmes qui peuvent empêcher l’exploration, l’indexation ou l’accès à une page. Les petites améliorations de métadonnées comptent moins si les moteurs de recherche ne peuvent pas atteindre correctement la page."
+    },
+    {
+      "id": "what-is-seo-audit",
+      "title": "Qu’est-ce qu’un audit SEO\u00A0?",
+      "paragraphs": [
+        "Un audit SEO est une évaluation détaillée des facteurs qui influencent la façon dont un site peut être découvert, compris et utilisé.",
+        "Un audit complet examine généralement le SEO technique, l’optimisation on-page, l’architecture du site, la qualité du contenu et l’expérience utilisateur.",
+        "L’objectif n’est pas de dresser une simple liste d’erreurs. Un audit utile doit vous aider à comprendre quels problèmes sont importants, quelles pages sont concernées et quelles actions entreprendre."
+      ],
+      "bullets": [
+        "SEO technique et explorabilité",
+        "Indexation et configuration du sitemap",
+        "Codes de statut HTTP et redirections",
+        "Balises title, méta-descriptions et structure des intertitres",
+        "Maillage interne et architecture du site",
+        "Qualité du contenu et intention de recherche",
+        "Vitesse de page et utilisabilité sur mobile"
+      ]
+    },
+    {
+      "id": "technical-seo-audit",
+      "title": "Checklist d’audit SEO technique",
+      "paragraphs": [
+        "Le SEO technique doit généralement être vérifié en premier, car un problème technique peut empêcher des contenus utiles d’être découverts par les moteurs de recherche.",
+        "Commencez par vérifier que les pages importantes sont accessibles, renvoient la bonne réponse HTTP et figurent dans le sitemap du site.",
+        "Ouvrez votre fichier robots.txt en ajoutant /robots.txt à votre domaine. Examinez attentivement les règles et assurez-vous qu’aucune page publique importante n’est bloquée par erreur.",
+        "Vérifiez ensuite votre sitemap XML. Les pages canonical importantes doivent y figurer, tandis que les pages supprimées, les URL brisées et les redirections inutiles doivent en être retirées.",
+        "Examinez également les URL importantes à la recherche d’erreurs HTTP. Une page qui fonctionne normalement renvoie généralement une réponse 200, tandis qu’une redirection permanente utilise souvent une réponse 301 ou 308. Un code 404 signifie que la page demandée est introuvable.",
+        "Les URL canonical doivent aussi être vérifiées. Les pages importantes doivent pointer vers la version préférée correcte et ne pas se canonicaliser vers un contenu sans rapport."
+      ],
+      "bullets": [
+        "Vérifiez la configuration de robots.txt",
+        "Validez le sitemap XML",
+        "Contrôlez les codes de statut HTTP importants",
+        "Repérez les liens internes brisés",
+        "Examinez les redirections permanentes",
+        "Vérifiez les URL canonical",
+        "Confirmez le bon fonctionnement de HTTPS",
+        "Assurez-vous que les pages importantes sont reliées par des liens internes"
+      ],
+      "links": [
+        {
+          "label": "Lire le guide du SEO technique",
+          "href": "/blog/technical-seo-guide"
+        },
+        {
+          "label": "Analyseur de page SEO",
+          "href": "/tools/seo-page-analyzer"
+        }
+      ],
+      "tip": "Si une page importante est bloquée, brisée ou renvoie une erreur serveur, corrigez ce problème avant de consacrer du temps à des améliorations on-page mineures."
+    },
+    {
+      "id": "robots-and-sitemap",
+      "title": "Vérifier robots.txt et votre sitemap XML",
+      "paragraphs": [
+        "Le fichier robots.txt indique aux robots d’exploration pris en charge les parties d’un site qu’ils peuvent ou non explorer.",
+        "Une erreur de configuration peut rendre des sections importantes difficiles d’accès pour les moteurs de recherche. Par exemple, une règle Disallow trop large peut bloquer par inadvertance des pages qui devraient rester publiques.",
+        "Votre sitemap XML remplit une autre fonction\u00A0: il fournit aux moteurs de recherche une liste structurée des URL importantes qu’ils doivent découvrir.",
+        "Un sitemap doit contenir des URL canonical utiles qui renvoient des réponses valides. Il ne doit pas devenir un assemblage de pages supprimées, redirigées ou dupliquées.",
+        "Après avoir vérifié les deux fichiers, comparez-les. Une URL importante ne doit pas figurer dans le sitemap tout en étant bloquée par erreur à l’exploration."
+      ],
+      "bullets": [
+        "Ouvrez votredomaine.com/robots.txt",
+        "Recherchez les règles Disallow inattendues",
+        "Ouvrez votre sitemap XML",
+        "Vérifiez que les pages importantes y figurent",
+        "Retirez les URL obsolètes ou brisées",
+        "Vérifiez que les URL du sitemap utilisent bien la version HTTPS correcte"
+      ],
+      "links": [
+        {
+          "label": "Lire le guide robots.txt",
+          "href": "/blog/robots-txt-guide"
+        },
+        {
+          "label": "Lire le guide du sitemap XML",
+          "href": "/blog/xml-sitemap-guide"
+        }
+      ],
+      "tip": "LifeSeos propose un Générateur de robots.txt et un Générateur de sitemap XML qui vous aident à créer ou à vérifier ces fichiers."
+    },
+    {
+      "id": "http-status-audit",
+      "title": "Vérifier les codes de statut HTTP et les pages brisées",
+      "paragraphs": [
+        "Les codes de statut HTTP indiquent ce qui se produit lorsqu’un navigateur ou un moteur de recherche demande une URL.",
+        "Une page fonctionnelle renvoie normalement une réponse de succès. Les redirections envoient les utilisateurs et les robots d’exploration vers un autre emplacement, tandis que les réponses d’erreur indiquent que la page n’est pas accessible correctement.",
+        "Lors d’un audit SEO, testez les pages importantes\u00A0: page d’accueil, pages de services ou d’outils majeures, articles importants et URL qui reçoivent du trafic issu des moteurs de recherche.",
+        "Si une ancienne URL a été définitivement remplacée par une autre page, une redirection permanente peut être appropriée. Si une page importante renvoie soudainement un code 404 ou une erreur serveur, analysez le problème immédiatement."
+      ],
+      "bullets": [
+        "200 — la page se charge correctement",
+        "301 ou 308 — redirection permanente",
+        "404 — page introuvable",
+        "500 — erreur côté serveur"
+      ],
+      "links": [
+        {
+          "label": "Lire le guide des codes de statut HTTP",
+          "href": "/blog/http-status-codes-seo-guide"
+        }
+      ],
+      "tip": "Utilisez le Vérificateur de statut HTTP LifeSeos pour tester individuellement les URL importantes et repérer les réponses inattendues."
+    },
+    {
+      "id": "page-speed-audit",
+      "title": "Audit de la vitesse de page et de l’expérience utilisateur",
+      "paragraphs": [
+        "La performance d’un site doit être évaluée du point de vue de l’utilisateur, et pas seulement comme un score chiffré.",
+        "Une page lente peut faire partir les visiteurs avant qu’ils n’aient lu le contenu ou utilisé la fonction principale de la page.",
+        "Vérifiez si des images volumineuses, des scripts inutiles, des ressources lentes ou des décalages de mise en page affectent les pages importantes.",
+        "Par exemple, si une grande image d’en-tête retarde l’affichage du contenu principal, redimensionner et optimiser cette image apporte souvent une amélioration plus utile que la simple recherche d’un meilleur score de performance.",
+        "Testez les pages importantes sur mobile comme sur ordinateur, car les conditions de chargement et de mise en page peuvent varier pour les visiteurs."
+      ],
+      "bullets": [
+        "Vérifiez la performance sur mobile",
+        "Examinez les images volumineuses",
+        "Recherchez les scripts inutiles",
+        "Vérifiez la stabilité de la mise en page",
+        "Examinez les ressources à chargement lent",
+        "Testez à nouveau les pages importantes après vos modifications"
+      ],
+      "links": [
+        {
+          "label": "Lire le guide SEO de la vitesse de page",
+          "href": "/blog/page-speed-seo-guide"
+        }
+      ],
+      "tip": "Utilisez l’Analyseur de vitesse de page LifeSeos pour identifier les problèmes de performance, puis appliquez des améliorations mesurées et testez à nouveau la page."
+    },
+    {
+      "id": "on-page-seo-audit",
+      "title": "Audit SEO on-page",
+      "paragraphs": [
+        "Une fois l’accès technique au site correctement assuré, examinez la clarté avec laquelle chaque page importante communique son sujet principal.",
+        "La balise title doit décrire fidèlement le contenu et aider les utilisateurs à comprendre ce qu’ils trouveront sur la page.",
+        "Les méta-descriptions doivent résumer la page clairement, sans répéter des mots-clés ni formuler de promesses exagérées.",
+        "La structure des intertitres doit aussi aider les visiteurs à parcourir la page. Utilisez les intertitres pour organiser logiquement le contenu, plutôt que pour y placer des mots-clés SEO.",
+        "Les liens internes doivent relier naturellement les pages apparentées. Un contenu important ne doit pas être isolé du reste du site."
+      ],
+      "bullets": [
+        "Examinez la balise title",
+        "Vérifiez la méta-description",
+        "Examinez la structure H1, H2 et H3",
+        "Vérifiez les liens internes",
+        "Employez un texte d’ancrage explicite",
+        "Examinez le texte alternatif des images lorsque c’est pertinent",
+        "Vérifiez que les URL sont lisibles et cohérentes"
+      ],
+      "links": [
+        {
+          "label": "Lire la checklist SEO on-page",
+          "href": "/blog/on-page-seo-checklist"
+        },
+        {
+          "label": "Lire le guide des balises meta SEO",
+          "href": "/blog/seo-meta-tags-guide"
+        }
+      ],
+      "tip": "Vous pouvez utiliser le Générateur de balises meta et l’Aperçu d’extrait SERP LifeSeos pour vérifier les titres et les descriptions avant de publier vos modifications."
+    },
+    {
+      "id": "content-quality-audit",
+      "title": "Audit de la qualité du contenu",
+      "paragraphs": [
+        "Une page techniquement saine peut obtenir de faibles résultats si son contenu est incomplet, répétitif ou trop général.",
+        "Un audit de contenu doit évaluer si chaque page importante aide réellement le visiteur à résoudre un problème, à comprendre un sujet ou à accomplir une tâche.",
+        "Au lieu de vous demander uniquement si une page contient le mot-clé cible, demandez-vous si elle apporte suffisamment d’informations utiles au visiteur.",
+        "Par exemple, l’instruction «\u00A0Améliorer la vitesse de page\u00A0» indique au lecteur quoi faire, mais pas comment le faire. Une explication plus solide l’inviterait à tester l’URL, à identifier les ressources volumineuses, à optimiser les images ou les scripts, à tester de nouveau puis à comparer le résultat.",
+        "Cette différence entre un conseil général et des indications concrètes est essentielle pour améliorer la qualité d’un contenu."
+      ],
+      "bullets": [
+        "Actualisez les informations obsolètes",
+        "Respectez l’intention de recherche du visiteur",
+        "Ajoutez des explications utiles",
+        "Intégrez des étapes concrètes",
+        "Ajoutez des exemples lorsque c’est pertinent",
+        "Supprimez les répétitions inutiles",
+        "Examinez les pages qui traitent de sujets très proches"
+      ],
+      "links": [
+        {
+          "label": "Lire le guide SEO d’analyse de contenu",
+          "href": "/blog/content-analysis-seo-guide"
+        }
+      ],
+      "tip": "Une page utile doit laisser au visiteur une compréhension plus claire ou une étape suivante concrète."
+    },
+    {
+      "id": "search-intent-audit",
+      "title": "Examiner l’intention de recherche",
+      "paragraphs": [
+        "L’intention de recherche décrit ce qu’un utilisateur cherche à accomplir lorsqu’il saisit une requête dans un moteur de recherche.",
+        "Par exemple, une personne qui recherche «\u00A0comment vérifier un code de statut HTTP\u00A0» souhaite probablement un moyen rapide de tester une URL et d’en comprendre le résultat.",
+        "Une page utile pour cette recherche doit donc expliquer les codes HTTP les plus importants et proposer une méthode concrète pour vérifier l’URL.",
+        "Le contenu de la page, la balise title et l’outil doivent tous servir le même objectif utilisateur.",
+        "Si une page attire des visiteurs pour un sujet donné mais propose des informations sur autre chose, mieux l’aligner sur l’intention de recherche peut la rendre plus utile."
+      ],
+      "bullets": [
+        "Identifiez la question principale derrière la recherche",
+        "Répondez à cette question dès le début",
+        "Fournissez suffisamment de détails complémentaires",
+        "Orientez le visiteur vers l’outil pertinent ou l’étape suivante",
+        "Évitez d’ajouter des informations sans rapport dans le seul but d’allonger l’article"
+      ]
+    },
+    {
+      "id": "keyword-usage-audit",
+      "title": "Contrôler l’usage des mots-clés de façon naturelle",
+      "paragraphs": [
+        "Les mots-clés aident à décrire le sujet d’une page, mais répéter excessivement la même expression ne rend pas automatiquement un contenu plus utile.",
+        "Concentrez-vous sur une écriture claire, une terminologie pertinente et des explications complètes plutôt que sur un pourcentage de mots-clés arbitraire.",
+        "Si une expression revient si souvent que l’article devient artificiel ou répétitif, réécrivez le contenu au service de la lisibilité.",
+        "Une terminologie associée apparaît naturellement lorsque le sujet est traité avec suffisamment de profondeur."
+      ],
+      "bullets": [
+        "Employez le sujet principal naturellement",
+        "Évitez les répétitions inutiles",
+        "Utilisez les termes associés à bon escient",
+        "Privilégiez la lisibilité",
+        "Examinez les répétitions de mots-clés anormalement élevées"
+      ],
+      "links": [
+        {
+          "label": "Lire le guide de la densité de mots-clés",
+          "href": "/blog/keyword-density-guide"
+        }
+      ],
+      "tip": "Utilisez le Vérificateur de densité de mots-clés LifeSeos comme outil de diagnostic plutôt que de traiter un pourcentage précis comme un objectif de classement."
+    },
+    {
+      "id": "individual-page-review",
+      "title": "Examiner les pages importantes une par une",
+      "paragraphs": [
+        "Après avoir examiné le site dans son ensemble, étudiez les pages importantes une par une.",
+        "Commencez par les pages qui ont le plus de valeur pour les utilisateurs ou qui génèrent déjà des impressions dans les résultats de recherche.",
+        "Pour chaque page, examinez la balise title, la méta-description, les intertitres, l’URL canonical, les liens internes, la profondeur du contenu et l’état technique.",
+        "Cet examen page par page révèle des problèmes difficiles à repérer lorsqu’on observe uniquement le site dans son ensemble."
+      ],
+      "bullets": [
+        "Page d’accueil",
+        "Pages d’outils ou de services importantes",
+        "Pages de destination à forte valeur",
+        "Articles populaires",
+        "Pages qui génèrent des impressions dans les résultats de recherche",
+        "Pages récemment publiées"
+      ],
+      "tip": "Utilisez l’Analyseur SEO et l’Analyseur de page SEO LifeSeos pour organiser l’examen des URL individuelles."
+    },
+    {
+      "id": "prioritize-seo-problems",
+      "title": "Comment hiérarchiser les problèmes SEO",
+      "paragraphs": [
+        "Un audit complet peut révéler de nombreux problèmes. Chercher à tout corriger en même temps rend le processus difficile à gérer.",
+        "Hiérarchisez les problèmes selon leur impact potentiel sur l’accès aux pages, la visibilité dans les résultats de recherche et l’expérience utilisateur.",
+        "Les problèmes prioritaires incluent généralement ceux qui empêchent l’accès ou la découverte des pages importantes.",
+        "Les problèmes de priorité moyenne concernent souvent des métadonnées faibles, un maillage interne insuffisant, des pages lentes ou un contenu incomplet.",
+        "Les améliorations de moindre priorité peuvent inclure de petites modifications de formulation ou des ajustements facultatifs qui n’empêchent pas le site de fonctionner."
+      ],
+      "bullets": [
+        "Priorité élevée — erreurs serveur, pages importantes brisées, blocages accidentels et problèmes d’indexation graves",
+        "Priorité moyenne — pages lentes, maillage interne insuffisant, titres faibles et contenu incomplet",
+        "Priorité faible — petites modifications de formulation, problèmes de mise en forme mineurs et ajustements facultatifs"
+      ],
+      "tip": "Corrigez d’abord les problèmes à plus fort impact au lieu de traiter chaque avertissement d’audit comme également important."
+    },
+    {
+      "id": "seo-audit-workflow",
+      "title": "Un processus concret d’audit SEO",
+      "paragraphs": [
+        "Un processus structuré rend l’audit plus facile à reproduire et évite d’oublier des vérifications importantes.",
+        "Commencez par l’accessibilité et les problèmes techniques, puis passez à l’optimisation on-page, à la qualité du contenu et à la mesure des performances.",
+        "Après avoir apporté des modifications, laissez le temps de collecter de nouvelles données et de comparer les résultats, plutôt que d’appliquer plusieurs changements majeurs en même temps."
+      ],
+      "bullets": [
+        "Étape 1 — Vérifiez l’explorabilité et robots.txt",
+        "Étape 2 — Validez le sitemap XML",
+        "Étape 3 — Contrôlez les codes de statut HTTP et les redirections",
+        "Étape 4 — Examinez l’indexation et les URL canonical",
+        "Étape 5 — Testez la vitesse de page et l’utilisabilité sur mobile",
+        "Étape 6 — Examinez les balises title, les méta-descriptions et les intertitres",
+        "Étape 7 — Évaluez la qualité du contenu et l’intention de recherche",
+        "Étape 8 — Examinez les liens internes",
+        "Étape 9 — Corrigez les problèmes les plus prioritaires",
+        "Étape 10 — Mesurez à nouveau la performance"
+      ]
+    },
+    {
+      "id": "seo-audit-summary",
+      "title": "Checklist finale d’audit SEO",
+      "paragraphs": [
+        "Un audit SEO complet offre une vue structurée de la santé technique d’un site, de la qualité de son contenu et de l’expérience utilisateur.",
+        "L’objectif n’est pas d’obtenir un score d’audit parfait, mais d’identifier les problèmes réels qui affectent les utilisateurs ou empêchent les moteurs de recherche d’accéder et de comprendre correctement les pages importantes.",
+        "Le SEO doit être envisagé comme un processus d’amélioration continue, car les sites évoluent. De nouvelles pages sont publiées, des liens se brisent, des contenus deviennent obsolètes et des mises à jour techniques peuvent créer de nouveaux problèmes.",
+        "Tenez un registre simple du problème détecté, de la modification apportée et du résultat observé ensuite. Vous comprendrez ainsi plus facilement quelles améliorations ont réellement porté leurs fruits."
+      ],
+      "bullets": [
+        "Les pages importantes sont explorables",
+        "Le sitemap XML est exact",
+        "Les URL importantes renvoient les bonnes réponses HTTP",
+        "Les URL canonical sont cohérentes",
+        "Les balises title et les méta-descriptions décrivent clairement chaque page",
+        "La structure des intertitres est logique",
+        "Les liens internes relient les pages importantes",
+        "Le contenu répond à un besoin utilisateur clair",
+        "Les pages fonctionnent bien sur les appareils mobiles",
+        "La performance est examinée régulièrement"
+      ],
+      "tip": "Considérez l’audit SEO comme un processus continu d’identification des problèmes, d’améliorations mesurées et de mesure des résultats."
+    },
+    {
+      "id": "complete-seo-audit-checklist",
+      "title": "Checklist complète d’audit SEO",
+      "paragraphs": [
+        "Un audit SEO complet examine les signaux techniques, on-page, de contenu et de performance qui influencent la façon dont un site peut être exploré, compris et utilisé. L’objectif n’est pas simplement de collecter des erreurs, mais d’identifier les problèmes susceptibles d’avoir le plus fort impact sur la visibilité dans les résultats de recherche et sur l’expérience utilisateur.",
+        "Commencez par l’explorabilité et l’indexabilité avant d’aborder les métadonnées, la structure des pages, la qualité du contenu et la performance. Cet ordre évite de consacrer du temps à optimiser des pages que les moteurs de recherche ne peuvent pas explorer ni indexer de façon fiable."
+      ],
+      "bullets": [
+        "Contrôlez les directives d’exploration et d’indexation",
+        "Examinez la configuration de robots.txt et du sitemap XML",
+        "Vérifiez les URL importantes et les codes de statut HTTP",
+        "Examinez les balises title et les méta-descriptions",
+        "Contrôlez la structure des intertitres et les liens internes",
+        "Repérez les textes alternatifs d’images manquants",
+        "Examinez la qualité du contenu et l’intention de recherche",
+        "Vérifiez l’utilisabilité sur mobile et la performance des pages",
+        "Hiérarchisez les problèmes selon leur gravité et leur impact business"
+      ],
+      "tip": "Un audit SEO utile doit se conclure par une liste d’actions hiérarchisées, et non par un ensemble désordonné d’avertissements."
+    },
+    {
+      "id": "how-to-perform-full-seo-audit",
+      "title": "Comment réaliser un audit SEO complet",
+      "paragraphs": [
+        "Un audit SEO complet doit progresser des vérifications techniques à l’échelle du site vers l’analyse des pages individuelles. Confirmez d’abord que les pages importantes sont accessibles, indexables et renvoient les réponses HTTP attendues. Examinez ensuite les éléments on-page tels que la balise title, la méta-description, les intertitres, les balises canonical, les images et les liens internes.",
+        "Après l’examen technique et on-page, vérifiez si les pages importantes remplissent leur objectif de recherche. Les pages au contenu faible, dupliqué ou incomplet peuvent nécessiter des améliorations même lorsque leur configuration technique est correcte."
+      ],
+      "bullets": [
+        "Explorez ou examinez les URL importantes du site",
+        "Identifiez les problèmes d’indexation et d’accessibilité",
+        "Contrôlez les redirections, les URL brisées et les erreurs serveur",
+        "Analysez les principaux éléments de SEO on-page",
+        "Examinez la pertinence du contenu et sa duplication",
+        "Vérifiez la performance du site",
+        "Regroupez les constats par priorité",
+        "Corrigez les problèmes critiques avant les améliorations mineures"
+      ]
+    },
+    {
+      "id": "comprehensive-seo-audit-priorities",
+      "title": "Ce qu’un audit SEO complet doit prioriser",
+      "paragraphs": [
+        "Un audit SEO complet ne traite pas tous les problèmes comme également importants. Les problèmes qui empêchent l’exploration, l’indexation ou l’accès aux pages importantes méritent généralement d’être traités avant des changements de métadonnées purement formels ou des ajustements de contenu mineurs.",
+        "Une fois les problèmes techniques critiques résolus, priorisez les pages qui génèrent déjà des impressions ou servent des objectifs business importants. Améliorer des pages que Google découvre déjà est souvent plus pertinent que d’appliquer des changements massifs à des pages de faible valeur."
+      ],
+      "bullets": [
+        "Problèmes critiques d’exploration et d’indexation",
+        "Codes de statut incorrects et problèmes de redirection",
+        "Pages importantes dont les métadonnées sont absentes ou faibles",
+        "Maillage interne insuffisant vers les pages prioritaires",
+        "Pages qui génèrent des impressions mais se classent mal",
+        "Pages importantes lentes ou instables",
+        "Contenu pauvre, dupliqué ou obsolète",
+        "Problèmes purement formels à faible impact"
+      ],
+      "tip": "Utilisez les constats de l’audit pour décider quoi corriger en premier\u00A0; ne partez pas du principe que la liste de problèmes la plus longue correspond au plus fort impact SEO."
+    }
+  ],
+  "toolName": "Analyseur SEO",
+  "toolUrl": "/tools/seo-analyzer"
+}

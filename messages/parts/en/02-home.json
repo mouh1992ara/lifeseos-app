@@ -1,0 +1,143 @@
+{
+  "Home": {
+    "meta": {
+      "title": "LifeSeos — Free SEO Tools for Website Analysis",
+      "description": "Analyze websites, improve content, generate schema markup, optimize YouTube metadata and solve technical SEO issues with free LifeSeos tools.",
+      "ogDescription": "Analyze websites, improve content, generate structured data and use practical SEO and YouTube optimization tools with LifeSeos."
+    },
+    "hero": {
+      "badge": "Free tools for smarter SEO decisions",
+      "titleLine1": "Audit, analyze and",
+      "titleAccent": "improve your SEO.",
+      "subtitle": "Find technical SEO issues, improve website content, generate structured data and build stronger search and YouTube workflows.",
+      "primaryCta": "Analyze your website",
+      "secondaryCta": "Explore tools",
+      "highlightFree": "Free SEO tools",
+      "highlightFast": "Fast analysis",
+      "highlightClear": "Clear recommendations"
+    },
+    "preview": {
+      "overview": "Website overview",
+      "sample": "Sample report",
+      "auditBadge": "SEO Audit",
+      "technical": "Technical SEO",
+      "onPage": "On-Page SEO",
+      "performance": "Performance",
+      "content": "Content",
+      "https": "HTTPS configuration",
+      "metaDescription": "Meta description",
+      "brokenLinks": "Broken links detected",
+      "improve": "Improve",
+      "fix": "Fix issue"
+    },
+    "tools": {
+      "eyebrow": "SEO Toolkit",
+      "title": "Popular SEO tools",
+      "subtitle": "Analyze the areas of your website that matter most for search visibility and technical health.",
+      "viewAll": "View all tools"
+    },
+    "workflows": {
+      "technicalEyebrow": "Technical SEO",
+      "schemaTitle": "Schema Markup Generator",
+      "schemaBody": "Generate JSON-LD for articles, FAQs, products, businesses, breadcrumbs and other common structured data types.",
+      "schemaCta": "Generate schema",
+      "contentEyebrow": "Content SEO",
+      "rewriterTitle": "SEO Article Rewriter",
+      "rewriterBody": "Rewrite website content for better clarity, readability, tone and SEO consistency while preserving the main direction.",
+      "rewriterCta": "Rewrite content",
+      "youtubeEyebrow": "YouTube SEO",
+      "youtubeTitle": "Build your YouTube workflow",
+      "youtubeBody": "Move from keyword ideas to stronger titles, descriptions and structured video scripts with dedicated YouTube tools.",
+      "youtubeCta": "Explore YouTube tools"
+    },
+    "commandCenter": {
+      "badge": "SEO Command Center",
+      "title": "Understand your website from one SEO overview.",
+      "body": "Start with a complete website analysis, identify priority issues and then use specialized LifeSeos tools to investigate each area in more detail.",
+      "cta": "Run website analysis",
+      "technical": "Technical SEO",
+      "indexability": "Indexability",
+      "onPage": "On-Page SEO",
+      "performance": "Performance"
+    },
+    "categories": {
+      "eyebrow": "Explore",
+      "title": "Tools for every part of SEO",
+      "subtitle": "Find the right tool for technical SEO, content, performance, structured data or YouTube optimization.",
+      "technicalTitle": "Technical SEO",
+      "technicalBody": "Find crawl, indexing, redirect and technical website issues.",
+      "onPageTitle": "On-Page SEO",
+      "onPageBody": "Review page structure, metadata and important optimization signals.",
+      "crawlingTitle": "Crawling & Indexing",
+      "crawlingBody": "Help search engines discover and understand your website.",
+      "performanceTitle": "Performance",
+      "performanceBody": "Measure loading performance and discover speed improvements.",
+      "contentTitle": "Content SEO",
+      "contentBody": "Improve website copy, keyword usage and search-focused content.",
+      "youtubeTitle": "YouTube SEO",
+      "youtubeBody": "Plan video keywords, titles, descriptions and scripts in one workflow."
+    },
+    "howItWorks": {
+      "title": "Improve your SEO in three steps",
+      "subtitle": "Find problems, understand what they mean and take practical action.",
+      "step1Title": "Choose a tool",
+      "step1Body": "Select the SEO tool that matches the part of your website you want to analyze.",
+      "step2Title": "Analyze your website",
+      "step2Body": "Run the analysis and review important technical, content and performance signals.",
+      "step3Title": "Fix priority issues",
+      "step3Body": "Use the results and recommendations to improve your website step by step."
+    },
+    "trust": {
+      "eyebrow": "Why LifeSeos",
+      "title": "Simple, fast and built for everyday SEO",
+      "subtitle": "Use practical SEO tools without complicated setup, unnecessary steps or barriers.",
+      "freeTitle": "Free tools",
+      "freeBody": "Access useful SEO tools without paying for every analysis.",
+      "fastTitle": "Fast analysis",
+      "fastBody": "Get clear SEO information without complicated workflows.",
+      "startTitle": "Easy to start",
+      "startBody": "Explore core tools without unnecessary setup.",
+      "clarityTitle": "Built for clarity",
+      "clarityBody": "Reports focus on useful information and practical improvements."
+    },
+    "guides": {
+      "eyebrow": "Learn SEO",
+      "title": "SEO guides and resources",
+      "browseAll": "Browse all guides",
+      "tag": "Guide",
+      "readGuide": "Read guide",
+      "robotsTitle": "Robots.txt Guide",
+      "robotsBody": "Understand how robots.txt works and how search engines use it.",
+      "httpTitle": "HTTP Status Codes for SEO",
+      "httpBody": "Learn what common HTTP status codes mean for crawling and indexing.",
+      "technicalTitle": "Technical SEO Guide",
+      "technicalBody": "Learn the technical foundations that help search engines understand your website."
+    },
+    "cta": {
+      "title": "Ready to understand your website SEO?",
+      "body": "Start with a website analysis and use LifeSeos tools to investigate technical, content and performance opportunities.",
+      "urlLabel": "Website URL",
+      "urlPlaceholder": "https://example.com",
+      "submit": "Analyze website",
+      "openDashboard": "Open dashboard",
+      "createAccount": "Create free account"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "q1": "What is LifeSeos?",
+      "a1": "LifeSeos provides free SEO tools that help website owners analyze, optimize and improve website performance.",
+      "q2": "Are LifeSeos SEO tools free?",
+      "a2": "Yes. LifeSeos provides free SEO tools for website analysis, technical SEO, content optimization and search performance improvement.",
+      "q3": "What SEO tools are available on LifeSeos?",
+      "a3": "LifeSeos provides website analysis, technical SEO, content optimization, schema markup, metadata, sitemap and YouTube SEO tools.",
+      "q4": "Do I need SEO experience to use LifeSeos?",
+      "a4": "No. LifeSeos tools are designed for beginners, marketers, developers and website owners.",
+      "q5": "Can LifeSeos improve my Google rankings?",
+      "a5": "LifeSeos helps identify SEO issues and optimization opportunities, but rankings also depend on content quality, competition and other search factors."
+    },
+    "audiences": {
+      "title": "Built for how you work",
+      "subtitle": "Pick your workflow and start with the tools that fit it."
+    }
+  }
+}

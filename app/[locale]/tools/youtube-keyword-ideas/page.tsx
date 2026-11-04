@@ -1,21 +1,18 @@
 import type { Metadata } from "next";
 import YouTubeKeywordIdeasClient from "./youtube-keyword-ideas-client";
+import { buildToolMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Free YouTube Keyword Ideas Tool | LifeSeos",
-  description:
-    "Generate YouTube keyword and topic ideas for videos based on your seed topic, search intent and content angle with the free LifeSeos YouTube Keyword Ideas tool.",
-  alternates: {
-    canonical: "/tools/youtube-keyword-ideas",
-  },
-  openGraph: {
-    title: "Free YouTube Keyword Ideas Tool | LifeSeos",
-    description:
-      "Discover YouTube keyword ideas, long-tail phrases and video topic angles with LifeSeos.",
-    url: "/tools/youtube-keyword-ideas",
-    type: "website",
-  },
-};
+type MetaProps = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: MetaProps): Promise<Metadata> {
+  const { locale } = await params;
+  return buildToolMetadata({
+    locale,
+    path: "/tools/youtube-keyword-ideas",
+    toolKey: "youtubeKeywordIdeas",
+  });
+}
+
 
 export default function YouTubeKeywordIdeasPage() {
   const softwareApplicationJsonLd = {

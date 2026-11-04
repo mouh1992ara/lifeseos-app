@@ -1,0 +1,52 @@
+{
+  "Contact": {
+    "meta": {
+      "title": "联系 LifeSeos — 支持与反馈",
+      "description": "就疑问、技术支持、反馈、账户协助或隐私相关请求联系 LifeSeos。"
+    },
+    "badge": "联系 LifeSeos",
+    "title": "与我们取得联系",
+    "subtitle": "有疑问、建议、技术支持请求或隐私相关咨询？请通过下方表单给我们留言。",
+    "cardGeneralTitle": "一般咨询",
+    "cardGeneralBody": "关于 LifeSeos、其功能或 SEO 工具运作方式的问题。",
+    "cardSupportTitle": "技术支持",
+    "cardSupportBody": "反馈技术问题，或告知我们某个工具或功能运行异常。",
+    "cardPrivacyTitle": "隐私请求",
+    "cardPrivacyBody": "提交与你的账户、已保存报告、个人信息或隐私选择相关的咨询或请求。",
+    "cardFeedbackTitle": "反馈",
+    "cardFeedbackBody": "分享能帮助我们改进 LifeSeos 的建议与想法。",
+    "formEyebrow": "发送消息",
+    "formTitle": "联系表单",
+    "formIntro": "请填写下方表单，我们会查看你的留言。请提供足够的信息，便于我们理解你的请求。",
+    "formPrivacyNote": "关于 LifeSeos 如何处理提交的信息，请参阅我们的<link>隐私政策</link>。",
+    "formPrivacyLink": "隐私政策",
+    "responseTitle": "关于回复",
+    "responseBody": "我们会尽可能及时查看留言。回复时间因请求类型而异，提交表单并不保证立即得到答复。",
+    "ctaEyebrow": "需要帮助检查网站吗？",
+    "ctaTitle": "浏览我们的 SEO 工具",
+    "ctaBody": "在一个地方完成网站分析、技术 SEO 问题排查、性能衡量、内容优化，并使用实用的 SEO 工具。",
+    "ctaButton": "浏览工具",
+    "form": {
+      "name": "姓名",
+      "namePlaceholder": "你的姓名",
+      "email": "邮箱",
+      "emailPlaceholder": "you@example.com",
+      "subject": "主题",
+      "subjectPlaceholder": "选择主题",
+      "subjectGeneral": "一般咨询",
+      "subjectSupport": "技术支持",
+      "subjectPrivacy": "隐私请求",
+      "subjectFeedback": "反馈",
+      "message": "留言内容",
+      "messagePlaceholder": "告诉我们能如何帮你…",
+      "submit": "发送消息",
+      "sending": "发送中…",
+      "errorRequired": "请填写所有字段。",
+      "errorEmail": "请输入有效的邮箱地址。",
+      "errorSend": "无法发送你的消息。",
+      "success": "消息已发送成功。感谢你联系 LifeSeos。",
+      "consent": "提交此表单即表示你同意 LifeSeos 使用你提供的信息来回复留言并处理你的请求。请参阅我们的<link>隐私政策</link>。",
+      "consentLink": "隐私政策"
+    }
+  }
+}

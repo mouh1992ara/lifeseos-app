@@ -2,6 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   ArrowRightLeft,
   Check,
@@ -34,6 +35,12 @@ type ReadingLevel = "Simple" | "Standard" | "Advanced";
 
 type RewriteStrength = "Light" | "Moderate" | "Strong";
 
+type ReadabilityKey =
+  | "readabilityWaiting"
+  | "readabilityEasy"
+  | "readabilityStandard"
+  | "readabilityAdvanced";
+
 const REWRITE_STYLES: RewriteStyle[] = [
   "Clear",
   "Professional",
@@ -52,6 +59,47 @@ const REWRITE_STRENGTHS: RewriteStrength[] = [
   "Moderate",
   "Strong",
 ];
+
+const STYLE_LABEL_KEYS: Record<RewriteStyle, string> = {
+  Clear: "styleClear",
+  Professional: "styleProfessional",
+  Natural: "styleNatural",
+  Concise: "styleConcise",
+  "SEO Friendly": "styleSeoFriendly",
+  Formal: "styleFormal",
+};
+
+const TONE_LABEL_KEYS: Record<Tone, string> = {
+  Neutral: "toneNeutral",
+  Friendly: "toneFriendly",
+  Expert: "toneExpert",
+  Simple: "toneSimple",
+};
+
+const LEVEL_LABEL_KEYS: Record<ReadingLevel, string> = {
+  Simple: "levelSimple",
+  Standard: "levelStandard",
+  Advanced: "levelAdvanced",
+};
+
+const STRENGTH_LABEL_KEYS: Record<RewriteStrength, string> = {
+  Light: "strengthLight",
+  Moderate: "strengthModerate",
+  Strong: "strengthStrong",
+};
+
+const FEATURE_CARDS = [
+  { icon: Sparkles, key: "feat1" },
+  { icon: TextQuote, key: "feat2" },
+  { icon: Gauge, key: "feat3" },
+  { icon: ArrowRightLeft, key: "feat4" },
+  { icon: Hash, key: "feat5" },
+  { icon: ListChecks, key: "feat6" },
+] as const;
+
+const HOW_STEPS = ["1", "2", "3", "4"] as const;
+
+const BENEFIT_CARDS = ["1", "2", "3", "4"] as const;
 
 function cleanText(value: string) {
   return value.replace(/\r\n/g, "\n").trim();
@@ -290,17 +338,21 @@ function rewriteArticle(
   return rewritten.trim();
 }
 
-function getReadabilityLabel(words: number, chars: number) {
-  if (!words) return "Waiting";
+function getReadabilityKey(words: number, chars: number): ReadabilityKey {
+  if (!words) return "readabilityWaiting";
 
   const averageWordLength = chars / Math.max(words, 1);
 
-  if (averageWordLength <= 5.2) return "Easy";
-  if (averageWordLength <= 6.2) return "Standard";
-  return "Advanced";
+  if (averageWordLength <= 5.2) return "readabilityEasy";
+  if (averageWordLength <= 6.2) return "readabilityStandard";
+  return "readabilityAdvanced";
 }
 
 export default function ArticleRewriterClient() {
+  const t = useTranslations("Tool.articleRewriter");
+  const tc = useTranslations("Tools.catalog");
+  const tCommon = useTranslations("Common");
+
   const [article, setArticle] = useState("");
   const [rewrittenArticle, setRewrittenArticle] = useState("");
   const [style, setStyle] = useState<RewriteStyle>("Clear");
@@ -331,7 +383,7 @@ export default function ArticleRewriterClient() {
   }, [keyword, rewrittenArticle]);
 
   const readability = useMemo(
-    () => getReadabilityLabel(rewrittenWords, rewrittenCharacters),
+    () => getReadabilityKey(rewrittenWords, rewrittenCharacters),
     [rewrittenWords, rewrittenCharacters]
   );
 
@@ -341,12 +393,12 @@ export default function ArticleRewriterClient() {
   setError("");
 
   if (!cleanText(article)) {
-    setError("Please paste an article or paragraph before rewriting.");
+    setError(t("errEmpty"));
     return;
   }
 
   if (originalWords < 10) {
-    setError("Please enter at least 10 words so the tool has enough text to rewrite.");
+    setError(t("errTooShort"));
     return;
   }
 
@@ -393,8 +445,8 @@ export default function ArticleRewriterClient() {
 
   async function handleShare() {
     const shareData = {
-      title: "Free SEO Article Rewriter | LifeSeos",
-      text: "Rewrite website content for clarity, readability and SEO consistency with LifeSeos.",
+      title: t("shareMessageTitle"),
+      text: t("shareMessageText"),
       url: window.location.href,
     };
 
@@ -428,35 +480,34 @@ export default function ArticleRewriterClient() {
         <div className="mx-auto max-w-6xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-400/5 px-4 py-2 text-sm font-medium text-blue-300">
             <WandSparkles className="h-4 w-4" />
-            Content SEO Tool
+            {t("badge")}
           </div>
 
           <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-            Rewrite website content
+            {t("titleLine1")}
             <span className="block bg-gradient-to-r from-blue-400 via-violet-300 to-white bg-clip-text text-transparent">
-              with better clarity and structure.
+              {t("titleAccent")}
             </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-400">
-            Improve article readability, tone and structure while keeping the
-            original topic and core meaning intact.
+            {t("subtitle")}
           </p>
 
           <div className="mt-7 flex flex-wrap justify-center gap-4 text-sm text-slate-400">
             <span className="flex items-center gap-2">
               <Check className="h-4 w-4 text-blue-400" />
-              Free to use
+              {t("heroCheckFree")}
             </span>
 
             <span className="flex items-center gap-2">
               <Check className="h-4 w-4 text-blue-400" />
-              Multiple rewrite styles
+              {t("heroCheckStyles")}
             </span>
 
             <span className="flex items-center gap-2">
               <Check className="h-4 w-4 text-blue-400" />
-              SEO-aware options
+              {t("heroCheckSeo")}
             </span>
           </div>
         </div>
@@ -475,22 +526,22 @@ export default function ArticleRewriterClient() {
 
                 <div>
                   <h2 className="text-xl font-semibold">
-                    SEO Article Rewriter
+                    {tc("articleRewriter.title")}
                   </h2>
 
                   <p className="mt-1 text-sm text-slate-400">
-                    Paste your article, choose your preferences and rewrite it.
+                    {t("panelSubtitle")}
                   </p>
                 </div>
               </div>
 
               <div className="flex flex-wrap gap-2 text-xs text-slate-500">
                 <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5">
-                  Original: {originalWords} words
+                  {t("originalCount", { count: originalWords })}
                 </span>
 
                 <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5">
-                  Rewritten: {rewrittenWords} words
+                  {t("rewrittenCount", { count: rewrittenWords })}
                 </span>
               </div>
             </div>
@@ -504,11 +555,11 @@ export default function ArticleRewriterClient() {
                     htmlFor="original-article"
                     className="text-sm font-semibold text-slate-200"
                   >
-                    Original Article
+                    {t("originalLabel")}
                   </label>
 
                   <span className="text-xs text-slate-500">
-                    {originalCharacters} characters
+                    {t("charactersCount", { count: originalCharacters })}
                   </span>
                 </div>
 
@@ -516,7 +567,7 @@ export default function ArticleRewriterClient() {
                   id="original-article"
                   value={article}
                   onChange={(event) => setArticle(event.target.value)}
-                  placeholder="Paste your article, blog post or website content here..."
+                  placeholder={t("originalPlaceholder")}
                   className="min-h-[430px] w-full resize-y rounded-2xl border border-white/10 bg-slate-950/70 p-5 text-sm leading-7 text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/10"
                 />
               </div>
@@ -529,11 +580,11 @@ export default function ArticleRewriterClient() {
                     htmlFor="rewritten-article"
                     className="text-sm font-semibold text-slate-200"
                   >
-                    Rewritten Article
+                    {t("rewrittenLabel")}
                   </label>
 
                   <span className="text-xs text-slate-500">
-                    {rewrittenCharacters} characters
+                    {t("charactersCount", { count: rewrittenCharacters })}
                   </span>
                 </div>
 
@@ -544,8 +595,8 @@ export default function ArticleRewriterClient() {
                     onChange={(event) =>
                       setRewrittenArticle(event.target.value)
                     }
-                    placeholder="Your rewritten article will appear here..."
-                    className="min-h-[430px] w-full resize-y rounded-2xl border border-white/10 bg-slate-950/70 p-5 pr-14 text-sm leading-7 text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/10"
+                    placeholder={t("rewrittenPlaceholder")}
+                    className="min-h-[430px] w-full resize-y rounded-2xl border border-white/10 bg-slate-950/70 p-5 pe-14 text-sm leading-7 text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/10"
                   />
 
                   {rewrittenArticle ? (
@@ -553,7 +604,7 @@ export default function ArticleRewriterClient() {
                       type="button"
                       onClick={handleCopy}
                       className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-slate-900/90 text-slate-400 transition hover:border-blue-400/30 hover:text-white"
-                      aria-label="Copy rewritten article"
+                      aria-label={t("copyAria")}
                     >
                       {copied ? (
                         <Check className="h-4 w-4 text-emerald-400" />
@@ -574,7 +625,7 @@ export default function ArticleRewriterClient() {
                   htmlFor="rewrite-style"
                   className="mb-2 block text-sm font-medium text-slate-300"
                 >
-                  Rewrite Style
+                  {t("styleLabel")}
                 </label>
 
                 <select
@@ -587,7 +638,7 @@ export default function ArticleRewriterClient() {
                 >
                   {REWRITE_STYLES.map((item) => (
                     <option key={item} value={item}>
-                      {item}
+                      {t(STYLE_LABEL_KEYS[item])}
                     </option>
                   ))}
                 </select>
@@ -598,7 +649,7 @@ export default function ArticleRewriterClient() {
                   htmlFor="rewrite-tone"
                   className="mb-2 block text-sm font-medium text-slate-300"
                 >
-                  Tone
+                  {t("toneLabel")}
                 </label>
 
                 <select
@@ -609,7 +660,7 @@ export default function ArticleRewriterClient() {
                 >
                   {TONES.map((item) => (
                     <option key={item} value={item}>
-                      {item}
+                      {t(TONE_LABEL_KEYS[item])}
                     </option>
                   ))}
                 </select>
@@ -620,7 +671,7 @@ export default function ArticleRewriterClient() {
                   htmlFor="reading-level"
                   className="mb-2 block text-sm font-medium text-slate-300"
                 >
-                  Reading Level
+                  {t("levelLabel")}
                 </label>
 
                 <select
@@ -633,7 +684,7 @@ export default function ArticleRewriterClient() {
                 >
                   {READING_LEVELS.map((item) => (
                     <option key={item} value={item}>
-                      {item}
+                      {t(LEVEL_LABEL_KEYS[item])}
                     </option>
                   ))}
                 </select>
@@ -644,7 +695,7 @@ export default function ArticleRewriterClient() {
                   htmlFor="rewrite-strength"
                   className="mb-2 block text-sm font-medium text-slate-300"
                 >
-                  Rewrite Strength
+                  {t("strengthLabel")}
                 </label>
 
                 <select
@@ -657,7 +708,7 @@ export default function ArticleRewriterClient() {
                 >
                   {REWRITE_STRENGTHS.map((item) => (
                     <option key={item} value={item}>
-                      {item}
+                      {t(STRENGTH_LABEL_KEYS[item])}
                     </option>
                   ))}
                 </select>
@@ -670,15 +721,17 @@ export default function ArticleRewriterClient() {
                   htmlFor="target-keyword"
                   className="mb-2 block text-sm font-medium text-slate-300"
                 >
-                  Target Keyword
-                  <span className="ml-2 text-slate-500">Optional</span>
+                  {t("keywordLabel")}
+                  <span className="ms-2 text-slate-500">
+                    {tCommon("optional")}
+                  </span>
                 </label>
 
                 <input
                   id="target-keyword"
                   value={keyword}
                   onChange={(event) => setKeyword(event.target.value)}
-                  placeholder="e.g. technical SEO"
+                  placeholder={t("keywordPlaceholder")}
                   className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/10"
                 />
               </div>
@@ -693,7 +746,7 @@ export default function ArticleRewriterClient() {
                     }
                     className="h-4 w-4 accent-blue-500"
                   />
-                  Keep headings
+                  {t("keepHeadings")}
                 </label>
 
                 <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-slate-300">
@@ -705,7 +758,7 @@ export default function ArticleRewriterClient() {
                     }
                     className="h-4 w-4 accent-blue-500"
                   />
-                  Keep links
+                  {t("keepLinks")}
                 </label>
               </div>
             </div>
@@ -723,7 +776,7 @@ export default function ArticleRewriterClient() {
                 className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-blue-500 px-6 font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-blue-400 hover:shadow-[0_12px_35px_rgba(59,130,246,0.2)]"
               >
                 <WandSparkles className="h-4 w-4" />
-                Rewrite Article
+                {t("actionRewrite")}
               </button>
 
               {rewrittenArticle ? (
@@ -734,7 +787,7 @@ export default function ArticleRewriterClient() {
                     className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-5 text-sm font-semibold text-slate-200 transition hover:border-blue-400/30 hover:bg-white/[0.05]"
                   >
                     <RefreshCcw className="h-4 w-4" />
-                    Rewrite Again
+                    {t("actionAgain")}
                   </button>
 
                   <button
@@ -745,12 +798,12 @@ export default function ArticleRewriterClient() {
                     {copied ? (
                       <>
                         <Check className="h-4 w-4 text-emerald-400" />
-                        Copied
+                        {t("actionCopied")}
                       </>
                     ) : (
                       <>
                         <ClipboardCopy className="h-4 w-4" />
-                        Copy Result
+                        {t("actionCopy")}
                       </>
                     )}
                   </button>
@@ -768,11 +821,11 @@ export default function ArticleRewriterClient() {
           <div className="mx-auto max-w-6xl">
             <div className="mb-7">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">
-                Rewrite Summary
+                {t("summaryEyebrow")}
               </p>
 
               <h2 className="mt-3 text-3xl font-bold">
-                Compare the original and rewritten content
+                {t("summaryTitle")}
               </h2>
             </div>
 
@@ -781,11 +834,11 @@ export default function ArticleRewriterClient() {
                 <TextQuote className="h-5 w-5 text-blue-400" />
 
                 <p className="mt-4 text-xs uppercase tracking-wider text-slate-500">
-                  Word Count
+                  {t("statWordCount")}
                 </p>
 
                 <div className="mt-2 flex items-end gap-2">
-                  <span className="text-2xl font-semibold">
+                  <span className="text-2xl font-semibold" data-ltr-text>
                     {rewrittenWords}
                   </span>
 
@@ -797,6 +850,7 @@ export default function ArticleRewriterClient() {
                           ? "text-amber-300"
                           : "text-slate-500"
                     }`}
+                    data-ltr-text
                   >
                     {difference > 0 ? `+${difference}` : difference}
                   </span>
@@ -807,17 +861,17 @@ export default function ArticleRewriterClient() {
                 <Gauge className="h-5 w-5 text-violet-400" />
 
                 <p className="mt-4 text-xs uppercase tracking-wider text-slate-500">
-                  Readability
+                  {t("statReadability")}
                 </p>
 
-                <p className="mt-2 text-2xl font-semibold">{readability}</p>
+                <p className="mt-2 text-2xl font-semibold">{t(readability)}</p>
               </div>
 
               <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-5">
                 <Target className="h-5 w-5 text-emerald-400" />
 
                 <p className="mt-4 text-xs uppercase tracking-wider text-slate-500">
-                  Keyword
+                  {t("statKeyword")}
                 </p>
 
                 <p
@@ -830,10 +884,10 @@ export default function ArticleRewriterClient() {
                   }`}
                 >
                   {!keyword.trim()
-                    ? "Not set"
+                    ? t("keywordNotSet")
                     : keywordFound
-                      ? "Found"
-                      : "Missing"}
+                      ? t("keywordFound")
+                      : t("keywordMissing")}
                 </p>
               </div>
 
@@ -841,11 +895,11 @@ export default function ArticleRewriterClient() {
                 <ArrowRightLeft className="h-5 w-5 text-cyan-400" />
 
                 <p className="mt-4 text-xs uppercase tracking-wider text-slate-500">
-                  Rewrite Mode
+                  {t("statMode")}
                 </p>
 
                 <p className="mt-2 text-sm font-semibold text-slate-200">
-                  {style} · {strength}
+                  {t(STYLE_LABEL_KEYS[style])} · {t(STRENGTH_LABEL_KEYS[strength])}
                 </p>
               </div>
             </div>
@@ -864,11 +918,10 @@ export default function ArticleRewriterClient() {
               </div>
 
               <div>
-                <h2 className="font-semibold">Share this tool</h2>
+                <h2 className="font-semibold">{t("shareHeading")}</h2>
 
                 <p className="mt-1 text-sm leading-6 text-slate-400">
-                  Share the SEO Article Rewriter with writers, marketers and
-                  website owners.
+                  {t("shareBody")}
                 </p>
               </div>
             </div>
@@ -881,12 +934,12 @@ export default function ArticleRewriterClient() {
               {shareCopied ? (
                 <>
                   <Check className="h-4 w-4 text-emerald-400" />
-                  Link copied
+                  {t("linkCopied")}
                 </>
               ) : (
                 <>
                   <Share2 className="h-4 w-4" />
-                  Share tool
+                  {t("shareTool")}
                 </>
               )}
             </button>
@@ -900,67 +953,37 @@ export default function ArticleRewriterClient() {
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">
-              Content Improvement
+              {t("featuresEyebrow")}
             </p>
 
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-              Rewrite articles without losing the original direction
+              {t("featuresTitle")}
             </h2>
 
             <p className="mt-5 leading-8 text-slate-400">
-              Use different rewrite settings to improve clarity, structure,
-              readability and tone while keeping the main topic consistent.
+              {t("featuresBody")}
             </p>
           </div>
 
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                icon: Sparkles,
-                title: "Rewrite Style",
-                text: "Choose a clearer, more natural, concise, formal or SEO-friendly direction.",
-              },
-              {
-                icon: TextQuote,
-                title: "Tone Control",
-                text: "Adjust the rewritten content for neutral, friendly, expert or simple communication.",
-              },
-              {
-                icon: Gauge,
-                title: "Reading Level",
-                text: "Make content easier to read or more advanced depending on your audience.",
-              },
-              {
-                icon: ArrowRightLeft,
-                title: "Rewrite Strength",
-                text: "Control how lightly or strongly the original wording is changed.",
-              },
-              {
-                icon: Hash,
-                title: "Keyword Check",
-                text: "Track whether your optional target keyword appears in the rewritten version.",
-              },
-              {
-                icon: ListChecks,
-                title: "Structure Preservation",
-                text: "Keep headings and links when they are important to your article structure.",
-              },
-            ].map((item) => {
+            {FEATURE_CARDS.map((item) => {
               const Icon = item.icon;
 
               return (
                 <div
-                  key={item.title}
+                  key={item.key}
                   className="rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition duration-300 hover:-translate-y-0.5 hover:border-blue-400/25 hover:bg-white/[0.04]"
                 >
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-400/10">
                     <Icon className="h-5 w-5 text-blue-400" />
                   </div>
 
-                  <h3 className="mt-5 text-lg font-semibold">{item.title}</h3>
+                  <h3 className="mt-5 text-lg font-semibold">
+                    {t(`${item.key}Title`)}
+                  </h3>
 
                   <p className="mt-3 text-sm leading-7 text-slate-400">
-                    {item.text}
+                    {t(`${item.key}Body`)}
                   </p>
                 </div>
               );
@@ -976,55 +999,38 @@ export default function ArticleRewriterClient() {
           <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">
-                How It Works
+                {t("howEyebrow")}
               </p>
 
               <h2 className="mt-3 text-3xl font-bold">
-                How to use the SEO Article Rewriter
+                {t("howTitle")}
               </h2>
 
               <p className="mt-5 leading-8 text-slate-400">
-                Start with your original draft, choose the rewrite settings and
-                review the result before publishing it on your website.
+                {t("howBody")}
               </p>
             </div>
 
             <div className="space-y-3">
-              {[
-                {
-                  number: "1",
-                  title: "Paste your article",
-                  text: "Add the article, blog post or website content you want to improve.",
-                },
-                {
-                  number: "2",
-                  title: "Choose rewrite settings",
-                  text: "Select the style, tone, reading level and rewrite strength.",
-                },
-                {
-                  number: "3",
-                  title: "Add an optional target keyword",
-                  text: "Use the keyword field when you want to keep a specific SEO phrase in view.",
-                },
-                {
-                  number: "4",
-                  title: "Review before publishing",
-                  text: "Compare the rewritten version with the original and make final editorial changes.",
-                },
-              ].map((step) => (
+              {HOW_STEPS.map((number) => (
                 <div
-                  key={step.number}
+                  key={number}
                   className="flex gap-4 rounded-2xl border border-white/10 bg-slate-950/40 p-5"
                 >
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-400/10 text-sm font-bold text-blue-300">
-                    {step.number}
+                  <div
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-400/10 text-sm font-bold text-blue-300"
+                    data-ltr-text
+                  >
+                    {number}
                   </div>
 
                   <div>
-                    <h3 className="font-semibold">{step.title}</h3>
+                    <h3 className="font-semibold">
+                      {t(`how${number}Title`)}
+                    </h3>
 
                     <p className="mt-1.5 text-sm leading-6 text-slate-400">
-                      {step.text}
+                      {t(`how${number}Body`)}
                     </p>
                   </div>
                 </div>
@@ -1040,54 +1046,36 @@ export default function ArticleRewriterClient() {
         <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_.9fr] lg:items-center">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">
-              Better Website Content
+              {t("whyEyebrow")}
             </p>
 
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-              Why article rewriting can be useful
+              {t("whyTitle")}
             </h2>
 
             <p className="mt-5 leading-8 text-slate-400">
-              Rewriting can help improve unclear sentences, reduce unnecessary
-              wording and adapt an existing draft to a different tone or reading
-              level.
+              {t("whyP1")}
             </p>
 
             <p className="mt-4 leading-8 text-slate-400">
-              Always review the rewritten result for accuracy, originality and
-              factual correctness before publishing it on a live website.
+              {t("whyP2")}
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            {[
-              {
-                title: "Improve clarity",
-                text: "Simplify awkward wording and make important points easier to understand.",
-              },
-              {
-                title: "Adjust tone",
-                text: "Adapt content for different audiences without changing the main subject.",
-              },
-              {
-                title: "Reduce redundancy",
-                text: "Remove filler phrases and tighten sections that feel unnecessarily long.",
-              },
-              {
-                title: "Refresh existing drafts",
-                text: "Use an existing article as a starting point for a cleaner updated version.",
-              },
-            ].map((item) => (
+            {BENEFIT_CARDS.map((n) => (
               <div
-                key={item.title}
+                key={n}
                 className="rounded-2xl border border-white/10 bg-white/[0.025] p-5"
               >
                 <Check className="h-5 w-5 text-emerald-400" />
 
-                <h3 className="mt-4 font-semibold">{item.title}</h3>
+                <h3 className="mt-4 font-semibold">
+                  {t(`benefit${n}Title`)}
+                </h3>
 
                 <p className="mt-2 text-sm leading-6 text-slate-400">
-                  {item.text}
+                  {t(`benefit${n}Body`)}
                 </p>
               </div>
             ))}
@@ -1101,16 +1089,15 @@ export default function ArticleRewriterClient() {
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">
-              Continue Your Content SEO Workflow
+              {t("flowEyebrow")}
             </p>
 
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-              Rewrite, analyze and refine your content
+              {t("flowTitle")}
             </h2>
 
             <p className="mt-4 leading-8 text-slate-400">
-              Use these tools together to improve your draft, review content
-              quality and then check how frequently your target terms appear.
+              {t("flowBody")}
             </p>
           </div>
 
@@ -1122,21 +1109,20 @@ export default function ArticleRewriterClient() {
                 </div>
 
                 <span className="rounded-full border border-blue-400/25 bg-blue-400/10 px-3 py-1 text-xs font-semibold text-blue-300">
-                  Step 1 · Current
+                  {tCommon("step", { number: 1 })} · {t("stepCurrent")}
                 </span>
               </div>
 
               <h3 className="mt-5 text-lg font-semibold">
-                SEO Article Rewriter
+                {tc("articleRewriter.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-7 text-slate-400">
-                Rewrite your article for clearer structure, tone, readability
-                and better SEO consistency.
+                {t("flow1Body")}
               </p>
 
               <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-blue-300">
-                Rewrite content
+                {t("flow1Cta")}
                 <Check className="h-4 w-4" />
               </div>
             </div>
@@ -1151,21 +1137,23 @@ export default function ArticleRewriterClient() {
                 </div>
 
                 <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
-                  Step 2
+                  {tCommon("step", { number: 2 })}
                 </span>
               </div>
 
               <h3 className="mt-5 text-lg font-semibold transition group-hover:text-violet-300">
-                Content Analyzer
+                {tc("contentAnalyzer.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-7 text-slate-400">
-                Review the rewritten version for readability, content structure,
-                keyword usage and basic quality signals.
+                {t("flow2Body")}
               </p>
 
               <div className="mt-5 text-sm font-semibold text-violet-300">
-                Analyze content →
+                {t("flow2Cta")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </div>
             </Link>
 
@@ -1179,21 +1167,23 @@ export default function ArticleRewriterClient() {
                 </div>
 
                 <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
-                  Step 3
+                  {tCommon("step", { number: 3 })}
                 </span>
               </div>
 
               <h3 className="mt-5 text-lg font-semibold transition group-hover:text-cyan-300">
-                Keyword Density Checker
+                {tc("keywordDensityChecker.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-7 text-slate-400">
-                Check keyword frequency and density after your content has been
-                rewritten and reviewed.
+                {t("flow3Body")}
               </p>
 
               <div className="mt-5 text-sm font-semibold text-cyan-300">
-                Check keyword usage →
+                {t("flow3Cta")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </div>
             </Link>
           </div>
@@ -1203,21 +1193,30 @@ export default function ArticleRewriterClient() {
               href="/tools/meta-tag-generator"
               className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-blue-400/20 hover:bg-white/[0.05] hover:text-white"
             >
-              Meta Tag Generator →
+              {tc("metaTagGenerator.title")}
+              <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                →
+              </span>
             </Link>
 
             <Link
               href="/tools/seo-page-analyzer"
               className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-blue-400/20 hover:bg-white/[0.05] hover:text-white"
             >
-              SEO Page Analyzer →
+              {tc("seoPageAnalyzer.title")}
+              <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                →
+              </span>
             </Link>
 
             <Link
               href="/tools"
               className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-blue-400/20 hover:bg-white/[0.05] hover:text-white"
             >
-              View All Tools →
+              {tCommon("viewAllTools")}
+              <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                →
+              </span>
             </Link>
           </div>
         </div>

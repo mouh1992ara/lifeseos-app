@@ -1,0 +1,21 @@
+{
+  "NotFound": {
+    "meta": {
+      "title": "Page not found"
+    },
+    "badge": "404",
+    "badgeLabel": "Page not found",
+    "titleLine1": "Lost in the",
+    "titleAccent": "search results?",
+    "body": "The page you're looking for doesn't exist, may have moved, or the URL may be incorrect.",
+    "backHome": "Back home",
+    "exploreTools": "Explore tools",
+    "dashboard": "Dashboard",
+    "quickAnalyzerTitle": "SEO Analyzer",
+    "quickAnalyzerBody": "Run a website SEO audit.",
+    "quickAboutTitle": "About",
+    "quickAboutBody": "Learn more about LifeSeos.",
+    "quickContactTitle": "Contact",
+    "quickContactBody": "Get help or send feedback."
+  }
+}

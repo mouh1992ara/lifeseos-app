@@ -1,0 +1,70 @@
+{
+  "Auth": {
+    "login": {
+      "title": "Login",
+      "description": "Enter your email below to login to your account",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Password",
+      "forgot": "Forgot your password?",
+      "submit": "Login",
+      "submitting": "Logging in…",
+      "noAccount": "Don’t have an account?",
+      "signUpLink": "Sign up",
+      "errorFallback": "An error occurred while logging in."
+    },
+    "signUp": {
+      "title": "Sign up",
+      "description": "Create a new account",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Password",
+      "repeatPassword": "Repeat Password",
+      "submit": "Sign up",
+      "submitting": "Creating an account…",
+      "errorMismatch": "Passwords do not match",
+      "errorFallback": "An error occurred",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Login"
+    },
+    "forgot": {
+      "title": "Reset Your Password",
+      "description": "Type in your email and we’ll send you a link to reset your password",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "submit": "Send reset email",
+      "submitting": "Sending…",
+      "successTitle": "Check Your Email",
+      "successDescription": "Password reset instructions sent",
+      "successBody": "If you registered using your email and password, you will receive a password reset email.",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Login",
+      "errorFallback": "An error occurred"
+    },
+    "update": {
+      "title": "Reset Your Password",
+      "description": "Please enter your new password below.",
+      "password": "New password",
+      "passwordPlaceholder": "New password",
+      "submit": "Save new password",
+      "submitting": "Saving…",
+      "errorFallback": "An error occurred"
+    },
+    "success": {
+      "title": "Thank you for signing up!",
+      "description": "Check your email to confirm",
+      "body": "You’ve successfully signed up. Please check your email to confirm your account before signing in."
+    },
+    "error": {
+      "title": "Sorry, something went wrong.",
+      "codeError": "Code error: {code}",
+      "fallback": "An unspecified error occurred."
+    },
+    "greeting": "Hey, {email}!",
+    "logout": "Logout",
+    "nav": {
+      "signIn": "Sign in",
+      "signUp": "Sign up"
+    }
+  }
+}

@@ -2,6 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   Check,
   ClipboardCopy,
@@ -55,12 +56,27 @@ const SCRIPT_STYLES: ScriptStyle[] = [
   "Tutorial",
 ];
 
+const STYLE_KEYS: Record<ScriptStyle, string> = {
+  Educational: "educational",
+  Conversational: "conversational",
+  Professional: "professional",
+  Storytelling: "storytelling",
+  Tutorial: "tutorial",
+};
+
 const VIDEO_LENGTHS: VideoLength[] = [
   "Short",
   "5 Minutes",
   "8 Minutes",
   "10+ Minutes",
 ];
+
+const LENGTH_KEYS: Record<VideoLength, string> = {
+  Short: "short",
+  "5 Minutes": "five",
+  "8 Minutes": "eight",
+  "10+ Minutes": "tenPlus",
+};
 
 function cleanText(value: string) {
   return value.trim().replace(/\s+/g, " ");
@@ -226,6 +242,11 @@ ${result.outro}`;
 }
 
 export default function YouTubeScriptWriterClient() {
+  const t = useTranslations("Tool.youtubeScriptWriter");
+  const tc = useTranslations("Tools.catalog");
+  const tCommon = useTranslations("Common");
+  const tRelated = useTranslations("ToolShared.related");
+
   const [topic, setTopic] = useState("");
   const [keyword, setKeyword] = useState("");
   const [audience, setAudience] = useState("");
@@ -255,7 +276,7 @@ export default function YouTubeScriptWriterClient() {
     setError("");
 
     if (!cleanText(topic)) {
-      setError("Please enter a video topic before generating a script.");
+      setError(t("errorTopicRequired"));
       return;
     }
 
@@ -306,8 +327,8 @@ export default function YouTubeScriptWriterClient() {
 
   async function handleShare() {
     const shareData = {
-      title: "Free YouTube Script Writer | LifeSeos",
-      text: "Create structured YouTube video scripts with LifeSeos.",
+      title: t("shareMessageTitle"),
+      text: t("shareMessageText"),
       url: window.location.href,
     };
 
@@ -341,35 +362,34 @@ export default function YouTubeScriptWriterClient() {
         <div className="mx-auto max-w-6xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-red-400/20 bg-red-400/5 px-4 py-2 text-sm font-medium text-red-300">
             <Youtube className="h-4 w-4" />
-            YouTube SEO Tools
+            {t("badge")}
           </div>
 
           <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-            Write better
+            {t("titleLine1")}
             <span className="block bg-gradient-to-r from-red-400 via-rose-300 to-white bg-clip-text text-transparent">
-              YouTube video scripts.
+              {t("titleAccent")}
             </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-400">
-            Turn your topic into a structured video script with a hook,
-            introduction, main points, transitions, call to action and outro.
+            {t("subtitle")}
           </p>
 
           <div className="mt-7 flex flex-wrap justify-center gap-4 text-sm text-slate-400">
             <span className="flex items-center gap-2">
               <Check className="h-4 w-4 text-red-400" />
-              Free to use
+              {t("perks.free")}
             </span>
 
             <span className="flex items-center gap-2">
               <Check className="h-4 w-4 text-red-400" />
-              Multiple script styles
+              {t("perks.styles")}
             </span>
 
             <span className="flex items-center gap-2">
               <Check className="h-4 w-4 text-red-400" />
-              Structured video flow
+              {t("perks.structure")}
             </span>
           </div>
         </div>
@@ -387,11 +407,11 @@ export default function YouTubeScriptWriterClient() {
 
               <div>
                 <h2 className="text-xl font-semibold">
-                  Generate a YouTube script
+                  {t("formTitle")}
                 </h2>
 
                 <p className="mt-1 text-sm text-slate-400">
-                  Define your topic, audience and preferred video style.
+                  {t("formSubtitle")}
                 </p>
               </div>
             </div>
@@ -402,15 +422,16 @@ export default function YouTubeScriptWriterClient() {
                   htmlFor="script-topic"
                   className="mb-2 block text-sm font-medium text-slate-200"
                 >
-                  Video Topic
+                  {t("topicLabel")}
                 </label>
 
                 <input
                   id="script-topic"
                   value={topic}
                   onChange={(event) => setTopic(event.target.value)}
-                  placeholder="e.g. How to grow a YouTube channel"
-                  className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-red-400/50 focus:ring-2 focus:ring-red-400/10"
+                  placeholder={t("topicPlaceholder")}
+                  dir="ltr"
+                  className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-start text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-red-400/50 focus:ring-2 focus:ring-red-400/10"
                 />
               </div>
 
@@ -419,16 +440,17 @@ export default function YouTubeScriptWriterClient() {
                   htmlFor="script-keyword"
                   className="mb-2 block text-sm font-medium text-slate-200"
                 >
-                  Main Keyword
-                  <span className="ml-2 text-slate-500">Optional</span>
+                  {t("keywordLabel")}
+                  <span className="ms-2 text-slate-500">{tCommon("optional")}</span>
                 </label>
 
                 <input
                   id="script-keyword"
                   value={keyword}
                   onChange={(event) => setKeyword(event.target.value)}
-                  placeholder="e.g. YouTube SEO"
-                  className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-red-400/50 focus:ring-2 focus:ring-red-400/10"
+                  placeholder={t("keywordPlaceholder")}
+                  dir="ltr"
+                  className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-start text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-red-400/50 focus:ring-2 focus:ring-red-400/10"
                 />
               </div>
 
@@ -438,7 +460,7 @@ export default function YouTubeScriptWriterClient() {
                     htmlFor="script-style"
                     className="mb-2 block text-sm font-medium text-slate-200"
                   >
-                    Script Style
+                    {t("styleLabel")}
                   </label>
 
                   <select
@@ -451,7 +473,7 @@ export default function YouTubeScriptWriterClient() {
                   >
                     {SCRIPT_STYLES.map((item) => (
                       <option key={item} value={item}>
-                        {item}
+                        {t(`styles.${STYLE_KEYS[item]}`)}
                       </option>
                     ))}
                   </select>
@@ -462,7 +484,7 @@ export default function YouTubeScriptWriterClient() {
                     htmlFor="video-length"
                     className="mb-2 block text-sm font-medium text-slate-200"
                   >
-                    Video Length
+                    {t("lengthLabel")}
                   </label>
 
                   <select
@@ -475,7 +497,7 @@ export default function YouTubeScriptWriterClient() {
                   >
                     {VIDEO_LENGTHS.map((item) => (
                       <option key={item} value={item}>
-                        {item}
+                        {t(`lengths.${LENGTH_KEYS[item]}`)}
                       </option>
                     ))}
                   </select>
@@ -487,16 +509,17 @@ export default function YouTubeScriptWriterClient() {
                   htmlFor="script-audience"
                   className="mb-2 block text-sm font-medium text-slate-200"
                 >
-                  Target Audience
-                  <span className="ml-2 text-slate-500">Optional</span>
+                  {t("audienceLabel")}
+                  <span className="ms-2 text-slate-500">{tCommon("optional")}</span>
                 </label>
 
                 <input
                   id="script-audience"
                   value={audience}
                   onChange={(event) => setAudience(event.target.value)}
-                  placeholder="e.g. New creators"
-                  className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-red-400/50 focus:ring-2 focus:ring-red-400/10"
+                  placeholder={t("audiencePlaceholder")}
+                  dir="ltr"
+                  className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-start text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-red-400/50 focus:ring-2 focus:ring-red-400/10"
                 />
               </div>
 
@@ -505,16 +528,17 @@ export default function YouTubeScriptWriterClient() {
                   htmlFor="script-goal"
                   className="mb-2 block text-sm font-medium text-slate-200"
                 >
-                  Video Goal
-                  <span className="ml-2 text-slate-500">Optional</span>
+                  {t("goalLabel")}
+                  <span className="ms-2 text-slate-500">{tCommon("optional")}</span>
                 </label>
 
                 <input
                   id="script-goal"
                   value={goal}
                   onChange={(event) => setGoal(event.target.value)}
-                  placeholder="e.g. Help beginners understand YouTube SEO"
-                  className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-red-400/50 focus:ring-2 focus:ring-red-400/10"
+                  placeholder={t("goalPlaceholder")}
+                  dir="ltr"
+                  className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-start text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-red-400/50 focus:ring-2 focus:ring-red-400/10"
                 />
               </div>
 
@@ -530,7 +554,7 @@ export default function YouTubeScriptWriterClient() {
                 className="group flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-red-500 px-6 font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-red-400 hover:shadow-[0_12px_35px_rgba(239,68,68,0.2)]"
               >
                 <Sparkles className="h-4 w-4" />
-                Generate YouTube Script
+                {t("submit")}
               </button>
             </div>
           </div>
@@ -541,16 +565,15 @@ export default function YouTubeScriptWriterClient() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-red-400">
-                  Script Preview
+                  {t("previewEyebrow")}
                 </p>
 
                 <h2 className="mt-2 text-xl font-semibold">
-                  YouTube-style script structure
+                  {t("previewTitle")}
                 </h2>
 
                 <p className="mt-2 max-w-md text-sm leading-6 text-slate-500">
-                  Preview the flow of your video before copying the complete
-                  script.
+                  {t("previewDesc")}
                 </p>
               </div>
 
@@ -567,22 +590,22 @@ export default function YouTubeScriptWriterClient() {
                 </div>
 
                 <div className="absolute left-4 top-4 rounded-full border border-white/10 bg-black/40 px-3 py-1.5 text-xs font-medium text-slate-200 backdrop-blur">
-                  Script preview
+                  {t("previewBadge")}
                 </div>
 
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-500 shadow-[0_12px_40px_rgba(239,68,68,0.35)]">
-                    <Play className="ml-1 h-7 w-7 fill-white text-white" />
+                    <Play className="ms-1 h-7 w-7 fill-white text-white" />
                   </div>
                 </div>
 
                 <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
                   <span className="inline-flex rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1 text-[11px] font-medium text-slate-300 backdrop-blur">
-                    {style}
+                    {t(`styles.${STYLE_KEYS[style]}`)}
                   </span>
 
                   <span className="rounded-md bg-black/80 px-2 py-1 text-xs font-semibold text-white">
-                    {videoLength}
+                    {t(`lengths.${LENGTH_KEYS[videoLength]}`)}
                   </span>
                 </div>
               </div>
@@ -595,12 +618,14 @@ export default function YouTubeScriptWriterClient() {
 
                   <div className="min-w-0 flex-1">
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-red-300">
-                      Hook
+                      {t("hookLabel")}
                     </p>
 
-                    <p className="mt-2 line-clamp-4 text-sm leading-6 text-slate-300">
-                      {result?.hook ||
-                        "Your generated video hook will appear here."}
+                    <p
+                      className="mt-2 line-clamp-4 text-sm leading-6 text-slate-300"
+                      data-ltr-text
+                    >
+                      {result?.hook || t("previewEmpty")}
                     </p>
                   </div>
                 </div>
@@ -609,17 +634,17 @@ export default function YouTubeScriptWriterClient() {
 
             <div className="mt-6">
               <p className="text-sm font-semibold text-slate-200">
-                Quick script review
+                {t("quickTitle")}
               </p>
 
               <p className="mt-1 text-xs text-slate-500">
-                Live estimates based on the generated script.
+                {t("quickHint")}
               </p>
 
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 <div className="rounded-xl border border-white/10 bg-slate-950/40 p-4">
                   <p className="text-xs uppercase tracking-wider text-slate-500">
-                    Words
+                    {t("stats.words")}
                   </p>
 
                   <div className="mt-2 flex items-end justify-between gap-3">
@@ -630,12 +655,14 @@ export default function YouTubeScriptWriterClient() {
 
                 <div className="rounded-xl border border-white/10 bg-slate-950/40 p-4">
                   <p className="text-xs uppercase tracking-wider text-slate-500">
-                    Speak time
+                    {t("stats.speakTime")}
                   </p>
 
                   <div className="mt-2 flex items-end justify-between gap-3">
                     <span className="text-lg font-semibold">
-                      {estimatedMinutes ? `~${estimatedMinutes}m` : "—"}
+                      {estimatedMinutes
+                        ? t("durationMinutes", { minutes: estimatedMinutes })
+                        : "—"}
                     </span>
                     <Timer className="h-5 w-5 text-slate-400" />
                   </div>
@@ -643,7 +670,7 @@ export default function YouTubeScriptWriterClient() {
 
                 <div className="rounded-xl border border-white/10 bg-slate-950/40 p-4">
                   <p className="text-xs uppercase tracking-wider text-slate-500">
-                    Sections
+                    {t("stats.sections")}
                   </p>
 
                   <div className="mt-2 flex items-end justify-between gap-3">
@@ -666,16 +693,15 @@ export default function YouTubeScriptWriterClient() {
               <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
-                    Generated Script
+                    {t("resultsEyebrow")}
                   </p>
 
                   <h2 className="mt-3 text-3xl font-bold">
-                    Your structured YouTube script
+                    {t("resultsTitle")}
                   </h2>
 
                   <p className="mt-3 max-w-2xl text-slate-400">
-                    Review each section individually or copy the complete script
-                    in one click.
+                    {t("resultsDesc")}
                   </p>
                 </div>
 
@@ -687,12 +713,12 @@ export default function YouTubeScriptWriterClient() {
                   {copiedText === "__full__" ? (
                     <>
                       <Check className="h-4 w-4 text-emerald-400" />
-                      Copied full script
+                      {t("copiedFullScript")}
                     </>
                   ) : (
                     <>
                       <ClipboardCopy className="h-4 w-4" />
-                      Copy full script
+                      {t("copyFullScript")}
                     </>
                   )}
                 </button>
@@ -701,12 +727,12 @@ export default function YouTubeScriptWriterClient() {
               <div className="mt-10 space-y-5">
                 {[
                   {
-                    label: "Hook",
+                    key: "hook",
                     content: result.hook,
                     icon: Sparkles,
                   },
                   {
-                    label: "Introduction",
+                    key: "introduction",
                     content: result.introduction,
                     icon: FileText,
                   },
@@ -716,7 +742,7 @@ export default function YouTubeScriptWriterClient() {
 
                   return (
                     <div
-                      key={section.label}
+                      key={section.key}
                       className="rounded-[24px] border border-white/10 bg-white/[0.025] p-6"
                     >
                       <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
@@ -727,10 +753,13 @@ export default function YouTubeScriptWriterClient() {
 
                           <div>
                             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-red-300">
-                              {section.label}
+                              {t(`sectionLabels.${section.key}`)}
                             </p>
 
-                            <p className="mt-3 text-sm leading-7 text-slate-300">
+                            <p
+                              className="mt-3 text-sm leading-7 text-slate-300"
+                              data-ltr-text
+                            >
                               {section.content}
                             </p>
                           </div>
@@ -744,12 +773,12 @@ export default function YouTubeScriptWriterClient() {
                           {isCopied ? (
                             <>
                               <Check className="h-4 w-4 text-emerald-400" />
-                              Copied
+                              {tCommon("copied")}
                             </>
                           ) : (
                             <>
                               <Copy className="h-4 w-4" />
-                              Copy
+                              {tCommon("copy")}
                             </>
                           )}
                         </button>
@@ -766,11 +795,11 @@ export default function YouTubeScriptWriterClient() {
 
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-red-300">
-                        Main Script
+                        {t("mainScriptEyebrow")}
                       </p>
 
                       <h3 className="mt-1 text-xl font-semibold">
-                        Main talking points
+                        {t("mainScriptTitle")}
                       </h3>
                     </div>
                   </div>
@@ -794,24 +823,30 @@ export default function YouTubeScriptWriterClient() {
                           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                             <div>
                               <span className="rounded-full border border-red-400/20 bg-red-400/10 px-2.5 py-1 text-xs font-medium text-red-300">
-                                Point {index + 1}
+                                {t("point", { number: index + 1 })}
                               </span>
 
-                              <h4 className="mt-4 font-semibold">
+                              <h4 className="mt-4 font-semibold" data-ltr-text>
                                 {point.title}
                               </h4>
 
-                              <p className="mt-2 text-sm leading-7 text-slate-400">
+                              <p
+                                className="mt-2 text-sm leading-7 text-slate-400"
+                                data-ltr-text
+                              >
                                 {point.content}
                               </p>
 
                               {transition ? (
                                 <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
                                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                                    Transition
+                                    {t("transitionLabel")}
                                   </p>
 
-                                  <p className="mt-2 text-sm leading-6 text-slate-300">
+                                  <p
+                                    className="mt-2 text-sm leading-6 text-slate-300"
+                                    data-ltr-text
+                                  >
                                     {transition}
                                   </p>
                                 </div>
@@ -826,12 +861,12 @@ export default function YouTubeScriptWriterClient() {
                               {copiedText === copyText ? (
                                 <>
                                   <Check className="h-4 w-4 text-emerald-400" />
-                                  Copied
+                                  {tCommon("copied")}
                                 </>
                               ) : (
                                 <>
                                   <Copy className="h-4 w-4" />
-                                  Copy
+                                  {tCommon("copy")}
                                 </>
                               )}
                             </button>
@@ -844,12 +879,12 @@ export default function YouTubeScriptWriterClient() {
 
                 {[
                   {
-                    label: "Call to Action",
+                    key: "cta",
                     content: result.cta,
                     icon: Target,
                   },
                   {
-                    label: "Outro",
+                    key: "outro",
                     content: result.outro,
                     icon: Play,
                   },
@@ -858,7 +893,7 @@ export default function YouTubeScriptWriterClient() {
 
                   return (
                     <div
-                      key={section.label}
+                      key={section.key}
                       className="rounded-[24px] border border-white/10 bg-white/[0.025] p-6"
                     >
                       <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
@@ -869,10 +904,13 @@ export default function YouTubeScriptWriterClient() {
 
                           <div>
                             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-red-300">
-                              {section.label}
+                              {t(`sectionLabels.${section.key}`)}
                             </p>
 
-                            <p className="mt-3 text-sm leading-7 text-slate-300">
+                            <p
+                              className="mt-3 text-sm leading-7 text-slate-300"
+                              data-ltr-text
+                            >
                               {section.content}
                             </p>
                           </div>
@@ -886,12 +924,12 @@ export default function YouTubeScriptWriterClient() {
                           {copiedText === section.content ? (
                             <>
                               <Check className="h-4 w-4 text-emerald-400" />
-                              Copied
+                              {tCommon("copied")}
                             </>
                           ) : (
                             <>
                               <Copy className="h-4 w-4" />
-                              Copy
+                              {tCommon("copy")}
                             </>
                           )}
                         </button>
@@ -915,10 +953,10 @@ export default function YouTubeScriptWriterClient() {
 
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-300">
-                      Hook Alternatives
+                      {t("hookAltEyebrow")}
                     </p>
                     <h2 className="mt-1 text-xl font-semibold">
-                      Try a different opening
+                      {t("hookAltTitle")}
                     </h2>
                   </div>
                 </div>
@@ -929,12 +967,18 @@ export default function YouTubeScriptWriterClient() {
                       key={hook}
                       className="flex items-start justify-between gap-4 rounded-xl border border-white/10 bg-slate-950/40 p-4"
                     >
-                      <p className="text-sm leading-6 text-slate-300">{hook}</p>
+                      <p
+                        className="text-sm leading-6 text-slate-300"
+                        data-ltr-text
+                      >
+                        {hook}
+                      </p>
 
                       <button
                         type="button"
                         onClick={() => handleCopy(hook)}
                         className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-slate-400 transition hover:border-red-400/30 hover:text-white"
+                        aria-label={tCommon("copy")}
                       >
                         {copiedText === hook ? (
                           <Check className="h-4 w-4 text-emerald-400" />
@@ -955,10 +999,10 @@ export default function YouTubeScriptWriterClient() {
 
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-red-300">
-                      CTA Alternatives
+                      {t("ctaAltEyebrow")}
                     </p>
                     <h2 className="mt-1 text-xl font-semibold">
-                      Choose a stronger next step
+                      {t("ctaAltTitle")}
                     </h2>
                   </div>
                 </div>
@@ -969,7 +1013,10 @@ export default function YouTubeScriptWriterClient() {
                       key={ctaItem}
                       className="flex items-start justify-between gap-4 rounded-xl border border-white/10 bg-slate-950/40 p-4"
                     >
-                      <p className="text-sm leading-6 text-slate-300">
+                      <p
+                        className="text-sm leading-6 text-slate-300"
+                        data-ltr-text
+                      >
                         {ctaItem}
                       </p>
 
@@ -977,6 +1024,7 @@ export default function YouTubeScriptWriterClient() {
                         type="button"
                         onClick={() => handleCopy(ctaItem)}
                         className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-slate-400 transition hover:border-red-400/30 hover:text-white"
+                        aria-label={tCommon("copy")}
                       >
                         {copiedText === ctaItem ? (
                           <Check className="h-4 w-4 text-emerald-400" />
@@ -1004,11 +1052,10 @@ export default function YouTubeScriptWriterClient() {
               </div>
 
               <div>
-                <h2 className="font-semibold">Share this tool</h2>
+                <h2 className="font-semibold">{t("shareTitle")}</h2>
 
                 <p className="mt-1 text-sm leading-6 text-slate-400">
-                  Share the YouTube Script Writer with creators who want a
-                  structured starting point for their videos.
+                  {t("shareDesc")}
                 </p>
               </div>
             </div>
@@ -1021,12 +1068,12 @@ export default function YouTubeScriptWriterClient() {
               {shareCopied ? (
                 <>
                   <Check className="h-4 w-4 text-emerald-400" />
-                  Link copied
+                  {t("linkCopied")}
                 </>
               ) : (
                 <>
                   <Share2 className="h-4 w-4" />
-                  Share tool
+                  {t("shareButton")}
                 </>
               )}
             </button>
@@ -1040,17 +1087,15 @@ export default function YouTubeScriptWriterClient() {
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
-              YouTube Script Planning
+              {t("factorsEyebrow")}
             </p>
 
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-              Build a clearer structure before you start recording
+              {t("factorsTitle")}
             </h2>
 
             <p className="mt-5 leading-8 text-slate-400">
-              A useful script gives the video direction without making it sound
-              robotic. Use the generated structure as a starting point, then
-              adjust the wording to match your own voice.
+              {t("factorsBody")}
             </p>
           </div>
 
@@ -1058,50 +1103,46 @@ export default function YouTubeScriptWriterClient() {
             {[
               {
                 icon: Sparkles,
-                title: "Strong Hook",
-                text: "Give viewers a clear reason to keep watching from the beginning.",
+                key: "hook",
               },
               {
                 icon: FileText,
-                title: "Clear Introduction",
-                text: "Set expectations and explain what the video will cover.",
+                key: "intro",
               },
               {
                 icon: ListChecks,
-                title: "Main Talking Points",
-                text: "Break the topic into logical sections instead of one long block.",
+                key: "points",
               },
               {
                 icon: Timer,
-                title: "Better Pacing",
-                text: "Use video length to keep the number of sections realistic.",
+                key: "pacing",
               },
               {
                 icon: Users,
-                title: "Audience Fit",
-                text: "Adapt the explanation to the people the video is designed for.",
+                key: "audience",
               },
               {
                 icon: Target,
-                title: "Relevant CTA",
-                text: "End with a next step that matches the purpose of the video.",
+                key: "cta",
               },
             ].map((item) => {
               const Icon = item.icon;
 
               return (
                 <div
-                  key={item.title}
+                  key={item.key}
                   className="rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition duration-300 hover:-translate-y-0.5 hover:border-red-400/25 hover:bg-white/[0.04]"
                 >
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-red-400/10">
                     <Icon className="h-5 w-5 text-red-400" />
                   </div>
 
-                  <h3 className="mt-5 text-lg font-semibold">{item.title}</h3>
+                  <h3 className="mt-5 text-lg font-semibold">
+                    {t(`factors.${item.key}.title`)}
+                  </h3>
 
                   <p className="mt-3 text-sm leading-7 text-slate-400">
-                    {item.text}
+                    {t(`factors.${item.key}.text`)}
                   </p>
                 </div>
               );
@@ -1117,16 +1158,15 @@ export default function YouTubeScriptWriterClient() {
           <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
-                How It Works
+                {t("howEyebrow")}
               </p>
 
               <h2 className="mt-3 text-3xl font-bold">
-                How to use the YouTube Script Writer
+                {t("howTitle")}
               </h2>
 
               <p className="mt-5 leading-8 text-slate-400">
-                Use the tool to create a structured first draft, then rewrite
-                sections so the final script sounds natural in your own voice.
+                {t("howBody")}
               </p>
             </div>
 
@@ -1134,23 +1174,15 @@ export default function YouTubeScriptWriterClient() {
               {[
                 {
                   number: "1",
-                  title: "Enter your video topic",
-                  text: "Describe what your video is mainly about.",
                 },
                 {
                   number: "2",
-                  title: "Choose style and length",
-                  text: "Select the tone you want and the approximate video duration.",
                 },
                 {
                   number: "3",
-                  title: "Add audience and goal",
-                  text: "Optionally explain who the video is for and what you want it to achieve.",
                 },
                 {
                   number: "4",
-                  title: "Generate and personalize",
-                  text: "Review the script structure, copy useful sections and adapt the wording before recording.",
                 },
               ].map((step) => (
                 <div
@@ -1162,10 +1194,12 @@ export default function YouTubeScriptWriterClient() {
                   </div>
 
                   <div>
-                    <h3 className="font-semibold">{step.title}</h3>
+                    <h3 className="font-semibold">
+                      {t(`steps.${step.number}.title`)}
+                    </h3>
 
                     <p className="mt-1.5 text-sm leading-6 text-slate-400">
-                      {step.text}
+                      {t(`steps.${step.number}.text`)}
                     </p>
                   </div>
                 </div>
@@ -1181,56 +1215,49 @@ export default function YouTubeScriptWriterClient() {
         <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_.9fr] lg:items-center">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
-              Video Structure
+              {t("whyEyebrow")}
             </p>
 
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-              Why YouTube scripts matter
+              {t("whyTitle")}
             </h2>
 
             <p className="mt-5 leading-8 text-slate-400">
-              A script can help creators organize ideas, reduce repetition and
-              keep the video moving in a clear direction. It can also make
-              recording easier because the main talking points are already
-              planned.
+              {t("whyP1")}
             </p>
 
             <p className="mt-4 leading-8 text-slate-400">
-              The generated script is a starting point, not a finished
-              performance. Review and personalize the wording so it matches your
-              real content and speaking style.
+              {t("whyP2")}
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             {[
               {
-                title: "Reduce rambling",
-                text: "Keep the video focused by deciding the main points before recording.",
+                key: "rambling",
               },
               {
-                title: "Improve flow",
-                text: "Use transitions so each part of the video connects naturally.",
+                key: "flow",
               },
               {
-                title: "Save planning time",
-                text: "Start with a structured outline instead of a blank page.",
+                key: "planning",
               },
               {
-                title: "Sound more intentional",
-                text: "Give each section a clear purpose while keeping your own voice.",
+                key: "voice",
               },
             ].map((item) => (
               <div
-                key={item.title}
+                key={item.key}
                 className="rounded-2xl border border-white/10 bg-white/[0.025] p-5"
               >
                 <Check className="h-5 w-5 text-emerald-400" />
 
-                <h3 className="mt-4 font-semibold">{item.title}</h3>
+                <h3 className="mt-4 font-semibold">
+                  {t(`benefits.${item.key}.title`)}
+                </h3>
 
                 <p className="mt-2 text-sm leading-6 text-slate-400">
-                  {item.text}
+                  {t(`benefits.${item.key}.text`)}
                 </p>
               </div>
             ))}
@@ -1245,16 +1272,15 @@ export default function YouTubeScriptWriterClient() {
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
-                Continue Creating
+                {tRelated("eyebrow")}
               </p>
 
               <h2 className="mt-3 text-3xl font-bold">
-                Related YouTube SEO tools
+                {tRelated("title")}
               </h2>
 
               <p className="mt-3 max-w-2xl text-slate-400">
-                Build your topic, title, description and script with the LifeSeos
-                YouTube toolkit.
+                {t("relatedBody")}
               </p>
             </div>
 
@@ -1262,7 +1288,7 @@ export default function YouTubeScriptWriterClient() {
               href="/tools"
               className="inline-flex items-center gap-2 text-sm font-semibold text-red-300 transition hover:text-red-200"
             >
-              View all tools
+              {tRelated("viewAll")}
               <ExternalLink className="h-4 w-4" />
             </Link>
           </div>
@@ -1277,11 +1303,11 @@ export default function YouTubeScriptWriterClient() {
               </div>
 
               <h3 className="mt-5 font-semibold">
-                YouTube Keyword Ideas
+                {tc("youtubeKeywordIdeas.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Explore keyword groups and video topic ideas.
+                {t("relKeywordIdeasBody")}
               </p>
             </Link>
 
@@ -1294,11 +1320,11 @@ export default function YouTubeScriptWriterClient() {
               </div>
 
               <h3 className="mt-5 font-semibold">
-                YouTube Title Generator
+                {tc("youtubeTitleGenerator.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Generate title ideas based on your topic and keyword.
+                {t("relTitleGeneratorBody")}
               </p>
             </Link>
 
@@ -1311,11 +1337,11 @@ export default function YouTubeScriptWriterClient() {
               </div>
 
               <h3 className="mt-5 font-semibold">
-                YouTube Title Analyzer
+                {tc("youtubeTitleAnalyzer.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Review title clarity, structure and keyword use.
+                {t("relTitleAnalyzerBody")}
               </p>
             </Link>
 
@@ -1328,11 +1354,11 @@ export default function YouTubeScriptWriterClient() {
               </div>
 
               <h3 className="mt-5 font-semibold">
-                Description Generator
+                {tc("youtubeDescriptionGenerator.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Create structured video descriptions and calls to action.
+                {t("relDescriptionBody")}
               </p>
             </Link>
 
@@ -1343,16 +1369,16 @@ export default function YouTubeScriptWriterClient() {
 
               <div className="mt-5 flex items-center gap-2">
                 <h3 className="font-semibold">
-                  YouTube Script Writer
+                  {tc("youtubeScriptWriter.title")}
                 </h3>
 
                 <span className="rounded-full bg-red-400/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-red-300">
-                  Current
+                  {t("currentBadge")}
                 </span>
               </div>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Create a structured video script from hook to outro.
+                {t("relScriptBody")}
               </p>
             </div>
           </div>

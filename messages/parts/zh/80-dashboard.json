@@ -1,0 +1,208 @@
+{
+  "Dashboard": {
+    "badge": "LifeSeos 控制台",
+    "welcome": "欢迎回来",
+    "signedInAs": "当前登录账号",
+    "newAnalysis": "新的 SEO 分析",
+    "loadError": "无法加载你的 SEO 报告。",
+    "stats": {
+      "totalAudits": "审计总数",
+      "totalAuditsBody": "已保存到账户的 SEO 报告",
+      "averageScore": "平均分数",
+      "averageScoreBody": "所有审计的平均分数",
+      "bestScore": "最高分数",
+      "bestScoreBody": "已记录的最高 SEO 分数",
+      "websites": "已分析网站",
+      "websitesBody": "审计历史中的独立 URL 数量"
+    },
+    "latest": {
+      "badge": "最新审计",
+      "title": "最近一次 SEO 分析",
+      "body": "查看最新的网站分数、状态和报告详情，或再运行一次审计以持续跟踪改进。",
+      "website": "网站",
+      "viewReport": "查看最新报告",
+      "runNew": "运行新分析",
+      "score": "SEO 分数",
+      "outOf100": "满分 100",
+      "grade": "评级",
+      "gradeHint": "当前审计评级",
+      "status": "状态",
+      "statusUnknown": "未知",
+      "changeUp": "较上次 +{change}",
+      "changeDown": "较上次 {change}",
+      "noChange": "分数无变化"
+    },
+    "history": {
+      "eyebrow": "SEO 历史",
+      "title": "最近的报告",
+      "count": "{count, plural, =0 {暂无报告} other {# 份报告}}"
+    },
+    "empty": {
+      "title": "还没有 SEO 报告",
+      "body": "运行第一次 SEO 分析后，报告会自动显示在这里。",
+      "cta": "分析网站"
+    },
+    "table": {
+      "website": "网站",
+      "score": "分数",
+      "grade": "评级",
+      "status": "状态",
+      "date": "日期",
+      "report": "报告",
+      "viewReport": "查看报告"
+    },
+    "account": {
+      "eyebrow": "账户",
+      "title": "账户信息",
+      "email": "邮箱"
+    },
+    "report": {
+      "back": "返回控制台",
+      "analyzedOn": "分析时间",
+      "eyebrow": "已保存的 SEO 报告",
+      "title": "SEO 审计报告",
+      "intro": "这是保存在你的 LifeSeos 账户中的 SEO 分析。请在下方查看检测到的 SEO 信号、警告、错误和建议。",
+      "website": "网站",
+      "gradeLabel": "评级",
+      "statusUnknown": "未知",
+      "score": "SEO 分数",
+      "outOf100": "满分 100",
+      "fields": {
+        "pageTitle": "页面标题",
+        "h1": "H1 标题",
+        "canonical": "规范链接",
+        "robots": "Robots 元标签",
+        "noTitle": "未找到页面标题",
+        "noH1": "未找到 H1",
+        "noDescription": "未找到元描述",
+        "notFound": "未找到"
+      },
+      "labels": {
+        "title": "标题",
+        "metaDescription": "元描述",
+        "h1": "H1",
+        "canonicalUrl": "规范链接",
+        "robotsMeta": "Robots 元标签",
+        "totalImages": "图片总数",
+        "missingAlt": "缺少 ALT",
+        "ogTitle": "Open Graph 标题",
+        "ogDescription": "Open Graph 描述"
+      },
+      "sections": {
+        "contentSeo": "内容 SEO",
+        "contentSeoBody": "重要的元数据与内容信号。",
+        "imageSeo": "图片 SEO",
+        "imageSeoBody": "图片可访问性与 ALT 信息。",
+        "socialSeo": "社交 SEO",
+        "socialSeoBody": "分析过程中检测到的 Open Graph 信息。",
+        "technicalSeo": "技术 SEO",
+        "technicalSeoBody": "随此报告保存的页面技术信号。"
+      },
+      "passed": "已通过",
+      "warnings": "警告",
+      "errors": "错误",
+      "items": "{count, plural, =0 {无项目} other {# 项}}",
+      "noPassed": "没有保存的已通过检查。",
+      "noWarnings": "没有保存的警告。",
+      "noErrors": "没有保存的错误。",
+      "actionPlan": "行动计划",
+      "recommendations": "建议",
+      "improvement": "SEO 改进",
+      "noRecommendations": "此报告没有保存任何建议。",
+      "newAnalysis": "新的 SEO 分析"
+    }
+  },
+  "Admin": {
+    "eyebrow": "LifeSeos 管理后台",
+    "title": "管理控制台",
+    "subtitle": "管理用户、报告、工具使用情况和网站数据。",
+    "stats": {
+      "totalUsers": "用户总数",
+      "seoReports": "SEO 报告",
+      "toolUses": "工具使用次数",
+      "messages": "消息"
+    },
+    "users": {
+      "title": "用户",
+      "subtitle": "已注册的 LifeSeos 用户，按最近登录时间排序。",
+      "newToday": "今日新增",
+      "last7Days": "最近 7 天",
+      "thisMonth": "本月",
+      "confirmed": "已确认",
+      "unconfirmed": "未确认"
+    },
+    "table": {
+      "email": "邮箱",
+      "created": "创建时间",
+      "lastSignIn": "最后登录",
+      "emailStatus": "邮箱状态",
+      "userId": "用户 ID",
+      "noUsers": "未找到用户。"
+    },
+    "liveVisitors": {
+      "title": "实时访客",
+      "live": "实时",
+      "subtitle": "当前连接到 LifeSeos 的访客。",
+      "onlineNow": "当前在线",
+      "registered": "已注册",
+      "guests": "访客",
+      "listTitle": "在线访客",
+      "listSubtitle": "当前访客类型、页面和会话开始时间。",
+      "user": "用户",
+      "type": "类型",
+      "currentPage": "当前页面",
+      "onlineSince": "在线开始时间",
+      "empty": "当前没有在线访客。",
+      "registeredUser": "已注册用户",
+      "guest": "访客"
+    },
+    "geo": {
+      "title": "访客地域",
+      "subtitle": "按访客所在国家分组的页面浏览量。",
+      "totalVisits": "页面浏览总量",
+      "countries": "国家/地区",
+      "visitsToday": "今日浏览量",
+      "unknownLocation": "位置未知",
+      "unknownCountry": "未知",
+      "topCountries": "热门国家/地区",
+      "topCountriesBody": "按记录的页面浏览量排名的国家/地区。",
+      "noData": "暂无访客地域数据。",
+      "table": {
+        "country": "国家/地区",
+        "code": "代码",
+        "visits": "浏览量",
+        "share": "占比",
+        "lastVisit": "最近访问"
+      }
+    },
+    "tools": {
+      "title": "工具活动",
+      "subtitle": "LifeSeos 各工具的使用情况。",
+      "totalUses": "工具使用总量",
+      "registeredUsers": "注册用户",
+      "guestUses": "游客使用",
+      "performance": "工具表现",
+      "performanceBody": "各工具的使用总量。",
+      "noActivity": "暂无工具活动。",
+      "table": {
+        "tool": "工具",
+        "totalUses": "使用总量",
+        "registered": "已注册",
+        "guests": "游客",
+        "lastUsed": "最近使用"
+      },
+      "recentTitle": "最近工具活动",
+      "recentSubtitle": "最新的工具使用事件。",
+      "noRecent": "暂无最近的工具活动。",
+      "recentTable": {
+        "tool": "工具",
+        "user": "用户",
+        "type": "类型",
+        "date": "日期"
+      },
+      "guest": "游客",
+      "registered": "已注册",
+      "unknownUser": "未知用户"
+    }
+  }
+}

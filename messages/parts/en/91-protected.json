@@ -1,0 +1,7 @@
+{
+  "Protected": {
+    "backToDashboard": "Back to dashboard",
+    "notice": "This is a protected page that you can only see as an authenticated user.",
+    "detailsTitle": "Your user details"
+  }
+}

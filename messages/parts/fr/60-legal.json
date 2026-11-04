@@ -1,0 +1,353 @@
+{
+  "Legal": {
+    "privacy": {
+      "metaTitle": "Politique de confidentialité",
+      "metaDescription": "Découvrez comment LifeSeos collecte, utilise, stocke, protège et traite les informations lorsque vous utilisez nos outils SEO, nos comptes et nos services.",
+      "badge": "Confidentialité et protection des données",
+      "title": "Politique de confidentialité",
+      "subtitle": "Votre vie privée nous importe. Cette politique explique quelles informations LifeSeos collecte, comment nous les utilisons et les choix dont vous disposez lorsque vous utilisez nos services.",
+      "updated": "Dernière mise à jour\u00A0: {date}",
+      "updatedValue": "17 octobre 2026",
+      "tocTitle": "Sur cette page",
+      "sections": {
+        "s1": {
+          "title": "Informations que nous collectons",
+          "paragraphs": [
+            "Lorsque vous utilisez LifeSeos, nous pouvons collecter les informations que vous nous fournissez directement, les informations générées lors de l'utilisation de nos outils SEO, ainsi que des informations techniques ou d'usage limitées nécessaires pour exploiter et améliorer le service."
+          ],
+          "bullets": [
+            "Informations de compte, telles que votre adresse e-mail lorsque vous créez un compte ou vous y connectez.",
+            "Adresses URL des sites web que vous soumettez à nos outils d'analyse SEO.",
+            "Résultats d'analyse SEO, scores, recommandations et données de rapport associées à votre compte.",
+            "Informations que vous fournissez volontairement lorsque vous contactez LifeSeos, telles que votre nom, votre adresse e-mail et votre message.",
+            "Informations d'usage de base du site, telles que la page visitée, l'heure de la visite et le pays ou la région approximatif.",
+            "Informations techniques susceptibles d'être traitées par des prestataires d'hébergement, de sécurité, d'authentification ou d'infrastructure pour exploiter et protéger le service."
+          ]
+        },
+        "s2": {
+          "title": "Comment nous utilisons vos informations",
+          "paragraphs": [
+            "Nous utilisons les informations collectées via LifeSeos uniquement à des fins légitimes de service, de sécurité, d'analyse, de communication et d'exploitation du site web."
+          ],
+          "bullets": [
+            "Pour authentifier les utilisateurs et maintenir des sessions de compte sécurisées.",
+            "Pour analyser des sites web lorsque vous demandez un audit SEO ou utilisez un outil SEO.",
+            "Pour enregistrer les rapports SEO sur votre compte afin que vous puissiez y accéder ultérieurement depuis votre tableau de bord.",
+            "Pour comprendre l'usage général du site et améliorer LifeSeos.",
+            "Pour répondre aux messages et aux demandes d'assistance.",
+            "Pour améliorer la fiabilité, la sécurité et les performances de LifeSeos.",
+            "Pour diagnostiquer les erreurs, prévenir les abus et protéger le service."
+          ]
+        },
+        "s3": {
+          "title": "Usage du site et analyse",
+          "paragraphs": [
+            "LifeSeos peut collecter des informations d'usage limitées afin de comprendre comment les visiteurs utilisent le site et quelles pages ou quels outils sont les plus utiles.",
+            "Ces informations peuvent inclure la page ou la route visitée, l'heure de la visite et un pays ou une région approximatif associé à la requête.",
+            "Ces informations sont utilisées pour l'analyse agrégée du site, l'amélioration du service, la surveillance des performances et la sécurité. Nous n'utilisons pas nos enregistrements internes de visites de pages pour identifier intentionnellement des visiteurs individuels."
+          ]
+        },
+        "s4": {
+          "title": "Données d'analyse SEO",
+          "paragraphs": [
+            "Lorsque vous soumettez l'URL d'un site web à un outil d'analyse SEO, LifeSeos peut accéder aux informations publiquement disponibles de ce site afin de réaliser l'analyse demandée.",
+            "Cela peut inclure les titres de page, les métadescriptions, les titres, les informations canoniques, les attributs d'image, les métadonnées robots, les métadonnées sociales et d'autres informations accessibles au public liées au SEO.",
+            "Si vous êtes connecté, les résultats d'analyse peuvent être enregistrés sur votre compte LifeSeos afin de pouvoir être affichés dans votre tableau de bord et l'historique des rapports."
+          ]
+        },
+        "s5": {
+          "title": "Données de compte et d'authentification",
+          "paragraphs": [
+            "LifeSeos utilise des services d'authentification pour permettre aux utilisateurs de créer des comptes, de se connecter, de se déconnecter et d'accéder de manière sécurisée aux fonctionnalités propres à leur compte.",
+            "Les informations de compte ne sont utilisées que dans la mesure nécessaire pour fournir ces fonctionnalités et associer les rapports enregistrés au compte utilisateur approprié."
+          ]
+        },
+        "s6": {
+          "title": "Stockage des données et prestataires de services",
+          "paragraphs": [
+            "LifeSeos utilise des infrastructures et des prestataires de services tiers pour exploiter le site web.",
+            "Supabase est utilisé pour les services d'authentification et de base de données. Les prestataires d'hébergement, de déploiement, de réseau et de sécurité peuvent également traiter des informations techniques relatives aux requêtes, dans la mesure nécessaire pour fournir et protéger le site web.",
+            "Les rapports SEO enregistrés peuvent inclure l'URL analysée, le score SEO, la note, le statut, les détails du rapport, la date de création et l'identifiant de compte associé au rapport.",
+            "Des contrôles d'accès sont utilisés afin que les utilisateurs authentifiés puissent accéder aux rapports associés à leurs propres comptes."
+          ]
+        },
+        "s7": {
+          "title": "Cookies et technologies similaires",
+          "paragraphs": [
+            "LifeSeos peut utiliser des cookies ou des technologies similaires pour l'authentification, la gestion des sessions, la sécurité, les préférences des utilisateurs, l'analyse et les fonctionnalités essentielles du site.",
+            "Ces technologies peuvent contribuer à vous maintenir connecté, à mémoriser vos paramètres, à protéger le site, à mesurer l'usage du site et à prendre en charge les fonctionnalités fournies par des services tiers.",
+            "Si des services publicitaires sont activés, les fournisseurs de publicité peuvent également utiliser des cookies, le stockage local, des balises web, des adresses IP ou d'autres identifiants, comme décrit ci-dessous."
+          ]
+        },
+        "s8": {
+          "title": "Publicité et Google AdSense",
+          "paragraphs": [
+            "LifeSeos peut utiliser Google AdSense ou d'autres services publicitaires pour afficher des publicités sur le site web.",
+            "Si la publicité est activée, des fournisseurs tiers, y compris Google, peuvent utiliser des cookies ou des technologies similaires pour diffuser, mesurer, personnaliser ou limiter les publicités en fonction des visites d'un utilisateur sur LifeSeos et, le cas échéant, sur d'autres sites web.",
+            "Les fournisseurs de publicité peuvent traiter des informations telles que des cookies, des balises web, des adresses IP, des informations sur l'appareil ou le navigateur et d'autres identifiants dans le cadre de la diffusion des annonces, de la mesure, de la prévention de la fraude et de la personnalisation, lorsque cela est autorisé.",
+            "L'utilisation par Google de cookies publicitaires peut permettre à Google et à ses partenaires d'afficher des annonces en fonction des visites de LifeSeos et d'autres sites web, sous réserve du droit applicable et des choix de consentement de l'utilisateur.",
+            "Vous pouvez en savoir plus sur la manière dont Google utilise les informations provenant des sites et applications qui utilisent les services Google en consultant les informations de Google sur les sites et applications partenaires.",
+            "Vous pouvez gérer vos préférences en matière de publicité personnalisée via les paramètres des annonces Google."
+          ]
+        },
+        "s9": {
+          "title": "Consentement et choix publicitaires",
+          "paragraphs": [
+            "Lorsque le droit applicable l'exige, LifeSeos demandera votre consentement avant d'utiliser des cookies non essentiels ou de traiter des données à caractère personnel à certaines fins publicitaires ou de personnalisation.",
+            "Les visiteurs des régions soumises à des exigences spécifiques en matière de consentement peuvent se voir afficher un message de consentement leur permettant d'accepter, de refuser ou de gérer les choix de confidentialité disponibles.",
+            "Les choix de consentement peuvent déterminer si les annonces sont personnalisées et si certaines technologies d'analyse ou de publicité sont utilisées."
+          ]
+        },
+        "s10": {
+          "title": "Partage des informations",
+          "paragraphs": [
+            "Nous ne vendons pas vos informations personnelles.",
+            "Les informations peuvent être traitées par des prestataires de services qui nous aident à exploiter LifeSeos, tels que des fournisseurs d'hébergement, d'authentification, de base de données, d'analyse, de publicité, de sécurité ou d'infrastructure.",
+            "Ces prestataires ne peuvent traiter les informations que dans la mesure nécessaire à la fourniture de leurs services, sous réserve de leurs conditions et pratiques de confidentialité applicables.",
+            "Nous pouvons également divulguer des informations lorsqu'il est raisonnablement nécessaire de respecter des obligations légales applicables, de protéger le service, d'enquêter sur des abus ou de protéger les droits et la sécurité des utilisateurs."
+          ]
+        },
+        "s11": {
+          "title": "Sécurité des données",
+          "paragraphs": [
+            "Nous mettons en œuvre des mesures techniques et organisationnelles raisonnables destinées à protéger les informations traitées par LifeSeos.",
+            "Toutefois, aucun service en ligne, système de stockage ou méthode de transmission de données ne peut garantir une sécurité absolue."
+          ]
+        },
+        "s12": {
+          "title": "Conservation des données",
+          "paragraphs": [
+            "Nous conservons les informations aussi longtemps que raisonnablement nécessaire pour fournir LifeSeos, maintenir les fonctionnalités de compte, respecter les obligations légales, résoudre les litiges, prévenir les abus et protéger le service.",
+            "Les durées de conservation peuvent varier selon le type d'informations et la finalité pour laquelle elles sont traitées."
+          ]
+        },
+        "s13": {
+          "title": "Vos choix et droits en matière de confidentialité",
+          "paragraphs": [
+            "Vous pouvez choisir de ne pas créer de compte et continuer d'utiliser certains outils LifeSeos accessibles au public lorsque l'accès à un compte n'est pas requis.",
+            "Selon votre lieu de résidence et le droit applicable, vous pouvez disposer de droits relatifs à l'accès, à la rectification, à l'effacement, à la limitation, à l'opposition ou à d'autres traitements de vos informations personnelles.",
+            "Vous pouvez nous contacter au sujet de questions ou de demandes concernant les informations de votre compte ou les données stockées."
+          ]
+        },
+        "s14": {
+          "title": "Sites web de tiers",
+          "paragraphs": [
+            "LifeSeos permet aux utilisateurs d'analyser des URL de sites web et peut contenir des liens vers des sites web de tiers.",
+            "Nous ne sommes pas responsables des pratiques de confidentialité, de la sécurité, de la disponibilité ou du contenu des sites web qui ne sont pas exploités par LifeSeos."
+          ]
+        },
+        "s15": {
+          "title": "Confidentialité des enfants",
+          "paragraphs": [
+            "LifeSeos n'est pas destiné à collecter sciemment des informations personnelles auprès d'enfants lorsque le consentement parental ou une autre base légale serait requis.",
+            "Si vous pensez que des informations personnelles ont été soumises à LifeSeos de manière inappropriée, veuillez nous contacter afin que la question puisse être examinée."
+          ]
+        },
+        "s16": {
+          "title": "Traitement international",
+          "paragraphs": [
+            "LifeSeos et ses prestataires de services peuvent traiter des informations dans des pays autres que celui dans lequel vous êtes situé.",
+            "Lorsque cela est requis, des garanties appropriées peuvent être mises en place dans le cadre des transferts internationaux d'informations personnelles."
+          ]
+        },
+        "s17": {
+          "title": "Modifications de la présente Politique de confidentialité",
+          "paragraphs": [
+            "Nous pouvons mettre à jour la présente Politique de confidentialité à mesure que LifeSeos évolue, que de nouvelles fonctionnalités sont introduites, que les services de publicité ou d'analyse changent ou que nos pratiques en matière de données évoluent.",
+            "En cas de modification, la version mise à jour sera publiée sur cette page avec une date d'entrée en vigueur révisée."
+          ]
+        },
+        "s18": {
+          "title": "Contact",
+          "paragraphs": [
+            "Si vous avez des questions concernant la présente Politique de confidentialité, vos choix en matière de confidentialité ou la manière dont LifeSeos traite les informations, vous pouvez nous contacter par les moyens de contact indiqués sur le site web de LifeSeos."
+          ]
+        }
+      }
+    },
+    "terms": {
+      "metaTitle": "Conditions d'utilisation",
+      "metaDescription": "Consultez les conditions générales qui régissent l'utilisation des outils SEO, des comptes, du contenu éducatif et des services associés de LifeSeos.",
+      "badge": "Conditions générales",
+      "title": "Conditions d'utilisation",
+      "subtitle": "Les présentes Conditions d'utilisation expliquent les règles et conditions applicables lorsque vous accédez à LifeSeos ou utilisez ses outils SEO, son contenu, ses comptes et les services associés.",
+      "updated": "Dernière mise à jour\u00A0: {date}",
+      "updatedValue": "17 octobre 2026",
+      "tocTitle": "Sur cette page",
+      "sections": {
+        "s1": {
+          "title": "Acceptation des conditions",
+          "paragraphs": [
+            "En accédant à LifeSeos ou en l'utilisant, vous acceptez les présentes Conditions d'utilisation et vous engagez à respecter les lois et réglementations applicables.",
+            "Si vous n'acceptez pas les présentes Conditions, vous ne devez pas utiliser LifeSeos ni ses services."
+          ]
+        },
+        "s2": {
+          "title": "À propos de LifeSeos",
+          "paragraphs": [
+            "LifeSeos fournit des outils liés au SEO, des ressources éducatives, des fonctionnalités d'analyse de sites web et des services associés conçus pour aider les utilisateurs à mieux comprendre et évaluer l'optimisation d'un site web.",
+            "Les fonctionnalités peuvent inclure l'analyse de sites web, la notation SEO, des recommandations, des outils de métadonnées, des outils de sitemap, la génération de robots.txt, l'analyse de mots-clés, l'analyse de contenu, des vérifications de performance, des utilitaires SEO techniques et des guides éducatifs.",
+            "Les fonctionnalités peuvent évoluer, s'étendre ou être supprimées au fur et à mesure du développement de LifeSeos."
+          ]
+        },
+        "s3": {
+          "title": "Comptes utilisateurs",
+          "paragraphs": [
+            "Certaines fonctionnalités de LifeSeos peuvent nécessiter la création et l'utilisation d'un compte."
+          ],
+          "bullets": [
+            "Vous êtes responsable de fournir des informations de compte exactes.",
+            "Vous êtes responsable du maintien de la sécurité de votre compte.",
+            "Vous ne devez pas partager l'accès à votre compte avec des utilisateurs non autorisés.",
+            "Vous êtes responsable de l'activité effectuée via votre compte."
+          ]
+        },
+        "s4": {
+          "title": "Utilisation du service",
+          "paragraphs": [
+            "Vous ne pouvez utiliser LifeSeos qu'à des fins licites et d'une manière qui ne porte pas atteinte au fonctionnement, à la sécurité, à la disponibilité ou à l'intégrité du service.",
+            "Vous acceptez de ne pas faire un usage abusif de LifeSeos, de ne pas tenter d'accéder sans autorisation, de ne pas interférer avec d'autres utilisateurs, de ne pas contourner les restrictions techniques et de ne pas utiliser le service d'une manière susceptible d'endommager, de surcharger ou de perturber nos systèmes ou notre infrastructure."
+          ]
+        },
+        "s5": {
+          "title": "Analyse de sites web",
+          "paragraphs": [
+            "LifeSeos permet aux utilisateurs de soumettre des URL de sites web pour une analyse SEO et des vérifications techniques associées.",
+            "Vous ne devez soumettre que des sites web que vous êtes légalement autorisé à analyser ou des sites web accessibles au public lorsque cette analyse est appropriée.",
+            "LifeSeos peut récupérer des informations de pages web accessibles au public afin de générer des scores SEO, des avertissements, des recommandations, des rapports, des résultats techniques ou d'autres éléments demandés.",
+            "Il vous appartient de veiller à ce que votre utilisation de LifeSeos et de toute URL ou de tout contenu que vous soumettez soit conforme au droit applicable et ne porte pas atteinte aux droits de tiers."
+          ]
+        },
+        "s6": {
+          "title": "Résultats et recommandations SEO",
+          "paragraphs": [
+            "Les scores SEO, recommandations, rapports, guides et autres informations fournis par LifeSeos sont destinés à des fins informatives et éducatives.",
+            "Les résultats automatisés reposent sur les informations dont disposait l'outil au moment de l'analyse et doivent être examinés en contexte.",
+            "Les algorithmes des moteurs de recherche, les systèmes de classement, les normes techniques et les bonnes pratiques peuvent évoluer avec le temps. LifeSeos ne garantit pas que le fait de suivre une recommandation quelconque entraînera un meilleur classement, un trafic accru, une indexation, des revenus, des conversions ou tout autre résultat spécifique.",
+            "Il vous appartient de décider si une recommandation est appropriée pour votre site web avant de la mettre en œuvre."
+          ]
+        },
+        "s7": {
+          "title": "Contenu éducatif",
+          "paragraphs": [
+            "LifeSeos peut publier des articles, des guides, des explications, des exemples et d'autres contenus éducatifs relatifs au SEO, aux sites web, à l'optimisation de contenu, aux performances techniques et à des sujets connexes.",
+            "Ce contenu est fourni à des fins d'information générale et peut ne pas s'appliquer à chaque site web, environnement technique ou situation.",
+            "Bien que nous nous efforcions de maintenir les informations importantes utiles et à jour, nous ne garantissons pas que l'ensemble du contenu sera toujours complet, exempt d'erreurs ou immédiatement mis à jour à la suite de modifications des moteurs de recherche, des plateformes tierces, des technologies ou des pratiques du secteur."
+          ]
+        },
+        "s8": {
+          "title": "Rapports enregistrés",
+          "paragraphs": [
+            "Si vous êtes connecté, LifeSeos peut permettre l'enregistrement des rapports SEO ou des résultats d'analyse pris en charge sur votre compte.",
+            "Les rapports enregistrés peuvent inclure les URL des sites web, les scores SEO, les notes, les statuts, les recommandations, les dates de création et les données d'analyse associées.",
+            "LifeSeos peut modifier, améliorer, limiter ou supprimer les fonctionnalités liées aux rapports au fur et à mesure de l'évolution du service.",
+            "Vous ne devez pas considérer LifeSeos comme le seul lieu de stockage des informations qui vous sont importantes."
+          ]
+        },
+        "s9": {
+          "title": "Activités interdites",
+          "paragraphs": [
+            "Vous ne pouvez pas utiliser LifeSeos pour vous livrer à des activités illicites, abusives, nuisibles, frauduleuses ou destinées à perturber ou à détourner le service."
+          ],
+          "bullets": [
+            "Tenter de contourner les protections de sécurité ou les contrôles d'accès.",
+            "Introduire des logiciels malveillants, du code malveillant ou un trafic automatisé nuisible.",
+            "Utiliser le service pour porter atteinte aux droits d'une autre personne ou organisation.",
+            "Tenter de surcharger, d'extraire de manière excessive, de sonder ou de perturber les systèmes de LifeSeos.",
+            "Utiliser LifeSeos à des fins frauduleuses, trompeuses, abusives ou illicites.",
+            "Tenter de faire de l'ingénierie inverse, d'interférer avec les parties protégées du service ou d'y accéder sans autorisation lorsque la loi l'interdit."
+          ]
+        },
+        "s10": {
+          "title": "Propriété intellectuelle",
+          "paragraphs": [
+            "Le nom LifeSeos, l'image de marque, la conception du site web, les logiciels, les interfaces, le contenu écrit original, les graphiques et autres éléments originaux sont protégés par les lois applicables en matière de propriété intellectuelle.",
+            "Les présentes Conditions ne vous confèrent aucun droit de propriété sur LifeSeos ou sur tout droit de propriété intellectuelle associé au service.",
+            "Vous pouvez utiliser les outils LifeSeos accessibles au public aux fins prévues, mais vous ne pouvez pas copier, reproduire, republier ou distribuer les éléments protégés de LifeSeos, sauf lorsque la loi l'autorise ou avec une autorisation appropriée."
+          ]
+        },
+        "s11": {
+          "title": "Services tiers",
+          "paragraphs": [
+            "LifeSeos peut s'appuyer sur des prestataires tiers pour des services tels que l'hébergement, le déploiement, l'authentification, les bases de données, l'analyse, la publicité, la sécurité, la mesure des performances ou d'autres fonctions techniques.",
+            "Les services tiers peuvent fonctionner selon leurs propres conditions, politiques et pratiques de confidentialité.",
+            "LifeSeos n'est pas responsable de la disponibilité, de la sécurité, du contenu, des produits, des services ou des politiques des sites web ou services tiers qui échappent à notre contrôle raisonnable."
+          ]
+        },
+        "s12": {
+          "title": "Publicité",
+          "paragraphs": [
+            "LifeSeos peut afficher des publicités ou faire appel à des services publicitaires tiers, y compris des services fournis par Google ou d'autres partenaires publicitaires.",
+            "Les publicités, liens ou références à des produits ou services tiers ne constituent pas nécessairement une approbation de la part de LifeSeos.",
+            "Votre interaction avec un annonceur ou un service tiers s'établit entre vous et ce tiers et peut être soumise à des conditions et pratiques de confidentialité distinctes."
+          ]
+        },
+        "s13": {
+          "title": "Disponibilité du service",
+          "paragraphs": [
+            "Nous nous efforçons de maintenir LifeSeos disponible et fiable, mais nous ne garantissons pas un fonctionnement ininterrompu, continu, sécurisé ou exempt d'erreurs.",
+            "Le service peut occasionnellement être indisponible en raison de la maintenance, de problèmes techniques, de mises à jour, de problèmes de sécurité, de défaillances d'infrastructure, de services tiers ou d'événements indépendants de notre volonté."
+          ]
+        },
+        "s14": {
+          "title": "Modifications du service",
+          "paragraphs": [
+            "LifeSeos peut ajouter, modifier, remplacer, restreindre ou supprimer des outils, fonctionnalités, contenus ou services à tout moment au fur et à mesure du développement du produit.",
+            "Nous pouvons également modifier les limites d'utilisation ou les exigences techniques lorsqu'il est raisonnablement nécessaire pour des raisons de sécurité, de performance, de fiabilité, de prévention des abus ou de développement du service."
+          ]
+        },
+        "s15": {
+          "title": "Avertissement",
+          "paragraphs": [
+            "LifeSeos est fourni «\u00A0en l'état\u00A0» et «\u00A0selon disponibilité\u00A0».",
+            "Dans la mesure permise par la loi, nous n'offrons aucune garantie quant à l'exactitude, l'exhaustivité, la fiabilité, la disponibilité, l'actualité, l'efficacité ou l'adéquation des résultats d'analyse SEO, des recommandations, du contenu éducatif ou des autres informations fournies via le service.",
+            "LifeSeos ne fournit pas de conseils juridiques, financiers, fiscaux ou autres conseils professionnels réglementés. Il vous appartient d'évaluer les informations et recommandations avant d'agir sur leur fondement."
+          ]
+        },
+        "s16": {
+          "title": "Limitation de responsabilité",
+          "paragraphs": [
+            "Dans la mesure permise par le droit applicable, LifeSeos et ses exploitants ne sauraient être tenus responsables des dommages indirects, accessoires, consécutifs, spéciaux, exemplaires ou similaires résultant de votre utilisation ou de votre impossibilité d'utiliser le service.",
+            "Cela inclut les pertes liées aux performances d'un site web, au classement dans les moteurs de recherche, à l'indexation, au trafic, aux revenus, aux conversions, aux données, aux opportunités commerciales, aux services tiers ou à d'autres résultats.",
+            "Aucune disposition des présentes Conditions n'exclut ou ne limite la responsabilité lorsque cette exclusion ou limitation est interdite par le droit applicable."
+          ]
+        },
+        "s17": {
+          "title": "Suspension ou résiliation du compte",
+          "paragraphs": [
+            "Nous pouvons restreindre, suspendre ou résilier l'accès à LifeSeos lorsqu'il est raisonnablement nécessaire de protéger le service, les utilisateurs, les tiers ou nos systèmes.",
+            "Cela peut inclure les cas impliquant un usage abusif, un abus, des menaces de sécurité, une activité frauduleuse, une activité illicite ou des violations graves ou répétées des présentes Conditions."
+          ]
+        },
+        "s18": {
+          "title": "Confidentialité",
+          "paragraphs": [
+            "Votre utilisation de LifeSeos est également soumise à notre Politique de confidentialité, qui explique comment les informations peuvent être collectées, utilisées, traitées, partagées et stockées."
+          ]
+        },
+        "s19": {
+          "title": "Modifications des présentes Conditions",
+          "paragraphs": [
+            "Nous pouvons mettre à jour les présentes Conditions de temps à autre, à mesure que LifeSeos se développe ou lorsque des exigences juridiques, techniques, opérationnelles ou commerciales évoluent.",
+            "Les Conditions mises à jour seront publiées sur cette page avec une date d'entrée en vigueur révisée.",
+            "Votre utilisation continue de LifeSeos après l'entrée en vigueur des Conditions mises à jour peut constituer une acceptation de ces Conditions mises à jour dans la mesure permise par le droit applicable."
+          ]
+        },
+        "s20": {
+          "title": "Contact",
+          "paragraphs": [
+            "Si vous avez des questions concernant les présentes Conditions d'utilisation, vous pouvez contacter LifeSeos par les moyens de contact indiqués sur le site web."
+          ]
+        }
+      }
+    },
+    "cta": {
+      "eyebrow": "LifeSeos",
+      "title": "Des outils et des ressources SEO concrets",
+      "body": "Analysez des sites web, examinez les signaux SEO, utilisez des outils pratiques et approfondissez vos connaissances grâce à nos guides éducatifs.",
+      "button": "Explorer les outils"
+    },
+    "authoritative": "La présente traduction est fournie à titre de commodité. La version anglaise constitue le texte juridique faisant foi.",
+    "legalNoticeTitle": "Avis linguistique"
+  }
+}
