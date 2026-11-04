@@ -1,11 +1,16 @@
-import { defineRouting } from "next-intl/routing";
-
-export const routing = defineRouting({
-  locales: ["en", "ar", "fr", "zh"],
-  defaultLocale: "en",
-  // English keeps its current URLs (/tools/...). Others get /ar, /fr, /zh.
-  localePrefix: "as-needed",
-  // No Accept-Language redirects: URLs stay stable for users and crawlers.
-  localeDetection: false,
-  localeCookie: false,
-});
+/**
+ * `routing` and all locale metadata live in ./config so there is exactly one
+ * place to add or change a language. This file stays for compatibility with
+ * existing imports.
+ */
+export {
+  routing,
+  locales,
+  defaultLocale,
+  localeMeta,
+  localeList,
+  isLocale,
+  localizePath,
+  buildLanguageAlternates,
+} from "./config";
+export type { Locale, LocaleMeta } from "./config";

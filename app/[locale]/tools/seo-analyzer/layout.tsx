@@ -1,41 +1,5 @@
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "SEO Analyzer - Free Website SEO Audit Tool",
-
-  description:
-    "Analyze your website SEO performance, technical issues, content signals, image SEO, social metadata, warnings and recommendations with the free LifeSeos SEO Analyzer.",
-
-  alternates: {
-    canonical: "/tools/seo-analyzer",
-  },
-
-  openGraph: {
-    title: "SEO Analyzer - Free Website SEO Audit Tool | LifeSeos",
-    description:
-      "Run a free SEO audit and discover technical issues, content problems, image SEO gaps and optimization opportunities.",
-    url: "/tools/seo-analyzer",
-    type: "website",
-    siteName: "LifeSeos",
-    images: [
-      {
-        url: "/social/seo-analyzer.png",
-        width: 1200,
-        height: 630,
-        alt: "LifeSeos SEO Analyzer",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "SEO Analyzer - Free Website SEO Audit Tool | LifeSeos",
-    description:
-      "Run a free SEO audit and discover technical issues, content problems, image SEO gaps and optimization opportunities.",
-    images: ["/social/seo-analyzer.png"],
-  },
-};
-
+// Localized <head> metadata lives in page.tsx (generateMetadata).
+// This layout only adds the WebApplication structured data.
 const seoAnalyzerJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
@@ -57,6 +21,10 @@ const seoAnalyzerJsonLd = {
   },
 };
 
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.lifeseos.com"
+).replace(/\/+$/, "");
+
 export default async function SEOAnalyzerLayout({
   children,
   params,
@@ -65,24 +33,19 @@ export default async function SEOAnalyzerLayout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
+
   const jsonLd = {
     ...seoAnalyzerJsonLd,
     inLanguage: locale,
-    url:
-      locale === "en"
-        ? seoAnalyzerJsonLd.url
-        : "https://www.lifeseos.com/" + locale + "/tools/seo-analyzer",
+    url: `${siteUrl}${locale === "en" ? "" : `/${locale}`}/tools/seo-analyzer`,
   };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-
       {children}
     </>
   );

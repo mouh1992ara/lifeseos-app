@@ -1,0 +1,21 @@
+{
+  "NotFound": {
+    "meta": {
+      "title": "الصفحة غير موجودة"
+    },
+    "badge": "404",
+    "badgeLabel": "الصفحة غير موجودة",
+    "titleLine1": "هل ضللت الطريق في",
+    "titleAccent": "نتائج البحث؟",
+    "body": "الصفحة التي تبحث عنها غير موجودة، أو ربما نُقلت، أو أن الرابط غير صحيح.",
+    "backHome": "العودة للرئيسية",
+    "exploreTools": "استكشف الأدوات",
+    "dashboard": "لوحة التحكم",
+    "quickAnalyzerTitle": "محلّل SEO",
+    "quickAnalyzerBody": "شغّل تدقيق SEO لموقع.",
+    "quickAboutTitle": "من نحن",
+    "quickAboutBody": "اعرف المزيد عن LifeSeos.",
+    "quickContactTitle": "الاتصال",
+    "quickContactBody": "احصل على مساعدة أو أرسل ملاحظات."
+  }
+}

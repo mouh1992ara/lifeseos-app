@@ -1,0 +1,208 @@
+{
+  "Dashboard": {
+    "badge": "لوحة تحكم LifeSeos",
+    "welcome": "مرحبًا بعودتك",
+    "signedInAs": "مسجّل الدخول باسم",
+    "newAnalysis": "تحليل SEO جديد",
+    "loadError": "تعذّر تحميل تقارير SEO الخاصة بك.",
+    "stats": {
+      "totalAudits": "إجمالي عمليات التدقيق",
+      "totalAuditsBody": "تقارير SEO المحفوظة في حسابك",
+      "averageScore": "متوسط الدرجة",
+      "averageScoreBody": "متوسط الدرجات في جميع عمليات التدقيق",
+      "bestScore": "أفضل درجة",
+      "bestScoreBody": "أعلى درجة SEO تم تسجيلها",
+      "websites": "المواقع التي تم تحليلها",
+      "websitesBody": "روابط URL الفريدة في سجل التدقيق"
+    },
+    "latest": {
+      "badge": "أحدث تدقيق",
+      "title": "أحدث تحليل SEO أجريته",
+      "body": "راجع أحدث درجة لموقعك وحالته وتفاصيل التقرير، أو أجرِ تدقيقًا آخر لمتابعة التحسينات.",
+      "website": "الموقع",
+      "viewReport": "عرض أحدث تقرير",
+      "runNew": "إجراء تحليل جديد",
+      "score": "درجة SEO",
+      "outOf100": "من 100",
+      "grade": "التقدير",
+      "gradeHint": "تقدير التدقيق الحالي",
+      "status": "الحالة",
+      "statusUnknown": "غير معروفة",
+      "changeUp": "+{change} مقارنةً بالسابق",
+      "changeDown": "{change} مقارنةً بالسابق",
+      "noChange": "لا تغيير في الدرجة"
+    },
+    "history": {
+      "eyebrow": "سجل SEO",
+      "title": "التقارير الأخيرة",
+      "count": "{count, plural, =0 {لا توجد تقارير} one {تقرير واحد} two {تقريران} few {# تقارير} many {# تقريرًا} other {# تقرير}}"
+    },
+    "empty": {
+      "title": "لا توجد تقارير SEO بعد",
+      "body": "أجرِ أول تحليل SEO وسيظهر التقرير هنا تلقائيًا.",
+      "cta": "حلّل الموقع"
+    },
+    "table": {
+      "website": "الموقع",
+      "score": "الدرجة",
+      "grade": "التقدير",
+      "status": "الحالة",
+      "date": "التاريخ",
+      "report": "التقرير",
+      "viewReport": "عرض التقرير"
+    },
+    "account": {
+      "eyebrow": "الحساب",
+      "title": "معلومات الحساب",
+      "email": "البريد الإلكتروني"
+    },
+    "report": {
+      "back": "العودة إلى لوحة التحكم",
+      "analyzedOn": "تاريخ التحليل",
+      "eyebrow": "تقرير SEO محفوظ",
+      "title": "تقرير تدقيق SEO",
+      "intro": "هذا تحليل SEO محفوظ من حسابك في LifeSeos. راجع إشارات SEO والتحذيرات والأخطاء والتوصيات المكتشفة أدناه.",
+      "website": "الموقع",
+      "gradeLabel": "التقدير",
+      "statusUnknown": "غير معروفة",
+      "score": "درجة SEO",
+      "outOf100": "من 100",
+      "fields": {
+        "pageTitle": "عنوان الصفحة",
+        "h1": "عنوان H1",
+        "canonical": "الرابط الأساسي",
+        "robots": "وسم Robots",
+        "noTitle": "لم يتم العثور على عنوان",
+        "noH1": "لم يتم العثور على H1",
+        "noDescription": "لم يتم العثور على وصف",
+        "notFound": "غير موجود"
+      },
+      "labels": {
+        "title": "العنوان",
+        "metaDescription": "الوصف التعريفي",
+        "h1": "H1",
+        "canonicalUrl": "الرابط الأساسي",
+        "robotsMeta": "وسم Robots",
+        "totalImages": "إجمالي الصور",
+        "missingAlt": "صور بدون ALT",
+        "ogTitle": "عنوان Open Graph",
+        "ogDescription": "وصف Open Graph"
+      },
+      "sections": {
+        "contentSeo": "SEO المحتوى",
+        "contentSeoBody": "البيانات الوصفية وإشارات المحتوى المهمة.",
+        "imageSeo": "SEO الصور",
+        "imageSeoBody": "إمكانية الوصول إلى الصور ومعلومات ALT.",
+        "socialSeo": "SEO التواصل الاجتماعي",
+        "socialSeoBody": "معلومات Open Graph المكتشفة أثناء التحليل.",
+        "technicalSeo": "SEO التقني",
+        "technicalSeoBody": "الإشارات التقنية للصفحة المحفوظة مع هذا التقرير."
+      },
+      "passed": "الفحوصات الناجحة",
+      "warnings": "التحذيرات",
+      "errors": "الأخطاء",
+      "items": "{count, plural, =0 {لا عناصر} one {عنصر واحد} two {عنصران} few {# عناصر} many {# عنصرًا} other {# عنصر}}",
+      "noPassed": "لا توجد فحوصات ناجحة محفوظة.",
+      "noWarnings": "لا توجد تحذيرات محفوظة.",
+      "noErrors": "لا توجد أخطاء محفوظة.",
+      "actionPlan": "خطة العمل",
+      "recommendations": "التوصيات",
+      "improvement": "تحسين SEO",
+      "noRecommendations": "لم يتم حفظ أي توصيات لهذا التقرير.",
+      "newAnalysis": "تحليل SEO جديد"
+    }
+  },
+  "Admin": {
+    "eyebrow": "لوحة إدارة LifeSeos",
+    "title": "لوحة تحكم المسؤول",
+    "subtitle": "إدارة المستخدمين والتقارير ونشاط الأدوات وبيانات الموقع.",
+    "stats": {
+      "totalUsers": "إجمالي المستخدمين",
+      "seoReports": "تقارير SEO",
+      "toolUses": "استخدامات الأدوات",
+      "messages": "الرسائل"
+    },
+    "users": {
+      "title": "المستخدمون",
+      "subtitle": "مستخدمو LifeSeos المسجّلون، مرتّبون حسب آخر تسجيل دخول.",
+      "newToday": "جديد اليوم",
+      "last7Days": "آخر 7 أيام",
+      "thisMonth": "هذا الشهر",
+      "confirmed": "مؤكد",
+      "unconfirmed": "غير مؤكد"
+    },
+    "table": {
+      "email": "البريد الإلكتروني",
+      "created": "تاريخ الإنشاء",
+      "lastSignIn": "آخر تسجيل دخول",
+      "emailStatus": "حالة البريد الإلكتروني",
+      "userId": "معرّف المستخدم",
+      "noUsers": "لم يتم العثور على مستخدمين."
+    },
+    "liveVisitors": {
+      "title": "الزوار المباشرون",
+      "live": "مباشر",
+      "subtitle": "الزوار المتصلون حاليًا بـ LifeSeos.",
+      "onlineNow": "متصلون الآن",
+      "registered": "مسجّلون",
+      "guests": "زوار",
+      "listTitle": "الزوار المتصلون",
+      "listSubtitle": "نوع الزائر الحالي والصفحة ووقت بدء الجلسة.",
+      "user": "المستخدم",
+      "type": "النوع",
+      "currentPage": "الصفحة الحالية",
+      "onlineSince": "متصل منذ",
+      "empty": "لا يوجد زوار متصلون الآن.",
+      "registeredUser": "مستخدم مسجّل",
+      "guest": "زائر"
+    },
+    "geo": {
+      "title": "جغرافيا الزوار",
+      "subtitle": "زيارات الصفحات مصنّفة حسب بلد الزائر.",
+      "totalVisits": "إجمالي زيارات الصفحات",
+      "countries": "الدول",
+      "visitsToday": "زيارات اليوم",
+      "unknownLocation": "موقع غير معروف",
+      "unknownCountry": "غير معروف",
+      "topCountries": "أعلى الدول",
+      "topCountriesBody": "الدول مرتّبة حسب زيارات الصفحات المسجّلة.",
+      "noData": "لا توجد بيانات جغرافيا الزوار بعد.",
+      "table": {
+        "country": "الدولة",
+        "code": "الرمز",
+        "visits": "الزيارات",
+        "share": "النسبة",
+        "lastVisit": "آخر زيارة"
+      }
+    },
+    "tools": {
+      "title": "نشاط الأدوات",
+      "subtitle": "نشاط الاستخدام عبر أدوات LifeSeos.",
+      "totalUses": "إجمالي استخدامات الأدوات",
+      "registeredUsers": "المستخدمون المسجّلون",
+      "guestUses": "استخدامات الزوار",
+      "performance": "أداء الأدوات",
+      "performanceBody": "إجماليات الاستخدام حسب الأداة.",
+      "noActivity": "لا يوجد نشاط أدوات بعد.",
+      "table": {
+        "tool": "الأداة",
+        "totalUses": "إجمالي الاستخدامات",
+        "registered": "مسجّل",
+        "guests": "زوار",
+        "lastUsed": "آخر استخدام"
+      },
+      "recentTitle": "نشاط الأدوات الأخير",
+      "recentSubtitle": "أحدث أحداث استخدام الأدوات.",
+      "noRecent": "لا يوجد نشاط أدوات حديث.",
+      "recentTable": {
+        "tool": "الأداة",
+        "user": "المستخدم",
+        "type": "النوع",
+        "date": "التاريخ"
+      },
+      "guest": "زائر",
+      "registered": "مسجّل",
+      "unknownUser": "مستخدم غير معروف"
+    }
+  }
+}

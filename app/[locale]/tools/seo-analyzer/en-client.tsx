@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import {
   FormEvent,
   useEffect,
@@ -11,7 +12,7 @@ import {
 
 import ShareTool from "@/components/share-tool";
 import { createClient } from "@/lib/supabase/client";
-import { getFixLink } from "@/lib/fix-links";
+import { getFixLink, type FixLang } from "@/lib/fix-links";
 
 type SEOResult = {
   url?: string;
@@ -52,7 +53,28 @@ type AuditCheck = {
   status: CheckStatus;
 };
 
+// The analyzer API returns these English placeholders when a value is absent.
+const MISSING_VALUES = new Set([
+  "Not found",
+  "No title found",
+  "No description found",
+  "No H1 found",
+]);
+
+function isMissing(value: string | undefined) {
+  return !value || MISSING_VALUES.has(value.trim());
+}
+
+const STEP_IDS = ["1", "2", "3", "4"] as const;
+const BENEFIT_IDS = ["1", "2", "3", "4"] as const;
+
 export default function SEOAnalyzerPage() {
+  const t = useTranslations("Tool.seoAnalyzer");
+  const tc = useTranslations("Tools.catalog");
+  const tCommon = useTranslations("Common");
+  const tErr = useTranslations("Errors");
+  const locale = useLocale();
+
   const initialUrlHandledRef = useRef(false);
 
   const [url, setUrl] = useState("");
@@ -140,9 +162,7 @@ export default function SEOAnalyzerPage() {
       (overrideUrl ?? url).trim();
 
     if (!cleanUrl) {
-      setError(
-        "Please enter a website URL."
-      );
+      setError(tErr("urlRequired"));
       return;
     }
 
@@ -175,7 +195,7 @@ export default function SEOAnalyzerPage() {
       if (!response.ok) {
         throw new Error(
           data.error ||
-            "Unable to analyze website."
+            t("errorFallback")
         );
       }
 
@@ -292,7 +312,7 @@ export default function SEOAnalyzerPage() {
       setError(
         err instanceof Error
           ? err.message
-          : "Unable to analyze website."
+          : t("errorFallback")
       );
     } finally {
       setLoading(false);
@@ -336,55 +356,31 @@ export default function SEOAnalyzerPage() {
       }
 
       const hasCanonical =
-        Boolean(
-          result.canonical
-        ) &&
-        result.canonical !==
-          "Not found";
+        !isMissing(result.canonical);
 
       const hasRobots =
-        Boolean(
-          result.robots
-        ) &&
-        result.robots !==
-          "Not found";
+        !isMissing(result.robots);
 
       const hasH1 =
-        Boolean(result.h1) &&
-        result.h1 !==
-          "No H1 found";
+        !isMissing(result.h1);
 
       const hasDescription =
-        Boolean(
-          result.description
-        ) &&
-        result.description !==
-          "No description found";
+        !isMissing(result.description);
 
       const hasTitle =
-        Boolean(
-          result.title
-        ) &&
-        result.title !==
-          "No title found";
+        !isMissing(result.title);
 
       const hasOgTitle =
-        Boolean(
+        !isMissing(
           result.social
             ?.ogTitle
-        ) &&
-        result.social
-          ?.ogTitle !==
-          "Not found";
+        );
 
       const hasOgDescription =
-        Boolean(
+        !isMissing(
           result.social
             ?.ogDescription
-        ) &&
-        result.social
-          ?.ogDescription !==
-          "Not found";
+        );
 
       const technicalValues = [
         hasCanonical
@@ -504,36 +500,6 @@ export default function SEOAnalyzerPage() {
         return [];
       }
 
-      const title =
-        result.title ||
-        "No title found";
-
-      const description =
-        result.description ||
-        "No description found";
-
-      const h1 =
-        result.h1 ||
-        "No H1 found";
-
-      const canonical =
-        result.canonical ||
-        "Not found";
-
-      const robots =
-        result.robots ||
-        "Not found";
-
-      const ogTitle =
-        result.social
-          ?.ogTitle ||
-        "Not found";
-
-      const ogDescription =
-        result.social
-          ?.ogDescription ||
-        "Not found";
-
       const totalImages =
         result.images
           ?.total ?? 0;
@@ -545,83 +511,91 @@ export default function SEOAnalyzerPage() {
       return [
         {
           label:
-            "Page Title",
+            t("checkPageTitle"),
 
           value:
-            title,
+            isMissing(result.title)
+              ? t("noTitle")
+              : result.title!,
 
           status:
-            title !==
-            "No title found"
+            !isMissing(result.title)
               ? "good"
               : "error",
         },
 
         {
           label:
-            "Meta Description",
+            t("metaDescription"),
 
           value:
-            description,
+            isMissing(result.description)
+              ? t("noDescription")
+              : result.description!,
 
           status:
-            description !==
-            "No description found"
+            !isMissing(result.description)
               ? "good"
               : "error",
         },
 
         {
           label:
-            "H1 Heading",
+            t("checkH1"),
 
           value:
-            h1,
+            isMissing(result.h1)
+              ? t("noH1")
+              : result.h1!,
 
           status:
-            h1 !==
-            "No H1 found"
+            !isMissing(result.h1)
               ? "good"
               : "error",
         },
 
         {
           label:
-            "Canonical URL",
+            t("canonical"),
 
           value:
-            canonical,
+            isMissing(result.canonical)
+              ? t("notFound")
+              : result.canonical!,
 
           status:
-            canonical !==
-            "Not found"
+            !isMissing(result.canonical)
               ? "good"
               : "warning",
         },
 
         {
           label:
-            "Robots Meta",
+            t("robotsMeta"),
 
           value:
-            robots,
+            isMissing(result.robots)
+              ? t("notFound")
+              : result.robots!,
 
           status:
-            robots !==
-            "Not found"
+            !isMissing(result.robots)
               ? "good"
               : "warning",
         },
 
         {
           label:
-            "Image ALT",
+            t("checkImageAlt"),
 
           value:
             totalImages ===
             0
-              ? "No images detected"
-              : `${missingAlt} missing ALT out of ${totalImages}`,
+              ? t("noImages")
+              : t("imageAltMissing", {
+                  missing: missingAlt,
+                  total: totalImages,
+                }),
 
           status:
             totalImages ===
@@ -635,33 +609,47 @@ export default function SEOAnalyzerPage() {
 
         {
           label:
-            "Open Graph Title",
+            t("checkOgTitle"),
 
           value:
-            ogTitle,
+            isMissing(
+              result.social
+                ?.ogTitle
+            )
+              ? t("notFound")
+              : result.social!.ogTitle!,
 
           status:
-            ogTitle !==
-            "Not found"
+            !isMissing(
+              result.social
+                ?.ogTitle
+            )
               ? "good"
               : "warning",
         },
 
         {
           label:
-            "Open Graph Description",
+            t("checkOgDescription"),
 
           value:
-            ogDescription,
+            isMissing(
+              result.social
+                ?.ogDescription
+            )
+              ? t("notFound")
+              : result.social!.ogDescription!,
 
           status:
-            ogDescription !==
-            "Not found"
+            !isMissing(
+              result.social
+                ?.ogDescription
+            )
               ? "good"
               : "warning",
         },
       ];
-    }, [result]);
+    }, [result, t]);
 
   const derivedPassed =
     useMemo(() => {
@@ -685,11 +673,14 @@ export default function SEOAnalyzerPage() {
         )
         .map(
           (check) =>
-            `${check.label} passed`
+            t("checkPassed", {
+              label: check.label,
+            })
         );
     }, [
       result,
       auditChecks,
+      t,
     ]);
 
   const derivedErrors =
@@ -714,11 +705,14 @@ export default function SEOAnalyzerPage() {
         )
         .map(
           (check) =>
-            `${check.label} needs attention`
+            t("checkNeedsAttention", {
+              label: check.label,
+            })
         );
     }, [
       result,
       auditChecks,
+      t,
     ]);
 
   const derivedWarnings =
@@ -743,11 +737,14 @@ export default function SEOAnalyzerPage() {
         )
         .map(
           (check) =>
-            `${check.label} should be improved`
+            t("checkImprove", {
+              label: check.label,
+            })
         );
     }, [
       result,
       auditChecks,
+      t,
     ]);
 
   const grade =
@@ -770,38 +767,36 @@ export default function SEOAnalyzerPage() {
         <div className="mx-auto max-w-4xl text-center print:hidden">
 
           <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-300">
-            <span>⌕</span>
+            <span aria-hidden="true">⌕</span>
 
             <span>
-              LifeSeos SEO Analyzer
+              {t("badge")}
             </span>
           </div>
 
           <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Free Website SEO Analyzer
+            {t("titleLine1")}
 
             <span className="mt-2 block bg-gradient-to-r from-blue-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
-              Run a Website SEO Audit
+              {t("titleAccent")}
             </span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
-            Use the free LifeSeos website SEO analyzer to
-            audit technical SEO, on-page content, metadata,
-            images and social sharing signals. Review your
-            SEO score, find issues and get actionable
-            recommendations to improve your website.
+            {t("subtitle")}
           </p>
 
-          <Link
-            href="/ar/tools/seo-analyzer"
-            hrefLang="ar"
-            lang="ar"
-            className="mt-5 inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-300 transition hover:border-emerald-300/50 hover:bg-emerald-400/20"
-          >
-            <span aria-hidden="true">🌐</span>
-            <span>جرّب الأداة بالعربية</span>
-          </Link>
+          {locale !== "ar" && (
+            <Link
+              href="/ar/tools/seo-analyzer"
+              hrefLang="ar"
+              lang="ar"
+              className="mt-5 inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-300 transition hover:border-emerald-300/50 hover:bg-emerald-400/20"
+            >
+              <span aria-hidden="true">🌐</span>
+              <span>{t("arabicLink")}</span>
+            </Link>
+          )}
 
         </div>
 
@@ -824,7 +819,7 @@ export default function SEOAnalyzerPage() {
   inputMode="url"
   autoCapitalize="none"
   spellCheck={false}
-  aria-label="Website URL"
+  aria-label={tCommon("urlLabel")}
   value={url}
   onChange={(
     event
@@ -834,8 +829,9 @@ export default function SEOAnalyzerPage() {
         .value
     )
   }
-  placeholder="https://example.com"
-  className="w-full bg-transparent py-4 text-sm text-white outline-none placeholder:text-slate-600 sm:text-base"
+  placeholder={tCommon("urlPlaceholder")}
+  dir="ltr"
+  className="w-full bg-transparent py-4 text-start text-sm text-white outline-none placeholder:text-slate-600 sm:text-base"
 />
 
           </div>
@@ -847,7 +843,7 @@ export default function SEOAnalyzerPage() {
             className="inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-500 via-violet-500 to-fuchsia-500 px-7 font-semibold text-white shadow-lg shadow-violet-950/30 transition hover:-translate-y-0.5 hover:shadow-violet-900/40 disabled:cursor-not-allowed disabled:opacity-60"
           >
 
-            <span>
+            <span aria-hidden="true">
               {loading
                 ? "◌"
                 : "⌕"}
@@ -855,8 +851,8 @@ export default function SEOAnalyzerPage() {
 
             <span>
               {loading
-                ? "Analyzing..."
-                : "Analyze"}
+                ? t("submitLoading")
+                : t("submit")}
             </span>
 
           </button>
@@ -866,7 +862,7 @@ export default function SEOAnalyzerPage() {
 
         {error && (
 
-          <div className="mx-auto mt-5 max-w-4xl rounded-2xl border border-red-400/20 bg-red-400/10 px-5 py-4 text-sm text-red-300 print:hidden">
+          <div className="mx-auto mt-5 max-w-4xl rounded-2xl border border-red-400/20 bg-red-400/10 px-5 py-4 text-sm text-red-300 print:hidden" role="alert">
             {error}
           </div>
 
@@ -903,6 +899,8 @@ export default function SEOAnalyzerPage() {
                     score={
                       animatedScore
                     }
+                    label={t("scoreLabel")}
+                    outOf={t("scoreOutOf")}
                   />
 
                 </div>
@@ -924,22 +922,19 @@ export default function SEOAnalyzerPage() {
 
 
                     <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-slate-300">
-                      Grade {grade}
+                      {t("grade", { grade })}
                     </span>
 
                   </div>
 
 
                   <h2 className="mt-5 text-2xl font-bold sm:text-3xl">
-                    SEO Audit Overview
+                    {t("overviewTitle")}
                   </h2>
 
 
                   <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">
-                    This score summarizes the SEO checks
-                    currently supported by LifeSeos.
-                    Review each category below to see
-                    where improvements are needed.
+                    {t("overviewBody")}
                   </p>
 
 
@@ -947,11 +942,11 @@ export default function SEOAnalyzerPage() {
 
                     <div className="mt-5 rounded-2xl border border-white/5 bg-black/10 px-4 py-3 text-sm text-slate-400">
 
-                      <span className="mr-2 text-slate-500">
-                        URL
+                      <span className="me-2 text-slate-500" data-ltr-text>
+                        {t("urlInline")}
                       </span>
 
-                      <span className="break-all text-slate-200">
+                      <span className="break-all text-slate-200" data-ltr-text>
                         {
                           result.url
                         }
@@ -972,44 +967,44 @@ export default function SEOAnalyzerPage() {
 
               <MetricCard
                 icon="⚙"
-                title="Technical SEO"
+                title={t("metricTechnical")}
                 value={
                   metrics.technical
                 }
-                description="Core technical signals"
+                description={t("metricTechnicalDesc")}
                 accent="blue"
               />
 
 
               <MetricCard
                 icon="▤"
-                title="Content SEO"
+                title={t("metricContent")}
                 value={
                   metrics.content
                 }
-                description="Page content structure"
+                description={t("metricContentDesc")}
                 accent="emerald"
               />
 
 
               <MetricCard
                 icon="▣"
-                title="Image SEO"
+                title={t("metricImages")}
                 value={
                   metrics.images
                 }
-                description="Image accessibility"
+                description={t("metricImagesDesc")}
                 accent="violet"
               />
 
 
               <MetricCard
                 icon="◎"
-                title="Social SEO"
+                title={t("metricSocial")}
                 value={
                   metrics.social
                 }
-                description="Open Graph metadata"
+                description={t("metricSocialDesc")}
                 accent="pink"
               />
 
@@ -1020,17 +1015,17 @@ export default function SEOAnalyzerPage() {
 
               <AuditPanel
                 icon="⚙"
-                title="Technical SEO"
-                subtitle="Technical signals that help search engines understand your page."
+                title={t("metricTechnical")}
+                subtitle={t("panelTechnicalSubtitle")}
                 accentClass="text-blue-300"
               >
 
                 <ProgressRow
-                  label="Canonical URL"
+                  label={t("canonical")}
                   value={
-                    result.canonical &&
-                    result.canonical !==
-                      "Not found"
+                    !isMissing(
+                      result.canonical
+                    )
                       ? 100
                       : 0
                   }
@@ -1038,11 +1033,9 @@ export default function SEOAnalyzerPage() {
 
 
                 <ProgressRow
-                  label="H1 Structure"
+                  label={t("h1Structure")}
                   value={
-                    result.h1 &&
-                    result.h1 !==
-                      "No H1 found"
+                    !isMissing(result.h1)
                       ? 100
                       : 0
                   }
@@ -1050,11 +1043,11 @@ export default function SEOAnalyzerPage() {
 
 
                 <ProgressRow
-                  label="Meta Description"
+                  label={t("metaDescription")}
                   value={
-                    result.description &&
-                    result.description !==
-                      "No description found"
+                    !isMissing(
+                      result.description
+                    )
                       ? 100
                       : 0
                   }
@@ -1062,11 +1055,11 @@ export default function SEOAnalyzerPage() {
 
 
                 <ProgressRow
-                  label="Robots Meta"
+                  label={t("robotsMeta")}
                   value={
-                    result.robots &&
-                    result.robots !==
-                      "Not found"
+                    !isMissing(
+                      result.robots
+                    )
                       ? 100
                       : 0
                   }
@@ -1077,13 +1070,13 @@ export default function SEOAnalyzerPage() {
 
               <AuditPanel
                 icon="▣"
-                title="Image SEO"
-                subtitle="Image accessibility and ALT attribute coverage."
+                title={t("metricImages")}
+                subtitle={t("panelImageSubtitle")}
                 accentClass="text-violet-300"
               >
 
                 <StatLine
-                  label="Total Images"
+                  label={t("totalImages")}
                   value={String(
                     result.images
                       ?.total ?? 0
@@ -1092,7 +1085,7 @@ export default function SEOAnalyzerPage() {
 
 
                 <StatLine
-                  label="Missing ALT"
+                  label={t("missingAlt")}
                   value={String(
                     result.images
                       ?.missingAlt ??
@@ -1102,7 +1095,7 @@ export default function SEOAnalyzerPage() {
 
 
                 <ProgressRow
-                  label="ALT Coverage"
+                  label={t("altCoverage")}
                   value={
                     metrics.images
                   }
@@ -1113,55 +1106,46 @@ export default function SEOAnalyzerPage() {
 
               <AuditPanel
                 icon="▤"
-                title="Content SEO"
-                subtitle="Important content elements visible to search engines."
+                title={t("metricContent")}
+                subtitle={t("panelContentSubtitle")}
                 accentClass="text-emerald-300"
               >
 
                 <DetailItem
-                  label="Title"
+                  label={t("titleLabel")}
                   value={
-                    result.title ||
-                    "No title found"
+                    isMissing(result.title)
+                      ? t("noTitle")
+                      : result.title!
                   }
                   good={
-                    Boolean(
-                      result.title
-                    ) &&
-                    result.title !==
-                      "No title found"
+                    !isMissing(result.title)
                   }
                 />
 
 
                 <DetailItem
-                  label="H1"
+                  label={t("h1Label")}
                   value={
-                    result.h1 ||
-                    "No H1 found"
+                    isMissing(result.h1)
+                      ? t("noH1")
+                      : result.h1!
                   }
                   good={
-                    Boolean(
-                      result.h1
-                    ) &&
-                    result.h1 !==
-                      "No H1 found"
+                    !isMissing(result.h1)
                   }
                 />
 
 
                 <DetailItem
-                  label="Meta Description"
+                  label={t("metaDescription")}
                   value={
-                    result.description ||
-                    "No description found"
+                    isMissing(result.description)
+                      ? t("noDescription")
+                      : result.description!
                   }
                   good={
-                    Boolean(
-                      result.description
-                    ) &&
-                    result.description !==
-                      "No description found"
+                    !isMissing(result.description)
                   }
                 />
 
@@ -1170,45 +1154,45 @@ export default function SEOAnalyzerPage() {
 
               <AuditPanel
                 icon="◎"
-                title="Social SEO"
-                subtitle="Metadata used when your page is shared on social platforms."
+                title={t("metricSocial")}
+                subtitle={t("panelSocialSubtitle")}
                 accentClass="text-pink-300"
               >
 
                 <DetailItem
-                  label="OG Title"
+                  label={t("ogTitle")}
                   value={
-                    result.social
-                      ?.ogTitle ||
-                    "Not found"
-                  }
-                  good={
-                    Boolean(
+                    isMissing(
                       result.social
                         ?.ogTitle
-                    ) &&
-                    result.social
-                      ?.ogTitle !==
-                      "Not found"
+                    )
+                      ? t("notFound")
+                      : result.social!.ogTitle!
+                  }
+                  good={
+                    !isMissing(
+                      result.social
+                        ?.ogTitle
+                    )
                   }
                 />
 
 
                 <DetailItem
-                  label="OG Description"
+                  label={t("ogDescription")}
                   value={
-                    result.social
-                      ?.ogDescription ||
-                    "Not found"
-                  }
-                  good={
-                    Boolean(
+                    isMissing(
                       result.social
                         ?.ogDescription
-                    ) &&
-                    result.social
-                      ?.ogDescription !==
-                      "Not found"
+                    )
+                      ? t("notFound")
+                      : result.social!.ogDescription!
+                  }
+                  good={
+                    !isMissing(
+                      result.social
+                        ?.ogDescription
+                    )
                   }
                 />
 
@@ -1224,21 +1208,20 @@ export default function SEOAnalyzerPage() {
                 <div>
 
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
-                    Audit checklist
+                    {t("checksEyebrow")}
                   </p>
 
                   <h2 className="mt-2 text-2xl font-bold">
-                    SEO Checks
+                    {t("checksTitle")}
                   </h2>
 
                 </div>
 
 
                 <div className="text-sm text-slate-500">
-                  {
-                    auditChecks.length
-                  }{" "}
-                  checks
+                  {t("checksCount", {
+                    count: auditChecks.length,
+                  })}
                 </div>
 
               </div>
@@ -1270,33 +1253,42 @@ export default function SEOAnalyzerPage() {
 
               <StatusList
                 icon="✓"
-                title="Passed"
+                title={t("passedTitle")}
                 items={
                   derivedPassed
                 }
-                emptyText="No passed checks yet."
+                emptyText={t("passedEmpty")}
+                itemsLabel={t("itemsCount", {
+                  count: derivedPassed.length,
+                })}
                 type="success"
               />
 
 
               <StatusList
                 icon="!"
-                title="Warnings"
+                title={t("warningsTitle")}
                 items={
                   derivedWarnings
                 }
-                emptyText="No warnings detected."
+                emptyText={t("warningsEmpty")}
+                itemsLabel={t("itemsCount", {
+                  count: derivedWarnings.length,
+                })}
                 type="warning"
               />
 
 
               <StatusList
                 icon="×"
-                title="Errors"
+                title={t("errorsTitle")}
                 items={
                   derivedErrors
                 }
-                emptyText="No critical errors detected."
+                emptyText={t("errorsEmpty")}
+                itemsLabel={t("itemsCount", {
+                  count: derivedErrors.length,
+                })}
                 type="error"
               />
 
@@ -1315,11 +1307,11 @@ export default function SEOAnalyzerPage() {
                 <div>
 
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-300/70">
-                    Action plan
+                    {t("recsEyebrow")}
                   </p>
 
                   <h2 className="mt-1 text-2xl font-bold">
-                    Recommendations
+                    {t("recsTitle")}
                   </h2>
 
                 </div>
@@ -1351,9 +1343,11 @@ export default function SEOAnalyzerPage() {
                         text={
                           item
                         }
+                        title={t("recCardTitle")}
                         fix={getFixLink(
                           item,
-                          result
+                          result,
+                          locale as FixLang
                         )}
                       />
 
@@ -1363,8 +1357,7 @@ export default function SEOAnalyzerPage() {
                 ) : (
 
                   <div className="rounded-2xl border border-emerald-400/15 bg-emerald-400/5 px-5 py-4 text-sm text-emerald-300">
-                    No recommendations at this time.
-                    The analyzed checks look good.
+                    {t("recsEmpty")}
                   </div>
 
                 )}
@@ -1384,12 +1377,12 @@ export default function SEOAnalyzerPage() {
                 className="inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-400 px-6 py-3.5 font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-emerald-300"
               >
 
-                <span>
+                <span aria-hidden="true">
                   ⇩
                 </span>
 
                 <span>
-                  Download PDF
+                  {t("download")}
                 </span>
 
               </button>
@@ -1413,12 +1406,12 @@ export default function SEOAnalyzerPage() {
                 className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-6 py-3.5 font-semibold text-slate-300 transition hover:bg-white/10 hover:text-white"
               >
 
-                <span>
+                <span aria-hidden="true">
                   ↻
                 </span>
 
                 <span>
-                  New Analysis
+                  {t("newAnalysis")}
                 </span>
 
               </button>
@@ -1433,8 +1426,8 @@ export default function SEOAnalyzerPage() {
         <div className="print:hidden">
 
           <ShareTool
-            title="SEO Analyzer"
-            description="Analyze technical SEO, content, images and social metadata with this free LifeSeos SEO Analyzer."
+            title={tc("seoAnalyzer.title")}
+            description={t("shareBody")}
           />
 
         </div>
@@ -1451,21 +1444,15 @@ export default function SEOAnalyzerPage() {
           <div className="mx-auto max-w-3xl text-center">
 
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
-              Free Website SEO Audit
+              {t("introEyebrow")}
             </p>
 
             <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              What the LifeSeos SEO Analyzer Checks
+              {t("introTitle")}
             </h2>
 
             <p className="mt-5 text-base leading-8 text-slate-400">
-              The LifeSeos SEO Analyzer provides a free
-              website SEO audit covering important technical
-              and on-page signals. Check metadata, heading
-              structure, canonical and robots directives,
-              image ALT coverage and Open Graph metadata,
-              then use the report to identify issues and
-              prioritize SEO improvements.
+              {t("introBody")}
             </p>
 
           </div>
@@ -1475,52 +1462,52 @@ export default function SEOAnalyzerPage() {
 
             <SEOInfoCard
               icon="⚙"
-              title="Technical SEO Checks"
-              description="Review signals that help search engines crawl, understand and correctly interpret your page."
+              title={t("info.1.title")}
+              description={t("info.1.body")}
               items={[
-                "Canonical URL",
-                "Robots meta directives",
-                "H1 heading structure",
-                "Meta description",
+                t("info.1.items.1"),
+                t("info.1.items.2"),
+                t("info.1.items.3"),
+                t("info.1.items.4"),
               ]}
             />
 
 
             <SEOInfoCard
               icon="▤"
-              title="On-Page Content"
-              description="Check whether essential page elements are present and structured clearly for users and search engines."
+              title={t("info.2.title")}
+              description={t("info.2.body")}
               items={[
-                "Page title",
-                "Meta description",
-                "Main H1 heading",
-                "Core page information",
+                t("info.2.items.1"),
+                t("info.2.items.2"),
+                t("info.2.items.3"),
+                t("info.2.items.4"),
               ]}
             />
 
 
             <SEOInfoCard
               icon="▣"
-              title="Image SEO"
-              description="Identify images that may be missing ALT text and improve accessibility and image search signals."
+              title={t("info.3.title")}
+              description={t("info.3.body")}
               items={[
-                "Total images detected",
-                "Missing ALT attributes",
-                "ALT text coverage",
-                "Image accessibility",
+                t("info.3.items.1"),
+                t("info.3.items.2"),
+                t("info.3.items.3"),
+                t("info.3.items.4"),
               ]}
             />
 
 
             <SEOInfoCard
               icon="◎"
-              title="Social Metadata"
-              description="Check Open Graph metadata used when your website is shared across social platforms and messaging apps."
+              title={t("info.4.title")}
+              description={t("info.4.body")}
               items={[
-                "Open Graph title",
-                "Open Graph description",
-                "Social preview readiness",
-                "Share metadata coverage",
+                t("info.4.items.1"),
+                t("info.4.items.2"),
+                t("info.4.items.3"),
+                t("info.4.items.4"),
               ]}
             />
 
@@ -1536,17 +1523,15 @@ export default function SEOAnalyzerPage() {
               <div>
 
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-violet-300">
-                  How it works
+                  {t("howEyebrow")}
                 </p>
 
                 <h2 className="mt-4 text-3xl font-bold">
-                  How to Use the SEO Analyzer
+                  {t("howTitle")}
                 </h2>
 
                 <p className="mt-4 leading-7 text-slate-400">
-                  Run a quick website audit and use the
-                  report as a practical starting point for
-                  improving your SEO.
+                  {t("howBody")}
                 </p>
 
               </div>
@@ -1554,32 +1539,14 @@ export default function SEOAnalyzerPage() {
 
               <div className="space-y-4">
 
-                <StepCard
-                  number="1"
-                  title="Enter your website URL"
-                  description="Paste the full URL of the page you want to analyze, including https://."
-                />
-
-
-                <StepCard
-                  number="2"
-                  title="Run the SEO analysis"
-                  description="LifeSeos checks the page for supported technical, content, image and social SEO signals."
-                />
-
-
-                <StepCard
-                  number="3"
-                  title="Review your SEO score"
-                  description="Use the overall score and category breakdown to understand which areas need attention."
-                />
-
-
-                <StepCard
-                  number="4"
-                  title="Fix issues by priority"
-                  description="Start with errors and warnings, then work through the recommendations shown in your report."
-                />
+                {STEP_IDS.map((id) => (
+                  <StepCard
+                    key={id}
+                    number={id}
+                    title={t(`how${id}Title`)}
+                    description={t(`how${id}Body`)}
+                  />
+                ))}
 
               </div>
 
@@ -1595,26 +1562,19 @@ export default function SEOAnalyzerPage() {
             <div>
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
-                Better SEO decisions
+                {t("whyEyebrow")}
               </p>
 
               <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
-                Why Regular SEO Audits Matter
+                {t("whyTitle")}
               </h2>
 
               <p className="mt-5 leading-8 text-slate-400">
-                Websites change over time. New pages,
-                design updates, plugins, metadata changes
-                and content edits can introduce SEO issues
-                without being immediately visible.
+                {t("whyP1")}
               </p>
 
               <p className="mt-4 leading-8 text-slate-400">
-                Regular audits help you identify problems
-                early and give you a structured way to
-                review technical and on-page SEO signals
-                before investing more time in content or
-                promotion.
+                {t("whyP2")}
               </p>
 
             </div>
@@ -1622,28 +1582,13 @@ export default function SEOAnalyzerPage() {
 
             <div className="grid gap-4 sm:grid-cols-2">
 
-              <BenefitCard
-                title="Find hidden issues"
-                description="Discover missing or incomplete SEO elements that may otherwise be easy to overlook."
-              />
-
-
-              <BenefitCard
-                title="Prioritize improvements"
-                description="Use warnings, errors and recommendations to focus on the most important changes first."
-              />
-
-
-              <BenefitCard
-                title="Improve consistency"
-                description="Review your pages using the same checks instead of relying on manual inspection alone."
-              />
-
-
-              <BenefitCard
-                title="Track website quality"
-                description="Run audits after major website updates to confirm that important SEO elements remain in place."
-              />
+              {BENEFIT_IDS.map((id) => (
+                <BenefitCard
+                  key={id}
+                  title={t(`benefit${id}Title`)}
+                  description={t(`benefit${id}Body`)}
+                />
+              ))}
 
             </div>
 
@@ -1656,18 +1601,15 @@ export default function SEOAnalyzerPage() {
             <div className="mx-auto max-w-3xl text-center">
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
-                Choose the right analysis
+                {t("vsEyebrow")}
               </p>
 
               <h2 className="mt-4 text-3xl font-bold">
-                SEO Analyzer vs SEO Page Analyzer
+                {t("vsTitle")}
               </h2>
 
               <p className="mt-5 leading-8 text-slate-400">
-                Use the SEO Analyzer for a broad overview of technical SEO,
-                content, images and social metadata. Use the SEO Page Analyzer
-                when you want a more focused review of important on-page SEO
-                elements for a specific page.
+                {t("vsBody")}
               </p>
 
               <div className="mt-7 flex flex-wrap justify-center gap-3">
@@ -1676,7 +1618,10 @@ export default function SEOAnalyzerPage() {
                   href="/tools/seo-page-analyzer"
                   className="inline-flex rounded-xl border border-cyan-400/20 bg-cyan-400/10 px-5 py-3 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-400/15"
                 >
-                  Open SEO Page Analyzer →
+                  {tc("seoPageAnalyzer.title")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </Link>
 
               </div>
@@ -1691,16 +1636,15 @@ export default function SEOAnalyzerPage() {
             <div className="text-center">
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-violet-300">
-                Learn more
+                {t("guidesEyebrow")}
               </p>
 
               <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                SEO Audit Guides
+                {t("guidesTitle")}
               </h2>
 
               <p className="mx-auto mt-4 max-w-2xl leading-7 text-slate-400">
-                Explore practical SEO guides to better understand audit results
-                and improve your website step by step.
+                {t("guidesBody")}
               </p>
 
             </div>
@@ -1712,20 +1656,22 @@ export default function SEOAnalyzerPage() {
                 className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-violet-400/20 hover:bg-white/[0.05]"
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-300">
-                  SEO Audit
+                  {t("guide1Tag")}
                 </p>
 
                 <h3 className="mt-3 text-lg font-semibold text-white transition group-hover:text-violet-300">
-                  Complete SEO Audit Guide
+                  {t("guide1Title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-6 text-slate-400">
-                  Learn how to review technical, on-page and content SEO issues
-                  using a structured audit process.
+                  {t("guide1Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-violet-300">
-                  Read guide →
+                  {t("guidesCta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
               </Link>
 
@@ -1735,20 +1681,22 @@ export default function SEOAnalyzerPage() {
                 className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-cyan-400/20 hover:bg-white/[0.05]"
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
-                  Technical SEO
+                  {t("guide2Tag")}
                 </p>
 
                 <h3 className="mt-3 text-lg font-semibold text-white transition group-hover:text-cyan-300">
-                  Technical SEO Guide
+                  {t("guide2Title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-6 text-slate-400">
-                  Understand crawling, indexing, metadata and other technical
-                  signals that affect search visibility.
+                  {t("guide2Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-cyan-300">
-                  Read guide →
+                  {t("guidesCta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
               </Link>
 
@@ -1758,20 +1706,22 @@ export default function SEOAnalyzerPage() {
                 className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:-translate-y-1 hover:border-emerald-400/20 hover:bg-white/[0.05]"
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">
-                  On-Page SEO
+                  {t("guide3Tag")}
                 </p>
 
                 <h3 className="mt-3 text-lg font-semibold text-white transition group-hover:text-emerald-300">
-                  On-Page SEO Checklist
+                  {t("guide3Title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-6 text-slate-400">
-                  Review important on-page elements such as titles,
-                  descriptions, headings and page structure.
+                  {t("guide3Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-emerald-300">
-                  Read guide →
+                  {t("guidesCta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
               </Link>
 
@@ -1786,17 +1736,15 @@ export default function SEOAnalyzerPage() {
             <div className="mx-auto max-w-3xl text-center">
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
-                Complete Your Technical SEO Workflow
+                {t("flowEyebrow")}
               </p>
 
               <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                Control crawling, improve discovery and audit your site
+                {t("flowTitle")}
               </h2>
 
               <p className="mt-4 leading-8 text-slate-400">
-                Use these tools together to manage crawler access, publish a
-                clean XML sitemap and then review your website with a broader
-                SEO audit.
+                {t("flowBody")}
               </p>
 
             </div>
@@ -1816,22 +1764,24 @@ export default function SEOAnalyzerPage() {
                   </div>
 
                   <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
-                    Step 1
+                    {t("step1")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-emerald-300">
-                  Robots.txt Generator
+                  {tc("robotsTxtGenerator.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Configure crawler access rules and make sure search engines can
-                  access the areas of your site you want them to crawl.
+                  {t("flow1Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-emerald-300">
-                  Configure crawling →
+                  {t("flow1Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
 
               </Link>
@@ -1849,22 +1799,24 @@ export default function SEOAnalyzerPage() {
                   </div>
 
                   <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
-                    Step 2
+                    {t("step2")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-blue-300">
-                  XML Sitemap Generator
+                  {tc("xmlSitemapGenerator.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Create a clean XML sitemap containing important canonical URLs
-                  you want search engines to discover.
+                  {t("flow2Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-blue-300">
-                  Create sitemap →
+                  {t("flow2Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
 
               </Link>
@@ -1879,22 +1831,22 @@ export default function SEOAnalyzerPage() {
                   </div>
 
                   <span className="rounded-full border border-cyan-400/25 bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-300">
-                    Step 3 · Current
+                    {t("step3Current")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold">
-                  SEO Analyzer
+                  {tc("seoAnalyzer.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Complete the workflow with a broader audit covering technical,
-                  content, image and social SEO signals.
+                  {t("flow3Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-cyan-300">
-                  Run SEO audit ✓
+                  {t("flow3Cta")}{" "}
+                  <span aria-hidden="true">✓</span>
                 </div>
 
               </div>
@@ -1908,35 +1860,50 @@ export default function SEOAnalyzerPage() {
                 href="/tools/http-status-checker"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                HTTP Status Checker →
+                {tc("httpStatusChecker.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools/seo-page-analyzer"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                SEO Page Analyzer →
+                {tc("seoPageAnalyzer.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools/page-speed"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                Page Speed Analyzer →
+                {tc("pageSpeed.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools/content-analyzer"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                Content Analyzer →
+                {tc("contentAnalyzer.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                View All Tools →
+                {tCommon("viewAllTools")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
             </div>
@@ -2023,7 +1990,7 @@ function StepCard({
   return (
     <div className="flex gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-5">
 
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/20 to-violet-500/20 font-bold text-violet-300">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/20 to-violet-500/20 font-bold text-violet-300" data-ltr-text>
         {number}
       </div>
 
@@ -2072,48 +2039,14 @@ function BenefitCard({
 }
 
 
-function RelatedToolCard({
-  href,
-  icon,
-  title,
-  description,
-}: {
-  href: string;
-  icon: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:-translate-y-1 hover:border-cyan-400/20 hover:bg-white/[0.05]"
-    >
-
-      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg">
-        {icon}
-      </div>
-
-      <h3 className="mt-4 font-semibold text-white transition group-hover:text-cyan-300">
-        {title}
-      </h3>
-
-      <p className="mt-2 text-sm leading-6 text-slate-400">
-        {description}
-      </p>
-
-      <div className="mt-4 text-sm font-semibold text-cyan-300">
-        Open tool →
-      </div>
-
-    </Link>
-  );
-}
-
-
 function ScoreRing({
   score,
+  label,
+  outOf,
 }: {
   score: number;
+  label: string;
+  outOf: string;
 }) {
   const safeScore =
     Math.max(
@@ -2159,12 +2092,12 @@ function ScoreRing({
 
 
         <div className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-          SEO Score
+          {label}
         </div>
 
 
         <div className="mt-1 text-xs text-slate-600">
-          out of 100
+          {outOf}
         </div>
 
       </div>
@@ -2530,7 +2463,7 @@ function StatLine({
       </span>
 
 
-      <span className="font-semibold text-white">
+      <span className="font-semibold text-white" data-ltr-text>
         {value}
       </span>
 
@@ -2564,6 +2497,7 @@ function DetailItem({
               ? "text-emerald-400"
               : "text-rose-400"
           }
+          aria-hidden="true"
         >
           {good
             ? "✓"
@@ -2641,6 +2575,7 @@ function CheckCard({
 
       <div
         className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-sm font-bold ${style.iconClass}`}
+        aria-hidden="true"
       >
         {style.icon}
       </div>
@@ -2669,12 +2604,14 @@ function StatusList({
   title,
   items,
   emptyText,
+  itemsLabel,
   type,
 }: {
   icon: string;
   title: string;
   items: string[];
   emptyText: string;
+  itemsLabel: string;
 
   type:
     | "success"
@@ -2726,6 +2663,7 @@ function StatusList({
 
         <div
           className={`flex h-10 w-10 items-center justify-center rounded-2xl border font-bold ${style.icon}`}
+          aria-hidden="true"
         >
           {icon}
         </div>
@@ -2741,10 +2679,7 @@ function StatusList({
 
 
           <p className="text-xs text-slate-500">
-            {
-              items.length
-            }{" "}
-            items
+            {itemsLabel}
           </p>
 
         </div>
@@ -2791,16 +2726,18 @@ function StatusList({
 function RecommendationCard({
   number,
   text,
+  title,
   fix,
 }: {
   number: number;
   text: string;
+  title: string;
   fix?: { href: string; label: string } | null;
 }) {
   return (
     <div className="group flex items-start gap-4 rounded-2xl border border-white/5 bg-black/10 p-4 transition hover:border-violet-400/20 hover:bg-white/[0.04]">
 
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/20 to-violet-500/20 text-sm font-bold text-violet-300">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/20 to-violet-500/20 text-sm font-bold text-violet-300" data-ltr-text>
         {number}
       </div>
 
@@ -2808,7 +2745,7 @@ function RecommendationCard({
       <div>
 
         <h3 className="text-sm font-semibold text-white">
-          SEO Improvement
+          {title}
         </h3>
 
 
@@ -2821,7 +2758,8 @@ function RecommendationCard({
             href={fix.href}
             className="mt-3 inline-flex items-center gap-2 rounded-xl border border-violet-400/30 bg-violet-400/10 px-3 py-1.5 text-xs font-semibold text-violet-200 transition hover:border-violet-300/60 hover:bg-violet-400/20"
           >
-            {fix.label} →
+            {fix.label}
+            <span aria-hidden="true">→</span>
           </Link>
         ) : null}
 

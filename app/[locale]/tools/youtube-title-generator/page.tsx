@@ -1,21 +1,18 @@
 import type { Metadata } from "next";
 import YouTubeTitleGeneratorClient from "./youtube-title-generator-client";
+import { buildToolMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Free YouTube Title Generator | LifeSeos",
-  description:
-    "Generate engaging YouTube title ideas based on your video topic, keyword, style and audience with the free LifeSeos YouTube Title Generator.",
-  alternates: {
-    canonical: "/tools/youtube-title-generator",
-  },
-  openGraph: {
-    title: "Free YouTube Title Generator | LifeSeos",
-    description:
-      "Create clear and engaging YouTube title ideas for your videos with LifeSeos.",
-    url: "/tools/youtube-title-generator",
-    type: "website",
-  },
-};
+type MetaProps = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: MetaProps): Promise<Metadata> {
+  const { locale } = await params;
+  return buildToolMetadata({
+    locale,
+    path: "/tools/youtube-title-generator",
+    toolKey: "youtubeTitleGenerator",
+  });
+}
+
 
 export default function YouTubeTitleGeneratorPage() {
   const softwareApplicationJsonLd = {

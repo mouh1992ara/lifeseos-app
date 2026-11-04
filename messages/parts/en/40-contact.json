@@ -1,0 +1,52 @@
+{
+  "Contact": {
+    "meta": {
+      "title": "Contact LifeSeos — Support & Feedback",
+      "description": "Contact LifeSeos for questions, technical support, feedback, account assistance or privacy-related requests."
+    },
+    "badge": "Contact LifeSeos",
+    "title": "Get in touch",
+    "subtitle": "Have a question, suggestion, technical support request, or privacy-related inquiry? Send us a message using the form below.",
+    "cardGeneralTitle": "General questions",
+    "cardGeneralBody": "Questions about LifeSeos, its features, or how our SEO tools work.",
+    "cardSupportTitle": "Technical support",
+    "cardSupportBody": "Report a technical problem or let us know if a tool or feature is not working correctly.",
+    "cardPrivacyTitle": "Privacy requests",
+    "cardPrivacyBody": "Submit questions or requests relating to your account, saved reports, personal information, or privacy choices.",
+    "cardFeedbackTitle": "Feedback",
+    "cardFeedbackBody": "Share suggestions or ideas that may help us improve LifeSeos.",
+    "formEyebrow": "Send a message",
+    "formTitle": "Contact form",
+    "formIntro": "Fill in the form below and we'll review your message. Please provide enough information for us to understand your request.",
+    "formPrivacyNote": "For information about how LifeSeos handles submitted information, see our <link>Privacy Policy</link>.",
+    "formPrivacyLink": "Privacy Policy",
+    "responseTitle": "About responses",
+    "responseBody": "Messages are reviewed as reasonably possible. Response times can vary depending on the type of request, and submitting the form does not guarantee an immediate response.",
+    "ctaEyebrow": "Need help reviewing your website?",
+    "ctaTitle": "Explore our SEO tools",
+    "ctaBody": "Analyze websites, review technical SEO issues, measure performance, optimize content, and use practical SEO utilities from one place.",
+    "ctaButton": "Explore tools",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "Select a topic",
+      "subjectGeneral": "General question",
+      "subjectSupport": "Technical support",
+      "subjectPrivacy": "Privacy request",
+      "subjectFeedback": "Feedback",
+      "message": "Message",
+      "messagePlaceholder": "Tell us how we can help…",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "errorRequired": "Please complete all fields.",
+      "errorEmail": "Please enter a valid email address.",
+      "errorSend": "Unable to send your message.",
+      "success": "Your message has been sent successfully. Thank you for contacting LifeSeos.",
+      "consent": "By sending this form, you agree that LifeSeos may use the information you provide to respond to your message and handle your request. See our <link>Privacy Policy</link>.",
+      "consentLink": "Privacy Policy"
+    }
+  }
+}

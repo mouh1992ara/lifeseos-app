@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "content-analysis-seo-guide",
+    "category": "Content SEO",
+    "publishedAt": "2026-10-07",
+    "updatedAt": "2026-10-17",
+    "featuredImage": "/blog/seo-crawler.webp",
+    "toolUrl": "/tools/content-analyzer"
+  },
+  {
+    "slug": "http-status-codes-seo-guide",
+    "category": "Technical SEO",
+    "publishedAt": "2026-10-07",
+    "updatedAt": "2026-10-17",
+    "featuredImage": "/blog/http-status-codes-seo.webp",
+    "toolUrl": "/tools/http-status-checker"
+  },
+  {
+    "slug": "keyword-density-guide",
+    "category": "Content SEO",
+    "publishedAt": "2026-10-07",
+    "updatedAt": "2026-10-17",
+    "featuredImage": "/blog/keyword-density-seo.webp",
+    "toolUrl": "/tools/keyword-density-checker"
+  },
+  {
+    "slug": "on-page-seo-checklist",
+    "category": "On-Page SEO",
+    "publishedAt": "2026-10-07",
+    "updatedAt": "2026-10-17",
+    "featuredImage": "/blog/on-page-seo-checklist.webp",
+    "toolUrl": "/tools/seo-analyzer"
+  },
+  {
+    "slug": "page-speed-seo-guide",
+    "category": "Technical SEO",
+    "publishedAt": "2026-10-07",
+    "updatedAt": "2026-10-17",
+    "featuredImage": "/blog/page-speed-seo.webp",
+    "toolUrl": "/tools/page-speed"
+  },
+  {
+    "slug": "robots-txt-guide",
+    "category": "Technical SEO",
+    "publishedAt": "2026-10-07",
+    "updatedAt": "2026-10-17",
+    "featuredImage": "/blog/robots-txt-guide.webp",
+    "toolUrl": "/tools/robots-txt-generator"
+  },
+  {
+    "slug": "complete-seo-audit-guide",
+    "category": "SEO Audits",
+    "publishedAt": "2026-10-07",
+    "updatedAt": "2026-10-30",
+    "featuredImage": "/blog/seo-audit-guide.webp",
+    "toolUrl": "/tools/seo-analyzer"
+  },
+  {
+    "slug": "seo-meta-tags-guide",
+    "category": "On-Page SEO",
+    "publishedAt": "2026-10-07",
+    "updatedAt": "2026-10-30",
+    "featuredImage": "/blog/seo-crawler.webp",
+    "toolUrl": "/tools/meta-tag-generator"
+  },
+  {
+    "slug": "technical-seo-guide",
+    "category": "Technical SEO",
+    "publishedAt": "2026-10-07",
+    "updatedAt": "2026-10-17",
+    "featuredImage": "/blog/technical-seo-guide.webp",
+    "toolUrl": "/tools/seo-analyzer"
+  },
+  {
+    "slug": "xml-sitemap-guide",
+    "category": "Technical SEO",
+    "publishedAt": "2026-10-07",
+    "updatedAt": "2026-10-17",
+    "featuredImage": "/blog/xml-sitemap-guide.webp",
+    "toolUrl": "/tools/xml-sitemap-generator"
+  }
+]

@@ -9,15 +9,44 @@ export type FixLink = {
   label: string;
 };
 
-export type FixLang = "en" | "ar";
+export const FIX_LANGS = ["en", "ar", "fr", "zh"] as const;
+export type FixLang = (typeof FIX_LANGS)[number];
 
-const LABELS = {
-  schema: { en: "Generate schema", ar: "أنشئ بيانات Schema" },
-  robots: { en: "Fix robots.txt", ar: "أصلح ملف robots.txt" },
-  sitemap: { en: "Create sitemap", ar: "أنشئ خريطة الموقع" },
-  status: { en: "Check status codes", ar: "افحص أكواد الحالة" },
-  meta: { en: "Fix title & description", ar: "أصلح العنوان والوصف" },
-} as const;
+const LABELS: Record<
+  "schema" | "robots" | "sitemap" | "status" | "meta",
+  Record<FixLang, string>
+> = {
+  schema: {
+    en: "Generate schema",
+    ar: "أنشئ بيانات Schema",
+    fr: "Générer les données Schema",
+    zh: "生成 Schema 结构化数据",
+  },
+  robots: {
+    en: "Fix robots.txt",
+    ar: "أصلح ملف robots.txt",
+    fr: "Corriger le fichier robots.txt",
+    zh: "修复 robots.txt",
+  },
+  sitemap: {
+    en: "Create sitemap",
+    ar: "أنشئ خريطة الموقع",
+    fr: "Créer un sitemap",
+    zh: "创建站点地图",
+  },
+  status: {
+    en: "Check status codes",
+    ar: "افحص أكواد الحالة",
+    fr: "Vérifier les codes d’état",
+    zh: "检查状态码",
+  },
+  meta: {
+    en: "Fix title & description",
+    ar: "أصلح العنوان والوصف",
+    fr: "Corriger le titre et la description",
+    zh: "修复标题和描述",
+  },
+};
 
 // Placeholder values the analyzer API returns when something is missing.
 const MISSING_VALUES = new Set([

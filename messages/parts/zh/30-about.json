@@ -1,0 +1,92 @@
+{
+  "About": {
+    "meta": {
+      "title": "关于 LifeSeos — 免费 SEO 工具",
+      "description": "了解 LifeSeos 的使命，以及我们为简化网站分析、技术 SEO 与内容优化而打造的 SEO 工具与学习资源。"
+    },
+    "badge": "关于 LifeSeos",
+    "titleLine1": "我们打造 SEO 工具，只为让",
+    "titleAccent": "优化更简单",
+    "subtitle": "LifeSeos 提供实用的 SEO 工具与学习资源，帮助创作者、开发者、营销人员与网站所有者看懂自己的网站，并找到改进空间。",
+    "founder": {
+      "eyebrow": "认识创始人",
+      "contact": "联系我们"
+    },
+    "mission": {
+      "eyebrow": "我们的使命",
+      "title": "让 SEO 更容易理解",
+      "p1": "SEO 往往显得复杂，尤其是当技术问题、元数据、内容结构、性能表现与搜索引擎要求分散在众多工具和资料里时。",
+      "p2": "LifeSeos 希望把实用的 SEO 检查集中到一个简单的工作空间：结果清晰、建议可落地、工具易于上手。",
+      "p3": "我们也发布 SEO 教学指南，讲清工具背后的原理，让用户理解问题为何重要，而不只是盯着一个自动评分。"
+    },
+    "focus": {
+      "eyebrow": "我们专注的方向",
+      "analysisTitle": "简单分析",
+      "analysisBody": "把技术 SEO 信号转化为更清晰、更易查看的结果。",
+      "recsTitle": "实用建议",
+      "recsBody": "标出潜在问题，并给出可执行的下一步核查方向。",
+      "toolsTitle": "实用工具",
+      "toolsBody": "帮助用户完成常见 SEO 任务，不为流程增加多余复杂度。",
+      "guidanceTitle": "教学引导",
+      "guidanceBody": "讲清 SEO 概念，让用户能做出有依据的优化决策。",
+      "historyTitle": "账户历史记录",
+      "historyBody": "让已登录用户保存受支持的 SEO 报告，随时回看。"
+    },
+    "how": {
+      "eyebrow": "LifeSeos 如何运作",
+      "title": "工具辅助决策，而非替代决策",
+      "body": "LifeSeos 将自动检查与解释性引导结合。工具可以识别模式、技术信号、元数据、内容特征等与 SEO 相关的信息，但自动结果始终应结合具体语境判断。",
+      "step1Title": "1. 分析",
+      "step1Body": "用 LifeSeos 工具检查网页、文本、元数据、性能信号或其他受支持的 SEO 要素。",
+      "step2Title": "2. 理解",
+      "step2Body": "结合说明、建议与相关教学指南一起查看结果。",
+      "step3Title": "3. 改进",
+      "step3Body": "判断哪些调整适合你的网站，然后测试并持续观察效果。"
+    },
+    "toolkit": {
+      "eyebrow": "LifeSeos 工具箱",
+      "title": "为日常 SEO 工作而设计的工具",
+      "body": "LifeSeos 把实用的 SEO 工具集中在一处，让你可以分析、生成、检测、衡量并改进网站的关键信号。",
+      "viewAll": "查看全部 LifeSeos 工具"
+    },
+    "learning": {
+      "eyebrow": "SEO 学习",
+      "title": "工具之外，还有实用指南",
+      "p1": "我们的 SEO 指南涵盖技术 SEO、页面优化、元数据、页面速度、HTTP 状态码、robots.txt、XML 网站地图、关键词使用与内容分析等主题。",
+      "p2": "目的是提供有用的背景知识，让用户理解工具在衡量什么，并自行做出有依据的判断。",
+      "principlesTitle": "我们的内容原则",
+      "principle1": "用清晰、实用的语言讲清 SEO 概念。",
+      "principle2": "不把主观设定的 SEO 评分包装成保证。",
+      "principle3": "区分自动检查与编辑判断。",
+      "principle4": "当工具、实践或标准变化时，及时更新重要指南。",
+      "principle5": "聚焦真正能帮助用户做出更好网站决策的信息。",
+      "browse": "浏览 SEO 指南"
+    },
+    "approach": {
+      "eyebrow": "我们的做法",
+      "title": "清晰、实用、以用户为中心",
+      "body": "LifeSeos 围绕一个简单理念构建：有用的 SEO 工具应当易懂、实用、好上手。",
+      "clarityTitle": "清晰",
+      "clarityBody": "以更易理解的方式呈现结果与解释。",
+      "practicalityTitle": "实用",
+      "practicalityBody": "聚焦真正能支撑网站改进的检查与建议。",
+      "transparencyTitle": "透明",
+      "transparencyBody": "把自动结果视为参考指标，而非搜索表现的承诺。",
+      "privacyTitle": "隐私",
+      "privacyBody": "负责任地处理账户、报告与网站使用信息。"
+    },
+    "note": {
+      "eyebrow": "重要提示",
+      "title": "SEO 结果会有所差异",
+      "p1": "LifeSeos 的工具与指南提供信息性的分析与建议。搜索排名取决于诸多因素，任何 SEO 工具都无法保证特定排名、流量水平、收录结果或搜索表现。",
+      "p2": "用户应结合自身网站、受众、技术环境与业务目标来看待这些建议。"
+    },
+    "cta": {
+      "eyebrow": "准备好检查你的网站了吗？",
+      "title": "从一次免费 SEO 分析开始",
+      "body": "运行 SEO 审计，查看网站各项信号，找出可能还需要关注的环节。",
+      "primary": "分析网站",
+      "secondary": "浏览工具"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "Blog": {
+    "meta": {
+      "title": "Blog et guides SEO",
+      "description": "Lisez des guides SEO pratiques, des tutoriels techniques et des stratégies d’optimisation de site signés LifeSeos."
+    },
+    "badge": "Analyses et guides SEO",
+    "titleLine1": "Apprenez le SEO.",
+    "titleAccent": "Progressez plus intelligemment.",
+    "subtitle": "Des tutoriels SEO pratiques, des guides techniques et des stratégies concrètes pour comprendre votre site et l’améliorer en toute confiance.",
+    "categories": {
+      "all": "Tous les guides",
+      "technical": "SEO technique",
+      "onPage": "SEO on-page",
+      "content": "SEO de contenu",
+      "performance": "Performance",
+      "audits": "Audits SEO"
+    },
+    "featuredEyebrow": "Guide en vedette",
+    "featuredTitle": "Commencez par les fondamentaux",
+    "featuredCta": "Lire le guide complet",
+    "listEyebrow": "Les dernières connaissances",
+    "listTitle": "Explorer les guides SEO",
+    "listBody": "Chaque guide est associé à un outil LifeSeos pour comprendre le concept et le mettre immédiatement en pratique.",
+    "readGuide": "Lire le guide",
+    "readTime": "{minutes} min de lecture",
+    "updated": "Mis à jour le {date}",
+    "published": "Publié le {date}",
+    "byAuthor": "Par {author}",
+    "contents": "Sur cette page",
+    "relatedTool": "Essayez l’outil associé",
+    "backToBlog": "Tous les guides",
+    "moreGuides": "Autres guides",
+    "tip": "Astuce",
+    "cta": {
+      "eyebrow": "Apprendre. Tester. Améliorer.",
+      "title": "Transformez chaque leçon SEO en amélioration concrète.",
+      "body": "LifeSeos vous donne des outils concrets pour analyser des pages, évaluer le contenu, tester la performance et identifier les problèmes de SEO technique.",
+      "button": "Explorer les outils SEO"
+    },
+    "final": {
+      "title": "Continuez d’apprendre. Continuez d’améliorer.",
+      "body": "Explorez des guides SEO pratiques et utilisez les outils LifeSeos en parallèle pour comprendre précisément ce qui se passe sur votre site.",
+      "primary": "Parcourir les outils",
+      "secondary": "À propos de LifeSeos"
+    },
+    "notFound": "Ce guide est introuvable.",
+    "articleCta": {
+      "title": "Mettez ce guide en pratique",
+      "body": "Ouvrez l’outil LifeSeos associé et appliquez ce que vous venez d’apprendre à votre propre site."
+    }
+  }
+}

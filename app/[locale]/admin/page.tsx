@@ -1,15 +1,17 @@
 import { redirect } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import LiveVisitors from "@/components/admin/live-visitors";
 import { createClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
-import LiveVisitors from "@/components/admin/live-visitors";
 
 const ADMIN_TIME_ZONE = "Asia/Shanghai";
 
-function formatDate(date?: string | null) {
+// Dates are rendered in the active locale, but grouped in the admin time zone.
+function formatDate(locale: string, date?: string | null) {
   if (!date) return "—";
 
-  return new Intl.DateTimeFormat("en", {
+  return new Intl.DateTimeFormat(locale, {
     timeZone: ADMIN_TIME_ZONE,
     year: "numeric",
     month: "short",
@@ -20,45 +22,28 @@ function formatDate(date?: string | null) {
   }).format(new Date(date));
 }
 
+// Fixed en-CA parts keep the YYYY-MM-DD key sortable; this value is never shown.
 function getDateKey(date: Date | string) {
-  const value =
-    typeof date === "string"
-      ? new Date(date)
-      : date;
+  const value = typeof date === "string" ? new Date(date) : date;
 
-  const parts = new Intl.DateTimeFormat(
-    "en-CA",
-    {
-      timeZone: ADMIN_TIME_ZONE,
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }
-  ).formatToParts(value);
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: ADMIN_TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(value);
 
-  const year =
-    parts.find((part) => part.type === "year")
-      ?.value ?? "";
+  const year = parts.find((part) => part.type === "year")?.value ?? "";
 
-  const month =
-    parts.find((part) => part.type === "month")
-      ?.value ?? "";
+  const month = parts.find((part) => part.type === "month")?.value ?? "";
 
-  const day =
-    parts.find((part) => part.type === "day")
-      ?.value ?? "";
+  const day = parts.find((part) => part.type === "day")?.value ?? "";
 
   return `${year}-${month}-${day}`;
 }
 
-function isSameDay(
-  dateString: string,
-  reference: Date
-) {
-  return (
-    getDateKey(dateString) ===
-    getDateKey(reference)
-  );
+function isSameDay(dateString: string, reference: Date) {
+  return getDateKey(dateString) === getDateKey(reference);
 }
 
 type ToolEvent = {
@@ -101,15 +86,18 @@ function countryCodeToFlag(countryCode: string) {
   return String.fromCodePoint(
     ...code
       .split("")
-      .map(
-        (character) =>
-          127397 +
-          character.charCodeAt(0)
-      )
+      .map((character) => 127397 + character.charCodeAt(0)),
   );
 }
 
-export default async function AdminPage() {
+type Props = { params: Promise<{ locale: string }> };
+
+export default async function AdminPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations("Admin");
+
   const supabase = await createClient();
 
   const {
@@ -120,13 +108,9 @@ export default async function AdminPage() {
     redirect("/auth/login");
   }
 
-  const adminUserId =
-    process.env.ADMIN_USER_ID;
+  const adminUserId = process.env.ADMIN_USER_ID;
 
-  if (
-    !adminUserId ||
-    user.id !== adminUserId
-  ) {
+  if (!adminUserId || user.id !== adminUserId) {
     redirect("/dashboard");
   }
 
@@ -144,26 +128,20 @@ export default async function AdminPage() {
       perPage: 1000,
     }),
 
-    supabaseAdmin
-      .from("seo_reports")
-      .select("*", {
-        count: "exact",
-        head: true,
-      }),
+    supabaseAdmin.from("seo_reports").select("*", {
+      count: "exact",
+      head: true,
+    }),
 
-    supabaseAdmin
-      .from("contact_messages")
-      .select("*", {
-        count: "exact",
-        head: true,
-      }),
+    supabaseAdmin.from("contact_messages").select("*", {
+      count: "exact",
+      head: true,
+    }),
 
-    supabaseAdmin
-      .from("tool_events")
-      .select("*", {
-        count: "exact",
-        head: true,
-      }),
+    supabaseAdmin.from("tool_events").select("*", {
+      count: "exact",
+      head: true,
+    }),
 
     supabaseAdmin
       .from("tool_events")
@@ -173,19 +151,17 @@ export default async function AdminPage() {
           tool_name,
           user_id,
           created_at
-        `
+        `,
       )
       .order("created_at", {
         ascending: false,
       })
       .limit(1000),
 
-    supabaseAdmin
-      .from("page_visits")
-      .select("*", {
-        count: "exact",
-        head: true,
-      }),
+    supabaseAdmin.from("page_visits").select("*", {
+      count: "exact",
+      head: true,
+    }),
 
     supabaseAdmin
       .from("page_visits")
@@ -196,7 +172,7 @@ export default async function AdminPage() {
           country_name,
           path,
           created_at
-        `
+        `,
       )
       .order("created_at", {
         ascending: false,
@@ -204,169 +180,96 @@ export default async function AdminPage() {
       .limit(10000),
   ]);
 
-  const users =
-    usersResult.data?.users ?? [];
+  const users = usersResult.data?.users ?? [];
 
-  const toolEvents =
-    (toolEventsDataResult.data as
-      | ToolEvent[]
-      | null) ?? [];
+  const toolEvents = (toolEventsDataResult.data as ToolEvent[] | null) ?? [];
 
-  const pageVisits =
-    (pageVisitsDataResult.data as
-      | PageVisit[]
-      | null) ?? [];
+  const pageVisits = (pageVisitsDataResult.data as PageVisit[] | null) ?? [];
 
   const totalUsers = users.length;
 
-  const totalReports =
-    reportsResult.count ?? 0;
+  const totalReports = reportsResult.count ?? 0;
 
-  const totalMessages =
-    messagesResult.count ?? 0;
+  const totalMessages = messagesResult.count ?? 0;
 
-  const totalToolUses =
-    toolEventsCountResult.count ?? 0;
+  const totalToolUses = toolEventsCountResult.count ?? 0;
 
-  const totalPageVisits =
-    pageVisitsCountResult.count ?? 0;
+  const totalPageVisits = pageVisitsCountResult.count ?? 0;
 
   const now = new Date();
 
   const todayKey = getDateKey(now);
 
-  const todayCalendarDate = new Date(
-    `${todayKey}T00:00:00.000Z`
-  );
+  const todayCalendarDate = new Date(`${todayKey}T00:00:00.000Z`);
 
-  const startOfWeekDate = new Date(
-    todayCalendarDate
-  );
+  const startOfWeekDate = new Date(todayCalendarDate);
 
-  startOfWeekDate.setUTCDate(
-    startOfWeekDate.getUTCDate() - 6
-  );
+  startOfWeekDate.setUTCDate(startOfWeekDate.getUTCDate() - 6);
 
-  const startOfWeekKey =
-    startOfWeekDate
-      .toISOString()
-      .slice(0, 10);
+  const startOfWeekKey = startOfWeekDate.toISOString().slice(0, 10);
 
-  const currentMonthKey =
-    todayKey.slice(0, 7);
+  const currentMonthKey = todayKey.slice(0, 7);
 
-  const newUsersToday = users.filter(
-    (account) =>
-      isSameDay(
-        account.created_at,
-        now
-      )
+  const newUsersToday = users.filter((account) =>
+    isSameDay(account.created_at, now),
   ).length;
 
-  const newUsersThisWeek = users.filter(
-    (account) => {
-      const accountDateKey =
-        getDateKey(
-          account.created_at
-        );
+  const newUsersThisWeek = users.filter((account) => {
+    const accountDateKey = getDateKey(account.created_at);
 
-      return (
-        accountDateKey >=
-          startOfWeekKey &&
-        accountDateKey <= todayKey
-      );
-    }
+    return accountDateKey >= startOfWeekKey && accountDateKey <= todayKey;
+  }).length;
+
+  const newUsersThisMonth = users.filter((account) =>
+    getDateKey(account.created_at).startsWith(currentMonthKey),
   ).length;
 
-  const newUsersThisMonth =
-    users.filter((account) =>
-      getDateKey(
-        account.created_at
-      ).startsWith(
-        currentMonthKey
-      )
-    ).length;
+  const confirmedUsers = users.filter((account) =>
+    Boolean(account.email_confirmed_at),
+  ).length;
 
-  const confirmedUsers =
-    users.filter((account) =>
-      Boolean(
-        account.email_confirmed_at
-      )
-    ).length;
+  const unconfirmedUsers = totalUsers - confirmedUsers;
 
-  const unconfirmedUsers =
-    totalUsers - confirmedUsers;
+  const sortedUsers = [...users].sort((a, b) => {
+    const aTime = a.last_sign_in_at
+      ? new Date(a.last_sign_in_at).getTime()
+      : 0;
 
-  const sortedUsers = [
-    ...users,
-  ].sort((a, b) => {
-    const aTime =
-      a.last_sign_in_at
-        ? new Date(
-            a.last_sign_in_at
-          ).getTime()
-        : 0;
-
-    const bTime =
-      b.last_sign_in_at
-        ? new Date(
-            b.last_sign_in_at
-          ).getTime()
-        : 0;
+    const bTime = b.last_sign_in_at
+      ? new Date(b.last_sign_in_at).getTime()
+      : 0;
 
     return bTime - aTime;
   });
 
-  const registeredToolUses =
-    toolEvents.filter((event) =>
-      Boolean(event.user_id)
-    ).length;
+  const registeredToolUses = toolEvents.filter((event) =>
+    Boolean(event.user_id),
+  ).length;
 
-  const guestToolUses =
-    toolEvents.length -
-    registeredToolUses;
+  const guestToolUses = toolEvents.length - registeredToolUses;
 
   const userEmailMap = new Map(
     users.map((account) => [
       account.id,
-      account.email ??
-        "Unknown user",
-    ])
+      account.email ?? t("tools.unknownUser"),
+    ]),
   );
 
-  const liveUserEmails =
-    Object.fromEntries(
-      userEmailMap
-    );
+  const liveUserEmails = Object.fromEntries(userEmailMap);
 
-  const toolSummaryMap =
-    new Map<string, ToolSummary>();
+  const toolSummaryMap = new Map<string, ToolSummary>();
 
   for (const event of toolEvents) {
-    const existing =
-      toolSummaryMap.get(
-        event.tool_name
-      );
+    const existing = toolSummaryMap.get(event.tool_name);
 
     if (!existing) {
-      toolSummaryMap.set(
-        event.tool_name,
-        {
-          toolName:
-            event.tool_name,
-          totalUses: 1,
-          registeredUses:
-            event.user_id
-              ? 1
-              : 0,
-          guestUses:
-            event.user_id
-              ? 0
-              : 1,
-          lastUsedAt:
-            event.created_at,
-        }
-      );
+      toolSummaryMap.set(event.tool_name, {
+        toolName: event.tool_name,
+        totalUses: 1,
+        registeredUses: event.user_id ? 1 : 0,
+        guestUses: event.user_id ? 0 : 1,
+        lastUsedAt: event.created_at,
+      });
 
       continue;
     }
@@ -381,82 +284,53 @@ export default async function AdminPage() {
 
     if (
       !existing.lastUsedAt ||
-      new Date(
-        event.created_at
-      ).getTime() >
-        new Date(
-          existing.lastUsedAt
-        ).getTime()
+      new Date(event.created_at).getTime() >
+        new Date(existing.lastUsedAt).getTime()
     ) {
-      existing.lastUsedAt =
-        event.created_at;
+      existing.lastUsedAt = event.created_at;
     }
   }
 
-  const toolSummaries =
-    Array.from(
-      toolSummaryMap.values()
-    ).sort(
-      (a, b) =>
-        b.totalUses -
-        a.totalUses
+  const toolSummaries = Array.from(toolSummaryMap.values()).sort(
+    (a, b) => b.totalUses - a.totalUses,
+  );
+
+  const recentToolEvents = toolEvents.slice(0, 20);
+
+  const visitsToday = pageVisits.filter((visit) =>
+    isSameDay(visit.created_at, now),
+  ).length;
+
+  const unknownLocationVisits = pageVisits.filter((visit) => {
+    const code = visit.country_code?.trim().toUpperCase();
+
+    return (
+      !code ||
+      code === "XX" ||
+      !visit.country_name ||
+      visit.country_name === "Unknown"
     );
+  }).length;
 
-  const recentToolEvents =
-    toolEvents.slice(0, 20);
-
-  const visitsToday =
-    pageVisits.filter((visit) =>
-      isSameDay(
-        visit.created_at,
-        now
-      )
-    ).length;
-
-  const unknownLocationVisits =
-    pageVisits.filter((visit) => {
-      const code =
-        visit.country_code
-          ?.trim()
-          .toUpperCase();
-
-      return (
-        !code ||
-        code === "XX" ||
-        !visit.country_name ||
-        visit.country_name === "Unknown"
-      );
-    }).length;
-
-  const countrySummaryMap =
-    new Map<string, CountrySummary>();
+  const countrySummaryMap = new Map<string, CountrySummary>();
 
   for (const visit of pageVisits) {
-    const countryCode =
-      visit.country_code
-        ?.trim()
-        .toUpperCase() || "XX";
+    const countryCode = visit.country_code?.trim().toUpperCase() || "XX";
 
     const countryName =
-      visit.country_name
-        ?.trim() ||
-      (countryCode === "XX"
-        ? "Unknown"
-        : countryCode);
+      visit.country_name?.trim() ||
+      (countryCode === "XX" ? t("geo.unknownCountry") : countryCode);
 
-    const key =
-      `${countryCode}:${countryName}`;
+    const key = `${countryCode}:${countryName}`;
 
-    const existing =
-      countrySummaryMap.get(key);
+    const existing = countrySummaryMap.get(key);
 
     if (!existing) {
       countrySummaryMap.set(key, {
         countryCode,
         countryName,
         visits: 1,
-        lastVisitAt:
-          visit.created_at,
+        lastVisitAt: visit.created_at,
       });
 
       continue;
@@ -466,88 +340,63 @@ export default async function AdminPage() {
 
     if (
       !existing.lastVisitAt ||
-      new Date(
-        visit.created_at
-      ).getTime() >
-        new Date(
-          existing.lastVisitAt
-        ).getTime()
+      new Date(visit.created_at).getTime() >
+        new Date(existing.lastVisitAt).getTime()
     ) {
-      existing.lastVisitAt =
-        visit.created_at;
+      existing.lastVisitAt = visit.created_at;
     }
   }
 
-  const countrySummaries =
-    Array.from(
-      countrySummaryMap.values()
-    ).sort(
-      (a, b) =>
-        b.visits - a.visits
-    );
+  const countrySummaries = Array.from(countrySummaryMap.values()).sort(
+    (a, b) => b.visits - a.visits,
+  );
 
-  const knownCountries =
-    countrySummaries.filter(
-      (country) =>
-        country.countryCode !== "XX"
-    ).length;
+  const knownCountries = countrySummaries.filter(
+    (country) => country.countryCode !== "XX",
+  ).length;
 
   return (
     <main className="min-h-screen bg-slate-950 px-6 py-12 text-white">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10">
           <p className="mb-2 text-sm font-medium text-emerald-400">
-            LifeSeos Admin
+            {t("eyebrow")}
           </p>
 
-          <h1 className="text-4xl font-bold tracking-tight">
-            Admin Dashboard
-          </h1>
+          <h1 className="text-4xl font-bold tracking-tight">{t("title")}</h1>
 
-          <p className="mt-3 text-slate-400">
-            Manage users, reports,
-            tool activity and website
-            data.
-          </p>
+          <p className="mt-3 text-slate-400">{t("subtitle")}</p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <p className="text-sm text-slate-400">
-              Total Users
-            </p>
+            <p className="text-sm text-slate-400">{t("stats.totalUsers")}</p>
 
-            <p className="mt-3 text-3xl font-bold">
+            <p className="mt-3 text-3xl font-bold" data-ltr-text>
               {totalUsers}
             </p>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <p className="text-sm text-slate-400">
-              SEO Reports
-            </p>
+            <p className="text-sm text-slate-400">{t("stats.seoReports")}</p>
 
-            <p className="mt-3 text-3xl font-bold">
+            <p className="mt-3 text-3xl font-bold" data-ltr-text>
               {totalReports}
             </p>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <p className="text-sm text-slate-400">
-              Tool Uses
-            </p>
+            <p className="text-sm text-slate-400">{t("stats.toolUses")}</p>
 
-            <p className="mt-3 text-3xl font-bold">
+            <p className="mt-3 text-3xl font-bold" data-ltr-text>
               {totalToolUses}
             </p>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <p className="text-sm text-slate-400">
-              Messages
-            </p>
+            <p className="text-sm text-slate-400">{t("stats.messages")}</p>
 
-            <p className="mt-3 text-3xl font-bold">
+            <p className="mt-3 text-3xl font-bold" data-ltr-text>
               {totalMessages}
             </p>
           </div>
@@ -555,51 +404,41 @@ export default async function AdminPage() {
 
         <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-            <p className="text-sm text-slate-400">
-              New Today
-            </p>
+            <p className="text-sm text-slate-400">{t("users.newToday")}</p>
 
-            <p className="mt-2 text-2xl font-semibold">
+            <p className="mt-2 text-2xl font-semibold" data-ltr-text>
               {newUsersToday}
             </p>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-            <p className="text-sm text-slate-400">
-              Last 7 Days
-            </p>
+            <p className="text-sm text-slate-400">{t("users.last7Days")}</p>
 
-            <p className="mt-2 text-2xl font-semibold">
+            <p className="mt-2 text-2xl font-semibold" data-ltr-text>
               {newUsersThisWeek}
             </p>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-            <p className="text-sm text-slate-400">
-              This Month
-            </p>
+            <p className="text-sm text-slate-400">{t("users.thisMonth")}</p>
 
-            <p className="mt-2 text-2xl font-semibold">
+            <p className="mt-2 text-2xl font-semibold" data-ltr-text>
               {newUsersThisMonth}
             </p>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-            <p className="text-sm text-slate-400">
-              Confirmed
-            </p>
+            <p className="text-sm text-slate-400">{t("users.confirmed")}</p>
 
-            <p className="mt-2 text-2xl font-semibold text-emerald-300">
+            <p className="mt-2 text-2xl font-semibold text-emerald-300" data-ltr-text>
               {confirmedUsers}
             </p>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-            <p className="text-sm text-slate-400">
-              Unconfirmed
-            </p>
+            <p className="text-sm text-slate-400">{t("users.unconfirmed")}</p>
 
-            <p className="mt-2 text-2xl font-semibold text-amber-300">
+            <p className="mt-2 text-2xl font-semibold text-amber-300" data-ltr-text>
               {unconfirmedUsers}
             </p>
           </div>
@@ -607,159 +446,132 @@ export default async function AdminPage() {
 
         <section className="mt-10 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
           <div className="border-b border-white/10 px-6 py-5">
-            <h2 className="text-xl font-semibold">
-              Users
-            </h2>
+            <h2 className="text-xl font-semibold">{t("users.title")}</h2>
 
-            <p className="mt-1 text-sm text-slate-400">
-              Registered LifeSeos
-              users, ordered by latest
-              sign-in.
-            </p>
+            <p className="mt-1 text-sm text-slate-400">{t("users.subtitle")}</p>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[900px] text-left">
+            <table className="w-full min-w-[900px] text-start">
               <thead className="border-b border-white/10 bg-white/[0.03]">
                 <tr>
-                  <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                    Email
+                  <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                    {t("table.email")}
                   </th>
 
-                  <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                    Created
+                  <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                    {t("table.created")}
                   </th>
 
-                  <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                    Last Sign In
+                  <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                    {t("table.lastSignIn")}
                   </th>
 
-                  <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                    Email Status
+                  <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                    {t("table.emailStatus")}
                   </th>
 
-                  <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                    User ID
+                  <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                    {t("table.userId")}
                   </th>
                 </tr>
               </thead>
 
               <tbody>
-                {sortedUsers.length ===
-                0 ? (
+                {sortedUsers.length === 0 ? (
                   <tr>
                     <td
                       colSpan={5}
                       className="px-6 py-10 text-center text-sm text-slate-400"
                     >
-                      No users found.
+                      {t("table.noUsers")}
                     </td>
                   </tr>
                 ) : (
-                  sortedUsers.map(
-                    (account) => (
-                      <tr
-                        key={
-                          account.id
-                        }
-                        className="border-b border-white/5 last:border-b-0"
+                  sortedUsers.map((account) => (
+                    <tr
+                      key={account.id}
+                      className="border-b border-white/5 last:border-b-0"
+                    >
+                      <td
+                        className="px-6 py-4 text-sm text-white"
+                        data-ltr-text
                       >
-                        <td className="px-6 py-4 text-sm text-white">
-                          {account.email ??
-                            "—"}
-                        </td>
+                        {account.email ?? "—"}
+                      </td>
 
-                        <td className="px-6 py-4 text-sm text-slate-300">
-                          {formatDate(
-                            account.created_at
-                          )}
-                        </td>
+                      <td className="px-6 py-4 text-sm text-slate-300">
+                        {formatDate(locale, account.created_at)}
+                      </td>
 
-                        <td className="px-6 py-4 text-sm text-slate-300">
-                          {formatDate(
-                            account.last_sign_in_at
-                          )}
-                        </td>
+                      <td className="px-6 py-4 text-sm text-slate-300">
+                        {formatDate(locale, account.last_sign_in_at)}
+                      </td>
 
-                        <td className="px-6 py-4">
-                          {account.email_confirmed_at ? (
-                            <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300">
-                              Confirmed
-                            </span>
-                          ) : (
-                            <span className="rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 text-xs font-medium text-amber-300">
-                              Unconfirmed
-                            </span>
-                          )}
-                        </td>
+                      <td className="px-6 py-4">
+                        {account.email_confirmed_at ? (
+                          <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300">
+                            {t("users.confirmed")}
+                          </span>
+                        ) : (
+                          <span className="rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 text-xs font-medium text-amber-300">
+                            {t("users.unconfirmed")}
+                          </span>
+                        )}
+                      </td>
 
-                        <td className="px-6 py-4 font-mono text-xs text-slate-400">
-                          {account.id}
-                        </td>
-                      </tr>
-                    )
-                  )
+                      <td
+                        className="px-6 py-4 font-mono text-xs text-slate-400"
+                        data-ltr-text
+                      >
+                        {account.id}
+                      </td>
+                    </tr>
+                  ))
                 )}
               </tbody>
             </table>
           </div>
         </section>
 
-        <LiveVisitors
-          userEmails={
-            liveUserEmails
-          }
-        />
+        <LiveVisitors userEmails={liveUserEmails} />
 
         <section className="mt-10">
           <div className="mb-5">
-            <h2 className="text-2xl font-semibold">
-              Visitor Geography
-            </h2>
+            <h2 className="text-2xl font-semibold">{t("geo.title")}</h2>
 
-            <p className="mt-1 text-sm text-slate-400">
-              Page visits grouped by
-              visitor country.
-            </p>
+            <p className="mt-1 text-sm text-slate-400">{t("geo.subtitle")}</p>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-              <p className="text-sm text-slate-400">
-                Total Page Visits
-              </p>
+              <p className="text-sm text-slate-400">{t("geo.totalVisits")}</p>
 
-              <p className="mt-2 text-2xl font-semibold">
+              <p className="mt-2 text-2xl font-semibold" data-ltr-text>
                 {totalPageVisits}
               </p>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-              <p className="text-sm text-slate-400">
-                Countries
-              </p>
+              <p className="text-sm text-slate-400">{t("geo.countries")}</p>
 
-              <p className="mt-2 text-2xl font-semibold text-cyan-300">
+              <p className="mt-2 text-2xl font-semibold text-cyan-300" data-ltr-text>
                 {knownCountries}
               </p>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-              <p className="text-sm text-slate-400">
-                Visits Today
-              </p>
+              <p className="text-sm text-slate-400">{t("geo.visitsToday")}</p>
 
-              <p className="mt-2 text-2xl font-semibold text-emerald-300">
+              <p className="mt-2 text-2xl font-semibold text-emerald-300" data-ltr-text>
                 {visitsToday}
               </p>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-              <p className="text-sm text-slate-400">
-                Unknown Location
-              </p>
+              <p className="text-sm text-slate-400">{t("geo.unknownLocation")}</p>
 
-              <p className="mt-2 text-2xl font-semibold text-amber-300">
+              <p className="mt-2 text-2xl font-semibold text-amber-300" data-ltr-text>
                 {unknownLocationVisits}
               </p>
             </div>
@@ -767,113 +579,100 @@ export default async function AdminPage() {
 
           <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
             <div className="border-b border-white/10 px-6 py-5">
-              <h3 className="text-lg font-semibold">
-                Top Countries
-              </h3>
+              <h3 className="text-lg font-semibold">{t("geo.topCountries")}</h3>
 
               <p className="mt-1 text-sm text-slate-400">
-                Countries ranked by
-                recorded page visits.
+                {t("geo.topCountriesBody")}
               </p>
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[720px] text-left">
+              <table className="w-full min-w-[720px] text-start">
                 <thead className="border-b border-white/10 bg-white/[0.03]">
                   <tr>
-                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                      Country
+                    <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                      {t("geo.table.country")}
                     </th>
 
-                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                      Code
+                    <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                      {t("geo.table.code")}
                     </th>
 
-                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                      Visits
+                    <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                      {t("geo.table.visits")}
                     </th>
 
-                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                      Share
+                    <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                      {t("geo.table.share")}
                     </th>
 
-                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                      Last Visit
+                    <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                      {t("geo.table.lastVisit")}
                     </th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  {countrySummaries.length ===
-                  0 ? (
+                  {countrySummaries.length === 0 ? (
                     <tr>
                       <td
                         colSpan={5}
                         className="px-6 py-10 text-center text-sm text-slate-400"
                       >
-                        No visitor
-                        geography data yet.
+                        {t("geo.noData")}
                       </td>
                     </tr>
                   ) : (
-                    countrySummaries.map(
-                      (country) => {
-                        const share =
-                          pageVisits.length > 0
-                            ? (
-                                (country.visits /
-                                  pageVisits.length) *
-                                100
-                              ).toFixed(1)
-                            : "0.0";
+                    countrySummaries.map((country) => {
+                      const share =
+                        pageVisits.length > 0
+                          ? (
+                              (country.visits / pageVisits.length) *
+                              100
+                            ).toFixed(1)
+                          : "0.0";
 
-                        return (
-                          <tr
-                            key={`${country.countryCode}-${country.countryName}`}
-                            className="border-b border-white/5 last:border-b-0"
+                      return (
+                        <tr
+                          key={`${country.countryCode}-${country.countryName}`}
+                          className="border-b border-white/5 last:border-b-0"
+                        >
+                          <td className="px-6 py-4">
+                            <div className="flex items-center gap-3">
+                              <span className="text-2xl" aria-hidden="true">
+                                {countryCodeToFlag(country.countryCode)}
+                              </span>
+
+                              <span
+                                className="text-sm font-medium text-white"
+                                data-ltr-text
+                              >
+                                {country.countryName}
+                              </span>
+                            </div>
+                          </td>
+
+                          <td
+                            className="px-6 py-4 font-mono text-xs text-slate-400"
+                            data-ltr-text
                           >
-                            <td className="px-6 py-4">
-                              <div className="flex items-center gap-3">
-                                <span
-                                  className="text-2xl"
-                                  aria-hidden="true"
-                                >
-                                  {countryCodeToFlag(
-                                    country.countryCode
-                                  )}
-                                </span>
+                            {country.countryCode}
+                          </td>
 
-                                <span className="text-sm font-medium text-white">
-                                  {
-                                    country.countryName
-                                  }
-                                </span>
-                              </div>
-                            </td>
+                          <td className="px-6 py-4 text-sm text-slate-300" data-ltr-text>
+                            {country.visits}
+                          </td>
 
-                            <td className="px-6 py-4 font-mono text-xs text-slate-400">
-                              {
-                                country.countryCode
-                              }
-                            </td>
+                          <td className="px-6 py-4 text-sm text-cyan-300" data-ltr-text>
+                            {share}%
+                          </td>
 
-                            <td className="px-6 py-4 text-sm text-slate-300">
-                              {country.visits}
-                            </td>
-
-                            <td className="px-6 py-4 text-sm text-cyan-300">
-                              {share}%
-                            </td>
-
-                            <td className="px-6 py-4 text-sm text-slate-300">
-                              {formatDate(
-                                country.lastVisitAt
-                              )}
-                            </td>
-                          </tr>
-                        );
-                      }
-                    )
+                          <td className="px-6 py-4 text-sm text-slate-300">
+                            {formatDate(locale, country.lastVisitAt)}
+                          </td>
+                        </tr>
+                      );
+                    })
                   )}
                 </tbody>
               </table>
@@ -883,43 +682,34 @@ export default async function AdminPage() {
 
         <section className="mt-10">
           <div className="mb-5">
-            <h2 className="text-2xl font-semibold">
-              Tool Activity
-            </h2>
+            <h2 className="text-2xl font-semibold">{t("tools.title")}</h2>
 
-            <p className="mt-1 text-sm text-slate-400">
-              Usage activity across
-              LifeSeos tools.
-            </p>
+            <p className="mt-1 text-sm text-slate-400">{t("tools.subtitle")}</p>
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-              <p className="text-sm text-slate-400">
-                Total Tool Uses
-              </p>
+              <p className="text-sm text-slate-400">{t("tools.totalUses")}</p>
 
-              <p className="mt-2 text-2xl font-semibold">
+              <p className="mt-2 text-2xl font-semibold" data-ltr-text>
                 {totalToolUses}
               </p>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
               <p className="text-sm text-slate-400">
-                Registered Users
+                {t("tools.registeredUsers")}
               </p>
 
-              <p className="mt-2 text-2xl font-semibold text-emerald-300">
+              <p className="mt-2 text-2xl font-semibold text-emerald-300" data-ltr-text>
                 {registeredToolUses}
               </p>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-              <p className="text-sm text-slate-400">
-                Guest Uses
-              </p>
+              <p className="text-sm text-slate-400">{t("tools.guestUses")}</p>
 
-              <p className="mt-2 text-2xl font-semibold text-violet-300">
+              <p className="mt-2 text-2xl font-semibold text-violet-300" data-ltr-text>
                 {guestToolUses}
               </p>
             </div>
@@ -927,94 +717,79 @@ export default async function AdminPage() {
 
           <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
             <div className="border-b border-white/10 px-6 py-5">
-              <h3 className="text-lg font-semibold">
-                Tool Performance
-              </h3>
+              <h3 className="text-lg font-semibold">{t("tools.performance")}</h3>
 
               <p className="mt-1 text-sm text-slate-400">
-                Usage totals by tool.
+                {t("tools.performanceBody")}
               </p>
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[750px] text-left">
+              <table className="w-full min-w-[750px] text-start">
                 <thead className="border-b border-white/10 bg-white/[0.03]">
                   <tr>
-                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                      Tool
+                    <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                      {t("tools.table.tool")}
                     </th>
 
-                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                      Total Uses
+                    <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                      {t("tools.table.totalUses")}
                     </th>
 
-                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                      Registered
+                    <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                      {t("tools.table.registered")}
                     </th>
 
-                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                      Guests
+                    <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                      {t("tools.table.guests")}
                     </th>
 
-                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                      Last Used
+                    <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                      {t("tools.table.lastUsed")}
                     </th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  {toolSummaries.length ===
-                  0 ? (
+                  {toolSummaries.length === 0 ? (
                     <tr>
                       <td
                         colSpan={5}
                         className="px-6 py-10 text-center text-sm text-slate-400"
                       >
-                        No tool activity
-                        yet.
+                        {t("tools.noActivity")}
                       </td>
                     </tr>
                   ) : (
-                    toolSummaries.map(
-                      (tool) => (
-                        <tr
-                          key={
-                            tool.toolName
-                          }
-                          className="border-b border-white/5 last:border-b-0"
+                    toolSummaries.map((tool) => (
+                      <tr
+                        key={tool.toolName}
+                        className="border-b border-white/5 last:border-b-0"
+                      >
+                        <td
+                          className="px-6 py-4 text-sm font-medium text-white"
+                          data-ltr-text
                         >
-                          <td className="px-6 py-4 text-sm font-medium text-white">
-                            {
-                              tool.toolName
-                            }
-                          </td>
+                          {tool.toolName}
+                        </td>
 
-                          <td className="px-6 py-4 text-sm text-slate-300">
-                            {
-                              tool.totalUses
-                            }
-                          </td>
+                        <td className="px-6 py-4 text-sm text-slate-300" data-ltr-text>
+                          {tool.totalUses}
+                        </td>
 
-                          <td className="px-6 py-4 text-sm text-emerald-300">
-                            {
-                              tool.registeredUses
-                            }
-                          </td>
+                        <td className="px-6 py-4 text-sm text-emerald-300" data-ltr-text>
+                          {tool.registeredUses}
+                        </td>
 
-                          <td className="px-6 py-4 text-sm text-violet-300">
-                            {
-                              tool.guestUses
-                            }
-                          </td>
+                        <td className="px-6 py-4 text-sm text-violet-300" data-ltr-text>
+                          {tool.guestUses}
+                        </td>
 
-                          <td className="px-6 py-4 text-sm text-slate-300">
-                            {formatDate(
-                              tool.lastUsedAt
-                            )}
-                          </td>
-                        </tr>
-                      )
-                    )
+                        <td className="px-6 py-4 text-sm text-slate-300">
+                          {formatDate(locale, tool.lastUsedAt)}
+                        </td>
+                      </tr>
+                    ))
                   )}
                 </tbody>
               </table>
@@ -1023,92 +798,84 @@ export default async function AdminPage() {
 
           <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
             <div className="border-b border-white/10 px-6 py-5">
-              <h3 className="text-lg font-semibold">
-                Recent Tool Activity
-              </h3>
+              <h3 className="text-lg font-semibold">{t("tools.recentTitle")}</h3>
 
               <p className="mt-1 text-sm text-slate-400">
-                Latest tool usage
-                events.
+                {t("tools.recentSubtitle")}
               </p>
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[850px] text-left">
+              <table className="w-full min-w-[850px] text-start">
                 <thead className="border-b border-white/10 bg-white/[0.03]">
                   <tr>
-                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                      Tool
+                    <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                      {t("tools.recentTable.tool")}
                     </th>
 
-                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                      User
+                    <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                      {t("tools.recentTable.user")}
                     </th>
 
-                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                      Type
+                    <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                      {t("tools.recentTable.type")}
                     </th>
 
-                    <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                      Date
+                    <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                      {t("tools.recentTable.date")}
                     </th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  {recentToolEvents.length ===
-                  0 ? (
+                  {recentToolEvents.length === 0 ? (
                     <tr>
                       <td
                         colSpan={4}
                         className="px-6 py-10 text-center text-sm text-slate-400"
                       >
-                        No recent tool
-                        activity.
+                        {t("tools.noRecent")}
                       </td>
                     </tr>
                   ) : (
-                    recentToolEvents.map(
-                      (event) => (
-                        <tr
-                          key={event.id}
-                          className="border-b border-white/5 last:border-b-0"
+                    recentToolEvents.map((event) => (
+                      <tr
+                        key={event.id}
+                        className="border-b border-white/5 last:border-b-0"
+                      >
+                        <td
+                          className="px-6 py-4 text-sm font-medium text-white"
+                          data-ltr-text
                         >
-                          <td className="px-6 py-4 text-sm font-medium text-white">
-                            {
-                              event.tool_name
-                            }
-                          </td>
+                          {event.tool_name}
+                        </td>
 
-                          <td className="px-6 py-4 text-sm text-slate-300">
-                            {event.user_id
-                              ? userEmailMap.get(
-                                  event.user_id
-                                ) ??
-                                event.user_id
-                              : "Guest"}
-                          </td>
+                        <td
+                          className="px-6 py-4 text-sm text-slate-300"
+                          data-ltr-text={event.user_id ? "" : undefined}
+                        >
+                          {event.user_id
+                            ? userEmailMap.get(event.user_id) ?? event.user_id
+                            : t("tools.guest")}
+                        </td>
 
-                          <td className="px-6 py-4">
-                            {event.user_id ? (
-                              <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300">
-                                Registered
-                              </span>
-                            ) : (
-                              <span className="rounded-full border border-violet-400/20 bg-violet-400/10 px-3 py-1 text-xs font-medium text-violet-300">
-                                Guest
-                              </span>
-                            )}
-                          </td>
+                        <td className="px-6 py-4">
+                          {event.user_id ? (
+                            <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300">
+                              {t("tools.registered")}
+                            </span>
+                          ) : (
+                            <span className="rounded-full border border-violet-400/20 bg-violet-400/10 px-3 py-1 text-xs font-medium text-violet-300">
+                              {t("tools.guest")}
+                            </span>
+                          )}
+                        </td>
 
-                          <td className="px-6 py-4 text-sm text-slate-300">
-                            {formatDate(
-                              event.created_at
-                            )}
-                          </td>
-                        </tr>
-                      )
-                    )
+                        <td className="px-6 py-4 text-sm text-slate-300">
+                          {formatDate(locale, event.created_at)}
+                        </td>
+                      </tr>
+                    ))
                   )}
                 </tbody>
               </table>

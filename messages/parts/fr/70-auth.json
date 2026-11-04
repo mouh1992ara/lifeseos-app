@@ -1,0 +1,70 @@
+{
+  "Auth": {
+    "login": {
+      "title": "Se connecter",
+      "description": "Saisissez votre adresse e-mail ci-dessous pour vous connecter à votre compte",
+      "email": "Adresse e-mail",
+      "emailPlaceholder": "m@example.com",
+      "password": "Mot de passe",
+      "forgot": "Mot de passe oublié ?",
+      "submit": "Se connecter",
+      "submitting": "Connexion en cours…",
+      "noAccount": "Vous n’avez pas de compte ?",
+      "signUpLink": "S’inscrire",
+      "errorFallback": "Une erreur s’est produite lors de la connexion."
+    },
+    "signUp": {
+      "title": "S’inscrire",
+      "description": "Créer un nouveau compte",
+      "email": "Adresse e-mail",
+      "emailPlaceholder": "m@example.com",
+      "password": "Mot de passe",
+      "repeatPassword": "Confirmer le mot de passe",
+      "submit": "S’inscrire",
+      "submitting": "Création du compte…",
+      "errorMismatch": "Les mots de passe ne correspondent pas",
+      "errorFallback": "Une erreur s’est produite",
+      "haveAccount": "Vous avez déjà un compte ?",
+      "loginLink": "Se connecter"
+    },
+    "forgot": {
+      "title": "Réinitialiser votre mot de passe",
+      "description": "Saisissez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe",
+      "email": "Adresse e-mail",
+      "emailPlaceholder": "m@example.com",
+      "submit": "Envoyer l’e-mail de réinitialisation",
+      "submitting": "Envoi en cours…",
+      "successTitle": "Vérifiez votre boîte de réception",
+      "successDescription": "Instructions de réinitialisation envoyées",
+      "successBody": "Si vous vous êtes inscrit avec votre adresse e-mail et votre mot de passe, vous recevrez un e-mail de réinitialisation du mot de passe.",
+      "haveAccount": "Vous avez déjà un compte ?",
+      "loginLink": "Se connecter",
+      "errorFallback": "Une erreur s’est produite"
+    },
+    "update": {
+      "title": "Réinitialiser votre mot de passe",
+      "description": "Veuillez saisir votre nouveau mot de passe ci-dessous.",
+      "password": "Nouveau mot de passe",
+      "passwordPlaceholder": "Nouveau mot de passe",
+      "submit": "Enregistrer le nouveau mot de passe",
+      "submitting": "Enregistrement…",
+      "errorFallback": "Une erreur s’est produite"
+    },
+    "success": {
+      "title": "Merci pour votre inscription !",
+      "description": "Vérifiez votre boîte de réception pour confirmer",
+      "body": "Votre inscription a bien été enregistrée. Veuillez vérifier votre adresse e-mail pour confirmer votre compte avant de vous connecter."
+    },
+    "error": {
+      "title": "Désolé, une erreur s’est produite.",
+      "codeError": "Code d’erreur : {code}",
+      "fallback": "Une erreur non spécifiée s’est produite."
+    },
+    "greeting": "Bonjour, {email} !",
+    "logout": "Se déconnecter",
+    "nav": {
+      "signIn": "Se connecter",
+      "signUp": "S’inscrire"
+    }
+  }
+}

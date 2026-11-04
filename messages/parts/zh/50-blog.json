@@ -1,0 +1,53 @@
+{
+  "Blog": {
+    "meta": {
+      "title": "SEO 博客与指南",
+      "description": "阅读 LifeSeos 的实用 SEO 指南、技术教程与网站优化策略。"
+    },
+    "badge": "SEO 洞察与指南",
+    "titleLine1": "学懂 SEO。",
+    "titleAccent": "增长更聪明。",
+    "subtitle": "实用的 SEO 教程、技术指南与可执行策略，帮你读懂自己的网站，并有底气地把它做得更好。",
+    "categories": {
+      "all": "全部指南",
+      "technical": "技术 SEO",
+      "onPage": "页面 SEO",
+      "content": "内容 SEO",
+      "performance": "性能",
+      "audits": "SEO 审计"
+    },
+    "featuredEyebrow": "精选指南",
+    "featuredTitle": "从基础开始",
+    "featuredCta": "阅读完整指南",
+    "listEyebrow": "最新知识",
+    "listTitle": "探索 SEO 指南",
+    "listBody": "每篇指南都对应一款 LifeSeos 工具，学完概念就能立刻上手实践。",
+    "readGuide": "阅读指南",
+    "readTime": "阅读约 {minutes} 分钟",
+    "updated": "更新于 {date}",
+    "published": "发布于 {date}",
+    "byAuthor": "作者：{author}",
+    "contents": "本页内容",
+    "relatedTool": "试用配套工具",
+    "backToBlog": "全部指南",
+    "moreGuides": "更多指南",
+    "tip": "小贴士",
+    "cta": {
+      "eyebrow": "学会它，测试它，改进它。",
+      "title": "把每一课 SEO 都变成一次可落地的改进。",
+      "body": "LifeSeos 为你提供实用工具，用来分析页面、评估内容、测试性能、找出技术 SEO 问题。",
+      "button": "浏览 SEO 工具"
+    },
+    "final": {
+      "title": "持续学习，持续改进。",
+      "body": "阅读实用的 SEO 指南，并配合 LifeSeos 工具，准确了解你网站上正在发生什么。",
+      "primary": "浏览工具",
+      "secondary": "关于 LifeSeos"
+    },
+    "notFound": "未找到该指南。",
+    "articleCta": {
+      "title": "把这篇文章用起来",
+      "body": "打开对应的 LifeSeos 工具，把刚学到的内容应用到自己的网站上。"
+    }
+  }
+}

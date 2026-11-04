@@ -1,0 +1,119 @@
+{
+  "Tools": {
+    "meta": {
+      "indexTitle": "Outils SEO gratuits pour les sites, le contenu et YouTube",
+      "indexDescription": "Une collection d’outils SEO gratuits pour l’analyse de sites, le SEO technique, l’optimisation de contenu, les données structurées, la vitesse des pages, la visibilité dans les recherches et le SEO YouTube."
+    },
+    "index": {
+      "badge": "Bibliothèque d’outils LifeSeos",
+      "titleLine1": "Des outils SEO puissants",
+      "titleLine2": "pour chaque site",
+      "subtitle": "Analysez des sites, améliorez le contenu, générez des données structurées et optimisez votre contenu YouTube avec les outils gratuits de LifeSeos.",
+      "searchPlaceholder": "Rechercher un outil SEO…",
+      "searchLabel": "Rechercher un outil SEO",
+      "resultCount": "{count, plural, =0 {Aucun outil trouvé.} one {# outil trouvé} other {# outils trouvés}}",
+      "noResultsTitle": "Aucun outil trouvé",
+      "noResultsBody": "Essayez un autre nom d’outil ou une autre catégorie.",
+      "clearSearch": "Effacer la recherche",
+      "statsTools": "Outils gratuits",
+      "statsCategories": "Catégories d’outils",
+      "statsAccess": "Accès immédiat",
+      "statsAccessValue": "Immédiat"
+    },
+    "categories": {
+      "technical": "SEO technique",
+      "content": "SEO de contenu",
+      "performance": "Performance",
+      "management": "Gestion de contenu",
+      "youtube": "SEO YouTube"
+    },
+    "youtubeBlurb": "Découvrez des mots-clés vidéo, créez des titres et descriptions plus forts, analysez la qualité des titres et construisez des scripts structurés.",
+    "catalog": {
+      "seoAnalyzer": {
+        "title": "Analyseur SEO",
+        "short": "Analysez la santé de votre site, les problèmes de SEO technique et les opportunités d’optimisation.",
+        "long": "Analysez la santé de votre site, le SEO technique et les opportunités d’optimisation."
+      },
+      "seoPageAnalyzer": {
+        "title": "Analyseur de page SEO",
+        "short": "Analysez les titres, intertitres, liens, métadonnées et autres éléments SEO on-page importants.",
+        "long": "Examinez les titres, méta-descriptions, intertitres, liens et textes alternatifs d’images."
+      },
+      "robotsTxtGenerator": {
+        "title": "Générateur de robots.txt",
+        "short": "Créez des fichiers robots.txt adaptés aux robots d’exploration des moteurs de recherche.",
+        "long": "Générez des règles d’exploration et améliorez l’accessibilité de votre site aux moteurs de recherche."
+      },
+      "xmlSitemapGenerator": {
+        "title": "Générateur de sitemap XML",
+        "short": "Générez des sitemaps optimisés pour le SEO afin d’améliorer l’exploration et l’indexation.",
+        "long": "Créez des sitemaps compatibles avec les moteurs de recherche."
+      },
+      "schemaMarkupGenerator": {
+        "title": "Générateur de données structurées",
+        "short": "Générez des données structurées JSON-LD pour les articles, FAQ, produits, entreprises et plus encore.",
+        "long": "Générez des données structurées JSON-LD pour les articles, FAQ, produits et entreprises."
+      },
+      "metaTagGenerator": {
+        "title": "Générateur de balises meta",
+        "short": "Créez des idées de titres et de méta-descriptions optimisés pour la visibilité dans les recherches.",
+        "long": "Créez des titres et descriptions optimisés pour une meilleure visibilité dans les recherches."
+      },
+      "serpSnippetPreview": {
+        "title": "Aperçu de l’extrait SERP",
+        "short": "Prévisualisez l’apparence de votre titre, URL et méta-description dans les résultats de recherche.",
+        "long": "Prévisualisez l’apparence de votre titre, méta-description et URL dans les résultats Google."
+      },
+      "keywordDensityChecker": {
+        "title": "Vérificateur de densité de mots-clés",
+        "short": "Analysez la fréquence et l’usage des mots-clés dans votre texte.",
+        "long": "Comprenez l’usage des mots-clés et améliorez votre stratégie de contenu."
+      },
+      "articleRewriter": {
+        "title": "Réécriture d’articles SEO",
+        "short": "Réécrivez vos articles pour plus de clarté, de lisibilité, de ton et de cohérence SEO.",
+        "long": "Réécrivez le contenu de votre site pour plus de clarté, de lisibilité, de ton et de cohérence SEO."
+      },
+      "httpStatusChecker": {
+        "title": "Vérificateur de statut HTTP",
+        "short": "Vérifiez instantanément les redirections, erreurs et codes de réponse HTTP.",
+        "long": "Détectez les redirections, erreurs et problèmes techniques du site."
+      },
+      "pageSpeed": {
+        "title": "Analyseur de vitesse de page",
+        "short": "Mesurez les performances de votre site, sa vitesse de chargement et les métriques Lighthouse importantes.",
+        "long": "Examinez les performances de votre site, sa vitesse de chargement et les métriques Lighthouse importantes."
+      },
+      "contentAnalyzer": {
+        "title": "Analyseur de contenu",
+        "short": "Analysez la qualité du contenu, la lisibilité, l’usage des mots-clés et les opportunités SEO.",
+        "long": "Analysez la longueur du contenu, la lisibilité, les mots-clés et les signaux de qualité SEO de base."
+      },
+      "youtubeKeywordIdeas": {
+        "title": "Idées de mots-clés YouTube",
+        "short": "Découvrez des groupes de mots-clés, des expressions longues et des idées de sujets vidéo utiles.",
+        "long": "Générez des groupes de mots-clés utiles, des expressions longues et des idées de sujets vidéo."
+      },
+      "youtubeTitleGenerator": {
+        "title": "Générateur de titres YouTube",
+        "short": "Générez des idées de titres YouTube attractifs selon votre sujet, mot-clé, style et audience.",
+        "long": "Créez des idées de titres YouTube attractifs selon votre sujet, mot-clé et audience."
+      },
+      "youtubeTitleAnalyzer": {
+        "title": "Analyseur de titres YouTube",
+        "short": "Analysez les titres YouTube selon leur clarté, l’usage des mots-clés, leur structure, leur longueur et leur attractivité.",
+        "long": "Examinez la clarté, la structure, l’usage des mots-clés, la longueur et l’attractivité d’un titre."
+      },
+      "youtubeDescriptionGenerator": {
+        "title": "Générateur de descriptions YouTube",
+        "short": "Créez des descriptions YouTube structurées avec mots-clés, hashtags et appels à l’action.",
+        "long": "Créez des descriptions YouTube structurées avec mots-clés et appels à l’action."
+      },
+      "youtubeScriptWriter": {
+        "title": "Rédacteur de scripts YouTube",
+        "short": "Créez des scripts vidéo structurés avec accroches, points principaux, transitions, appels à l’action et conclusions.",
+        "long": "Construisez des scripts vidéo structurés avec accroches, points principaux, transitions et appels à l’action."
+      }
+    }
+  }
+}

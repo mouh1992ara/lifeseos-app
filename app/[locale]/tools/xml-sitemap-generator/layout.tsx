@@ -1,77 +1,18 @@
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "XML Sitemap Generator - Free SEO Sitemap Tool",
+import { buildToolMetadata } from "@/lib/seo";
 
-  description:
-    "Create an XML sitemap for your website and help search engines discover your important pages with the free LifeSeos XML Sitemap Generator.",
+type Props = { params: Promise<{ locale: string }> };
 
-  alternates: {
-    canonical: "/tools/xml-sitemap-generator",
-  },
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  return buildToolMetadata({
+    locale,
+    path: "/tools/xml-sitemap-generator",
+    toolKey: "xmlSitemapGenerator",
+  });
+}
 
-  openGraph: {
-    title: "XML Sitemap Generator | LifeSeos",
-    description:
-      "Generate XML sitemaps to help search engines discover and crawl your website pages.",
-    url: "/tools/xml-sitemap-generator",
-    type: "website",
-    siteName: "LifeSeos",
-    images: [
-      {
-        url: "/social/xml-sitemap-generator.png",
-        width: 1200,
-        height: 630,
-        alt: "LifeSeos XML Sitemap Generator",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "XML Sitemap Generator | LifeSeos",
-    description:
-      "Generate XML sitemaps to help search engines discover and crawl your website pages.",
-    images: ["/social/xml-sitemap-generator.png"],
-  },
-};
-
-const xmlSitemapGeneratorJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  name: "LifeSeos XML Sitemap Generator",
-  url: "https://www.lifeseos.com/tools/xml-sitemap-generator",
-  applicationCategory: "BusinessApplication",
-  operatingSystem: "Web",
-  description:
-    "A free SEO tool for generating XML sitemaps to help search engines discover and crawl website pages.",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "LifeSeos",
-    url: "https://www.lifeseos.com",
-  },
-};
-
-export default function XMLSitemapGeneratorLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(xmlSitemapGeneratorJsonLd),
-        }}
-      />
-
-      {children}
-    </>
-  );
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
 }

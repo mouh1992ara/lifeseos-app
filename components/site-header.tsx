@@ -5,6 +5,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import LanguageSwitcher from "@/components/language-switcher";
 import Logo from "@/components/logo";
 import { SolutionsMenu } from "@/components/solutions-menu";
+import { localizePath, type Locale } from "@/i18n/config";
 import { Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/server";
 
@@ -39,13 +40,13 @@ async function SiteHeaderContent() {
   } = await supabase.auth.getUser();
 
   const t = await getTranslations("Header");
-  const locale = await getLocale();
+  const locale = (await getLocale()) as Locale;
 
   async function logout() {
     "use server";
     const supabase = await createClient();
     await supabase.auth.signOut();
-    redirect(locale === "en" ? "/" : `/${locale}`);
+    redirect(localizePath(locale, "/"));
   }
 
   const displayName =
@@ -59,52 +60,79 @@ async function SiteHeaderContent() {
       <div className="flex flex-col items-center gap-3 px-4 py-4 md:hidden">
         <Logo />
 
-        <div className="relative flex w-full items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-          <Link href="/tools" className={mobileLink}>{t("tools")}</Link>
+        <nav
+          aria-label={t("mobileNav")}
+          className="relative flex w-full items-center justify-between gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2"
+        >
+          <Link href="/tools" className={mobileLink}>
+            {t("tools")}
+          </Link>
           <SolutionsMenu variant="sheet" className={solutionsMobile} />
-          <Link href="/blog" className={mobileLink}>{t("blog")}</Link>
+          <Link href="/blog" className={mobileLink}>
+            {t("blog")}
+          </Link>
 
           {user ? (
             <>
-              <Link href="/dashboard" className={mobileLink}>{t("dashboard")}</Link>
+              <Link href="/dashboard" className={mobileLink}>
+                {t("dashboard")}
+              </Link>
               <LanguageSwitcher compact />
               <form action={logout}>
-                <button type="submit" className={mobileCta}>{t("signOut")}</button>
+                <button type="submit" className={mobileCta}>
+                  {t("signOut")}
+                </button>
               </form>
             </>
           ) : (
             <>
               <LanguageSwitcher compact />
-              <Link href="/auth/login" className={mobileLink}>{t("signIn")}</Link>
-              <Link href="/auth/sign-up" className={mobileCta}>{t("getStarted")}</Link>
+              <Link href="/auth/login" className={mobileLink}>
+                {t("signIn")}
+              </Link>
+              <Link href="/auth/sign-up" className={mobileCta}>
+                {t("getStarted")}
+              </Link>
             </>
           )}
-        </div>
+        </nav>
       </div>
 
       {/* ================= DESKTOP ================= */}
       <div className="mx-auto hidden w-full max-w-7xl items-center justify-between px-6 py-5 md:flex">
         <Logo />
 
-        <nav className="flex items-center gap-3">
-          <Link href="/tools" className={deskLink}>{t("tools")}</Link>
-          <SolutionsMenu className={solutionsDesk} />
-          <Link href="/blog" className={deskLink}>{t("blog")}</Link>
+        <nav aria-label={t("primaryNav")} className="flex items-center gap-3">
+          <Link href="/tools" className={deskLink}>
+            {t("tools")}
+          </Link>
+          <SolutionsMenu label={t("solutions")} className={solutionsDesk} />
+          <Link href="/blog" className={deskLink}>
+            {t("blog")}
+          </Link>
 
           {user ? (
             <>
               <span className="px-4 py-2 text-sm text-slate-300">{displayName}</span>
-              <Link href="/dashboard" className={deskLink}>{t("dashboard")}</Link>
+              <Link href="/dashboard" className={deskLink}>
+                {t("dashboard")}
+              </Link>
               <LanguageSwitcher />
               <form action={logout}>
-                <button type="submit" className={deskOutline}>{t("signOut")}</button>
+                <button type="submit" className={deskOutline}>
+                  {t("signOut")}
+                </button>
               </form>
             </>
           ) : (
             <>
               <LanguageSwitcher />
-              <Link href="/auth/login" className={deskPlain}>{t("signIn")}</Link>
-              <Link href="/auth/sign-up" className={deskCta}>{t("getStarted")}</Link>
+              <Link href="/auth/login" className={deskPlain}>
+                {t("signIn")}
+              </Link>
+              <Link href="/auth/sign-up" className={deskCta}>
+                {t("getStarted")}
+              </Link>
             </>
           )}
         </nav>

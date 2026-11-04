@@ -1,0 +1,208 @@
+{
+  "Dashboard": {
+    "badge": "Tableau de bord LifeSeos",
+    "welcome": "Bon retour",
+    "signedInAs": "Connecté en tant que",
+    "newAnalysis": "Nouvelle analyse SEO",
+    "loadError": "Impossible de charger vos rapports SEO.",
+    "stats": {
+      "totalAudits": "Audits au total",
+      "totalAuditsBody": "Rapports SEO enregistrés sur votre compte",
+      "averageScore": "Score moyen",
+      "averageScoreBody": "Score moyen de tous vos audits",
+      "bestScore": "Meilleur score",
+      "bestScoreBody": "Meilleur score SEO enregistré",
+      "websites": "Sites analysés",
+      "websitesBody": "URL uniques dans votre historique d’audits"
+    },
+    "latest": {
+      "badge": "Dernier audit",
+      "title": "Votre analyse SEO la plus récente",
+      "body": "Consultez le dernier score de votre site, son statut et le détail du rapport, ou lancez un nouvel audit pour suivre vos améliorations.",
+      "website": "Site",
+      "viewReport": "Voir le dernier rapport",
+      "runNew": "Lancer une nouvelle analyse",
+      "score": "Score SEO",
+      "outOf100": "sur 100",
+      "grade": "Note",
+      "gradeHint": "Note de l’audit actuel",
+      "status": "Statut",
+      "statusUnknown": "Inconnu",
+      "changeUp": "+{change} par rapport au précédent",
+      "changeDown": "{change} par rapport au précédent",
+      "noChange": "Score inchangé"
+    },
+    "history": {
+      "eyebrow": "Historique SEO",
+      "title": "Rapports récents",
+      "count": "{count, plural, =0 {Aucun rapport} one {# rapport} other {# rapports}}"
+    },
+    "empty": {
+      "title": "Aucun rapport SEO pour le moment",
+      "body": "Lancez votre première analyse SEO : le rapport apparaîtra automatiquement ici.",
+      "cta": "Analyser un site"
+    },
+    "table": {
+      "website": "Site",
+      "score": "Score",
+      "grade": "Note",
+      "status": "Statut",
+      "date": "Date",
+      "report": "Rapport",
+      "viewReport": "Voir le rapport"
+    },
+    "account": {
+      "eyebrow": "Compte",
+      "title": "Informations du compte",
+      "email": "E-mail"
+    },
+    "report": {
+      "back": "Retour au tableau de bord",
+      "analyzedOn": "Analysé le",
+      "eyebrow": "Rapport SEO enregistré",
+      "title": "Rapport d’audit SEO",
+      "intro": "Il s’agit d’une analyse SEO enregistrée depuis votre compte LifeSeos. Consultez ci-dessous les signaux SEO détectés, les avertissements, les erreurs et les recommandations.",
+      "website": "Site",
+      "gradeLabel": "Note",
+      "statusUnknown": "Inconnu",
+      "score": "Score SEO",
+      "outOf100": "sur 100",
+      "fields": {
+        "pageTitle": "Titre de la page",
+        "h1": "Titre H1",
+        "canonical": "URL canonique",
+        "robots": "Méta-robots",
+        "noTitle": "Aucun titre trouvé",
+        "noH1": "Aucun H1 trouvé",
+        "noDescription": "Aucune méta-description trouvée",
+        "notFound": "Introuvable"
+      },
+      "labels": {
+        "title": "Titre",
+        "metaDescription": "Méta-description",
+        "h1": "H1",
+        "canonicalUrl": "URL canonique",
+        "robotsMeta": "Méta-robots",
+        "totalImages": "Images au total",
+        "missingAlt": "ALT manquants",
+        "ogTitle": "Titre Open Graph",
+        "ogDescription": "Description Open Graph"
+      },
+      "sections": {
+        "contentSeo": "SEO du contenu",
+        "contentSeoBody": "Métadonnées et signaux de contenu importants.",
+        "imageSeo": "SEO des images",
+        "imageSeoBody": "Accessibilité des images et informations ALT.",
+        "socialSeo": "SEO social",
+        "socialSeoBody": "Informations Open Graph détectées lors de l’analyse.",
+        "technicalSeo": "SEO technique",
+        "technicalSeoBody": "Signaux techniques de la page enregistrés avec ce rapport."
+      },
+      "passed": "Vérifications réussies",
+      "warnings": "Avertissements",
+      "errors": "Erreurs",
+      "items": "{count, plural, =0 {Aucun élément} one {# élément} other {# éléments}}",
+      "noPassed": "Aucune vérification réussie enregistrée.",
+      "noWarnings": "Aucun avertissement enregistré.",
+      "noErrors": "Aucune erreur enregistrée.",
+      "actionPlan": "Plan d’action",
+      "recommendations": "Recommandations",
+      "improvement": "Amélioration SEO",
+      "noRecommendations": "Aucune recommandation n’a été enregistrée pour ce rapport.",
+      "newAnalysis": "Nouvelle analyse SEO"
+    }
+  },
+  "Admin": {
+    "eyebrow": "Administration LifeSeos",
+    "title": "Tableau de bord administrateur",
+    "subtitle": "Gérez les utilisateurs, les rapports, l’activité des outils et les données du site.",
+    "stats": {
+      "totalUsers": "Utilisateurs au total",
+      "seoReports": "Rapports SEO",
+      "toolUses": "Utilisations d’outils",
+      "messages": "Messages"
+    },
+    "users": {
+      "title": "Utilisateurs",
+      "subtitle": "Utilisateurs LifeSeos inscrits, classés par dernière connexion.",
+      "newToday": "Nouveaux aujourd’hui",
+      "last7Days": "7 derniers jours",
+      "thisMonth": "Ce mois-ci",
+      "confirmed": "Confirmé",
+      "unconfirmed": "Non confirmé"
+    },
+    "table": {
+      "email": "E-mail",
+      "created": "Créé le",
+      "lastSignIn": "Dernière connexion",
+      "emailStatus": "Statut de l’e-mail",
+      "userId": "ID utilisateur",
+      "noUsers": "Aucun utilisateur trouvé."
+    },
+    "liveVisitors": {
+      "title": "Visiteurs en direct",
+      "live": "En direct",
+      "subtitle": "Visiteurs actuellement connectés à LifeSeos.",
+      "onlineNow": "En ligne maintenant",
+      "registered": "Inscrits",
+      "guests": "Invités",
+      "listTitle": "Visiteurs en ligne",
+      "listSubtitle": "Type de visiteur, page et heure de début de session.",
+      "user": "Utilisateur",
+      "type": "Type",
+      "currentPage": "Page actuelle",
+      "onlineSince": "En ligne depuis",
+      "empty": "Aucun visiteur en ligne pour le moment.",
+      "registeredUser": "Utilisateur inscrit",
+      "guest": "Invité"
+    },
+    "geo": {
+      "title": "Géographie des visiteurs",
+      "subtitle": "Visites de pages regroupées par pays du visiteur.",
+      "totalVisits": "Visites de pages au total",
+      "countries": "Pays",
+      "visitsToday": "Visites aujourd’hui",
+      "unknownLocation": "Localisation inconnue",
+      "unknownCountry": "Inconnu",
+      "topCountries": "Principaux pays",
+      "topCountriesBody": "Pays classés par visites de pages enregistrées.",
+      "noData": "Aucune donnée de géographie des visiteurs pour le moment.",
+      "table": {
+        "country": "Pays",
+        "code": "Code",
+        "visits": "Visites",
+        "share": "Part",
+        "lastVisit": "Dernière visite"
+      }
+    },
+    "tools": {
+      "title": "Activité des outils",
+      "subtitle": "Activité d’utilisation des outils LifeSeos.",
+      "totalUses": "Utilisations d’outils au total",
+      "registeredUsers": "Utilisateurs inscrits",
+      "guestUses": "Utilisations en invité",
+      "performance": "Performance des outils",
+      "performanceBody": "Totaux d’utilisation par outil.",
+      "noActivity": "Aucune activité d’outil pour le moment.",
+      "table": {
+        "tool": "Outil",
+        "totalUses": "Utilisations au total",
+        "registered": "Inscrits",
+        "guests": "Invités",
+        "lastUsed": "Dernière utilisation"
+      },
+      "recentTitle": "Activité récente des outils",
+      "recentSubtitle": "Derniers événements d’utilisation des outils.",
+      "noRecent": "Aucune activité récente.",
+      "recentTable": {
+        "tool": "Outil",
+        "user": "Utilisateur",
+        "type": "Type",
+        "date": "Date"
+      },
+      "guest": "Invité",
+      "registered": "Inscrit",
+      "unknownUser": "Utilisateur inconnu"
+    }
+  }
+}

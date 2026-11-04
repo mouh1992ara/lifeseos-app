@@ -1,0 +1,119 @@
+{
+  "Tools": {
+    "meta": {
+      "indexTitle": "免费 SEO 工具：网站、内容与 YouTube",
+      "indexDescription": "免费 SEO 工具合集，覆盖网站分析、技术 SEO、内容优化、结构化数据、页面速度、搜索可见性与 YouTube SEO。"
+    },
+    "index": {
+      "badge": "LifeSeos 工具库",
+      "titleLine1": "强大的 SEO 工具",
+      "titleLine2": "为每个网站而备",
+      "subtitle": "用 LifeSeos 免费工具分析网站、优化内容、生成结构化数据，并优化 YouTube 内容。",
+      "searchPlaceholder": "搜索 SEO 工具…",
+      "searchLabel": "搜索 SEO 工具",
+      "resultCount": "{count, plural, =0 {未找到工具。} one {找到 # 个工具} other {找到 # 个工具}}",
+      "noResultsTitle": "未找到工具",
+      "noResultsBody": "换个工具名称或分类试试。",
+      "clearSearch": "清除搜索",
+      "statsTools": "免费工具",
+      "statsCategories": "工具分类",
+      "statsAccess": "即时可用",
+      "statsAccessValue": "即时"
+    },
+    "categories": {
+      "technical": "技术 SEO",
+      "content": "内容 SEO",
+      "performance": "性能",
+      "management": "内容管理",
+      "youtube": "YouTube SEO"
+    },
+    "youtubeBlurb": "发现视频关键词，写出更有力的标题与简介，评估标题质量，搭建结构化脚本。",
+    "catalog": {
+      "seoAnalyzer": {
+        "title": "SEO 分析器",
+        "short": "分析网站健康度、技术 SEO 问题与优化机会。",
+        "long": "分析网站健康度、技术 SEO 与优化机会。"
+      },
+      "seoPageAnalyzer": {
+        "title": "SEO 页面分析器",
+        "short": "分析标题、各级标题、链接、元数据等重要页面 SEO 元素。",
+        "long": "检查标题、描述、各级标题、链接与图片替代文本。"
+      },
+      "robotsTxtGenerator": {
+        "title": "Robots.txt 生成器",
+        "short": "为搜索引擎创建对爬虫友好的 robots.txt 文件。",
+        "long": "生成抓取规则，提升网站对搜索引擎的友好度。"
+      },
+      "xmlSitemapGenerator": {
+        "title": "XML 网站地图生成器",
+        "short": "生成利于 SEO 的网站地图结构，改善抓取与收录。",
+        "long": "创建对搜索引擎友好的网站地图结构。"
+      },
+      "schemaMarkupGenerator": {
+        "title": "结构化数据生成器",
+        "short": "为文章、FAQ、商品、商家等生成 JSON-LD 结构化数据。",
+        "long": "为文章、FAQ、商品与商家生成 JSON-LD 结构化数据。"
+      },
+      "metaTagGenerator": {
+        "title": "元标签生成器",
+        "short": "生成优化的标题与元描述思路，提升搜索可见性。",
+        "long": "生成优化的标题与描述，提升搜索可见性。"
+      },
+      "serpSnippetPreview": {
+        "title": "搜索结果摘要预览",
+        "short": "预览你的页面标题、URL 与元描述在搜索结果中的展示效果。",
+        "long": "预览你的标题、元描述与 URL 在 Google 搜索结果中的展示效果。"
+      },
+      "keywordDensityChecker": {
+        "title": "关键词密度检测",
+        "short": "分析文本中关键词的出现频率与使用情况。",
+        "long": "了解关键词使用情况，优化你的内容策略。"
+      },
+      "articleRewriter": {
+        "title": "SEO 文章改写",
+        "short": "重写网站文章，让表达更清晰、更易读、语气更统一、SEO 更一致。",
+        "long": "重写网站内容，让表达更清晰、更易读、语气更统一、SEO 更一致。"
+      },
+      "httpStatusChecker": {
+        "title": "HTTP 状态检测",
+        "short": "即时检测重定向、错误与 HTTP 响应码。",
+        "long": "检测重定向、错误与技术层面的网站问题。"
+      },
+      "pageSpeed": {
+        "title": "页面速度分析器",
+        "short": "衡量网站性能、加载速度与关键 Lighthouse 指标。",
+        "long": "查看网站性能、加载速度与关键 Lighthouse 指标。"
+      },
+      "contentAnalyzer": {
+        "title": "内容分析器",
+        "short": "分析内容质量、可读性、关键词使用与 SEO 机会。",
+        "long": "分析内容长度、可读性、关键词与基础 SEO 质量信号。"
+      },
+      "youtubeKeywordIdeas": {
+        "title": "YouTube 关键词灵感",
+        "short": "发现关键词组合、长尾短语与实用的视频选题。",
+        "long": "生成实用的关键词组合、长尾短语与视频选题。"
+      },
+      "youtubeTitleGenerator": {
+        "title": "YouTube 标题生成器",
+        "short": "根据主题、关键词、风格与受众，生成有吸引力的 YouTube 标题。",
+        "long": "根据主题、关键词与受众，生成有吸引力的 YouTube 标题。"
+      },
+      "youtubeTitleAnalyzer": {
+        "title": "YouTube 标题分析器",
+        "short": "从清晰度、关键词使用、结构、长度与点击吸引力评估 YouTube 标题。",
+        "long": "评估标题的清晰度、结构、关键词使用、长度与点击吸引力。"
+      },
+      "youtubeDescriptionGenerator": {
+        "title": "YouTube 简介生成器",
+        "short": "生成结构化的 YouTube 简介，融入关键词、话题标签与行动号召。",
+        "long": "生成结构化的 YouTube 简介，融入关键词与行动号召。"
+      },
+      "youtubeScriptWriter": {
+        "title": "YouTube 脚本撰写",
+        "short": "生成结构化视频脚本，包含开场钩子、核心要点、过渡、行动号召与结尾。",
+        "long": "搭建结构化视频脚本，包含开场钩子、核心要点、过渡与行动号召。"
+      }
+    }
+  }
+}

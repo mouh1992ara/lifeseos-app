@@ -1,0 +1,70 @@
+{
+  "Auth": {
+    "login": {
+      "title": "登录",
+      "description": "在下方输入邮箱以登录你的账户",
+      "email": "邮箱",
+      "emailPlaceholder": "m@example.com",
+      "password": "密码",
+      "forgot": "忘记密码？",
+      "submit": "登录",
+      "submitting": "正在登录…",
+      "noAccount": "还没有账户？",
+      "signUpLink": "注册",
+      "errorFallback": "登录时发生错误。"
+    },
+    "signUp": {
+      "title": "注册",
+      "description": "创建一个新账户",
+      "email": "邮箱",
+      "emailPlaceholder": "m@example.com",
+      "password": "密码",
+      "repeatPassword": "确认密码",
+      "submit": "注册",
+      "submitting": "正在创建账户…",
+      "errorMismatch": "两次输入的密码不一致",
+      "errorFallback": "发生错误",
+      "haveAccount": "已经有账户？",
+      "loginLink": "登录"
+    },
+    "forgot": {
+      "title": "重置密码",
+      "description": "输入你的邮箱，我们会发送一封包含重置密码链接的邮件",
+      "email": "邮箱",
+      "emailPlaceholder": "m@example.com",
+      "submit": "发送重置邮件",
+      "submitting": "正在发送…",
+      "successTitle": "请查收邮件",
+      "successDescription": "密码重置说明已发送",
+      "successBody": "如果你使用邮箱和密码注册，将会收到一封密码重置邮件。",
+      "haveAccount": "已经有账户？",
+      "loginLink": "登录",
+      "errorFallback": "发生错误"
+    },
+    "update": {
+      "title": "重置密码",
+      "description": "请在下方输入你的新密码。",
+      "password": "新密码",
+      "passwordPlaceholder": "新密码",
+      "submit": "保存新密码",
+      "submitting": "正在保存…",
+      "errorFallback": "发生错误"
+    },
+    "success": {
+      "title": "感谢注册！",
+      "description": "请查收邮件完成确认",
+      "body": "注册成功。登录前请先查收邮件并确认你的账户。"
+    },
+    "error": {
+      "title": "抱歉，出现了一些问题。",
+      "codeError": "错误代码：{code}",
+      "fallback": "发生了未指明的错误。"
+    },
+    "greeting": "你好，{email}！",
+    "logout": "退出登录",
+    "nav": {
+      "signIn": "登录",
+      "signUp": "注册"
+    }
+  }
+}

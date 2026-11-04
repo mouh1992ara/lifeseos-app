@@ -1,13 +1,17 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import type { LucideIcon } from "lucide-react";
 import { Briefcase, ChevronDown, FileText, Youtube } from "lucide-react";
-import { audienceNav, type AudienceNavSlug } from "@/lib/audience-nav";
 
-const icons: Record<AudienceNavSlug, LucideIcon> = {
+import { Link } from "@/i18n/navigation";
+
+const SLUGS = ["youtubers", "bloggers", "agencies"] as const;
+type Slug = (typeof SLUGS)[number];
+
+const icons: Record<Slug, LucideIcon> = {
   youtubers: Youtube,
   bloggers: FileText,
   agencies: Briefcase,
@@ -19,7 +23,7 @@ const sheetTriggerClass =
   "inline-flex items-center gap-1 text-xs text-slate-300 hover:text-white";
 
 const dropdownPanelClass =
-  "absolute left-1/2 top-full z-50 mt-3 w-[22rem] -translate-x-1/2 rounded-2xl border border-white/10 bg-slate-950/95 p-2 shadow-2xl shadow-black/40 backdrop-blur-xl";
+  "absolute start-1/2 top-full z-50 mt-3 w-[22rem] -translate-x-1/2 rounded-2xl border border-white/10 bg-slate-950/95 p-2 shadow-2xl shadow-black/40 backdrop-blur-xl rtl:translate-x-1/2";
 // The sheet spans the whole width of the nearest positioned parent (the mobile bar).
 const sheetPanelClass =
   "absolute inset-x-0 top-full z-50 mt-2 rounded-2xl border border-white/10 bg-slate-950 p-2 shadow-2xl shadow-black/40";
@@ -41,10 +45,11 @@ type SolutionsMenuProps = {
  * only hidden), so search engines can still follow them.
  */
 export function SolutionsMenu({
-  label = "Solutions",
+  label,
   variant = "dropdown",
   className,
 }: SolutionsMenuProps) {
+  const t = useTranslations("Solutions");
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
@@ -81,7 +86,7 @@ export function SolutionsMenu({
         onClick={() => setOpen((value) => !value)}
         className={className ?? (isSheet ? sheetTriggerClass : dropdownTriggerClass)}
       >
-        {label}
+        {label ?? t("label")}
         <ChevronDown
           className={
             (isSheet ? "h-3.5 w-3.5 " : "h-4 w-4 ") +
@@ -97,17 +102,17 @@ export function SolutionsMenu({
         className={isSheet ? sheetPanelClass : dropdownPanelClass}
       >
         <ul>
-          {audienceNav.map((item) => {
-            const Icon = icons[item.slug];
-            const active = pathname === "/for/" + item.slug;
+          {SLUGS.map((slug) => {
+            const Icon = icons[slug];
+            const active = pathname === "/for/" + slug;
             return (
-              <li key={item.slug}>
+              <li key={slug}>
                 <Link
-                  href={"/for/" + item.slug}
+                  href={"/for/" + slug}
                   onClick={() => setOpen(false)}
                   aria-current={active ? "page" : undefined}
                   className={
-                    "flex items-start gap-3 rounded-xl p-3 text-left transition hover:bg-white/[0.06] " +
+                    "flex items-start gap-3 rounded-xl p-3 text-start transition hover:bg-white/[0.06] " +
                     (active ? "bg-white/[0.04]" : "")
                   }
                 >
@@ -116,10 +121,10 @@ export function SolutionsMenu({
                   </span>
                   <span className="min-w-0">
                     <span className="block text-sm font-medium text-white">
-                      {item.title}
+                      {t(`items.${slug}.title`)}
                     </span>
                     <span className="mt-0.5 block text-sm leading-5 text-slate-400">
-                      {item.description}
+                      {t(`items.${slug}.description`)}
                     </span>
                   </span>
                 </Link>

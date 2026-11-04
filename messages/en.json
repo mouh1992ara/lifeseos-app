@@ -1,6 +1,3615 @@
 {
-  "Header": { "tools": "Tools", "blog": "Blog", "dashboard": "Dashboard", "signIn": "Sign in", "getStarted": "Get started", "signOut": "Sign out" },
-  "Footer": { "tagline": "SEO tools for smarter website growth.", "home": "Home", "tools": "Tools", "blog": "Blog", "about": "About", "contact": "Contact", "privacy": "Privacy", "terms": "Terms", "rights": "© 2026 LifeSeos. All rights reserved.", "built": "Built for better SEO workflows." },
-  "Language": { "label": "Language" },
-  "Banner": { "text": "This page isn't translated yet, so it's shown in English.", "action": "Open the English version" }
+  "Meta": {
+    "siteTitle": "LifeSeos — Free SEO Tools for Smarter Growth",
+    "siteDescription": "Free SEO tools for website analysis, technical SEO, on-page optimization, content analysis, page speed, metadata, sitemaps and smarter search growth.",
+    "siteName": "LifeSeos"
+  },
+  "Header": {
+    "tools": "Tools",
+    "solutions": "Solutions",
+    "blog": "Blog",
+    "dashboard": "Dashboard",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "getStarted": "Get started",
+    "primaryNav": "Primary navigation",
+    "mobileNav": "Mobile navigation"
+  },
+  "Footer": {
+    "tagline": "SEO tools for smarter website growth.",
+    "home": "Home",
+    "tools": "Tools",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "rights": "© {year} LifeSeos. All rights reserved.",
+    "built": "Built for better SEO workflows.",
+    "navLabel": "Footer navigation"
+  },
+  "Language": {
+    "label": "Language",
+    "change": "Change language",
+    "current": "Current language: {language}"
+  },
+  "Logo": {
+    "alt": "LifeSeos — SEO tools for smarter growth",
+    "tagline": "SEO tools for smarter growth"
+  },
+  "Solutions": {
+    "label": "Solutions",
+    "title": "Built for how you work",
+    "subtitle": "Pick your workflow and start with the tools that fit it.",
+    "seeTools": "See the tools",
+    "items": {
+      "youtubers": {
+        "title": "YouTubers & Creators",
+        "description": "Keywords, titles, descriptions and scripts for your channel."
+      },
+      "bloggers": {
+        "title": "Bloggers & Writers",
+        "description": "Content checks, snippet previews and schema before you publish."
+      },
+      "agencies": {
+        "title": "Agencies & Freelancers",
+        "description": "Audit client sites, status codes, sitemaps and robots files."
+      }
+    }
+  },
+  "Common": {
+    "readMore": "Read more",
+    "learnMore": "Learn more",
+    "openTool": "Open tool",
+    "viewAllTools": "View all tools",
+    "backHome": "Back home",
+    "loading": "Loading…",
+    "tryAgain": "Try again",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyLink": "Copy link",
+    "share": "Share",
+    "free": "Free",
+    "optional": "Optional",
+    "required": "Required",
+    "close": "Close",
+    "step": "Step {number}",
+    "yes": "Yes",
+    "no": "No",
+    "example": "Example",
+    "result": "Result",
+    "score": "Score",
+    "status": "Status",
+    "details": "Details",
+    "urlLabel": "Website URL",
+    "urlPlaceholder": "https://example.com"
+  },
+  "Share": {
+    "title": "Share this tool",
+    "body": "Found this tool useful? Share it with others.",
+    "defaultText": "Try this free SEO tool from LifeSeos.",
+    "copy": "Copy link",
+    "copied": "Link copied",
+    "copyError": "Unable to copy the link."
+  },
+  "State": {
+    "good": "Good",
+    "warning": "Needs attention",
+    "error": "Issue found",
+    "neutral": "Info",
+    "passed": "Passed",
+    "failed": "Failed",
+    "improve": "Improve",
+    "fixIssue": "Fix issue",
+    "strong": "Strong",
+    "needsWork": "Needs work",
+    "excellent": "Excellent",
+    "average": "Average",
+    "poor": "Poor"
+  },
+  "Errors": {
+    "generic": "Something went wrong.",
+    "genericBody": "Please try again in a moment.",
+    "network": "Unable to reach the server. Check your connection and try again.",
+    "urlRequired": "Please enter a website URL.",
+    "urlInvalid": "Enter a valid URL, for example https://example.com",
+    "rateLimited": "Too many requests. Please wait a moment and try again.",
+    "timeout": "The request took too long. Please try again."
+  },
+  "Home": {
+    "meta": {
+      "title": "LifeSeos — Free SEO Tools for Website Analysis",
+      "description": "Analyze websites, improve content, generate schema markup, optimize YouTube metadata and solve technical SEO issues with free LifeSeos tools.",
+      "ogDescription": "Analyze websites, improve content, generate structured data and use practical SEO and YouTube optimization tools with LifeSeos."
+    },
+    "hero": {
+      "badge": "Free tools for smarter SEO decisions",
+      "titleLine1": "Audit, analyze and",
+      "titleAccent": "improve your SEO.",
+      "subtitle": "Find technical SEO issues, improve website content, generate structured data and build stronger search and YouTube workflows.",
+      "primaryCta": "Analyze your website",
+      "secondaryCta": "Explore tools",
+      "highlightFree": "Free SEO tools",
+      "highlightFast": "Fast analysis",
+      "highlightClear": "Clear recommendations"
+    },
+    "preview": {
+      "overview": "Website overview",
+      "sample": "Sample report",
+      "auditBadge": "SEO Audit",
+      "technical": "Technical SEO",
+      "onPage": "On-Page SEO",
+      "performance": "Performance",
+      "content": "Content",
+      "https": "HTTPS configuration",
+      "metaDescription": "Meta description",
+      "brokenLinks": "Broken links detected",
+      "improve": "Improve",
+      "fix": "Fix issue"
+    },
+    "tools": {
+      "eyebrow": "SEO Toolkit",
+      "title": "Popular SEO tools",
+      "subtitle": "Analyze the areas of your website that matter most for search visibility and technical health.",
+      "viewAll": "View all tools"
+    },
+    "workflows": {
+      "technicalEyebrow": "Technical SEO",
+      "schemaTitle": "Schema Markup Generator",
+      "schemaBody": "Generate JSON-LD for articles, FAQs, products, businesses, breadcrumbs and other common structured data types.",
+      "schemaCta": "Generate schema",
+      "contentEyebrow": "Content SEO",
+      "rewriterTitle": "SEO Article Rewriter",
+      "rewriterBody": "Rewrite website content for better clarity, readability, tone and SEO consistency while preserving the main direction.",
+      "rewriterCta": "Rewrite content",
+      "youtubeEyebrow": "YouTube SEO",
+      "youtubeTitle": "Build your YouTube workflow",
+      "youtubeBody": "Move from keyword ideas to stronger titles, descriptions and structured video scripts with dedicated YouTube tools.",
+      "youtubeCta": "Explore YouTube tools"
+    },
+    "commandCenter": {
+      "badge": "SEO Command Center",
+      "title": "Understand your website from one SEO overview.",
+      "body": "Start with a complete website analysis, identify priority issues and then use specialized LifeSeos tools to investigate each area in more detail.",
+      "cta": "Run website analysis",
+      "technical": "Technical SEO",
+      "indexability": "Indexability",
+      "onPage": "On-Page SEO",
+      "performance": "Performance"
+    },
+    "categories": {
+      "eyebrow": "Explore",
+      "title": "Tools for every part of SEO",
+      "subtitle": "Find the right tool for technical SEO, content, performance, structured data or YouTube optimization.",
+      "technicalTitle": "Technical SEO",
+      "technicalBody": "Find crawl, indexing, redirect and technical website issues.",
+      "onPageTitle": "On-Page SEO",
+      "onPageBody": "Review page structure, metadata and important optimization signals.",
+      "crawlingTitle": "Crawling & Indexing",
+      "crawlingBody": "Help search engines discover and understand your website.",
+      "performanceTitle": "Performance",
+      "performanceBody": "Measure loading performance and discover speed improvements.",
+      "contentTitle": "Content SEO",
+      "contentBody": "Improve website copy, keyword usage and search-focused content.",
+      "youtubeTitle": "YouTube SEO",
+      "youtubeBody": "Plan video keywords, titles, descriptions and scripts in one workflow."
+    },
+    "howItWorks": {
+      "title": "Improve your SEO in three steps",
+      "subtitle": "Find problems, understand what they mean and take practical action.",
+      "step1Title": "Choose a tool",
+      "step1Body": "Select the SEO tool that matches the part of your website you want to analyze.",
+      "step2Title": "Analyze your website",
+      "step2Body": "Run the analysis and review important technical, content and performance signals.",
+      "step3Title": "Fix priority issues",
+      "step3Body": "Use the results and recommendations to improve your website step by step."
+    },
+    "trust": {
+      "eyebrow": "Why LifeSeos",
+      "title": "Simple, fast and built for everyday SEO",
+      "subtitle": "Use practical SEO tools without complicated setup, unnecessary steps or barriers.",
+      "freeTitle": "Free tools",
+      "freeBody": "Access useful SEO tools without paying for every analysis.",
+      "fastTitle": "Fast analysis",
+      "fastBody": "Get clear SEO information without complicated workflows.",
+      "startTitle": "Easy to start",
+      "startBody": "Explore core tools without unnecessary setup.",
+      "clarityTitle": "Built for clarity",
+      "clarityBody": "Reports focus on useful information and practical improvements."
+    },
+    "guides": {
+      "eyebrow": "Learn SEO",
+      "title": "SEO guides and resources",
+      "browseAll": "Browse all guides",
+      "tag": "Guide",
+      "readGuide": "Read guide",
+      "robotsTitle": "Robots.txt Guide",
+      "robotsBody": "Understand how robots.txt works and how search engines use it.",
+      "httpTitle": "HTTP Status Codes for SEO",
+      "httpBody": "Learn what common HTTP status codes mean for crawling and indexing.",
+      "technicalTitle": "Technical SEO Guide",
+      "technicalBody": "Learn the technical foundations that help search engines understand your website."
+    },
+    "cta": {
+      "title": "Ready to understand your website SEO?",
+      "body": "Start with a website analysis and use LifeSeos tools to investigate technical, content and performance opportunities.",
+      "urlLabel": "Website URL",
+      "urlPlaceholder": "https://example.com",
+      "submit": "Analyze website",
+      "openDashboard": "Open dashboard",
+      "createAccount": "Create free account"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "q1": "What is LifeSeos?",
+      "a1": "LifeSeos provides free SEO tools that help website owners analyze, optimize and improve website performance.",
+      "q2": "Are LifeSeos SEO tools free?",
+      "a2": "Yes. LifeSeos provides free SEO tools for website analysis, technical SEO, content optimization and search performance improvement.",
+      "q3": "What SEO tools are available on LifeSeos?",
+      "a3": "LifeSeos provides website analysis, technical SEO, content optimization, schema markup, metadata, sitemap and YouTube SEO tools.",
+      "q4": "Do I need SEO experience to use LifeSeos?",
+      "a4": "No. LifeSeos tools are designed for beginners, marketers, developers and website owners.",
+      "q5": "Can LifeSeos improve my Google rankings?",
+      "a5": "LifeSeos helps identify SEO issues and optimization opportunities, but rankings also depend on content quality, competition and other search factors."
+    },
+    "audiences": {
+      "title": "Built for how you work",
+      "subtitle": "Pick your workflow and start with the tools that fit it."
+    }
+  },
+  "Tools": {
+    "meta": {
+      "indexTitle": "Free SEO Tools for Websites, Content and YouTube",
+      "indexDescription": "A collection of free SEO tools for website analysis, technical SEO, content optimization, structured data, page speed, search visibility and YouTube SEO."
+    },
+    "index": {
+      "badge": "LifeSeos Tool Library",
+      "titleLine1": "Powerful SEO tools",
+      "titleLine2": "for every website",
+      "subtitle": "Analyze websites, improve content, generate structured data and optimize YouTube content with free LifeSeos tools.",
+      "searchPlaceholder": "Search SEO tools…",
+      "searchLabel": "Search SEO tools",
+      "resultCount": "{count, plural, =0 {No tools found.} one {# tool found} other {# tools found}}",
+      "noResultsTitle": "No tools found",
+      "noResultsBody": "Try another tool name or category.",
+      "clearSearch": "Clear search",
+      "statsTools": "Free tools",
+      "statsCategories": "Tool categories",
+      "statsAccess": "Instant access",
+      "statsAccessValue": "Instant"
+    },
+    "categories": {
+      "technical": "Technical SEO",
+      "content": "Content SEO",
+      "performance": "Performance",
+      "management": "Content Management",
+      "youtube": "YouTube SEO"
+    },
+    "youtubeBlurb": "Discover video keywords, create stronger titles and descriptions, analyze title quality and build structured scripts.",
+    "catalog": {
+      "seoAnalyzer": {
+        "title": "SEO Analyzer",
+        "short": "Analyze website health, technical SEO issues and optimization opportunities.",
+        "long": "Analyze your website health, technical SEO and optimization opportunities."
+      },
+      "seoPageAnalyzer": {
+        "title": "SEO Page Analyzer",
+        "short": "Analyze titles, headings, links, metadata and other important on-page SEO elements.",
+        "long": "Review titles, descriptions, headings, links and image alt text."
+      },
+      "robotsTxtGenerator": {
+        "title": "Robots.txt Generator",
+        "short": "Create crawler-friendly robots.txt files for search engines.",
+        "long": "Generate crawler rules and improve search engine accessibility."
+      },
+      "xmlSitemapGenerator": {
+        "title": "XML Sitemap Generator",
+        "short": "Generate SEO-friendly sitemap structures for better crawling and indexing.",
+        "long": "Create search-engine friendly sitemap structures."
+      },
+      "schemaMarkupGenerator": {
+        "title": "Schema Markup Generator",
+        "short": "Generate JSON-LD structured data for articles, FAQs, products, businesses and more.",
+        "long": "Generate JSON-LD structured data for articles, FAQs, products and businesses."
+      },
+      "metaTagGenerator": {
+        "title": "Meta Tag Generator",
+        "short": "Create optimized title and meta description ideas for search visibility.",
+        "long": "Create optimized titles and descriptions for better search visibility."
+      },
+      "serpSnippetPreview": {
+        "title": "SERP Snippet Preview",
+        "short": "Preview how your page title, URL and meta description may appear in search results.",
+        "long": "Preview how your title, meta description and URL may appear in Google search results."
+      },
+      "keywordDensityChecker": {
+        "title": "Keyword Density Checker",
+        "short": "Analyze keyword frequency and content usage across your text.",
+        "long": "Understand keyword usage and improve your content strategy."
+      },
+      "articleRewriter": {
+        "title": "SEO Article Rewriter",
+        "short": "Rewrite website articles for better clarity, readability, tone and SEO consistency.",
+        "long": "Rewrite website content for better clarity, readability, tone and SEO consistency."
+      },
+      "httpStatusChecker": {
+        "title": "HTTP Status Checker",
+        "short": "Check redirects, errors and HTTP response codes instantly.",
+        "long": "Detect redirects, errors and technical website issues."
+      },
+      "pageSpeed": {
+        "title": "Page Speed Analyzer",
+        "short": "Measure website performance, loading speed and important Lighthouse metrics.",
+        "long": "Review website performance, loading speed and important Lighthouse metrics."
+      },
+      "contentAnalyzer": {
+        "title": "Content Analyzer",
+        "short": "Analyze content quality, readability, keyword usage and SEO opportunities.",
+        "long": "Analyze content length, readability, keywords and basic SEO quality signals."
+      },
+      "youtubeKeywordIdeas": {
+        "title": "YouTube Keyword Ideas",
+        "short": "Discover keyword groups, long-tail phrases and useful video topic ideas.",
+        "long": "Generate useful keyword groups, long-tail phrases and video topic ideas."
+      },
+      "youtubeTitleGenerator": {
+        "title": "YouTube Title Generator",
+        "short": "Generate engaging YouTube title ideas based on your topic, keyword, style and audience.",
+        "long": "Create engaging YouTube title ideas based on your topic, keyword and audience."
+      },
+      "youtubeTitleAnalyzer": {
+        "title": "YouTube Title Analyzer",
+        "short": "Analyze YouTube titles for clarity, keyword use, structure, length and click appeal.",
+        "long": "Review title clarity, structure, keyword use, length and click appeal."
+      },
+      "youtubeDescriptionGenerator": {
+        "title": "YouTube Description Generator",
+        "short": "Create structured YouTube descriptions with keyword support, hashtags and calls to action.",
+        "long": "Create structured YouTube descriptions with keyword support and calls to action."
+      },
+      "youtubeScriptWriter": {
+        "title": "YouTube Script Writer",
+        "short": "Create structured video scripts with hooks, main points, transitions, CTAs and outros.",
+        "long": "Build structured video scripts with hooks, main points, transitions and CTAs."
+      }
+    }
+  },
+  "ToolShared": {
+    "related": {
+      "eyebrow": "Continue optimizing",
+      "title": "Related SEO tools",
+      "viewAll": "View all tools"
+    }
+  },
+  "Tool": {
+    "httpStatus": {
+      "meta": {
+        "title": "HTTP Status Checker — Check Response Codes & Redirects",
+        "description": "Check any URL's HTTP status code, response headers, redirects and final destination with the free LifeSeos HTTP status checker."
+      },
+      "badge": "LifeSeos HTTP Status Checker",
+      "titleLine1": "Free HTTP Status Code Checker",
+      "titleAccent": "Check Response Codes & Redirects",
+      "subtitle": "Check any URL's HTTP status code, response, redirects and final destination. Find 200, 301, 302, 404 and server errors with the free LifeSeos HTTP status checker.",
+      "urlLabel": "Website URL",
+      "submit": "Check status",
+      "checking": "Checking…",
+      "hint": "Enter a complete public URL to check its HTTP response and final destination.",
+      "resultEyebrow": "HTTP response",
+      "resultTitle": "HTTP status result",
+      "statusCode": "Status code",
+      "statusFallback": "HTTP response",
+      "redirectLabel": "Redirect detected",
+      "redirectYes": "Yes",
+      "redirectNo": "No",
+      "redirectYesBody": "The requested URL redirected to another destination.",
+      "redirectNoBody": "No redirect was detected for this request.",
+      "requestedUrl": "Requested URL",
+      "finalUrl": "Final URL",
+      "basicsEyebrow": "HTTP basics",
+      "basicsTitle": "What is an HTTP status code?",
+      "basicsP1": "An HTTP status code is a three-digit response returned by a web server after a browser, search engine crawler or other client requests a URL.",
+      "basicsP2": "The response indicates whether the request succeeded, redirected, failed because the resource could not be found, or encountered a server-side problem.",
+      "groupsEyebrow": "Response categories",
+      "groupsTitle": "Understanding HTTP status code groups",
+      "groupsBody": "HTTP responses are grouped by their first digit, which makes it easier to understand how the server handled a request.",
+      "commonEyebrow": "Common responses",
+      "commonTitle": "Common HTTP status codes for SEO",
+      "commonBody": "These response codes appear frequently during technical SEO audits and website maintenance.",
+      "redirectEyebrow": "Redirect management",
+      "redirectTitle": "Check redirects and final URLs",
+      "redirectP1": "Redirects are normal when pages move, domains change or URL structures are updated. What matters is that redirects point users and crawlers to the correct final destination.",
+      "redirectP2": "Checking both the requested URL and final URL can help you discover unexpected redirects and identify URLs that no longer resolve directly.",
+      "benefit1Title": "Find broken URLs",
+      "benefit1Body": "Identify pages returning 404 or other error responses.",
+      "benefit2Title": "Review redirects",
+      "benefit2Body": "Confirm whether a requested URL redirects to another destination.",
+      "benefit3Title": "Check final URLs",
+      "benefit3Body": "Verify the destination that users and crawlers ultimately reach.",
+      "benefit4Title": "Catch server errors",
+      "benefit4Body": "Detect 5xx responses that may temporarily prevent access to important pages.",
+      "importanceEyebrow": "Technical SEO",
+      "importanceTitle": "Why HTTP status codes matter for SEO",
+      "importanceBody": "Search engines rely on HTTP responses to understand whether URLs are available, moved, missing or temporarily unavailable.",
+      "reason1Title": "Crawlability",
+      "reason1Body": "Successful HTTP responses allow crawlers to access pages and process their content.",
+      "reason2Title": "Redirect signals",
+      "reason2Body": "Redirect responses indicate that users and crawlers should continue to another URL.",
+      "reason3Title": "Broken URL detection",
+      "reason3Body": "4xx responses can reveal outdated links and pages that are no longer available.",
+      "reason4Title": "Server reliability",
+      "reason4Body": "5xx errors can indicate server problems that temporarily prevent crawling and access.",
+      "howEyebrow": "How it works",
+      "howTitle": "How to use the HTTP status checker",
+      "how1Title": "Enter the URL",
+      "how1Body": "Paste the complete webpage or website URL you want to check.",
+      "how2Title": "Run the status check",
+      "how2Body": "Select Check status and LifeSeos will request the URL and inspect its HTTP response.",
+      "how3Title": "Review the response",
+      "how3Body": "Check the status code and status text to understand how the server handled the request.",
+      "how4Title": "Check the final destination",
+      "how4Body": "If the URL redirects, compare the requested URL with the final URL returned by the tool.",
+      "faqEyebrow": "HTTP status FAQ",
+      "faqTitle": "Frequently asked questions",
+      "faq1Q": "What is an HTTP status code?",
+      "faq1A": "An HTTP status code is a three-digit response sent by a web server after a browser, crawler, or other client requests a URL. It indicates whether the request succeeded, redirected, failed, or encountered a server problem.",
+      "faq2Q": "Why do HTTP status codes matter for SEO?",
+      "faq2A": "Search engines use HTTP responses to understand whether pages are available, redirected, missing, or temporarily unavailable. Incorrect status codes can create broken links or make important pages harder to crawl correctly.",
+      "faq3Q": "What status code should a normal webpage return?",
+      "faq3A": "A normal accessible webpage should usually return 200 OK. If the page has permanently moved, a 301 redirect is generally more appropriate.",
+      "faq4Q": "Is a 301 redirect bad for SEO?",
+      "faq4A": "No. A correctly implemented 301 redirect is a standard way to indicate that a URL has permanently moved to another location.",
+      "faq5Q": "What is the difference between 404 and 410?",
+      "faq5A": "A 404 means the requested resource was not found, while a 410 explicitly indicates that the resource has been permanently removed.",
+      "shareTitle": "HTTP Status Checker",
+      "shareBody": "Check HTTP status codes, redirects and final URLs with this free LifeSeos technical SEO tool.",
+      "groups": {
+        "2xx": {
+          "title": "Successful responses",
+          "description": "A 2xx status means the server successfully received and processed the request. The most common response is 200 OK."
+        },
+        "3xx": {
+          "title": "Redirect responses",
+          "description": "A 3xx status means the requested URL redirects to another location. Common examples include 301 permanent redirects and 302 temporary redirects."
+        },
+        "4xx": {
+          "title": "Client errors",
+          "description": "A 4xx status usually means the requested resource cannot be accessed. A 404 response, for example, means the page was not found."
+        },
+        "5xx": {
+          "title": "Server errors",
+          "description": "A 5xx response means the server encountered a problem while processing the request. These errors can prevent users and search engines from accessing a page."
+        }
+      },
+      "codes": {
+        "200": {
+          "title": "OK",
+          "description": "The page loaded successfully and is generally available to users and search engines."
+        },
+        "301": {
+          "title": "Moved Permanently",
+          "description": "The URL permanently redirects to a different location. This is commonly used when pages or domains are permanently moved."
+        },
+        "302": {
+          "title": "Found / Temporary Redirect",
+          "description": "The URL temporarily redirects elsewhere. Search engines may continue to keep the original URL in their index."
+        },
+        "404": {
+          "title": "Not Found",
+          "description": "The requested page does not exist at this URL. Broken internal links and outdated URLs frequently return this response."
+        },
+        "410": {
+          "title": "Gone",
+          "description": "The page has been intentionally and permanently removed and is not expected to return."
+        },
+        "500": {
+          "title": "Internal Server Error",
+          "description": "The server encountered an unexpected problem and could not complete the request."
+        },
+        "503": {
+          "title": "Service Unavailable",
+          "description": "The server is temporarily unavailable, often because of maintenance, overload, or another temporary issue."
+        }
+      }
+    },
+    "pageSpeed": {
+      "meta": {
+        "title": "Page Speed Analyzer — Free Website Performance Test",
+        "description": "Measure website loading performance and review important Lighthouse metrics with the free LifeSeos page speed analyzer."
+      },
+      "badge": "LifeSeos Page Speed Analyzer",
+      "titleLine1": "Free Page Speed Analyzer",
+      "titleAccent": "Test Website Performance",
+      "subtitle": "Measure website speed and Lighthouse performance metrics including loading, rendering and layout stability signals.",
+      "urlLabel": "Page URL",
+      "submit": "Analyze speed",
+      "submitLoading": "Analyzing…",
+      "hint": "The analysis uses a mobile Lighthouse performance test for the submitted page.",
+      "errorFallback": "Unable to analyze page speed.",
+      "shareDescription": "Measure website performance, loading speed and Lighthouse metrics with this free LifeSeos tool.",
+      "scoreUnavailable": "Unavailable",
+      "scoreGood": "Good",
+      "scoreNeedsImprovement": "Needs Improvement",
+      "scorePoor": "Poor",
+      "scoreReview": "Review",
+      "ringLabel": "Performance",
+      "ringOutOf": "out of 100",
+      "resultTitle": "Page Performance Overview",
+      "resultBody": "Review your Lighthouse performance score together with loading, interactivity and layout stability metrics.",
+      "testedUrl": "Tested URL",
+      "metricFcpLabel": "First Contentful Paint",
+      "metricFcpDesc": "First visible content",
+      "metricLcpLabel": "Largest Contentful Paint",
+      "metricLcpDesc": "Largest visible element",
+      "metricClsLabel": "Cumulative Layout Shift",
+      "metricClsDesc": "Visual stability",
+      "metricTbtLabel": "Total Blocking Time",
+      "metricTbtDesc": "Main-thread blocking",
+      "metricSiLabel": "Speed Index",
+      "metricSiDesc": "Visual loading speed",
+      "detailsEyebrow": "Test information",
+      "detailsTitle": "Analysis Details",
+      "detailsBadge": "Lighthouse performance",
+      "requestedUrl": "Requested URL",
+      "finalUrl": "Final URL",
+      "strategy": "Strategy",
+      "recsEyebrow": "Performance action plan",
+      "recsTitle": "Recommended Improvements",
+      "recPerformance": "Reduce unnecessary JavaScript, optimize images and review render-blocking resources.",
+      "recLcp": "Improve Largest Contentful Paint by optimizing the main above-the-fold element and server response.",
+      "recCls": "Reserve space for images, embeds and dynamic content to reduce layout shifts.",
+      "recTbt": "Break up long JavaScript tasks and reduce main-thread work.",
+      "recNone": "The measured performance signals look strong. Continue monitoring after major website changes.",
+      "nextEyebrow": "Recommended next tool",
+      "nextTitle": "Run a complete SEO audit",
+      "nextBody": "Page speed is only one part of SEO. Use the SEO Analyzer to review technical, content, image and social metadata signals for the same page.",
+      "nextCta": "Open SEO Analyzer",
+      "infoEyebrow": "Website Performance",
+      "infoTitle": "Understand Your Page Speed Metrics",
+      "infoBody": "Website performance is more than a single score. The LifeSeos Page Speed Analyzer displays several Lighthouse metrics that help you understand how quickly a page begins rendering, how stable the layout is and whether browser tasks delay interaction.",
+      "info1Title": "Performance Score",
+      "info1Body": "A combined Lighthouse performance score that summarizes several loading and rendering measurements.",
+      "info2Title": "First Contentful Paint",
+      "info2Body": "Measures when the browser first displays visible page content such as text, images or graphics.",
+      "info3Title": "Largest Contentful Paint",
+      "info3Body": "Measures how long it takes for the largest visible content element in the viewport to render.",
+      "info4Title": "Cumulative Layout Shift",
+      "info4Body": "Measures visual stability by tracking unexpected movement of page elements during loading.",
+      "info5Title": "Total Blocking Time",
+      "info5Body": "Measures time when long main-thread tasks can delay the browser from responding quickly.",
+      "info6Title": "Speed Index",
+      "info6Body": "Estimates how quickly the visible parts of a page are displayed during the loading process.",
+      "howEyebrow": "How it works",
+      "howTitle": "How to Use the Page Speed Analyzer",
+      "howBody": "Test any publicly accessible page and use the results to identify areas that may need performance optimization.",
+      "how1Title": "Enter the page URL",
+      "how1Body": "Paste the complete public URL you want to test, including https://.",
+      "how2Title": "Run the performance test",
+      "how2Body": "LifeSeos sends the page to the performance analysis service and retrieves Lighthouse metrics.",
+      "how3Title": "Review the metrics",
+      "how3Body": "Check the overall performance score together with FCP, LCP, CLS, TBT and Speed Index.",
+      "how4Title": "Investigate slow areas",
+      "how4Body": "Use weak metrics as signals for deeper investigation into images, scripts, rendering and page structure.",
+      "whyEyebrow": "Performance matters",
+      "whyTitle": "Why Website Speed Matters",
+      "whyP1": "Slow pages can create a poor browsing experience, especially for users on mobile devices or slower networks. Heavy images, large scripts and inefficient rendering can all increase loading time.",
+      "whyP2": "Performance testing helps you identify pages that deserve closer attention and gives you measurable values that can be compared after optimization work.",
+      "benefit1Title": "Faster loading",
+      "benefit1Body": "Identify pages that take longer to display meaningful content.",
+      "benefit2Title": "Better stability",
+      "benefit2Body": "Spot layout movement that can make pages difficult or frustrating to use.",
+      "benefit3Title": "Mobile performance",
+      "benefit3Body": "Review page performance using the mobile testing strategy used by the tool.",
+      "benefit4Title": "Track improvements",
+      "benefit4Body": "Run another test after optimization and compare the resulting performance metrics."
+    },
+    "robotsTxt": {
+      "meta": {
+        "title": "Robots.txt Generator — Free Crawler Rules Builder",
+        "description": "Generate a crawler-friendly robots.txt file for your website with the free LifeSeos robots.txt generator."
+      },
+      "badge": "LifeSeos Robots.txt Generator",
+      "titleLine1": "Free Robots.txt Generator",
+      "titleAccent": "Control Search Engine Crawling",
+      "subtitle": "Create a free robots.txt file for your website, define crawler access rules, add your XML sitemap and generate a ready-to-use robots.txt file for search engines.",
+      "rulesEyebrow": "Crawler rules",
+      "rulesTitle": "Configure Your Robots.txt",
+      "userAgentLabel": "User-agent",
+      "userAgentPlaceholder": "*",
+      "userAgentHint": "Use * to apply the rule group to all compatible crawlers.",
+      "allowLabel": "Allow path",
+      "allowPlaceholder": "/",
+      "allowHint": "Example: / allows crawling from the root unless a more specific rule restricts a path.",
+      "disallowLabel": "Disallow paths",
+      "disallowPlaceholder": "/admin/\n/private/\n/search/",
+      "disallowHint": "Enter one path per line.",
+      "sitemapLabel": "Sitemap URL",
+      "sitemapPlaceholder": "https://example.com/sitemap.xml",
+      "sitemapHint": "Use the full absolute URL of your XML sitemap.",
+      "outputEyebrow": "Generated output",
+      "outputTitle": "Generated robots.txt",
+      "noteTitle": "Important",
+      "noteBody": "Robots.txt controls crawler access. It should not be used to protect confidential or sensitive information.",
+      "introEyebrow": "Crawler Management",
+      "introTitle": "What the Robots.txt Generator Creates",
+      "introP1": "A robots.txt file gives supported web crawlers instructions about which areas of a website they may or may not crawl. It is normally placed at the root of the website so crawlers can discover the rules before requesting other URLs.",
+      "dirUserAgentTitle": "Choose the Crawler",
+      "dirUserAgentBody": "Defines which crawler or group of crawlers the following rules apply to.",
+      "dirAllowTitle": "Allow a Path",
+      "dirAllowBody": "Allows crawling of a specific path when the rule is applicable to the selected crawler.",
+      "dirDisallowTitle": "Block Crawling",
+      "dirDisallowBody": "Requests that compatible crawlers do not crawl a specified path or directory.",
+      "dirSitemapTitle": "Reference Your Sitemap",
+      "dirSitemapBody": "Provides crawlers with the absolute URL of an XML sitemap.",
+      "howEyebrow": "How it works",
+      "howTitle": "How to Use the Robots.txt Generator",
+      "howBody": "Configure the crawler rules, review the generated text and place the final file in your website root.",
+      "how1Title": "Choose a user-agent",
+      "how1Body": "Use * for a general rule group or enter the crawler token you specifically want to target.",
+      "how2Title": "Define allowed and blocked paths",
+      "how2Body": "Add the paths that crawlers should be permitted or requested not to crawl.",
+      "how3Title": "Add your sitemap",
+      "how3Body": "Optionally include the full URL of your XML sitemap.",
+      "how4Title": "Publish robots.txt",
+      "how4Body": "Copy the generated content and save it as robots.txt at the root of your website.",
+      "distEyebrow": "Important SEO distinction",
+      "distTitle": "Blocking Crawling Is Not the Same as Preventing Indexing",
+      "distBody": "A robots.txt rule primarily controls crawling. It should not be treated as a guaranteed method for keeping a URL out of search results. If you need to control indexing, review the appropriate indexing directives and make sure search engines can access the page when those directives need to be read.",
+      "tipsEyebrow": "Configuration tips",
+      "tipsTitle": "Robots.txt Best Practices",
+      "tipsP1": "Small robots.txt mistakes can restrict crawler access to pages or resources you intended to keep crawlable. Review every rule carefully before publishing the file.",
+      "tipsP2": "After making changes, verify the live robots.txt file and check that important public pages and resources are still accessible to the crawlers you want to support.",
+      "tip1Title": "Use precise paths",
+      "tip1Body": "Avoid broad Disallow rules unless you are certain the entire path should not be crawled.",
+      "tip2Title": "Check your syntax",
+      "tip2Body": "Review user-agent groups and path rules before uploading the file.",
+      "tip3Title": "Include your sitemap",
+      "tip3Body": "Add your XML sitemap URL when appropriate so crawlers can discover it easily.",
+      "tip4Title": "Test after changes",
+      "tip4Body": "Confirm that important public pages remain crawlable after updating robots.txt.",
+      "mistakesEyebrow": "Avoid mistakes",
+      "mistakesTitle": "Common Robots.txt Problems",
+      "mistake1Title": "Blocking the whole site",
+      "mistake1Body": "A broad Disallow rule can prevent crawlers from accessing far more pages than intended.",
+      "mistake2Title": "Blocking important resources",
+      "mistake2Body": "Restricting CSS, JavaScript or other resources can make it harder for crawlers to render a page properly.",
+      "mistake3Title": "Using robots.txt for security",
+      "mistake3Body": "Blocked paths remain publicly accessible if someone knows the URL, so sensitive data requires real access control.",
+      "nextEyebrow": "Continue Your Technical SEO Workflow",
+      "nextTitle": "Control crawling, improve discovery and audit your site",
+      "nextBody": "Use these tools together to manage crawler access, provide a structured list of important URLs and then run a broader SEO audit.",
+      "wfStep1": "Step 1 · Current",
+      "wfStep2": "Step 2",
+      "wfStep3": "Step 3",
+      "wf1Body": "Create crawler access rules and reference your sitemap from a correctly structured robots.txt file.",
+      "wf1Cta": "Configure crawling",
+      "wf2Body": "Create an XML sitemap that lists important URLs and helps search engines discover your website structure.",
+      "wf2Cta": "Create sitemap",
+      "wf3Body": "Run a broader SEO audit after configuring crawling and discovery to review technical and content signals.",
+      "wf3Cta": "Run SEO audit",
+      "shareBody": "Create a clean robots.txt file and manage crawler access with this free LifeSeos tool."
+    },
+    "xmlSitemap": {
+      "meta": {
+        "title": "XML Sitemap Generator — Free Sitemap Builder",
+        "description": "Create XML sitemap structures that help search engines discover and index your pages with the free LifeSeos sitemap generator."
+      },
+      "badge": "LifeSeos XML Sitemap Generator",
+      "titleLine1": "Free XML Sitemap Generator",
+      "titleAccent": "Create Your Sitemap.xml",
+      "subtitle": "Create a valid XML sitemap from a list of website URLs, then copy or download the generated sitemap.xml file.",
+      "urlsEyebrow": "Sitemap URLs",
+      "urlsTitle": "Add Your Website Pages",
+      "urlsCountLabel": "URLs",
+      "urlsLabel": "Website URLs",
+      "urlsPlaceholder": "https://example.com/\nhttps://example.com/about\nhttps://example.com/contact",
+      "urlsHint": "Enter one complete absolute URL per line, including https://.",
+      "freqLabel": "Change frequency",
+      "freqAlways": "Always",
+      "freqHourly": "Hourly",
+      "freqDaily": "Daily",
+      "freqWeekly": "Weekly",
+      "freqMonthly": "Monthly",
+      "freqYearly": "Yearly",
+      "freqNever": "Never",
+      "priorityLabel": "Priority",
+      "priorityNote": "Change frequency and priority are optional sitemap protocol fields. Google currently ignores both values, so treat them only as optional metadata for compatible consumers.",
+      "outputEyebrow": "Generated output",
+      "outputTitle": "Generated Sitemap",
+      "download": "Download",
+      "outputNoteStart": "When ready, upload the file as",
+      "outputNoteEnd": "on your website and submit its URL through your search engine webmaster tools.",
+      "introEyebrow": "URL Discovery",
+      "introTitle": "Help Search Engines Discover Your Pages",
+      "introP1": "An XML sitemap is a file containing information about URLs you consider important on your website. Search engines can use the sitemap as an additional source for discovering and crawling those URLs.",
+      "elUrlsetTitle": "Sitemap Container",
+      "elUrlsetBody": "The main XML element that contains the URL entries in a standard XML sitemap.",
+      "elUrlTitle": "URL Entry",
+      "elUrlBody": "Groups the information associated with one webpage in the sitemap.",
+      "elLocTitle": "Page Location",
+      "elLocBody": "Contains the complete absolute URL of the page included in the sitemap.",
+      "elOptionalTitle": "Additional Fields",
+      "elOptionalBody": "Protocol fields such as changefreq and priority may be included, although individual search engines may ignore them.",
+      "howEyebrow": "How it works",
+      "howTitle": "How to Use the XML Sitemap Generator",
+      "howBody": "Build a sitemap from your important website URLs and make it accessible to search engines.",
+      "how1Title": "Add your URLs",
+      "how1Body": "Enter one complete website URL per line, including the protocol and domain.",
+      "how2Title": "Choose optional settings",
+      "how2Body": "Select change frequency and priority values if you want them included in the XML output.",
+      "how3Title": "Download sitemap.xml",
+      "how3Body": "Review the generated XML, then copy it or download the sitemap.xml file.",
+      "how4Title": "Publish and submit it",
+      "how4Body": "Place the sitemap on your website and submit its URL through the relevant webmaster tools.",
+      "distEyebrow": "Important SEO distinction",
+      "distTitle": "A Sitemap Helps Discovery, but Does Not Guarantee Indexing",
+      "distBody": "Submitting a sitemap helps search engines discover the URLs you want them to know about. However, inclusion in a sitemap does not guarantee that every URL will be crawled, indexed or ranked. Each page still needs to be accessible and suitable for indexing.",
+      "tipsEyebrow": "Sitemap quality",
+      "tipsTitle": "XML Sitemap Best Practices",
+      "tipsP1": "A sitemap should contain the URLs you actually want search engines to discover and potentially show in search results.",
+      "tipsP2": "Use complete canonical URLs, avoid broken or redirected pages where possible and keep your sitemap updated as your website changes.",
+      "tip1Title": "Use absolute URLs",
+      "tip1Body": "Include complete URLs such as https://example.com/page rather than relative paths.",
+      "tip2Title": "Use canonical URLs",
+      "tip2Body": "Prefer the URL version you want search engines to treat as the primary version of the page.",
+      "tip3Title": "Include important pages",
+      "tip3Body": "Focus the sitemap on public pages that you actually want search engines to discover.",
+      "tip4Title": "Keep it updated",
+      "tip4Body": "Update your sitemap when important pages are added, removed or significantly changed.",
+      "problemsEyebrow": "Avoid mistakes",
+      "problemsTitle": "Common Sitemap Problems",
+      "problem1Title": "Relative URLs",
+      "problem1Body": "Sitemap entries should use complete absolute URLs rather than paths such as /about.",
+      "problem2Title": "Broken URLs",
+      "problem2Body": "Including error pages or invalid URLs can reduce the usefulness and cleanliness of your sitemap.",
+      "problem3Title": "Non-canonical URLs",
+      "problem3Body": "Listing duplicate or alternate URL versions can send inconsistent signals about which URL you prefer.",
+      "nextEyebrow": "Continue Your Technical SEO Workflow",
+      "nextTitle": "Control crawling, improve discovery and audit your site",
+      "nextBody": "Use these tools together to manage crawler access, publish a clean sitemap and then run a broader SEO audit.",
+      "wfStep1": "Step 1",
+      "wfStep2": "Step 2 · Current",
+      "wfStep3": "Step 3",
+      "wf1Body": "Configure crawler access rules and reference the sitemap from your robots.txt file.",
+      "wf1Cta": "Configure crawling",
+      "wf2Body": "Create an XML sitemap that lists important canonical URLs and helps search engines discover your website structure.",
+      "wf2Cta": "Create sitemap",
+      "wf3Body": "Run a broader SEO audit after configuring crawling and URL discovery to review additional technical and content signals.",
+      "wf3Cta": "Run SEO audit",
+      "shareBody": "Create and download an XML sitemap for your website with this free LifeSeos tool."
+    },
+    "metaTag": {
+      "meta": {
+        "title": "Meta Tag Generator — Free Title & Description Builder",
+        "description": "Create optimized page titles and meta descriptions for better search visibility with the free LifeSeos meta tag generator."
+      },
+      "badge": "LifeSeos Meta Tag Generator",
+      "titleLine1": "Free SEO Meta Tag Generator",
+      "titleAccent": "Create SEO Titles & Descriptions",
+      "subtitle": "Create search-friendly title tags and meta descriptions, check their length and preview the generated HTML instantly.",
+      "formEyebrow": "Create your metadata",
+      "formTitle": "Page Information",
+      "titleLabel": "Meta title",
+      "titlePlaceholder": "Example: Free SEO Tools for Better Rankings",
+      "titleHint": "Recommended: around 50–60 characters",
+      "charsCount": "{count} characters",
+      "descriptionLabel": "Meta description",
+      "descriptionPlaceholder": "Describe the page clearly and encourage searchers to click.",
+      "descriptionHint": "Recommended: around 140–160 characters",
+      "statusStart": "Start typing",
+      "statusGood": "Good length",
+      "statusShort": "May be too short",
+      "statusLong": "May be too long",
+      "outputEyebrow": "Generated output",
+      "outputTitle": "Generated Meta Tags",
+      "previewTitle": "Search Preview",
+      "titleFallback": "Your page title",
+      "descriptionFallback": "Your meta description",
+      "previewNote": "This is a simplified preview. Search engines may display titles and snippets differently.",
+      "infoEyebrow": "SEO Metadata",
+      "infoTitle": "Create Clear Titles and Meta Descriptions",
+      "infoP1": "Title tags and meta descriptions provide important information about a webpage. Writing them clearly can make it easier for users and search engines to understand what the page is about.",
+      "titleCardTitle": "SEO Title Tag",
+      "titleCardBody": "The title tag describes the main topic of a page and is commonly used as a prominent title in search results and browser tabs.",
+      "titlePoint1": "Describe the page clearly",
+      "titlePoint2": "Keep the wording specific",
+      "titlePoint3": "Include the main topic naturally",
+      "titlePoint4": "Avoid repetitive keyword stuffing",
+      "descCardTitle": "Meta Description",
+      "descCardBody": "The meta description summarizes the page and may be used as descriptive text in search results.",
+      "descPoint1": "Summarize the page accurately",
+      "descPoint2": "Write for real users",
+      "descPoint3": "Use natural and useful wording",
+      "descPoint4": "Give searchers a reason to visit",
+      "howEyebrow": "How it works",
+      "howTitle": "How to Use the Meta Tag Generator",
+      "howBody": "Create your metadata before publishing a new page or when improving an existing page.",
+      "how1Title": "Write your page title",
+      "how1Body": "Enter a concise title that accurately describes the main subject of the page.",
+      "how2Title": "Add a meta description",
+      "how2Body": "Write a short summary that explains what visitors can expect from the page.",
+      "how3Title": "Review the length",
+      "how3Body": "Use the character counters as practical guidance while keeping the wording natural.",
+      "how4Title": "Copy the generated HTML",
+      "how4Body": "Add the generated title and description tags to the head section of your webpage.",
+      "tipsEyebrow": "Writing tips",
+      "tipsTitle": "Meta Tag Best Practices",
+      "tipsP1": "Character counts are useful guidelines, but strong metadata should primarily describe the page accurately and help users understand whether the result is relevant to their search.",
+      "tipsP2": "Avoid creating titles or descriptions simply to reach a specific character count. Clear, specific and useful wording is more important than filling every available character.",
+      "tip1Title": "Be specific",
+      "tip1Body": "Make each title and description relevant to the exact page rather than reusing generic metadata.",
+      "tip2Title": "Match page content",
+      "tip2Body": "Metadata should accurately reflect what users will find after opening the page.",
+      "tip3Title": "Avoid repetition",
+      "tip3Body": "Do not repeat keywords unnaturally or fill metadata with unnecessary variations.",
+      "tip4Title": "Write for clicks",
+      "tip4Body": "Use readable wording that helps users decide whether your page answers their query.",
+      "noteTitle": "Search Result Snippets Can Change",
+      "noteBody": "The preview generated by this tool is only an approximation. Search engines may rewrite or display different title and description text depending on the search query, page content and other factors.",
+      "nextEyebrow": "Continue Your SEO Workflow",
+      "nextTitle": "Create, Preview and Analyze Your Metadata",
+      "nextBody": "Use these tools together to create your metadata, preview how it may appear in search results and then analyze the finished page.",
+      "wfStep1": "Step 1 · Current",
+      "wfStep2": "Step 2",
+      "wfStep3": "Step 3",
+      "wf1Body": "Create a clear title tag and meta description for the page you want to optimize.",
+      "wf1Cta": "Create metadata",
+      "wf2Body": "Preview how your title, URL and meta description may appear on desktop and mobile search results.",
+      "wf2Cta": "Preview metadata",
+      "wf3Body": "Analyze the published page and review metadata, headings, links and other important on-page SEO elements.",
+      "wf3Cta": "Analyze page",
+      "shareBody": "Create SEO-friendly title tags and meta descriptions with this free LifeSeos tool."
+    },
+    "serpPreview": {
+      "meta": {
+        "title": "SERP Snippet Preview — Free Google Preview Tool",
+        "description": "Preview how your page title, URL and meta description may appear in Google search results with the free LifeSeos SERP snippet preview."
+      },
+      "badge": "On-Page SEO Tool",
+      "titleLine1": "Free SERP Preview Tool",
+      "titleAccent": "Live Snippet Preview",
+      "subtitle": "Preview your page title, URL and meta description with a live SERP snippet preview and review their length before publishing.",
+      "heroCheckDesktop": "Desktop preview",
+      "heroCheckMobile": "Mobile preview",
+      "heroCheckLength": "Length guidance",
+      "formTitle": "Build your SERP snippet",
+      "formSubtitle": "Enter the main search snippet fields below.",
+      "titleLabel": "Page Title",
+      "titlePlaceholder": "Enter your page title",
+      "titleHint": "Character count is only a guideline. Search engines may truncate or rewrite titles depending on the query and device.",
+      "copyTitleAria": "Copy page title",
+      "descriptionLabel": "Meta Description",
+      "descriptionPlaceholder": "Write a concise description of the page",
+      "descriptionHint": "Search engines may use a different passage when another part of the page better matches the query.",
+      "copyDescriptionAria": "Copy meta description",
+      "pageUrlLabel": "Page URL",
+      "urlPlaceholder": "https://example.com/page",
+      "charactersCount": "{count} characters",
+      "modeDesktop": "Desktop",
+      "modeMobile": "Mobile",
+      "reset": "Reset Preview",
+      "liveEyebrow": "Live Preview",
+      "desktopResult": "Desktop search result",
+      "mobileResult": "Mobile search result",
+      "liveNote": "This is an approximate visual preview, not an exact Google rendering.",
+      "previewTitleEmpty": "Your page title will appear here",
+      "previewDescriptionEmpty": "Your meta description preview will appear here as you type.",
+      "statusEmpty": "Empty",
+      "statusTooShort": "Too short",
+      "statusGood": "Good",
+      "statusTooLong": "Too long",
+      "titleLengthLabel": "Title Length",
+      "descriptionLengthLabel": "Description Length",
+      "charsUnit": "{count} chars",
+      "notesTitle": "Preview notes",
+      "note1": "Visible result width depends on character width, device and search context, not just character count.",
+      "note2": "Search engines can rewrite titles and descriptions when another version better matches the query.",
+      "shareHeading": "Share this tool",
+      "shareBody": "Share the SERP Snippet Preview with marketers, writers and website owners.",
+      "shareTool": "Share tool",
+      "linkCopied": "Link copied",
+      "shareMessageTitle": "Free SERP Preview Tool — Live Snippet Preview | LifeSeos",
+      "shareMessageText": "Preview page titles and meta descriptions before publishing.",
+      "appearanceEyebrow": "Search Appearance",
+      "appearanceTitle": "Review your snippet before publishing",
+      "appearanceBody": "A SERP preview can help you spot titles that are too long, descriptions that are too short and URLs that may look unclear in search results.",
+      "feat1Title": "Title Review",
+      "feat1Body": "Check whether your title is concise enough for a search result preview.",
+      "feat2Title": "Description Length",
+      "feat2Body": "Review description length before adding metadata to your page.",
+      "feat3Title": "URL Preview",
+      "feat3Body": "See how the hostname and page path may look in a search result.",
+      "feat4Title": "Desktop Preview",
+      "feat4Body": "Review the snippet in a wider desktop-style search result layout.",
+      "feat5Title": "Mobile Preview",
+      "feat5Body": "Switch to a narrower layout to review mobile presentation.",
+      "feat6Title": "Easy Copy",
+      "feat6Body": "Copy your finished title or description when you are ready to publish.",
+      "howEyebrow": "How It Works",
+      "howTitle": "How to use the SERP Snippet Preview",
+      "howBody": "Use the preview while writing metadata, then make your final decision based on relevance and clarity rather than character count alone.",
+      "how1Title": "Enter your page title",
+      "how1Body": "Add the title you plan to use in your page metadata.",
+      "how2Title": "Write a meta description",
+      "how2Body": "Summarize the page clearly and explain why the result is relevant.",
+      "how3Title": "Add your page URL",
+      "how3Body": "Review how the domain and page path may appear in the result.",
+      "how4Title": "Check desktop and mobile",
+      "how4Body": "Review both layouts and copy the final metadata when ready.",
+      "flowEyebrow": "Continue Your SEO Workflow",
+      "flowTitle": "Move from metadata creation to page optimization",
+      "flowBody": "Use these tools together to create your metadata, preview how it may appear in search and then review the finished page.",
+      "stepCurrent": "Current",
+      "flow1Body": "Create a strong page title and meta description before checking how the snippet may look in search.",
+      "flow1Cta": "Create metadata",
+      "flow2Body": "Preview your page title, URL and meta description on desktop and mobile before publishing.",
+      "flow2Cta": "Preview metadata",
+      "flow3Body": "Analyze the finished page and review metadata, headings, links and other important on-page SEO elements.",
+      "flow3Cta": "Analyze page",
+      "alsoAnalyze": "Also review your page content with Content Analyzer",
+      "sampleTitle": "Free SEO Tools for Website Analysis | LifeSeos",
+      "sampleDescription": "Analyze your website, find technical SEO issues and improve search visibility with practical free SEO tools from LifeSeos."
+    },
+    "keywordDensity": {
+      "meta": {
+        "title": "Keyword Density Checker — Free Content Analysis",
+        "description": "Analyze keyword frequency and density in your content with the free LifeSeos keyword density checker."
+      },
+      "badge": "LifeSeos Keyword Density Checker",
+      "titleLine1": "Free Keyword Density Checker",
+      "titleAccent": "Check Keyword Frequency & Density",
+      "subtitle": "Check keyword density and frequency in your content, see how often words appear and review keyword density percentages instantly.",
+      "inputEyebrow": "Content input",
+      "inputTitle": "Paste Your Content",
+      "inputPlaceholder": "Paste your article, landing page copy, or SEO content here...",
+      "totalWords": "Total Words",
+      "uniqueWords": "Unique Words",
+      "inputNote": "Your text is analyzed directly in the browser as you type or paste content.",
+      "resultsEyebrow": "Keyword analysis",
+      "resultsTitle": "Top Keywords",
+      "shown": "Shown",
+      "empty": "Paste some text to see keyword frequency and density.",
+      "colKeyword": "Keyword",
+      "colCount": "Count",
+      "colDensity": "Density",
+      "introEyebrow": "Keyword Analysis",
+      "introTitle": "Understand How Keywords Are Used in Your Content",
+      "introP1": "Keyword density measures how frequently a word appears compared with the total number of words in your content. It can be useful for spotting repetition, but it should be treated as a diagnostic metric rather than a target score.",
+      "freqTitle": "Keyword Frequency",
+      "freqBody": "Shows the number of times a specific word appears in the analyzed content.",
+      "densityTitle": "Keyword Density",
+      "densityBody": "Shows the percentage of total words represented by a particular keyword.",
+      "uniqueTitle": "Unique Words",
+      "uniqueBody": "Shows how many different words appear in the text and gives context to vocabulary variety.",
+      "formulaEyebrow": "Understanding the metric",
+      "formulaTitle": "How Keyword Density Is Calculated",
+      "formulaBody": "The tool divides the number of times a keyword appears by the total number of words, then converts the result into a percentage.",
+      "formulaLabel": "Keyword Density =",
+      "formulaExpr": "Keyword Count ÷ Total Words × 100",
+      "formulaExample": "Example: if a word appears 5 times in 200 words, its density is 2.5%.",
+      "howEyebrow": "How it works",
+      "howTitle": "How to Use the Keyword Density Checker",
+      "howBody": "Use the report to understand which words dominate your content and whether repetition appears natural.",
+      "how1Title": "Paste your content",
+      "how1Body": "Add an article, landing page, product description or any other text you want to review.",
+      "how2Title": "Check total and unique words",
+      "how2Body": "Use the word counts to understand the overall size and vocabulary of the content.",
+      "how3Title": "Review keyword frequency",
+      "how3Body": "See which words appear most often and how many times each one is used.",
+      "how4Title": "Review density in context",
+      "how4Body": "Look for unnatural repetition rather than trying to reach a fixed percentage.",
+      "noteEyebrow": "Important SEO note",
+      "noteTitle": "There Is No Universal “Perfect” Keyword Density",
+      "noteBody": "Keyword density should not be treated as a formula for rankings. A useful page should cover its topic naturally and clearly. Repeating the same phrase simply to increase a percentage can make the content less readable and less useful.",
+      "avoidEyebrow": "Avoid over-optimization",
+      "avoidTitle": "Avoid Unnatural Keyword Stuffing",
+      "avoidP1": "Repeating a word or phrase more often than necessary can make writing sound unnatural. Density data is most useful when it helps you notice that kind of repetition.",
+      "avoidP2": "Instead of forcing exact-match keywords into every paragraph, focus on answering the topic clearly and use related terms where they make sense.",
+      "practice1Title": "Write naturally",
+      "practice1Body": "Use keywords where they genuinely help explain the topic.",
+      "practice2Title": "Check repetition",
+      "practice2Body": "Review unusually frequent words and decide whether repeated uses are necessary.",
+      "practice3Title": "Use related language",
+      "practice3Body": "Cover the subject comprehensively instead of repeating only one exact phrase.",
+      "practice4Title": "Prioritize readers",
+      "practice4Body": "Make clarity, usefulness and search intent more important than a density percentage.",
+      "nextEyebrow": "Continue Your Content SEO Workflow",
+      "nextTitle": "Rewrite, analyze and refine your content",
+      "nextBody": "Use these tools together to improve your draft, review content quality and finish by checking keyword frequency and density.",
+      "wfStep1": "Step 1",
+      "wfStep2": "Step 2",
+      "wfStep3": "Step 3 · Current",
+      "wf1Body": "Improve clarity, tone and structure before evaluating the content in more detail.",
+      "wf1Cta": "Rewrite content",
+      "wf2Body": "Review readability, structure, vocabulary and overall content quality before checking keyword repetition.",
+      "wf2Cta": "Analyze content",
+      "wf3Body": "Finish the workflow by reviewing keyword frequency, density and potentially unnatural repetition.",
+      "wf3Cta": "Check keyword usage",
+      "shareBody": "Analyze keyword frequency and density in your content with this free LifeSeos tool."
+    },
+    "contentAnalyzer": {
+      "meta": {
+        "title": "Content Analyzer — Free SEO Content Review",
+        "description": "Analyze content length, readability, keyword usage and SEO signals with the free LifeSeos content analyzer."
+      },
+      "badge": "LifeSeos Content Analyzer",
+      "titleLine1": "Free SEO Content Analysis Tool",
+      "titleAccent": "Analyze Keywords, Readability & SEO",
+      "subtitle": "Run a free SEO content analysis to review content length, readability, keyword usage, keyword density and basic on-page SEO quality signals directly in your browser.",
+      "inputLabel": "Paste your content",
+      "inputPlaceholder": "Paste your article, landing page copy, blog post, or other SEO content here…",
+      "privacyNote": "Your text is analyzed directly in the browser.",
+      "scoreLabel": "Content Score",
+      "scoreEmpty": "Add content to begin",
+      "scoreExcellent": "Excellent",
+      "scoreGood": "Good",
+      "scoreNeedsImprovement": "Needs Improvement",
+      "scorePoor": "Poor",
+      "readingTimeLabel": "Reading time",
+      "minUnit": "min",
+      "wordsLabel": "Words",
+      "uniqueWordsLabel": "Unique Words",
+      "sentencesLabel": "Sentences",
+      "paragraphsLabel": "Paragraphs",
+      "charactersLabel": "Characters",
+      "avgSentenceLabel": "Avg. Sentence",
+      "wordsUnit": "words",
+      "keywordsEyebrow": "Keyword analysis",
+      "keywordsTitle": "Top Keywords",
+      "keywordsEmpty": "Paste some content to see the most frequently used words and their keyword density.",
+      "colKeyword": "Keyword",
+      "colCount": "Count",
+      "colDensity": "Density",
+      "guidanceEyebrow": "Content guidance",
+      "guidanceTitle": "SEO Recommendations",
+      "guidanceEmpty": "Paste some content to receive SEO and readability recommendations.",
+      "recThin": "Consider adding more useful content. Pages with very little text may not fully answer search intent.",
+      "recLongSentences": "Some sentences may be too long. Shorter sentences can improve readability.",
+      "recParagraphs": "Break long blocks of text into multiple paragraphs to improve readability.",
+      "recRepetition": "The content contains a high amount of repeated vocabulary. Consider using more natural variation.",
+      "recHighDensity": "The keyword “{keyword}” appears frequently. Review the content to avoid unnatural repetition.",
+      "recGood": "The content has a solid basic structure with reasonable length and readability.",
+      "recBalanced": "The content structure looks balanced. Review it manually for search intent, accuracy and usefulness.",
+      "detailsEyebrow": "Content metrics",
+      "detailsTitle": "Detailed Content Statistics",
+      "detailCharsWithSpaces": "Characters with spaces",
+      "detailCharsNoSpaces": "Characters without spaces",
+      "detailVocabularyRatio": "Vocabulary ratio",
+      "shareDescription": "Analyze content length, readability, keyword usage and SEO quality signals with this free LifeSeos tool.",
+      "infoEyebrow": "Content SEO Analysis",
+      "infoTitle": "Understand the Structure of Your Content",
+      "infoBody": "Good SEO content should be useful and natural while also being easy to read and well structured. The LifeSeos Content Analyzer helps you inspect measurable content signals before publishing or updating a page.",
+      "info1Title": "Content Length",
+      "info1Body": "Review word count, character count, sentence count and paragraph structure.",
+      "info2Title": "Keyword Usage",
+      "info2Body": "See the most frequently used words and how often they appear in the text.",
+      "info3Title": "Keyword Density",
+      "info3Body": "Measure the percentage of your content represented by frequently repeated words.",
+      "info4Title": "Vocabulary Variety",
+      "info4Body": "Compare unique words with total words to identify excessive repetition.",
+      "info5Title": "Sentence Structure",
+      "info5Body": "Review average sentence length as a basic readability indicator.",
+      "info6Title": "Reading Time",
+      "info6Body": "Estimate approximately how long a reader may need to read the content.",
+      "howEyebrow": "How it works",
+      "howTitle": "How to Use the Content Analyzer",
+      "howBody": "Use the analyzer while writing, editing or reviewing content before it is published.",
+      "how1Title": "Paste your content",
+      "how1Body": "Add your article, landing page copy, product description or other written content.",
+      "how2Title": "Review the content score",
+      "how2Body": "Use the score as a quick summary of the basic content signals checked by the tool.",
+      "how3Title": "Check keywords and structure",
+      "how3Body": "Review frequently used words, density, sentence length and paragraph structure.",
+      "how4Title": "Improve the writing naturally",
+      "how4Body": "Use recommendations as guidance while keeping the content useful, accurate and relevant to readers.",
+      "whyEyebrow": "Better content decisions",
+      "whyTitle": "Why Content Analysis Matters for SEO",
+      "whyP1": "Search-focused content should answer the reader’s needs clearly without relying on repetitive keywords or unnecessarily complex writing.",
+      "whyP2": "Content analysis provides measurable signals that can help you identify thin content, repetitive vocabulary, long sentences and weak paragraph structure before publishing.",
+      "benefit1Title": "Identify thin content",
+      "benefit1Body": "Spot pages with limited text that may need more useful information.",
+      "benefit2Title": "Avoid keyword repetition",
+      "benefit2Body": "Review frequently repeated words and unusually high keyword density.",
+      "benefit3Title": "Improve readability",
+      "benefit3Body": "Use sentence and paragraph metrics to identify content that may be difficult to scan.",
+      "benefit4Title": "Review before publishing",
+      "benefit4Body": "Analyze drafts before they go live and make improvements early.",
+      "workflowEyebrow": "Continue Your Content SEO Workflow",
+      "workflowTitle": "Rewrite, analyze and refine your content",
+      "workflowBody": "Use these tools together to improve your draft, review content quality and then check keyword frequency in greater detail.",
+      "stepCurrent": "Current",
+      "card1Body": "Improve clarity, tone and structure before running a deeper content analysis.",
+      "card1Cta": "Rewrite content",
+      "card2Body": "Review readability, structure, vocabulary, keyword usage and other measurable content quality signals.",
+      "card2Cta": "Analyze content",
+      "card3Body": "Inspect keyword frequency and density in greater detail after reviewing the overall content structure.",
+      "card3Cta": "Check keyword usage"
+    },
+    "articleRewriter": {
+      "meta": {
+        "title": "SEO Article Rewriter — Free Content Rewriting Tool",
+        "description": "Rewrite website content for better clarity, readability and SEO consistency with the free LifeSeos article rewriter."
+      },
+      "badge": "Content SEO Tool",
+      "titleLine1": "Rewrite website content",
+      "titleAccent": "with better clarity and structure.",
+      "subtitle": "Improve article readability, tone and structure while keeping the original topic and core meaning intact.",
+      "heroCheckFree": "Free to use",
+      "heroCheckStyles": "Multiple rewrite styles",
+      "heroCheckSeo": "SEO-aware options",
+      "panelSubtitle": "Paste your article, choose your preferences and rewrite it.",
+      "originalCount": "Original: {count} words",
+      "rewrittenCount": "Rewritten: {count} words",
+      "originalLabel": "Original Article",
+      "rewrittenLabel": "Rewritten Article",
+      "charactersCount": "{count} characters",
+      "originalPlaceholder": "Paste your article, blog post or website content here…",
+      "rewrittenPlaceholder": "Your rewritten article will appear here…",
+      "copyAria": "Copy rewritten article",
+      "styleLabel": "Rewrite Style",
+      "toneLabel": "Tone",
+      "levelLabel": "Reading Level",
+      "strengthLabel": "Rewrite Strength",
+      "keywordLabel": "Target Keyword",
+      "keywordPlaceholder": "e.g. technical SEO",
+      "keepHeadings": "Keep headings",
+      "keepLinks": "Keep links",
+      "errEmpty": "Please paste an article or paragraph before rewriting.",
+      "errTooShort": "Please enter at least 10 words so the tool has enough text to rewrite.",
+      "actionRewrite": "Rewrite Article",
+      "actionAgain": "Rewrite Again",
+      "actionCopy": "Copy Result",
+      "actionCopied": "Copied",
+      "summaryEyebrow": "Rewrite Summary",
+      "summaryTitle": "Compare the original and rewritten content",
+      "statWordCount": "Word Count",
+      "statReadability": "Readability",
+      "statKeyword": "Keyword",
+      "statMode": "Rewrite Mode",
+      "keywordNotSet": "Not set",
+      "keywordFound": "Found",
+      "keywordMissing": "Missing",
+      "readabilityWaiting": "Waiting",
+      "readabilityEasy": "Easy",
+      "readabilityStandard": "Standard",
+      "readabilityAdvanced": "Advanced",
+      "shareHeading": "Share this tool",
+      "shareBody": "Share the SEO Article Rewriter with writers, marketers and website owners.",
+      "shareTool": "Share tool",
+      "linkCopied": "Link copied",
+      "shareMessageTitle": "Free SEO Article Rewriter | LifeSeos",
+      "shareMessageText": "Rewrite website content for clarity, readability and SEO consistency with LifeSeos.",
+      "featuresEyebrow": "Content Improvement",
+      "featuresTitle": "Rewrite articles without losing the original direction",
+      "featuresBody": "Use different rewrite settings to improve clarity, structure, readability and tone while keeping the main topic consistent.",
+      "feat1Title": "Rewrite Style",
+      "feat1Body": "Choose a clearer, more natural, concise, formal or SEO-friendly direction.",
+      "feat2Title": "Tone Control",
+      "feat2Body": "Adjust the rewritten content for neutral, friendly, expert or simple communication.",
+      "feat3Title": "Reading Level",
+      "feat3Body": "Make content easier to read or more advanced depending on your audience.",
+      "feat4Title": "Rewrite Strength",
+      "feat4Body": "Control how lightly or strongly the original wording is changed.",
+      "feat5Title": "Keyword Check",
+      "feat5Body": "Track whether your optional target keyword appears in the rewritten version.",
+      "feat6Title": "Structure Preservation",
+      "feat6Body": "Keep headings and links when they are important to your article structure.",
+      "howEyebrow": "How It Works",
+      "howTitle": "How to use the SEO Article Rewriter",
+      "howBody": "Start with your original draft, choose the rewrite settings and review the result before publishing it on your website.",
+      "how1Title": "Paste your article",
+      "how1Body": "Add the article, blog post or website content you want to improve.",
+      "how2Title": "Choose rewrite settings",
+      "how2Body": "Select the style, tone, reading level and rewrite strength.",
+      "how3Title": "Add an optional target keyword",
+      "how3Body": "Use the keyword field when you want to keep a specific SEO phrase in view.",
+      "how4Title": "Review before publishing",
+      "how4Body": "Compare the rewritten version with the original and make final editorial changes.",
+      "whyEyebrow": "Better Website Content",
+      "whyTitle": "Why article rewriting can be useful",
+      "whyP1": "Rewriting can help improve unclear sentences, reduce unnecessary wording and adapt an existing draft to a different tone or reading level.",
+      "whyP2": "Always review the rewritten result for accuracy, originality and factual correctness before publishing it on a live website.",
+      "benefit1Title": "Improve clarity",
+      "benefit1Body": "Simplify awkward wording and make important points easier to understand.",
+      "benefit2Title": "Adjust tone",
+      "benefit2Body": "Adapt content for different audiences without changing the main subject.",
+      "benefit3Title": "Reduce redundancy",
+      "benefit3Body": "Remove filler phrases and tighten sections that feel unnecessarily long.",
+      "benefit4Title": "Refresh existing drafts",
+      "benefit4Body": "Use an existing article as a starting point for a cleaner updated version.",
+      "flowEyebrow": "Continue Your Content SEO Workflow",
+      "flowTitle": "Rewrite, analyze and refine your content",
+      "flowBody": "Use these tools together to improve your draft, review content quality and then check how frequently your target terms appear.",
+      "stepCurrent": "Current",
+      "flow1Body": "Rewrite your article for clearer structure, tone, readability and better SEO consistency.",
+      "flow1Cta": "Rewrite content",
+      "flow2Body": "Review the rewritten version for readability, content structure, keyword usage and basic quality signals.",
+      "flow2Cta": "Analyze content",
+      "flow3Body": "Check keyword frequency and density after your content has been rewritten and reviewed.",
+      "flow3Cta": "Check keyword usage",
+      "styleClear": "Clear",
+      "styleProfessional": "Professional",
+      "styleNatural": "Natural",
+      "styleConcise": "Concise",
+      "styleSeoFriendly": "SEO Friendly",
+      "styleFormal": "Formal",
+      "toneNeutral": "Neutral",
+      "toneFriendly": "Friendly",
+      "toneExpert": "Expert",
+      "toneSimple": "Simple",
+      "levelSimple": "Simple",
+      "levelStandard": "Standard",
+      "levelAdvanced": "Advanced",
+      "strengthLight": "Light",
+      "strengthModerate": "Moderate",
+      "strengthStrong": "Strong"
+    },
+    "schemaMarkup": {
+      "meta": {
+        "title": "Schema Markup Generator — Free JSON-LD Builder",
+        "description": "Generate JSON-LD structured data for articles, FAQs, products and businesses with the free LifeSeos schema markup generator."
+      },
+      "badge": "Technical SEO Tool",
+      "titleLine1": "Generate structured data",
+      "titleAccent": "without writing JSON-LD by hand.",
+      "subtitle": "Create clean JSON-LD markup for common schema types and copy the generated code directly into your website.",
+      "heroCheck1": "Free to use",
+      "heroCheck2": "Multiple schema types",
+      "heroCheck3": "JSON-LD output",
+      "panelSubtitle": "Select a schema type and complete the relevant fields.",
+      "typeLabel": "Schema Type",
+      "types": {
+        "article": {
+          "label": "Article",
+          "description": "For blog posts, news articles and editorial content."
+        },
+        "faq": {
+          "label": "FAQ",
+          "description": "For pages containing frequently asked questions."
+        },
+        "product": {
+          "label": "Product",
+          "description": "For product pages with pricing and availability."
+        },
+        "localBusiness": {
+          "label": "Local Business",
+          "description": "For local companies, stores and service businesses."
+        },
+        "breadcrumb": {
+          "label": "Breadcrumb",
+          "description": "For breadcrumb navigation paths."
+        },
+        "organization": {
+          "label": "Organization",
+          "description": "For companies, brands and organizations."
+        },
+        "website": {
+          "label": "Website",
+          "description": "For website-level structured data."
+        },
+        "person": {
+          "label": "Person",
+          "description": "For author, profile and personal pages."
+        }
+      },
+      "fields": {
+        "headline": "Headline",
+        "description": "Description",
+        "articleUrl": "Article URL",
+        "imageUrl": "Image URL",
+        "author": "Author",
+        "publisher": "Publisher",
+        "datePublished": "Date Published",
+        "dateModified": "Date Modified",
+        "question": "Question",
+        "answer": "Answer",
+        "productName": "Product Name",
+        "productUrl": "Product URL",
+        "brand": "Brand",
+        "sku": "SKU",
+        "price": "Price",
+        "currency": "Currency",
+        "availability": "Availability",
+        "businessName": "Business Name",
+        "businessType": "Business Type",
+        "websiteUrl": "Website URL",
+        "telephone": "Telephone",
+        "streetAddress": "Street Address",
+        "city": "City",
+        "region": "Region / State",
+        "postalCode": "Postal Code",
+        "country": "Country",
+        "breadcrumbName": "Breadcrumb {index} Name",
+        "breadcrumbUrl": "Breadcrumb {index} URL",
+        "organizationName": "Organization Name",
+        "logoUrl": "Logo URL",
+        "socialProfiles": "Social Profiles",
+        "websiteName": "Website Name",
+        "searchUrlTemplate": "Search URL Template",
+        "personName": "Person Name",
+        "profileUrl": "Profile URL",
+        "jobTitle": "Job Title"
+      },
+      "ph": {
+        "headline": "e.g. Complete Technical SEO Guide",
+        "articleDescription": "Short article description",
+        "author": "Author name",
+        "publisher": "Publisher name",
+        "question": "Enter a question",
+        "answer": "Enter the answer",
+        "productName": "e.g. SEO Audit Template",
+        "productDescription": "Product description",
+        "brand": "Brand name",
+        "businessName": "Business name",
+        "street": "123 Main Street",
+        "city": "Melbourne",
+        "region": "VIC",
+        "postalCode": "3000",
+        "country": "AU",
+        "breadcrumbHome": "Home",
+        "breadcrumbPage": "Page name",
+        "organization": "Organization name",
+        "person": "Full name",
+        "jobTitle": "SEO Specialist"
+      },
+      "help": {
+        "socialProfiles": "Separate multiple profile URLs with commas.",
+        "searchUrl": "Optional SearchAction URL template."
+      },
+      "err": {
+        "articleHeadline": "Article headline is required.",
+        "faq": "Add at least one complete FAQ question and answer.",
+        "product": "Product name is required.",
+        "localBusiness": "Business name is required.",
+        "breadcrumb": "Add at least one breadcrumb name and URL.",
+        "organization": "Organization name is required.",
+        "websiteName": "Website name is required.",
+        "websiteUrl": "Website URL is required.",
+        "person": "Person name is required."
+      },
+      "errorsTitle": "Complete the required fields",
+      "requiredOk": "Required fields are complete.",
+      "outputEyebrow": "JSON-LD Output",
+      "outputTitle": "{type} schema preview",
+      "outputNote": "The code updates automatically as you complete the fields.",
+      "copyJsonLd": "Copy JSON-LD",
+      "copySchema": "Copy Schema",
+      "reset": "Reset",
+      "installEyebrow": "Implementation",
+      "installTitle": "How to add JSON-LD to your page",
+      "installBodyBefore": "Copy the generated JSON-LD and place it inside a script element with type",
+      "installBodyAfter": ".",
+      "installNote": "Make sure the structured data accurately reflects content that is actually visible or relevant on the page.",
+      "shareTitle": "Share this tool",
+      "shareBody": "Share the Schema Markup Generator with developers, marketers and website owners.",
+      "shareTool": "Share tool",
+      "linkCopied": "Link copied",
+      "shareMessageTitle": "Free Schema Markup Generator | LifeSeos",
+      "shareMessageText": "Generate JSON-LD structured data with LifeSeos.",
+      "whyEyebrow": "Structured Data",
+      "whyTitle": "Make page information easier for search engines to understand",
+      "whyBody": "Schema markup provides structured information about page entities such as articles, products, organizations and local businesses.",
+      "feat1Title": "Clearer Context",
+      "feat1Body": "Describe important entities and page relationships in a structured format.",
+      "feat2Title": "JSON-LD Output",
+      "feat2Body": "Generate a clean format that can be inserted directly into modern websites.",
+      "feat3Title": "Multiple Schema Types",
+      "feat3Body": "Create markup for common content, business and navigation use cases.",
+      "feat4Title": "Required Field Checks",
+      "feat4Body": "Catch missing core fields before copying the generated markup.",
+      "feat5Title": "Faster Setup",
+      "feat5Body": "Avoid manually writing the same structured data boilerplate each time.",
+      "feat6Title": "Website Ready",
+      "feat6Body": "Use the generated code as a practical starting point for implementation.",
+      "relatedBody": "Continue improving your site's technical SEO with LifeSeos.",
+      "relSeoAnalyzerBody": "Review technical SEO issues and optimization opportunities.",
+      "relSeoPageAnalyzerBody": "Analyze titles, headings, links and on-page SEO elements.",
+      "relXmlSitemapBody": "Generate sitemap structures for search engine crawling.",
+      "relSchemaBody": "Generate JSON-LD markup for common structured data types.",
+      "currentBadge": "Current"
+    },
+    "seoAnalyzer": {
+      "meta": {
+        "title": "SEO Analyzer — Free Website SEO Audit Tool",
+        "description": "Analyze your website SEO performance, technical issues, content signals, image SEO, social metadata, warnings and recommendations with the free LifeSeos SEO analyzer."
+      },
+      "badge": "LifeSeos SEO Analyzer",
+      "titleLine1": "Free Website SEO Analyzer",
+      "titleAccent": "Run a Website SEO Audit",
+      "subtitle": "Use the free LifeSeos website SEO analyzer to audit technical SEO, on-page content, metadata, images and social sharing signals. Review your SEO score, find issues and get actionable recommendations to improve your website.",
+      "arabicLink": "Try the tool in Arabic",
+      "submit": "Analyze",
+      "submitLoading": "Analyzing…",
+      "errorFallback": "Unable to analyze website.",
+      "scoreLabel": "SEO Score",
+      "scoreOutOf": "out of 100",
+      "grade": "Grade {grade}",
+      "overviewTitle": "SEO Audit Overview",
+      "overviewBody": "This score summarizes the SEO checks currently supported by LifeSeos. Review each category below to see where improvements are needed.",
+      "urlInline": "URL",
+      "metricTechnical": "Technical SEO",
+      "metricTechnicalDesc": "Core technical signals",
+      "metricContent": "Content SEO",
+      "metricContentDesc": "Page content structure",
+      "metricImages": "Image SEO",
+      "metricImagesDesc": "Image accessibility",
+      "metricSocial": "Social SEO",
+      "metricSocialDesc": "Open Graph metadata",
+      "panelTechnicalSubtitle": "Technical signals that help search engines understand your page.",
+      "panelImageSubtitle": "Image accessibility and ALT attribute coverage.",
+      "panelContentSubtitle": "Important content elements visible to search engines.",
+      "panelSocialSubtitle": "Metadata used when your page is shared on social platforms.",
+      "canonical": "Canonical URL",
+      "h1Structure": "H1 Structure",
+      "metaDescription": "Meta Description",
+      "robotsMeta": "Robots Meta",
+      "totalImages": "Total Images",
+      "missingAlt": "Missing ALT",
+      "altCoverage": "ALT Coverage",
+      "titleLabel": "Title",
+      "h1Label": "H1",
+      "ogTitle": "OG Title",
+      "ogDescription": "OG Description",
+      "checkPageTitle": "Page Title",
+      "checkH1": "H1 Heading",
+      "checkImageAlt": "Image ALT",
+      "checkOgTitle": "Open Graph Title",
+      "checkOgDescription": "Open Graph Description",
+      "noTitle": "No title found",
+      "noDescription": "No description found",
+      "noH1": "No H1 found",
+      "notFound": "Not found",
+      "noImages": "No images detected",
+      "imageAltMissing": "{missing} missing ALT out of {total}",
+      "checkPassed": "{label} passed",
+      "checkNeedsAttention": "{label} needs attention",
+      "checkImprove": "{label} should be improved",
+      "checksEyebrow": "Audit checklist",
+      "checksTitle": "SEO Checks",
+      "checksCount": "{count, plural, one {# check} other {# checks}}",
+      "itemsCount": "{count, plural, one {# item} other {# items}}",
+      "passedTitle": "Passed",
+      "warningsTitle": "Warnings",
+      "errorsTitle": "Errors",
+      "passedEmpty": "No passed checks yet.",
+      "warningsEmpty": "No warnings detected.",
+      "errorsEmpty": "No critical errors detected.",
+      "recsEyebrow": "Action plan",
+      "recsTitle": "Recommendations",
+      "recsEmpty": "No recommendations at this time. The analyzed checks look good.",
+      "recCardTitle": "SEO Improvement",
+      "download": "Download PDF",
+      "newAnalysis": "New Analysis",
+      "shareBody": "Analyze technical SEO, content, images and social metadata with this free LifeSeos SEO Analyzer.",
+      "introEyebrow": "Free Website SEO Audit",
+      "introTitle": "What the LifeSeos SEO Analyzer Checks",
+      "introBody": "The LifeSeos SEO Analyzer provides a free website SEO audit covering important technical and on-page signals. Check metadata, heading structure, canonical and robots directives, image ALT coverage and Open Graph metadata, then use the report to identify issues and prioritize SEO improvements.",
+      "info": {
+        "1": {
+          "title": "Technical SEO Checks",
+          "body": "Review signals that help search engines crawl, understand and correctly interpret your page.",
+          "items": {
+            "1": "Canonical URL",
+            "2": "Robots meta directives",
+            "3": "H1 heading structure",
+            "4": "Meta description"
+          }
+        },
+        "2": {
+          "title": "On-Page Content",
+          "body": "Check whether essential page elements are present and structured clearly for users and search engines.",
+          "items": {
+            "1": "Page title",
+            "2": "Meta description",
+            "3": "Main H1 heading",
+            "4": "Core page information"
+          }
+        },
+        "3": {
+          "title": "Image SEO",
+          "body": "Identify images that may be missing ALT text and improve accessibility and image search signals.",
+          "items": {
+            "1": "Total images detected",
+            "2": "Missing ALT attributes",
+            "3": "ALT text coverage",
+            "4": "Image accessibility"
+          }
+        },
+        "4": {
+          "title": "Social Metadata",
+          "body": "Check Open Graph metadata used when your website is shared across social platforms and messaging apps.",
+          "items": {
+            "1": "Open Graph title",
+            "2": "Open Graph description",
+            "3": "Social preview readiness",
+            "4": "Share metadata coverage"
+          }
+        }
+      },
+      "howEyebrow": "How it works",
+      "howTitle": "How to Use the SEO Analyzer",
+      "howBody": "Run a quick website audit and use the report as a practical starting point for improving your SEO.",
+      "how1Title": "Enter your website URL",
+      "how1Body": "Paste the full URL of the page you want to analyze, including https://.",
+      "how2Title": "Run the SEO analysis",
+      "how2Body": "LifeSeos checks the page for supported technical, content, image and social SEO signals.",
+      "how3Title": "Review your SEO score",
+      "how3Body": "Use the overall score and category breakdown to understand which areas need attention.",
+      "how4Title": "Fix issues by priority",
+      "how4Body": "Start with errors and warnings, then work through the recommendations shown in your report.",
+      "whyEyebrow": "Better SEO decisions",
+      "whyTitle": "Why Regular SEO Audits Matter",
+      "whyP1": "Websites change over time. New pages, design updates, plugins, metadata changes and content edits can introduce SEO issues without being immediately visible.",
+      "whyP2": "Regular audits help you identify problems early and give you a structured way to review technical and on-page SEO signals before investing more time in content or promotion.",
+      "benefit1Title": "Find hidden issues",
+      "benefit1Body": "Discover missing or incomplete SEO elements that may otherwise be easy to overlook.",
+      "benefit2Title": "Prioritize improvements",
+      "benefit2Body": "Use warnings, errors and recommendations to focus on the most important changes first.",
+      "benefit3Title": "Improve consistency",
+      "benefit3Body": "Review your pages using the same checks instead of relying on manual inspection alone.",
+      "benefit4Title": "Track website quality",
+      "benefit4Body": "Run audits after major website updates to confirm that important SEO elements remain in place.",
+      "vsEyebrow": "Choose the right analysis",
+      "vsTitle": "SEO Analyzer vs SEO Page Analyzer",
+      "vsBody": "Use the SEO Analyzer for a broad overview of technical SEO, content, images and social metadata. Use the SEO Page Analyzer when you want a more focused review of important on-page SEO elements for a specific page.",
+      "guidesEyebrow": "Learn more",
+      "guidesTitle": "SEO Audit Guides",
+      "guidesBody": "Explore practical SEO guides to better understand audit results and improve your website step by step.",
+      "guide1Tag": "SEO Audit",
+      "guide1Title": "Complete SEO Audit Guide",
+      "guide1Body": "Learn how to review technical, on-page and content SEO issues using a structured audit process.",
+      "guide2Tag": "Technical SEO",
+      "guide2Title": "Technical SEO Guide",
+      "guide2Body": "Understand crawling, indexing, metadata and other technical signals that affect search visibility.",
+      "guide3Tag": "On-Page SEO",
+      "guide3Title": "On-Page SEO Checklist",
+      "guide3Body": "Review important on-page elements such as titles, descriptions, headings and page structure.",
+      "guidesCta": "Read guide",
+      "flowEyebrow": "Complete Your Technical SEO Workflow",
+      "flowTitle": "Control crawling, improve discovery and audit your site",
+      "flowBody": "Use these tools together to manage crawler access, publish a clean XML sitemap and then review your website with a broader SEO audit.",
+      "step1": "Step 1",
+      "step2": "Step 2",
+      "step3Current": "Step 3 · Current",
+      "flow1Body": "Configure crawler access rules and make sure search engines can access the areas of your site you want them to crawl.",
+      "flow1Cta": "Configure crawling",
+      "flow2Body": "Create a clean XML sitemap containing important canonical URLs you want search engines to discover.",
+      "flow2Cta": "Create sitemap",
+      "flow3Body": "Complete the workflow with a broader audit covering technical, content, image and social SEO signals.",
+      "flow3Cta": "Run SEO audit"
+    },
+    "seoPageAnalyzer": {
+      "meta": {
+        "title": "SEO Page Analyzer — Free On-Page SEO Checker",
+        "description": "Analyze titles, meta descriptions, headings, links, images and canonical tags with the free LifeSeos SEO page analyzer."
+      },
+      "badge": "LifeSeos SEO Page Analyzer",
+      "titleLine1": "Free SEO Page Analyzer",
+      "titleAccent": "Run an On-Page SEO Analysis",
+      "subtitle": "Analyze page titles, meta descriptions, headings, canonical tags, robots directives, links, image ALT text and other important on-page SEO elements.",
+      "urlLabel": "Page URL",
+      "submit": "Analyze page",
+      "submitLoading": "Analyzing…",
+      "hint": "Enter a publicly accessible page URL to review its main on-page SEO elements.",
+      "errorFallback": "Unable to analyze this page.",
+      "metricStatus": "HTTP Status",
+      "metricH1": "H1 Tags",
+      "metricLinks": "Links",
+      "metricPageSize": "Page Size",
+      "pageSizeValue": "{size} KB",
+      "infoTitle": "Page Title",
+      "infoDescription": "Meta Description",
+      "infoCanonical": "Canonical URL",
+      "infoRobots": "Robots Meta",
+      "noTitle": "No title found",
+      "noDescription": "No meta description found",
+      "noCanonical": "No canonical tag found",
+      "noRobots": "No robots meta tag found",
+      "charsCount": "{count, plural, one {# character} other {# characters}}",
+      "structureEyebrow": "Page structure",
+      "structureTitle": "Heading Structure",
+      "h1Count": "H1 count",
+      "h2Count": "H2 count",
+      "noH1": "No H1 headings were detected.",
+      "imageEyebrow": "Image SEO",
+      "imageTitle": "Images",
+      "totalImages": "Total images",
+      "missingAlt": "Missing ALT",
+      "imageNote": "ALT text helps describe meaningful images for accessibility and provides additional context about image content.",
+      "urlEyebrow": "URL information",
+      "urlTitle": "Analysis Details",
+      "requestedUrl": "Requested URL",
+      "finalUrl": "Final URL",
+      "shareBody": "Analyze titles, meta descriptions, headings, canonical tags, links and image SEO with this free LifeSeos tool.",
+      "introEyebrow": "On-Page SEO Analysis",
+      "introTitle": "Check Important SEO Elements on Any Page",
+      "introBody": "On-page SEO includes the page-level signals that help users and search engines understand what a webpage contains. LifeSeos checks several important elements so you can quickly identify missing or incomplete page signals.",
+      "checks": {
+        "1": {
+          "title": "Page Title",
+          "body": "Review the page title and its character length to identify missing or unusually structured titles."
+        },
+        "2": {
+          "title": "Meta Description",
+          "body": "Check whether a meta description exists and review its current length."
+        },
+        "3": {
+          "title": "Heading Structure",
+          "body": "Inspect H1 and H2 usage to better understand the visible structure of the page."
+        },
+        "4": {
+          "title": "Canonical Tag",
+          "body": "Check whether the page declares a canonical URL for search engines."
+        },
+        "5": {
+          "title": "Robots Meta",
+          "body": "Review robots directives that may influence how search engines index or follow the page."
+        },
+        "6": {
+          "title": "Image ALT Text",
+          "body": "Identify how many images are present and whether some are missing ALT attributes."
+        }
+      },
+      "howEyebrow": "How it works",
+      "howTitle": "How to Use the SEO Page Analyzer",
+      "howBody": "Run a quick page-level audit before publishing changes or when reviewing an existing webpage.",
+      "how1Title": "Enter a page URL",
+      "how1Body": "Paste the full public URL of the webpage you want to inspect.",
+      "how2Title": "Run the page analysis",
+      "how2Body": "LifeSeos retrieves the page and extracts supported on-page SEO elements.",
+      "how3Title": "Review the important signals",
+      "how3Body": "Check metadata, headings, canonical information, links, images and page size.",
+      "how4Title": "Fix missing elements",
+      "how4Body": "Use the results to identify page elements that may need further review or improvement.",
+      "whyEyebrow": "Page-level optimization",
+      "whyTitle": "Why On-Page SEO Matters",
+      "whyP1": "A webpage can contain useful content and still have weak SEO signals if important metadata or structural elements are missing.",
+      "whyP2": "Reviewing titles, descriptions, headings, canonical tags and image attributes gives you a clearer picture of how the page is structured and where additional optimization may be needed.",
+      "benefit1Title": "Find missing metadata",
+      "benefit1Body": "Quickly identify missing titles, descriptions or canonical information.",
+      "benefit2Title": "Review page structure",
+      "benefit2Body": "Check H1 and H2 usage to understand how the page content is organized.",
+      "benefit3Title": "Inspect image SEO",
+      "benefit3Body": "Identify images that may be missing descriptive ALT attributes.",
+      "benefit4Title": "Check technical signals",
+      "benefit4Body": "Review HTTP status, robots directives, final URL and page size.",
+      "flowEyebrow": "Continue Your SEO Workflow",
+      "flowTitle": "Create, Preview and Analyze Your On-Page SEO",
+      "flowBody": "Use these tools together to prepare your metadata, preview how it may appear in search and then audit the finished page.",
+      "step1": "Step 1",
+      "step2": "Step 2",
+      "step3Current": "Step 3 · Current",
+      "flow1Body": "Create a clear title tag and meta description before publishing or updating the page.",
+      "flow1Cta": "Create metadata",
+      "flow2Body": "Preview how your title, URL and meta description may appear across desktop and mobile search layouts.",
+      "flow2Cta": "Preview metadata",
+      "flow3Body": "Analyze the live page and review metadata, headings, canonical tags, robots directives, links and image SEO.",
+      "flow3Cta": "Analyze page"
+    },
+    "youtubeKeywordIdeas": {
+      "meta": {
+        "title": "YouTube Keyword Ideas — Free Video Keyword Tool",
+        "description": "Generate video keyword groups, long-tail phrases and topic ideas with the free LifeSeos YouTube keyword tool."
+      },
+      "badge": "YouTube SEO Tools",
+      "titleLine1": "Discover better",
+      "titleAccent": "YouTube keyword ideas.",
+      "subtitle": "Turn a video topic into useful keyword phrases, long-tail ideas, questions and content angles for future YouTube videos.",
+      "perks": {
+        "free": "Free to use",
+        "groups": "Multiple keyword groups",
+        "topics": "Video topic ideas"
+      },
+      "formTitle": "Generate YouTube keyword ideas",
+      "formSubtitle": "Start with a topic, then shape the ideas around your content intent.",
+      "topicLabel": "Video Topic",
+      "topicPlaceholder": "e.g. YouTube growth",
+      "seedLabel": "Seed Keyword",
+      "seedPlaceholder": "e.g. YouTube SEO",
+      "seedHint": "If empty, your video topic will be used as the seed phrase.",
+      "intentLabel": "Content Intent",
+      "intents": {
+        "broadDiscovery": "Broad Discovery",
+        "howTo": "How-To",
+        "beginner": "Beginner",
+        "comparison": "Comparison",
+        "problemSolving": "Problem Solving",
+        "review": "Review"
+      },
+      "audienceLabel": "Target Audience",
+      "audiencePlaceholder": "e.g. New creators",
+      "errorTopicRequired": "Please enter a video topic before generating keyword ideas.",
+      "submit": "Generate Keyword Ideas",
+      "sideEyebrow": "Keyword Map",
+      "sideTitle": "YouTube keyword idea preview",
+      "sideDesc": "See the topic, intent and keyword mix generated from your inputs.",
+      "previewBadge": "Preview only",
+      "seedTopicLabel": "Seed topic",
+      "seedTopicFallback": "Your keyword",
+      "quickReviewTitle": "Quick keyword review",
+      "quickReviewHint": "Live signals based on your generated keyword set.",
+      "stats": {
+        "ideas": "Ideas",
+        "longTail": "Long-tail",
+        "questions": "Questions"
+      },
+      "resultsEyebrow": "Keyword Ideas",
+      "resultsTitle": "Explore your YouTube keyword set",
+      "resultsDesc": "Browse keyword groups, copy individual phrases or copy the complete set at once.",
+      "copyAll": "Copy all keywords",
+      "copiedAll": "Copied all",
+      "copyItem": "Copy: {item}",
+      "groups": {
+        "core": {
+          "title": "Core Keywords",
+          "description": "Short seed phrases related to your main topic."
+        },
+        "longTail": {
+          "title": "Long-Tail Keywords",
+          "description": "More specific phrases that can inspire focused video ideas."
+        },
+        "questions": {
+          "title": "Question Keywords",
+          "description": "Question-based phrases that can become useful video topics."
+        },
+        "intent": {
+          "title": "{intent} Ideas",
+          "description": "Keyword ideas shaped around the {intent} intent you selected."
+        }
+      },
+      "ideasCount": "{count} ideas",
+      "anglesEyebrow": "Suggested Video Angles",
+      "anglesTitle": "Turn keywords into video ideas",
+      "anglesDesc": "Use these as starting points for video concepts, then adapt the wording so it accurately reflects your content.",
+      "shareTitle": "Share this tool",
+      "shareDesc": "Share the YouTube Keyword Ideas tool with creators looking for new video topics and keyword angles.",
+      "shareButton": "Share tool",
+      "linkCopied": "Link copied",
+      "shareMessageTitle": "Free YouTube Keyword Ideas Tool | LifeSeos",
+      "shareMessageText": "Generate YouTube keyword and topic ideas with LifeSeos.",
+      "factorsEyebrow": "YouTube Keyword Research",
+      "factorsTitle": "Explore different keyword angles for your videos",
+      "factorsBody": "LifeSeos groups your topic into practical keyword formats so you can explore broader ideas, specific phrases and question-based video concepts.",
+      "factors": {
+        "core": {
+          "title": "Core Keywords",
+          "text": "Start with short phrases that describe the main subject of your video."
+        },
+        "longTail": {
+          "title": "Long-Tail Ideas",
+          "text": "Explore more specific phrases that can inspire focused video topics."
+        },
+        "questions": {
+          "title": "Question Keywords",
+          "text": "Turn common questions into useful educational or explanatory videos."
+        },
+        "intent": {
+          "title": "Search Intent",
+          "text": "Shape ideas around how-to, beginner, comparison, review or problem-solving content."
+        },
+        "audience": {
+          "title": "Audience Fit",
+          "text": "Use audience context to make some keyword ideas more specific."
+        },
+        "angles": {
+          "title": "Video Angles",
+          "text": "Transform keyword phrases into practical starting points for video titles."
+        }
+      },
+      "howEyebrow": "How It Works",
+      "howTitle": "How to use YouTube Keyword Ideas",
+      "howBody": "Start with a broad topic and use the generated groups to explore different video directions.",
+      "steps": {
+        "1": {
+          "title": "Enter your video topic",
+          "text": "Describe the main subject you want to create content about."
+        },
+        "2": {
+          "title": "Add a seed keyword",
+          "text": "Optionally add a more specific phrase you want the ideas to focus on."
+        },
+        "3": {
+          "title": "Choose your content intent",
+          "text": "Select broad discovery, how-to, beginner, comparison, problem solving or review."
+        },
+        "4": {
+          "title": "Explore and copy ideas",
+          "text": "Review keyword groups, copy useful phrases and turn them into video concepts."
+        }
+      },
+      "whyEyebrow": "Video Discovery",
+      "whyTitle": "Why YouTube keyword ideas matter",
+      "whyP1": "Keyword research can help creators think about the language people may use when looking for videos about a topic. It is also useful for finding narrower questions, problems and content angles.",
+      "whyP2": "This tool generates ideas from your inputs. It does not provide official YouTube search volume, competition data or guaranteed ranking predictions.",
+      "benefits": {
+        "discover": {
+          "title": "Find new topics",
+          "text": "Turn one broad subject into multiple possible video directions."
+        },
+        "language": {
+          "title": "Explore search language",
+          "text": "Think about different ways viewers may describe the same subject."
+        },
+        "clusters": {
+          "title": "Build content clusters",
+          "text": "Group related phrases into a series of connected videos."
+        },
+        "planning": {
+          "title": "Improve planning",
+          "text": "Use keyword ideas as a starting point for titles, descriptions and future videos."
+        }
+      },
+      "workflowEyebrow": "Continue Your YouTube SEO Workflow",
+      "workflowTitle": "Go from keyword research to a complete video plan",
+      "workflowBody": "Use the YouTube SEO tools in sequence to find keyword angles, create a title, review it, build the description and then draft the full video script.",
+      "workflow": {
+        "step": "Step {number}",
+        "current": "Step {number} · Current",
+        "items": {
+          "keywords": {
+            "desc": "Discover keyword groups, long-tail phrases, questions and video angles from your main topic.",
+            "cta": "Find keywords"
+          },
+          "titleGenerator": {
+            "desc": "Turn your strongest keyword or topic into multiple title ideas for the video.",
+            "cta": "Generate titles"
+          },
+          "titleAnalyzer": {
+            "desc": "Review a candidate title for clarity, structure, length and keyword usage before publishing.",
+            "cta": "Analyze title"
+          },
+          "descriptionGenerator": {
+            "desc": "Build a structured description using the topic, title and important keywords from your video plan.",
+            "cta": "Create description"
+          },
+          "scriptWriter": {
+            "desc": "Turn the completed video concept into a structured script with a hook, main sections and closing.",
+            "cta": "Write script"
+          }
+        }
+      }
+    },
+    "youtubeTitleGenerator": {
+      "meta": {
+        "title": "YouTube Title Generator — Free Video Title Ideas",
+        "description": "Create engaging YouTube title ideas based on your topic, keyword and audience with the free LifeSeos title generator."
+      },
+      "badge": "YouTube SEO Tools",
+      "titleLine1": "Generate better",
+      "titleAccent": "YouTube titles.",
+      "subtitle": "Turn your video topic and keyword into clear, engaging YouTube title ideas in seconds.",
+      "perks": {
+        "free": "Free to use",
+        "noAccount": "No account required",
+        "styles": "Multiple title styles"
+      },
+      "formTitle": "Create YouTube title ideas",
+      "formSubtitle": "Add your topic and customize the type of title you want.",
+      "topicLabel": "Video Topic",
+      "topicPlaceholder": "e.g. How to grow a YouTube channel",
+      "keywordLabel": "Main Keyword",
+      "keywordPlaceholder": "e.g. YouTube SEO",
+      "keywordHint": "Optional. If empty, your video topic will be used instead.",
+      "styleLabel": "Title Style",
+      "styles": {
+        "seoFocused": "SEO Focused",
+        "howTo": "How-To",
+        "curiosity": "Curiosity",
+        "list": "List",
+        "beginnerFriendly": "Beginner Friendly",
+        "professional": "Professional"
+      },
+      "audienceLabel": "Target Audience",
+      "audiencePlaceholder": "e.g. Small business owners",
+      "errorTopicRequired": "Please enter a video topic before generating titles.",
+      "submit": "Generate YouTube Titles",
+      "previewEyebrow": "Preview",
+      "previewTitle": "YouTube-style title preview",
+      "previewDesc": "See how your generated title may look in a video-style card and review a few useful title signals at a glance.",
+      "previewBadge": "Preview only",
+      "previewEmptyTitle": "Your generated YouTube title will appear here",
+      "previewChannel": "LifeSeos Creator",
+      "previewLabel": "Preview",
+      "previewSample": "Sample display only",
+      "quickTitle": "Quick title review",
+      "quickHint": "Live signals based on the generated title you selected.",
+      "quick": {
+        "length": "Length",
+        "keyword": "Keyword",
+        "clarity": "Clarity"
+      },
+      "quickLength": {
+        "waiting": "Waiting",
+        "good": "Good",
+        "short": "Short",
+        "long": "Long"
+      },
+      "quickKeyword": {
+        "notSet": "Not set",
+        "found": "Found",
+        "missing": "Missing"
+      },
+      "quickClarity": {
+        "waiting": "Waiting",
+        "clear": "Clear",
+        "basic": "Basic"
+      },
+      "titleLengthLabel": "Title length",
+      "characters": "{count} characters",
+      "scale": {
+        "short": "Short",
+        "balanced": "Balanced",
+        "long": "Long"
+      },
+      "resultsEyebrow": "Generated Titles",
+      "resultsTitle": "Choose your favorite title",
+      "resultsDesc": "Select a title to preview it, then copy the version you want to use.",
+      "generateMore": "Generate More",
+      "lengthStatus": {
+        "short": "Short",
+        "good": "Good length",
+        "long": "Long"
+      },
+      "insightsEyebrow": "Title Insights",
+      "insightsTitle": "Why this title works",
+      "reasons": {
+        "keyword": "Includes your main keyword",
+        "length": "Uses a clear and practical title length",
+        "format": "Uses a format that clearly communicates the video angle",
+        "clarity": "Makes the video topic easy to understand"
+      },
+      "shareTitle": "Share this tool",
+      "shareDesc": "Know a creator who needs better video title ideas? Share the YouTube Title Generator with them.",
+      "shareButton": "Share tool",
+      "linkCopied": "Link copied",
+      "shareMessageTitle": "Free YouTube Title Generator | LifeSeos",
+      "shareMessageText": "Generate YouTube title ideas with the free LifeSeos YouTube Title Generator.",
+      "optimizationEyebrow": "YouTube Title Optimization",
+      "optimizationTitle": "Build titles that are clear, relevant and easy to understand",
+      "optimizationBody": "A useful YouTube title should quickly communicate what the video is about while matching the topic, keyword and audience you want to reach. LifeSeos helps you explore different title angles without making unrealistic ranking promises.",
+      "factors": {
+        "keywordRelevance": {
+          "title": "Keyword Relevance",
+          "text": "Keep the main topic or keyword visible when it helps viewers understand the video."
+        },
+        "clarity": {
+          "title": "Title Clarity",
+          "text": "Make the subject easy to understand instead of relying on vague wording."
+        },
+        "intent": {
+          "title": "Search Intent",
+          "text": "Use a title format that matches what someone may be trying to learn or discover."
+        },
+        "clickAppeal": {
+          "title": "Click Appeal",
+          "text": "Create interest with specific, useful wording without misleading the viewer."
+        },
+        "length": {
+          "title": "Title Length",
+          "text": "Keep an eye on title length so the important information remains easy to scan."
+        },
+        "audience": {
+          "title": "Audience Fit",
+          "text": "Adapt wording to the people the video is intended to help or entertain."
+        }
+      },
+      "howEyebrow": "How It Works",
+      "howTitle": "How to use the YouTube Title Generator",
+      "howBody": "Create title ideas in a few simple steps, compare the options and use the preview to choose the version that best matches your video.",
+      "steps": {
+        "1": {
+          "title": "Enter your video topic",
+          "text": "Describe what your video is about in a clear phrase."
+        },
+        "2": {
+          "title": "Add a keyword and audience",
+          "text": "Add an optional main keyword and target audience to make the ideas more specific."
+        },
+        "3": {
+          "title": "Choose a title style",
+          "text": "Select SEO Focused, How-To, Curiosity, List, Beginner Friendly or Professional."
+        },
+        "4": {
+          "title": "Generate, preview and copy",
+          "text": "Compare the title ideas, preview your favorite and copy it when you are ready."
+        }
+      },
+      "whyEyebrow": "Video Discovery",
+      "whyTitle": "Why YouTube titles matter",
+      "whyP1": "Your title is one of the first pieces of information viewers see when deciding whether a video matches what they want. Clear titles can help communicate the topic, set expectations and make your content easier to understand.",
+      "whyP2": "A title works best as part of the complete video package, including the thumbnail, description, content quality and how well the video satisfies its audience.",
+      "benefits": {
+        "topic": {
+          "title": "Communicate the topic",
+          "text": "Tell viewers what they can expect before they click."
+        },
+        "search": {
+          "title": "Support search relevance",
+          "text": "Use topic wording that reflects the content of the video."
+        },
+        "expectations": {
+          "title": "Set expectations",
+          "text": "Match the promise in the title with what the video actually delivers."
+        },
+        "consistency": {
+          "title": "Improve consistency",
+          "text": "Use a clear title together with a relevant thumbnail and description."
+        }
+      },
+      "relatedEyebrow": "Continue Optimizing",
+      "relatedTitle": "Related YouTube SEO tools",
+      "relatedDesc": "Continue improving your video metadata with more creator-focused tools from LifeSeos.",
+      "related": {
+        "current": "Current",
+        "comingSoon": "Coming Soon",
+        "titleGenerator": {
+          "desc": "Generate title ideas based on your video topic, keyword and preferred style."
+        },
+        "titleAnalyzer": {
+          "desc": "Review an existing title for clarity, keyword use and title structure."
+        },
+        "keywords": {
+          "desc": "Explore keyword and topic ideas for future video content."
+        },
+        "descriptionGenerator": {
+          "desc": "Create a structured starting point for your video description."
+        }
+      }
+    },
+    "youtubeTitleAnalyzer": {
+      "meta": {
+        "title": "YouTube Title Analyzer — Free Title Quality Review",
+        "description": "Review YouTube title clarity, structure, keyword use, length and click appeal with the free LifeSeos title analyzer."
+      },
+      "badge": "YouTube SEO Tools",
+      "titleLine1": "Analyze and improve your",
+      "titleAccent": "YouTube title.",
+      "subtitle": "Use this free YouTube SEO title checker and title tester to review length, keyword use, clarity, specificity and click appeal before publishing. The score evaluates title signals and does not predict YouTube rankings.",
+      "perks": {
+        "free": "Free to use",
+        "instant": "Instant analysis",
+        "recommendations": "Practical recommendations"
+      },
+      "formTitle": "Check and analyze your YouTube title",
+      "formSubtitle": "Enter an existing title and an optional target keyword.",
+      "titleLabel": "YouTube Title",
+      "titlePlaceholder": "e.g. How to Grow a YouTube Channel in 2026",
+      "liveLength": {
+        "empty": "Enter a title",
+        "short": "Short",
+        "good": "Good length",
+        "long": "Long"
+      },
+      "keywordLabel": "Main Keyword",
+      "keywordPlaceholder": "e.g. YouTube SEO",
+      "keywordHint": "Add the keyword you want the title to communicate clearly.",
+      "characters": "{count} characters",
+      "errorTitleRequired": "Please enter a YouTube title before running the analysis.",
+      "submit": "Analyze YouTube Title",
+      "previewEyebrow": "Preview",
+      "previewTitle": "YouTube-style title preview",
+      "previewDesc": "See how your title may look in a video-style card and review a few important title signals at a glance.",
+      "previewBadge": "Preview only",
+      "previewEmptyTitle": "Your YouTube title will appear here",
+      "previewChannel": "LifeSeos Creator",
+      "previewLabel": "Preview",
+      "previewSample": "Sample display only",
+      "quickTitle": "Quick title review",
+      "quickHint": "Live signals based on the title you entered.",
+      "quick": {
+        "length": "Length",
+        "keyword": "Keyword",
+        "clarity": "Clarity"
+      },
+      "quickLength": {
+        "waiting": "Waiting",
+        "good": "Good",
+        "short": "Short",
+        "long": "Long"
+      },
+      "quickKeyword": {
+        "notSet": "Not set",
+        "found": "Found",
+        "missing": "Missing"
+      },
+      "quickClarity": {
+        "waiting": "Waiting",
+        "clear": "Clear",
+        "basic": "Basic"
+      },
+      "titleLengthLabel": "Title length",
+      "scale": {
+        "short": "Short",
+        "balanced": "Balanced",
+        "long": "Long"
+      },
+      "scoreEyebrow": "Title Score",
+      "outOf": "out of 100",
+      "scoreDesc": "This score summarizes the title structure, keyword use, clarity, specificity and click appeal.",
+      "grades": {
+        "excellent": "Excellent",
+        "good": "Good",
+        "fair": "Fair",
+        "needsWork": "Needs Work"
+      },
+      "status": {
+        "good": "Good",
+        "needsImprovement": "Needs Improvement",
+        "weak": "Weak"
+      },
+      "metrics": {
+        "length": {
+          "label": "Title Length",
+          "desc": "{count} characters"
+        },
+        "keywordPresence": {
+          "label": "Keyword Presence",
+          "found": "Main keyword found",
+          "missing": "Main keyword not found",
+          "none": "No keyword provided"
+        },
+        "keywordPosition": {
+          "label": "Keyword Position",
+          "reviewed": "Keyword placement reviewed",
+          "unknown": "Cannot evaluate placement",
+          "none": "No keyword provided"
+        },
+        "clarity": {
+          "label": "Clarity",
+          "desc": "How easy the title is to understand"
+        },
+        "specificity": {
+          "label": "Specificity",
+          "desc": "How clearly the title defines the video angle"
+        },
+        "clickAppeal": {
+          "label": "Click Appeal",
+          "desc": "How strongly the title creates interest"
+        }
+      },
+      "strengthsEyebrow": "Strengths",
+      "strengthsTitle": "What is working well",
+      "strengthsEmpty": "No strong signals were detected yet. Review the recommendations below.",
+      "issuesEyebrow": "Issues",
+      "issuesTitle": "What could be improved",
+      "issuesEmpty": "No major structural issues were detected in this title.",
+      "recsEyebrow": "Recommendations",
+      "recsTitle": "How to improve this title",
+      "recsEmpty": "The title already has a strong structure. Keep it aligned with the actual video content and thumbnail.",
+      "insights": {
+        "strengths": {
+          "lengthGood": "The title uses a clear, practical length.",
+          "keywordFound": "The main keyword appears in the title.",
+          "keywordEarly": "The main keyword appears early in the title.",
+          "clarityGood": "The title is easy to understand at a glance.",
+          "specificityGood": "The title communicates a specific angle or promise.",
+          "clickGood": "The title has a strong, attention-friendly structure."
+        },
+        "issues": {
+          "short": "The title is quite short and may not communicate enough context.",
+          "long": "The title is relatively long and may be harder to scan quickly.",
+          "keywordMissing": "The main keyword does not appear in the title.",
+          "clarity": "The title could communicate the video topic more clearly."
+        },
+        "recommendations": {
+          "addBenefit": "Add a clearer benefit, angle or specific detail to the title.",
+          "moveEarlier": "Move the most important wording earlier and remove unnecessary words.",
+          "moveKeyword": "Consider moving the main keyword closer to the beginning.",
+          "includeKeyword": "Include the main keyword naturally if it accurately reflects the video.",
+          "directWording": "Use more direct wording and reduce vague phrases.",
+          "specificFormat": "Add a specific format such as a guide, list, question, tutorial or clear outcome.",
+          "moreInterest": "Increase interest with a clearer benefit, question, number or problem-focused angle."
+        }
+      },
+      "suggestionsEyebrow": "Improved Ideas",
+      "suggestionsTitle": "How to improve this title",
+      "suggestionsDesc": "Compare several stronger title directions based on the topic you entered. Each option uses a different angle so you can choose the one that best matches your actual video.",
+      "generateMore": "Generate more titles",
+      "angles": {
+        "howTo": "How-To",
+        "list": "List",
+        "explainer": "Explainer",
+        "problem": "Problem",
+        "beginner": "Beginner",
+        "tips": "Tips",
+        "mistakes": "Mistakes",
+        "professional": "Professional",
+        "question": "Question",
+        "tutorial": "Tutorial"
+      },
+      "suggestionReasons": {
+        "r1": "Clear instructional intent and a direct promise of useful guidance.",
+        "r2": "A numbered format makes the value easy to scan before clicking.",
+        "r3": "Signals a clear educational video and sets expectations quickly.",
+        "r4": "Focuses on a pain point and creates a natural reason to keep reading.",
+        "r5": "Makes the intended audience explicit and reduces uncertainty for new viewers.",
+        "r6": "Combines a specific number with a practical benefit-focused format.",
+        "r7": "Uses a risk-avoidance angle that can make the topic feel immediately relevant.",
+        "r8": "Keeps the keyword prominent while adding a practical outcome-oriented promise.",
+        "r9": "A question format can match viewers who are comparing options or looking for an opinion.",
+        "r10": "Combines a strong outcome with a structured learning format."
+      },
+      "shareTitle": "Share this tool",
+      "shareDesc": "Share the YouTube Title Analyzer with creators who want a clearer way to review their video titles.",
+      "shareButton": "Share tool",
+      "linkCopied": "Link copied",
+      "shareMessageTitle": "Free YouTube Title Checker & Analyzer | LifeSeos",
+      "shareMessageText": "Analyze and improve a YouTube video title with LifeSeos.",
+      "factorsEyebrow": "YouTube Title Analysis",
+      "factorsTitle": "What the analyzer reviews",
+      "factorsBody": "The analyzer checks practical title signals that help you review wording, structure and relevance before publishing a video.",
+      "factors": {
+        "length": {
+          "title": "Title Length",
+          "text": "Reviews whether the title provides enough context without becoming unnecessarily long."
+        },
+        "keywordPresence": {
+          "title": "Keyword Presence",
+          "text": "Checks whether your optional main keyword appears naturally in the title."
+        },
+        "keywordPosition": {
+          "title": "Keyword Position",
+          "text": "Reviews how early the main keyword appears when a keyword is provided."
+        },
+        "clarity": {
+          "title": "Clarity",
+          "text": "Looks at whether the title communicates the topic in a direct, readable way."
+        },
+        "specificity": {
+          "title": "Specificity",
+          "text": "Checks whether the title defines a clear angle, format or outcome."
+        },
+        "clickAppeal": {
+          "title": "Click Appeal",
+          "text": "Reviews whether the title creates interest without relying on misleading claims."
+        }
+      },
+      "howEyebrow": "How It Works",
+      "howTitle": "How to use the YouTube Title Analyzer",
+      "howBody": "Review an existing title in a few simple steps and use the recommendations to refine it before publishing.",
+      "steps": {
+        "1": {
+          "title": "Enter your current title",
+          "text": "Paste or type the YouTube title you want to review."
+        },
+        "2": {
+          "title": "Add your main keyword",
+          "text": "Optionally add the keyword you want the title to communicate."
+        },
+        "3": {
+          "title": "Run the analysis",
+          "text": "Review the overall score, title factors, strengths and issues."
+        },
+        "4": {
+          "title": "Improve your title",
+          "text": "Use the recommendations or alternative ideas as a starting point."
+        }
+      },
+      "whyEyebrow": "Video Discovery",
+      "whyTitle": "Why YouTube titles matter",
+      "whyP1": "A video title helps viewers understand the subject before they click. It can communicate relevance, set expectations and support the overall presentation of the video.",
+      "whyP2": "Titles work together with thumbnails, descriptions and the actual video content. This analyzer focuses on title structure only and does not claim to predict rankings or views.",
+      "benefits": {
+        "topic": {
+          "title": "Explain the topic",
+          "text": "Help viewers quickly understand what the video is about."
+        },
+        "relevance": {
+          "title": "Support relevance",
+          "text": "Use wording that accurately reflects the subject of the video."
+        },
+        "interest": {
+          "title": "Create interest",
+          "text": "Give viewers a clear reason to explore the content without misleading them."
+        },
+        "expectations": {
+          "title": "Set expectations",
+          "text": "Make sure the title promise matches what the video actually delivers."
+        }
+      },
+      "workflowEyebrow": "Continue Your YouTube SEO Workflow",
+      "workflowTitle": "Go from keyword research to a complete video plan",
+      "workflowBody": "Use the YouTube SEO tools in sequence to find keyword angles, create a title, review it, build the description and then draft the full video script.",
+      "workflow": {
+        "step": "Step {number}",
+        "current": "Step {number} · Current",
+        "items": {
+          "keywords": {
+            "desc": "Discover keyword groups, long-tail phrases, questions and video angles from your main topic.",
+            "cta": "Find keywords"
+          },
+          "titleGenerator": {
+            "desc": "Turn your strongest keyword or topic into multiple title ideas for the video.",
+            "cta": "Generate titles"
+          },
+          "titleAnalyzer": {
+            "desc": "Review your title for clarity, keyword use, structure, length and click appeal before publishing.",
+            "cta": "Analyze title"
+          },
+          "descriptionGenerator": {
+            "desc": "Build a structured description using the topic, title and important keywords from your video plan.",
+            "cta": "Create description"
+          },
+          "scriptWriter": {
+            "desc": "Turn the completed video concept into a structured script with a hook, main sections and closing.",
+            "cta": "Write script"
+          }
+        }
+      }
+    },
+    "youtubeDescriptionGenerator": {
+      "meta": {
+        "title": "YouTube Description Generator — Free Description Builder",
+        "description": "Create structured YouTube video descriptions with keywords, hashtags and calls to action."
+      },
+      "badge": "YouTube SEO Tools",
+      "titleLine1": "Create better",
+      "titleAccent": "YouTube descriptions.",
+      "subtitle": "Turn your video topic, keyword and audience into clear, structured YouTube description ideas in seconds.",
+      "perks": {
+        "free": "Free to use",
+        "styles": "Multiple description styles",
+        "hashtags": "Hashtag suggestions"
+      },
+      "formTitle": "Generate a YouTube description",
+      "formSubtitle": "Add your video details and choose the description style you want.",
+      "topicLabel": "Video Topic",
+      "topicPlaceholder": "e.g. How to grow a YouTube channel",
+      "keywordLabel": "Main Keyword",
+      "keywordPlaceholder": "e.g. YouTube SEO",
+      "styleLabel": "Description Style",
+      "styles": {
+        "balanced": "Balanced",
+        "seoFocused": "SEO Focused",
+        "professional": "Professional",
+        "friendly": "Friendly",
+        "short": "Short",
+        "detailed": "Detailed"
+      },
+      "audienceLabel": "Target Audience",
+      "audiencePlaceholder": "e.g. New creators",
+      "ctaLabel": "Call to Action",
+      "ctaPlaceholder": "e.g. Subscribe for more YouTube SEO tips",
+      "errorTopicRequired": "Please enter a video topic before generating a description.",
+      "submit": "Generate YouTube Description",
+      "previewEyebrow": "Preview",
+      "previewTitle": "YouTube-style description preview",
+      "previewDesc": "Preview the selected description and review a few useful content signals at a glance.",
+      "previewBadge": "Preview only",
+      "previewTag": "YouTube Description",
+      "previewEmpty": "Your generated YouTube description will appear here.",
+      "quickTitle": "Quick description review",
+      "quickHint": "Live signals based on the selected description.",
+      "stats": {
+        "characters": "Characters",
+        "words": "Words",
+        "keyword": "Keyword"
+      },
+      "keywordStatus": {
+        "notSet": "Not set",
+        "found": "Found",
+        "missing": "Missing"
+      },
+      "resultsEyebrow": "Generated Descriptions",
+      "resultsTitle": "Choose the description you prefer",
+      "resultsDesc": "Select a version to preview it, then copy and customize it for your video.",
+      "copyAll": "Copy description + hashtags",
+      "labels": {
+        "balanced": "Balanced",
+        "educational": "Educational",
+        "creatorFriendly": "Creator Friendly",
+        "seoFocused": "SEO Focused",
+        "searchFriendly": "Search Friendly",
+        "keywordRich": "Keyword Rich",
+        "professional": "Professional",
+        "structured": "Structured",
+        "expertTone": "Expert Tone",
+        "friendly": "Friendly",
+        "conversational": "Conversational",
+        "approachable": "Approachable",
+        "short": "Short",
+        "compact": "Compact",
+        "minimal": "Minimal",
+        "detailed": "Detailed",
+        "inDepth": "In-Depth",
+        "comprehensive": "Comprehensive"
+      },
+      "hashtagsEyebrow": "Hashtags",
+      "hashtagsTitle": "Suggested hashtags",
+      "ctaTipEyebrow": "CTA Tip",
+      "ctaTipTitle": "Keep your call to action relevant",
+      "ctaTipBody": "Use a clear call to action that matches the video. Ask viewers to subscribe, visit a relevant link, watch another video or leave a comment only when it makes sense for the content.",
+      "shareTitle": "Share this tool",
+      "shareDesc": "Share the YouTube Description Generator with creators who want a faster way to draft structured video descriptions.",
+      "shareButton": "Share tool",
+      "linkCopied": "Link copied",
+      "shareMessageTitle": "Free YouTube Description Generator | LifeSeos",
+      "shareMessageText": "Create YouTube video descriptions with LifeSeos.",
+      "factorsEyebrow": "YouTube Description Writing",
+      "factorsTitle": "Build clearer, more useful video descriptions",
+      "factorsBody": "A useful description should explain the video clearly, support the main topic and give viewers relevant next steps without stuffing unnecessary keywords.",
+      "factors": {
+        "topicRelevance": {
+          "title": "Topic Relevance",
+          "text": "Keep the description focused on what the video actually covers."
+        },
+        "clearStructure": {
+          "title": "Clear Structure",
+          "text": "Use short paragraphs and readable wording instead of one large block of text."
+        },
+        "usefulLinks": {
+          "title": "Useful Links",
+          "text": "Add relevant links only when they genuinely help the viewer."
+        },
+        "audienceFit": {
+          "title": "Audience Fit",
+          "text": "Adapt the wording and level of detail to the people the video is for."
+        },
+        "hashtags": {
+          "title": "Hashtags",
+          "text": "Use a small number of relevant hashtags rather than unrelated tags."
+        },
+        "callToAction": {
+          "title": "Call to Action",
+          "text": "Give viewers one clear next step that matches the purpose of the video."
+        }
+      },
+      "howEyebrow": "How It Works",
+      "howTitle": "How to use the YouTube Description Generator",
+      "howBody": "Generate a structured starting point, then edit it so it matches your actual video before publishing.",
+      "steps": {
+        "1": {
+          "title": "Enter your video topic",
+          "text": "Describe the main subject of the video in a clear phrase."
+        },
+        "2": {
+          "title": "Add keyword and audience details",
+          "text": "Optionally provide a keyword, target audience and call to action."
+        },
+        "3": {
+          "title": "Choose a description style",
+          "text": "Select balanced, SEO focused, professional, friendly, short or detailed."
+        },
+        "4": {
+          "title": "Generate and customize",
+          "text": "Choose a description, copy it and edit it so it accurately reflects your video."
+        }
+      },
+      "whyEyebrow": "Video Context",
+      "whyTitle": "Why YouTube descriptions matter",
+      "whyP1": "A description gives viewers additional context about the video and can help explain what they will learn, which resources are relevant and what action they can take next.",
+      "whyP2": "The generated text should always be reviewed and customized before publishing so it accurately reflects the actual video.",
+      "benefits": {
+        "explainVideo": {
+          "title": "Explain the video",
+          "text": "Give viewers useful context about the topic and what the video covers."
+        },
+        "relevance": {
+          "title": "Support relevance",
+          "text": "Use natural topic wording that matches the actual video content."
+        },
+        "resources": {
+          "title": "Add useful resources",
+          "text": "Include links or references only when they genuinely support the viewer."
+        },
+        "nextAction": {
+          "title": "Guide the next action",
+          "text": "Use a relevant call to action without overwhelming the description."
+        }
+      },
+      "relatedBody": "Continue building your video metadata with the rest of the LifeSeos YouTube toolkit.",
+      "relTitleGeneratorBody": "Generate video title ideas based on your topic and keyword.",
+      "relTitleAnalyzerBody": "Review title structure, clarity and keyword use.",
+      "relKeywordIdeasBody": "Explore keyword groups and video topic ideas.",
+      "relDescriptionBody": "Create structured description ideas, hashtags and calls to action.",
+      "currentBadge": "Current"
+    },
+    "youtubeScriptWriter": {
+      "meta": {
+        "title": "YouTube Script Writer — Free Video Script Builder",
+        "description": "Build structured video scripts with hooks, main points, transitions and calls to action."
+      },
+      "badge": "YouTube SEO Tools",
+      "titleLine1": "Write better",
+      "titleAccent": "YouTube video scripts.",
+      "subtitle": "Turn your topic into a structured video script with a hook, introduction, main points, transitions, call to action and outro.",
+      "perks": {
+        "free": "Free to use",
+        "styles": "Multiple script styles",
+        "structure": "Structured video flow"
+      },
+      "formTitle": "Generate a YouTube script",
+      "formSubtitle": "Define your topic, audience and preferred video style.",
+      "topicLabel": "Video Topic",
+      "topicPlaceholder": "e.g. How to grow a YouTube channel",
+      "keywordLabel": "Main Keyword",
+      "keywordPlaceholder": "e.g. YouTube SEO",
+      "styleLabel": "Script Style",
+      "styles": {
+        "educational": "Educational",
+        "conversational": "Conversational",
+        "professional": "Professional",
+        "storytelling": "Storytelling",
+        "tutorial": "Tutorial"
+      },
+      "lengthLabel": "Video Length",
+      "lengths": {
+        "short": "Short",
+        "five": "5 Minutes",
+        "eight": "8 Minutes",
+        "tenPlus": "10+ Minutes"
+      },
+      "audienceLabel": "Target Audience",
+      "audiencePlaceholder": "e.g. New creators",
+      "goalLabel": "Video Goal",
+      "goalPlaceholder": "e.g. Help beginners understand YouTube SEO",
+      "errorTopicRequired": "Please enter a video topic before generating a script.",
+      "submit": "Generate YouTube Script",
+      "previewEyebrow": "Script Preview",
+      "previewTitle": "YouTube-style script structure",
+      "previewDesc": "Preview the flow of your video before copying the complete script.",
+      "previewBadge": "Script preview",
+      "hookLabel": "Hook",
+      "previewEmpty": "Your generated video hook will appear here.",
+      "quickTitle": "Quick script review",
+      "quickHint": "Live estimates based on the generated script.",
+      "stats": {
+        "words": "Words",
+        "speakTime": "Speak time",
+        "sections": "Sections"
+      },
+      "durationMinutes": "~{minutes}m",
+      "resultsEyebrow": "Generated Script",
+      "resultsTitle": "Your structured YouTube script",
+      "resultsDesc": "Review each section individually or copy the complete script in one click.",
+      "copyFullScript": "Copy full script",
+      "copiedFullScript": "Copied full script",
+      "sectionLabels": {
+        "hook": "Hook",
+        "introduction": "Introduction",
+        "cta": "Call to Action",
+        "outro": "Outro"
+      },
+      "mainScriptEyebrow": "Main Script",
+      "mainScriptTitle": "Main talking points",
+      "point": "Point {number}",
+      "transitionLabel": "Transition",
+      "hookAltEyebrow": "Hook Alternatives",
+      "hookAltTitle": "Try a different opening",
+      "ctaAltEyebrow": "CTA Alternatives",
+      "ctaAltTitle": "Choose a stronger next step",
+      "shareTitle": "Share this tool",
+      "shareDesc": "Share the YouTube Script Writer with creators who want a structured starting point for their videos.",
+      "shareButton": "Share tool",
+      "linkCopied": "Link copied",
+      "shareMessageTitle": "Free YouTube Script Writer | LifeSeos",
+      "shareMessageText": "Create structured YouTube video scripts with LifeSeos.",
+      "factorsEyebrow": "YouTube Script Planning",
+      "factorsTitle": "Build a clearer structure before you start recording",
+      "factorsBody": "A useful script gives the video direction without making it sound robotic. Use the generated structure as a starting point, then adjust the wording to match your own voice.",
+      "factors": {
+        "hook": {
+          "title": "Strong Hook",
+          "text": "Give viewers a clear reason to keep watching from the beginning."
+        },
+        "intro": {
+          "title": "Clear Introduction",
+          "text": "Set expectations and explain what the video will cover."
+        },
+        "points": {
+          "title": "Main Talking Points",
+          "text": "Break the topic into logical sections instead of one long block."
+        },
+        "pacing": {
+          "title": "Better Pacing",
+          "text": "Use video length to keep the number of sections realistic."
+        },
+        "audience": {
+          "title": "Audience Fit",
+          "text": "Adapt the explanation to the people the video is designed for."
+        },
+        "cta": {
+          "title": "Relevant CTA",
+          "text": "End with a next step that matches the purpose of the video."
+        }
+      },
+      "howEyebrow": "How It Works",
+      "howTitle": "How to use the YouTube Script Writer",
+      "howBody": "Use the tool to create a structured first draft, then rewrite sections so the final script sounds natural in your own voice.",
+      "steps": {
+        "1": {
+          "title": "Enter your video topic",
+          "text": "Describe what your video is mainly about."
+        },
+        "2": {
+          "title": "Choose style and length",
+          "text": "Select the tone you want and the approximate video duration."
+        },
+        "3": {
+          "title": "Add audience and goal",
+          "text": "Optionally explain who the video is for and what you want it to achieve."
+        },
+        "4": {
+          "title": "Generate and personalize",
+          "text": "Review the script structure, copy useful sections and adapt the wording before recording."
+        }
+      },
+      "whyEyebrow": "Video Structure",
+      "whyTitle": "Why YouTube scripts matter",
+      "whyP1": "A script can help creators organize ideas, reduce repetition and keep the video moving in a clear direction. It can also make recording easier because the main talking points are already planned.",
+      "whyP2": "The generated script is a starting point, not a finished performance. Review and personalize the wording so it matches your real content and speaking style.",
+      "benefits": {
+        "rambling": {
+          "title": "Reduce rambling",
+          "text": "Keep the video focused by deciding the main points before recording."
+        },
+        "flow": {
+          "title": "Improve flow",
+          "text": "Use transitions so each part of the video connects naturally."
+        },
+        "planning": {
+          "title": "Save planning time",
+          "text": "Start with a structured outline instead of a blank page."
+        },
+        "voice": {
+          "title": "Sound more intentional",
+          "text": "Give each section a clear purpose while keeping your own voice."
+        }
+      },
+      "relatedBody": "Build your topic, title, description and script with the LifeSeos YouTube toolkit.",
+      "relTitleGeneratorBody": "Generate title ideas based on your topic and keyword.",
+      "relTitleAnalyzerBody": "Review title clarity, structure and keyword use.",
+      "relKeywordIdeasBody": "Explore keyword groups and video topic ideas.",
+      "relDescriptionBody": "Create structured video descriptions and calls to action.",
+      "relScriptBody": "Create a structured video script from hook to outro.",
+      "currentBadge": "Current"
+    }
+  },
+  "Audience": {
+    "exploreAll": "Explore all tools",
+    "toolsTitle": "Tools for this workflow",
+    "stepsTitle": "How it works",
+    "guidesTitle": "Guides worth reading",
+    "openTool": "Open tool",
+    "youtubers": {
+      "metaTitle": "SEO Tools for YouTubers and Creators",
+      "metaDescription": "Free SEO tools for YouTubers and creators with a website: find keywords, generate titles, descriptions and scripts, and keep your site search-ready.",
+      "eyebrow": "For YouTubers and creators",
+      "headline": "SEO tools for",
+      "headlineAccent": "YouTubers and creators with a website",
+      "subheadline": "Find keywords, write titles, descriptions and scripts, and keep your site search-ready, all from one free toolkit.",
+      "ctaLabel": "Try the YouTube Title Generator",
+      "pain1Title": "Titles and descriptions take guesswork",
+      "pain1Body": "Generate and check title options, and build structured descriptions with keywords and calls to action.",
+      "pain2Title": "Scripts start from a blank page",
+      "pain2Body": "Draft hooks, main points, transitions and CTAs before you record.",
+      "pain3Title": "Your website and channel grow separately",
+      "pain3Body": "Keep your site's metadata, speed and indexing healthy so your videos and pages can support each other.",
+      "step1Title": "Research keywords",
+      "step1Body": "Start with YouTube Keyword Ideas to find topics worth making.",
+      "step2Title": "Write the video package",
+      "step2Body": "Generate and check titles, then build the description and script.",
+      "step3Title": "Check your website",
+      "step3Body": "Run the SEO Analyzer on the site or blog that supports your channel.",
+      "closingTitle": "Start with your next video",
+      "closingBody": "Pick a tool and run it in seconds. The tools are free to use."
+    },
+    "bloggers": {
+      "metaTitle": "SEO Tools for Bloggers",
+      "metaDescription": "Free SEO tools for bloggers: analyze content, check keyword density, preview search snippets and generate schema markup before you publish.",
+      "eyebrow": "For bloggers and writers",
+      "headline": "SEO tools for",
+      "headlineAccent": "bloggers who want to rank",
+      "subheadline": "Check your content, balance keyword usage, preview your search snippet and add structured data before you publish.",
+      "ctaLabel": "Analyze a blog post",
+      "pain1Title": "Is this post really optimized?",
+      "pain1Body": "Analyze content length, readability, keywords and basic SEO quality signals in one pass.",
+      "pain2Title": "Keyword stuffing worries",
+      "pain2Body": "Review keyword frequency and keep your writing natural while staying on topic.",
+      "pain3Title": "Snippets and structured data are fiddly",
+      "pain3Body": "Preview how your page can look in search and generate JSON-LD markup you can paste in.",
+      "step1Title": "Write and analyze",
+      "step1Body": "Run the Content Analyzer and Keyword Density Checker on your draft.",
+      "step2Title": "Polish the snippet",
+      "step2Body": "Write your title and description, then preview them in the SERP Snippet Preview.",
+      "step3Title": "Add markup and check speed",
+      "step3Body": "Generate schema markup and test page speed before you hit publish.",
+      "closingTitle": "Publish with more confidence",
+      "closingBody": "Run your next post through the tools. They are free to use."
+    },
+    "agencies": {
+      "metaTitle": "SEO Audit Tools for Agencies and Freelancers",
+      "metaDescription": "Free SEO audit tools for agencies and freelancers: audit client sites, check status codes, sitemaps and robots files, and save reports to your dashboard.",
+      "eyebrow": "For agencies and freelancers",
+      "headline": "SEO audit tools for",
+      "headlineAccent": "agencies and freelancers",
+      "subheadline": "Audit client sites, check status codes, sitemaps and robots files, and save reports to your dashboard, without a heavy paid suite.",
+      "ctaLabel": "Run a website audit",
+      "pain1Title": "Audits eat billable hours",
+      "pain1Body": "Run a website audit in one step and get clear recommendations to act on.",
+      "pain2Title": "Technical checks are spread across tools",
+      "pain2Body": "Status codes, sitemaps, robots files and schema markup, all in one toolkit.",
+      "pain3Title": "Clients want something to look at",
+      "pain3Body": "Create a free account to save reports to your dashboard and come back to them.",
+      "step1Title": "Audit the site",
+      "step1Body": "Start with the SEO Analyzer to see technical, on-page and content signals.",
+      "step2Title": "Dig into the issues",
+      "step2Body": "Check status codes, sitemaps and robots files for crawling and indexing problems.",
+      "step3Title": "Fix and document",
+      "step3Body": "Use the generators for fixes, and save your reports to the dashboard.",
+      "closingTitle": "Audit your next client site",
+      "closingBody": "Run your first audit in seconds. The tools are free to use."
+    },
+    "toolDescriptions": {
+      "seo-analyzer": "Audit a website for technical, on-page and content issues.",
+      "seo-page-analyzer": "Review the structure, metadata and key signals of a single page.",
+      "page-speed": "Check performance signals that affect speed and user experience.",
+      "content-analyzer": "Analyze content length, readability, keywords and basic SEO quality signals.",
+      "http-status-checker": "Check status codes and redirects for any URL.",
+      "xml-sitemap-generator": "Generate an XML sitemap that helps search engines find your pages.",
+      "robots-txt-generator": "Create a robots.txt file that controls crawling safely.",
+      "meta-tag-generator": "Write title and description tags that are ready to copy.",
+      "serp-snippet-preview": "Preview how your page can appear in search results.",
+      "keyword-density-checker": "Review keyword frequency and keep your wording natural.",
+      "article-rewriter": "Refine and rewrite article text with SEO in mind.",
+      "schema-markup-generator": "Generate structured data (JSON-LD) for your pages.",
+      "youtube-keyword-ideas": "Find keyword ideas and topics worth making videos about.",
+      "youtube-title-generator": "Generate title options for your next video.",
+      "youtube-title-analyzer": "Check how strong a video title is before you publish.",
+      "youtube-description-generator": "Create structured YouTube descriptions with keyword support and calls to action.",
+      "youtube-script-writer": "Build structured video scripts with hooks, main points, transitions and CTAs."
+    },
+    "guideTitles": {
+      "complete-seo-audit-guide": "Complete SEO Audit Guide",
+      "seo-meta-tags-guide": "SEO Meta Tags Guide",
+      "page-speed-seo-guide": "Page Speed SEO Guide",
+      "technical-seo-guide": "Technical SEO Guide",
+      "xml-sitemap-guide": "XML Sitemap Guide",
+      "robots-txt-guide": "Robots.txt Guide",
+      "http-status-codes-seo-guide": "HTTP Status Codes for SEO",
+      "keyword-density-guide": "Keyword Density for SEO",
+      "content-analysis-seo-guide": "Content Analysis SEO Guide",
+      "on-page-seo-checklist": "On-Page SEO Checklist"
+    }
+  },
+  "About": {
+    "meta": {
+      "title": "About LifeSeos — Free SEO Tools",
+      "description": "Learn about LifeSeos, our mission, and the SEO tools and educational resources we build to make website analysis, technical SEO and content optimization simpler."
+    },
+    "badge": "About LifeSeos",
+    "titleLine1": "SEO tools built to make",
+    "titleAccent": "optimization simpler",
+    "subtitle": "LifeSeos provides practical SEO tools and educational resources designed to help creators, developers, marketers, and website owners understand their websites and identify opportunities for improvement.",
+    "founder": {
+      "eyebrow": "Meet the founder",
+      "contact": "Get in touch"
+    },
+    "mission": {
+      "eyebrow": "Our mission",
+      "title": "Make SEO easier to understand",
+      "p1": "SEO can feel complicated, especially when technical issues, metadata, content structure, performance, and search engine requirements are spread across many different tools and resources.",
+      "p2": "LifeSeos aims to bring useful SEO checks into one simple workspace, with clear results, practical recommendations, and tools that are easy to use.",
+      "p3": "We also publish educational SEO guides that explain the ideas behind the tools so users can understand why an issue matters instead of relying only on an automated score."
+    },
+    "focus": {
+      "eyebrow": "What we focus on",
+      "analysisTitle": "Simple analysis",
+      "analysisBody": "Turn technical SEO signals into clearer results that are easier to review.",
+      "recsTitle": "Useful recommendations",
+      "recsBody": "Highlight potential issues and provide practical next steps for further evaluation.",
+      "toolsTitle": "Practical tools",
+      "toolsBody": "Help users complete common SEO tasks without unnecessary complexity.",
+      "guidanceTitle": "Educational guidance",
+      "guidanceBody": "Explain SEO concepts so users can make informed optimization decisions.",
+      "historyTitle": "Account-based history",
+      "historyBody": "Allow signed-in users to save supported SEO reports and review them later."
+    },
+    "how": {
+      "eyebrow": "How LifeSeos works",
+      "title": "Tools support decisions — they do not replace them",
+      "body": "LifeSeos combines automated checks with explanatory guidance. The tools can identify patterns, technical signals, metadata, content characteristics, and other SEO-related information, but automated results should always be reviewed in context.",
+      "step1Title": "1. Analyze",
+      "step1Body": "Use a LifeSeos tool to inspect a webpage, text, metadata, performance signal, or other supported SEO element.",
+      "step2Title": "2. Understand",
+      "step2Body": "Review the results together with explanations, recommendations, and related educational guides.",
+      "step3Title": "3. Improve",
+      "step3Body": "Decide which changes are appropriate for your website, then test and monitor the results."
+    },
+    "toolkit": {
+      "eyebrow": "LifeSeos toolkit",
+      "title": "Tools designed for everyday SEO work",
+      "body": "LifeSeos combines practical SEO utilities in one place so you can analyze, generate, check, measure, and improve important website signals.",
+      "viewAll": "View all LifeSeos tools"
+    },
+    "learning": {
+      "eyebrow": "SEO learning",
+      "title": "Practical guides alongside the tools",
+      "p1": "Our SEO guides cover topics such as technical SEO, on-page optimization, metadata, page speed, HTTP status codes, robots.txt, XML sitemaps, keyword usage, and content analysis.",
+      "p2": "The goal is to provide useful context so users can understand what a tool is measuring and make their own informed decisions.",
+      "principlesTitle": "Our content principles",
+      "principle1": "Explain SEO concepts in clear and practical language.",
+      "principle2": "Avoid presenting arbitrary SEO scores as guarantees.",
+      "principle3": "Distinguish automated checks from editorial judgment.",
+      "principle4": "Update important guidance when tools, practices, or standards change.",
+      "principle5": "Focus on information that helps users make better website decisions.",
+      "browse": "Explore SEO guides"
+    },
+    "approach": {
+      "eyebrow": "Our approach",
+      "title": "Clear, practical, and user-focused",
+      "body": "LifeSeos is built around a simple idea: useful SEO tools should be understandable, practical, and straightforward to use.",
+      "clarityTitle": "Clarity",
+      "clarityBody": "Present results and explanations in a way that is easier to understand.",
+      "practicalityTitle": "Practicality",
+      "practicalityBody": "Focus on checks and recommendations that can support real website improvements.",
+      "transparencyTitle": "Transparency",
+      "transparencyBody": "Treat automated results as indicators rather than promises of search performance.",
+      "privacyTitle": "Privacy",
+      "privacyBody": "Handle account, report and website usage information responsibly."
+    },
+    "note": {
+      "eyebrow": "Important",
+      "title": "SEO results can vary",
+      "p1": "LifeSeos tools and guides provide informational analysis and recommendations. Search engine rankings depend on many factors, and no SEO tool can guarantee a specific ranking, traffic level, indexing outcome, or search performance result.",
+      "p2": "Users should review recommendations in the context of their own website, audience, technical environment, and business goals."
+    },
+    "cta": {
+      "eyebrow": "Ready to review your website?",
+      "title": "Start with a free SEO analysis",
+      "body": "Run an SEO audit, review your website signals, and identify areas that may need further attention.",
+      "primary": "Analyze website",
+      "secondary": "Explore tools"
+    }
+  },
+  "Contact": {
+    "meta": {
+      "title": "Contact LifeSeos — Support & Feedback",
+      "description": "Contact LifeSeos for questions, technical support, feedback, account assistance or privacy-related requests."
+    },
+    "badge": "Contact LifeSeos",
+    "title": "Get in touch",
+    "subtitle": "Have a question, suggestion, technical support request, or privacy-related inquiry? Send us a message using the form below.",
+    "cardGeneralTitle": "General questions",
+    "cardGeneralBody": "Questions about LifeSeos, its features, or how our SEO tools work.",
+    "cardSupportTitle": "Technical support",
+    "cardSupportBody": "Report a technical problem or let us know if a tool or feature is not working correctly.",
+    "cardPrivacyTitle": "Privacy requests",
+    "cardPrivacyBody": "Submit questions or requests relating to your account, saved reports, personal information, or privacy choices.",
+    "cardFeedbackTitle": "Feedback",
+    "cardFeedbackBody": "Share suggestions or ideas that may help us improve LifeSeos.",
+    "formEyebrow": "Send a message",
+    "formTitle": "Contact form",
+    "formIntro": "Fill in the form below and we'll review your message. Please provide enough information for us to understand your request.",
+    "formPrivacyNote": "For information about how LifeSeos handles submitted information, see our <link>Privacy Policy</link>.",
+    "formPrivacyLink": "Privacy Policy",
+    "responseTitle": "About responses",
+    "responseBody": "Messages are reviewed as reasonably possible. Response times can vary depending on the type of request, and submitting the form does not guarantee an immediate response.",
+    "ctaEyebrow": "Need help reviewing your website?",
+    "ctaTitle": "Explore our SEO tools",
+    "ctaBody": "Analyze websites, review technical SEO issues, measure performance, optimize content, and use practical SEO utilities from one place.",
+    "ctaButton": "Explore tools",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "Select a topic",
+      "subjectGeneral": "General question",
+      "subjectSupport": "Technical support",
+      "subjectPrivacy": "Privacy request",
+      "subjectFeedback": "Feedback",
+      "message": "Message",
+      "messagePlaceholder": "Tell us how we can help…",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "errorRequired": "Please complete all fields.",
+      "errorEmail": "Please enter a valid email address.",
+      "errorSend": "Unable to send your message.",
+      "success": "Your message has been sent successfully. Thank you for contacting LifeSeos.",
+      "consent": "By sending this form, you agree that LifeSeos may use the information you provide to respond to your message and handle your request. See our <link>Privacy Policy</link>.",
+      "consentLink": "Privacy Policy"
+    }
+  },
+  "Blog": {
+    "meta": {
+      "title": "SEO Blog & Guides",
+      "description": "Read practical SEO guides, technical tutorials and website optimization strategies from LifeSeos."
+    },
+    "badge": "SEO insights & guides",
+    "titleLine1": "Learn SEO.",
+    "titleAccent": "Grow smarter.",
+    "subtitle": "Practical SEO tutorials, technical guides and actionable strategies designed to help you understand your website and improve it with confidence.",
+    "categories": {
+      "all": "All guides",
+      "technical": "Technical SEO",
+      "onPage": "On-Page SEO",
+      "content": "Content SEO",
+      "performance": "Performance",
+      "audits": "SEO Audits"
+    },
+    "featuredEyebrow": "Featured guide",
+    "featuredTitle": "Start with the fundamentals",
+    "featuredCta": "Read the complete guide",
+    "listEyebrow": "Latest knowledge",
+    "listTitle": "Explore SEO guides",
+    "listBody": "Each guide connects directly with a LifeSeos tool so you can learn the concept and immediately put it into practice.",
+    "readGuide": "Read guide",
+    "readTime": "{minutes} min read",
+    "updated": "Updated {date}",
+    "published": "Published {date}",
+    "byAuthor": "By {author}",
+    "contents": "On this page",
+    "relatedTool": "Try the matching tool",
+    "backToBlog": "All guides",
+    "moreGuides": "More guides",
+    "tip": "Tip",
+    "cta": {
+      "eyebrow": "Learn it. Test it. Improve it.",
+      "title": "Turn every SEO lesson into an actionable improvement.",
+      "body": "LifeSeos gives you practical tools to analyze pages, evaluate content, test performance and identify technical SEO problems.",
+      "button": "Explore SEO tools"
+    },
+    "final": {
+      "title": "Keep learning. Keep improving.",
+      "body": "Explore practical SEO guides and use LifeSeos tools alongside them to understand exactly what is happening on your website.",
+      "primary": "Browse tools",
+      "secondary": "About LifeSeos"
+    },
+    "notFound": "That guide could not be found.",
+    "articleCta": {
+      "title": "Put this guide into practice",
+      "body": "Open the related LifeSeos tool and apply what you just learned to your own website."
+    }
+  },
+  "Legal": {
+    "privacy": {
+      "metaTitle": "Privacy Policy",
+      "metaDescription": "Learn how LifeSeos collects, uses, stores, protects and handles information when you use our SEO tools, accounts and services.",
+      "badge": "Privacy & Data Protection",
+      "title": "Privacy Policy",
+      "subtitle": "Your privacy matters to us. This policy explains what information LifeSeos collects, how we use it, and the choices you have when using our services.",
+      "updated": "Last updated: {date}",
+      "updatedValue": "October 17, 2026",
+      "tocTitle": "On this page",
+      "sections": {
+        "s1": {
+          "title": "Information We Collect",
+          "paragraphs": [
+            "When you use LifeSeos, we may collect information that you provide directly to us, information generated while using our SEO tools, and limited technical or usage information required to operate and improve the service."
+          ],
+          "bullets": [
+            "Account information, such as your email address when you create or sign in to an account.",
+            "Website URLs that you submit to our SEO analysis tools.",
+            "SEO analysis results, scores, recommendations, and related report data associated with your account.",
+            "Information you voluntarily provide when contacting LifeSeos, such as your name, email address, and message.",
+            "Basic website usage information, such as the page visited, visit time, and approximate country or region.",
+            "Technical information that may be processed by hosting, security, authentication, or infrastructure providers to operate and protect the service."
+          ]
+        },
+        "s2": {
+          "title": "How We Use Your Information",
+          "paragraphs": [
+            "We use information collected through LifeSeos only for legitimate service, security, analytics, communication, and website operation purposes."
+          ],
+          "bullets": [
+            "To authenticate users and maintain secure account sessions.",
+            "To analyze websites when you request an SEO audit or use an SEO tool.",
+            "To save SEO reports to your account so you can access them later from your dashboard.",
+            "To understand general website usage and improve LifeSeos.",
+            "To respond to messages and support requests.",
+            "To improve the reliability, security, and performance of LifeSeos.",
+            "To diagnose errors, prevent abuse, and protect the service."
+          ]
+        },
+        "s3": {
+          "title": "Website Usage and Analytics",
+          "paragraphs": [
+            "LifeSeos may collect limited usage information to understand how visitors use the website and which pages or tools are most useful.",
+            "This information may include the page or route visited, the time of the visit, and an approximate country or region associated with the request.",
+            "This information is used for aggregate website analytics, service improvement, performance monitoring, and security. We do not use our internal page-visit records to intentionally identify individual visitors."
+          ]
+        },
+        "s4": {
+          "title": "SEO Analysis Data",
+          "paragraphs": [
+            "When you submit a website URL to an SEO analysis tool, LifeSeos may access publicly available information from that website in order to perform the requested analysis.",
+            "This may include page titles, meta descriptions, headings, canonical information, image attributes, robots metadata, social metadata, and other publicly accessible SEO-related information.",
+            "If you are signed in, analysis results may be saved to your LifeSeos account so that they can be displayed in your dashboard and report history."
+          ]
+        },
+        "s5": {
+          "title": "Account and Authentication Data",
+          "paragraphs": [
+            "LifeSeos uses authentication services to allow users to create accounts, sign in, sign out, and securely access account-specific features.",
+            "Account information is used only as necessary to provide these features and associate saved reports with the correct user account."
+          ]
+        },
+        "s6": {
+          "title": "Data Storage and Service Providers",
+          "paragraphs": [
+            "LifeSeos uses third-party infrastructure and service providers to operate the website.",
+            "Supabase is used for authentication and database services. Hosting, deployment, networking, and security providers may also process technical request information as necessary to deliver and protect the website.",
+            "Saved SEO reports may include the analyzed URL, SEO score, grade, status, report details, creation date, and the account identifier associated with the report.",
+            "Access controls are used so that authenticated users can access reports associated with their own accounts."
+          ]
+        },
+        "s7": {
+          "title": "Cookies and Similar Technologies",
+          "paragraphs": [
+            "LifeSeos may use cookies or similar technologies for authentication, session management, security, user preferences, analytics, and essential website functionality.",
+            "These technologies may help keep you signed in, remember settings, protect the website, measure website usage, and support features provided by third-party services.",
+            "If advertising services are enabled, advertising providers may also use cookies, local storage, web beacons, IP addresses, or other identifiers as described below."
+          ]
+        },
+        "s8": {
+          "title": "Advertising and Google AdSense",
+          "paragraphs": [
+            "LifeSeos may use Google AdSense or other advertising services to display advertisements on the website.",
+            "If advertising is enabled, third-party vendors, including Google, may use cookies or similar technologies to serve, measure, personalize, or limit advertisements based on a user's visits to LifeSeos and, where applicable, other websites.",
+            "Advertising providers may process information such as cookies, web beacons, IP addresses, device or browser information, and other identifiers in connection with ad delivery, measurement, fraud prevention, and personalization where permitted.",
+            "Google's use of advertising cookies may allow Google and its partners to show ads based on visits to LifeSeos and other websites, subject to applicable law and the user's consent choices.",
+            "You can learn more about how Google uses information from sites and apps that use Google services by visiting Google's information about partner sites and apps.",
+            "You may manage personalized advertising preferences through Google Ads Settings."
+          ]
+        },
+        "s9": {
+          "title": "Consent and Advertising Choices",
+          "paragraphs": [
+            "Where required by applicable law, LifeSeos will request consent before using non-essential cookies or processing personal data for certain advertising or personalization purposes.",
+            "Visitors in regions with specific consent requirements may be shown a consent message that allows them to accept, reject, or manage available privacy choices.",
+            "Consent choices may affect whether advertisements are personalized and whether certain analytics or advertising technologies are used."
+          ]
+        },
+        "s10": {
+          "title": "Sharing of Information",
+          "paragraphs": [
+            "We do not sell your personal information.",
+            "Information may be processed by service providers that help us operate LifeSeos, such as hosting, authentication, database, analytics, advertising, security, or infrastructure providers.",
+            "These providers may process information only as necessary to provide their services, subject to their applicable terms and privacy practices.",
+            "We may also disclose information when reasonably necessary to comply with applicable legal obligations, protect the service, investigate abuse, or protect the rights and safety of users."
+          ]
+        },
+        "s11": {
+          "title": "Data Security",
+          "paragraphs": [
+            "We use reasonable technical and organizational measures designed to protect information handled by LifeSeos.",
+            "However, no online service, storage system, or data transmission method can guarantee absolute security."
+          ]
+        },
+        "s12": {
+          "title": "Data Retention",
+          "paragraphs": [
+            "We retain information for as long as reasonably necessary to provide LifeSeos, maintain account features, comply with legal obligations, resolve disputes, prevent abuse, and protect the service.",
+            "Retention periods may differ depending on the type of information and the purpose for which it is processed."
+          ]
+        },
+        "s13": {
+          "title": "Your Choices and Privacy Rights",
+          "paragraphs": [
+            "You may choose not to create an account and may still use certain publicly available LifeSeos tools where account access is not required.",
+            "Depending on your location and applicable law, you may have rights relating to access, correction, deletion, restriction, objection, or other handling of your personal information.",
+            "You may contact us regarding questions or requests concerning your account information or stored data."
+          ]
+        },
+        "s14": {
+          "title": "Third-Party Websites",
+          "paragraphs": [
+            "LifeSeos allows users to analyze website URLs and may contain links to third-party websites.",
+            "We are not responsible for the privacy practices, security, availability, or content of websites that are not operated by LifeSeos."
+          ]
+        },
+        "s15": {
+          "title": "Children's Privacy",
+          "paragraphs": [
+            "LifeSeos is not intended to knowingly collect personal information from children where parental consent or another legal basis would be required.",
+            "If you believe that personal information has been submitted to LifeSeos inappropriately, please contact us so the matter can be reviewed."
+          ]
+        },
+        "s16": {
+          "title": "International Processing",
+          "paragraphs": [
+            "LifeSeos and its service providers may process information in countries other than the country in which you are located.",
+            "Where required, appropriate safeguards may be used in connection with international transfers of personal information."
+          ]
+        },
+        "s17": {
+          "title": "Changes to This Privacy Policy",
+          "paragraphs": [
+            "We may update this Privacy Policy as LifeSeos evolves, new features are introduced, advertising or analytics services change, or our data practices change.",
+            "When changes are made, the updated version will be published on this page with a revised effective date."
+          ]
+        },
+        "s18": {
+          "title": "Contact",
+          "paragraphs": [
+            "If you have questions about this Privacy Policy, your privacy choices, or how LifeSeos handles information, you can contact us through the contact options provided on the LifeSeos website."
+          ]
+        }
+      }
+    },
+    "terms": {
+      "metaTitle": "Terms of Service",
+      "metaDescription": "Read the terms and conditions that govern the use of LifeSeos SEO tools, accounts, educational content and related services.",
+      "badge": "Terms & Conditions",
+      "title": "Terms of Service",
+      "subtitle": "These Terms of Service explain the rules and conditions that apply when you access or use LifeSeos, its SEO tools, content, accounts, and related services.",
+      "updated": "Last updated: {date}",
+      "updatedValue": "October 17, 2026",
+      "tocTitle": "On this page",
+      "sections": {
+        "s1": {
+          "title": "Acceptance of Terms",
+          "paragraphs": [
+            "By accessing or using LifeSeos, you agree to these Terms of Service and to comply with applicable laws and regulations.",
+            "If you do not agree with these Terms, you should not use LifeSeos or its services."
+          ]
+        },
+        "s2": {
+          "title": "About LifeSeos",
+          "paragraphs": [
+            "LifeSeos provides SEO-related tools, educational resources, website analysis features, and related services designed to help users better understand and evaluate website optimization.",
+            "Features may include website analysis, SEO scoring, recommendations, metadata tools, sitemap tools, robots.txt generation, keyword analysis, content analysis, performance checks, technical SEO utilities, and educational guides.",
+            "Features may change, expand, or be discontinued as LifeSeos develops."
+          ]
+        },
+        "s3": {
+          "title": "User Accounts",
+          "paragraphs": [
+            "Some LifeSeos features may require you to create and use an account."
+          ],
+          "bullets": [
+            "You are responsible for providing accurate account information.",
+            "You are responsible for maintaining the security of your account.",
+            "You should not share access to your account with unauthorized users.",
+            "You are responsible for activity performed through your account."
+          ]
+        },
+        "s4": {
+          "title": "Use of the Service",
+          "paragraphs": [
+            "You may use LifeSeos only for lawful purposes and in a manner that does not interfere with the operation, security, availability, or integrity of the service.",
+            "You agree not to misuse LifeSeos, attempt unauthorized access, interfere with other users, circumvent technical restrictions, or use the service in a way that could damage, overload, or disrupt our systems or infrastructure."
+          ]
+        },
+        "s5": {
+          "title": "Website Analysis",
+          "paragraphs": [
+            "LifeSeos allows users to submit website URLs for SEO analysis and related technical checks.",
+            "You should only submit websites that you are legally permitted to analyze or publicly accessible websites where such analysis is appropriate.",
+            "LifeSeos may retrieve publicly available webpage information to generate SEO scores, warnings, recommendations, reports, technical results, or other requested outputs.",
+            "You are responsible for ensuring that your use of LifeSeos and any URLs or content you submit complies with applicable law and does not violate third-party rights."
+          ]
+        },
+        "s6": {
+          "title": "SEO Results and Recommendations",
+          "paragraphs": [
+            "SEO scores, recommendations, reports, guides, and other information provided by LifeSeos are intended for informational and educational purposes.",
+            "Automated results are based on the information available to the tool at the time of analysis and should be reviewed in context.",
+            "Search engine algorithms, ranking systems, technical standards, and best practices can change over time. LifeSeos does not guarantee that following any recommendation will result in higher rankings, increased traffic, indexing, revenue, conversions, or any other specific outcome.",
+            "You are responsible for deciding whether a recommendation is appropriate for your website before implementing it."
+          ]
+        },
+        "s7": {
+          "title": "Educational Content",
+          "paragraphs": [
+            "LifeSeos may publish articles, guides, explanations, examples, and other educational content relating to SEO, websites, content optimization, technical performance, and related topics.",
+            "This content is provided for general informational purposes and may not apply to every website, technical environment, or situation.",
+            "Although we aim to keep important information useful and current, we do not guarantee that all content will always be complete, error-free, or immediately updated following changes to search engines, third-party platforms, technologies, or industry practices."
+          ]
+        },
+        "s8": {
+          "title": "Saved Reports",
+          "paragraphs": [
+            "If you are signed in, LifeSeos may allow supported SEO reports or analysis results to be saved to your account.",
+            "Saved reports may include website URLs, SEO scores, grades, statuses, recommendations, creation dates, and related analysis data.",
+            "LifeSeos may modify, improve, limit, or discontinue report-related features as the service evolves.",
+            "You should not rely on LifeSeos as the only storage location for information that is important to you."
+          ]
+        },
+        "s9": {
+          "title": "Prohibited Activities",
+          "paragraphs": [
+            "You may not use LifeSeos to engage in activities that are unlawful, abusive, harmful, fraudulent, or intended to disrupt or misuse the service."
+          ],
+          "bullets": [
+            "Attempting to bypass security protections or access controls.",
+            "Introducing malware, malicious code, or harmful automated traffic.",
+            "Using the service to violate the rights of another person or organization.",
+            "Attempting to overload, excessively scrape, probe, or disrupt LifeSeos systems.",
+            "Using LifeSeos for fraudulent, deceptive, abusive, or unlawful purposes.",
+            "Attempting to reverse engineer, interfere with, or gain unauthorized access to protected parts of the service where prohibited by law."
+          ]
+        },
+        "s10": {
+          "title": "Intellectual Property",
+          "paragraphs": [
+            "The LifeSeos name, branding, website design, software, interfaces, original written content, graphics, and other original materials are protected by applicable intellectual property laws.",
+            "These Terms do not grant you ownership of LifeSeos or any intellectual property associated with the service.",
+            "You may use publicly available LifeSeos tools for their intended purposes, but you may not copy, reproduce, republish, or distribute protected LifeSeos materials except where permitted by law or with appropriate authorization."
+          ]
+        },
+        "s11": {
+          "title": "Third-Party Services",
+          "paragraphs": [
+            "LifeSeos may rely on third-party providers for services such as hosting, deployment, authentication, databases, analytics, advertising, security, performance measurement, or other technical functions.",
+            "Third-party services may operate under their own terms, policies, and privacy practices.",
+            "LifeSeos is not responsible for the availability, security, content, products, services, or policies of third-party websites or services that are outside our reasonable control."
+          ]
+        },
+        "s12": {
+          "title": "Advertising",
+          "paragraphs": [
+            "LifeSeos may display advertisements or use third-party advertising services, including services provided by Google or other advertising partners.",
+            "Advertisements, links, or references to third-party products or services do not necessarily constitute an endorsement by LifeSeos.",
+            "Your interaction with an advertiser or third-party service is between you and that third party and may be subject to separate terms and privacy practices."
+          ]
+        },
+        "s13": {
+          "title": "Service Availability",
+          "paragraphs": [
+            "We aim to keep LifeSeos available and reliable, but we do not guarantee uninterrupted, continuous, secure, or error-free operation.",
+            "The service may occasionally be unavailable due to maintenance, technical problems, updates, security issues, infrastructure failures, third-party services, or events outside our control."
+          ]
+        },
+        "s14": {
+          "title": "Changes to the Service",
+          "paragraphs": [
+            "LifeSeos may add, modify, replace, restrict, or discontinue tools, features, content, or services at any time as the product develops.",
+            "We may also change usage limits or technical requirements where reasonably necessary for security, performance, reliability, abuse prevention, or service development."
+          ]
+        },
+        "s15": {
+          "title": "Disclaimer",
+          "paragraphs": [
+            "LifeSeos is provided on an \"as is\" and \"as available\" basis.",
+            "To the extent permitted by law, we make no guarantees regarding the accuracy, completeness, reliability, availability, timeliness, effectiveness, or suitability of SEO analysis results, recommendations, educational content, or other information provided through the service.",
+            "LifeSeos does not provide legal, financial, tax, or other regulated professional advice. You are responsible for evaluating information and recommendations before acting on them."
+          ]
+        },
+        "s16": {
+          "title": "Limitation of Liability",
+          "paragraphs": [
+            "To the extent permitted by applicable law, LifeSeos and its operators will not be liable for indirect, incidental, consequential, special, exemplary, or similar damages arising from your use of or inability to use the service.",
+            "This includes losses related to website performance, search rankings, indexing, traffic, revenue, conversions, data, business opportunities, third-party services, or other outcomes.",
+            "Nothing in these Terms excludes or limits liability where such exclusion or limitation is prohibited by applicable law."
+          ]
+        },
+        "s17": {
+          "title": "Account Suspension or Termination",
+          "paragraphs": [
+            "We may restrict, suspend, or terminate access to LifeSeos where reasonably necessary to protect the service, users, third parties, or our systems.",
+            "This may include cases involving misuse, abuse, security threats, fraudulent activity, unlawful activity, or serious or repeated violations of these Terms."
+          ]
+        },
+        "s18": {
+          "title": "Privacy",
+          "paragraphs": [
+            "Your use of LifeSeos is also subject to our Privacy Policy, which explains how information may be collected, used, processed, shared, and stored."
+          ]
+        },
+        "s19": {
+          "title": "Changes to These Terms",
+          "paragraphs": [
+            "We may update these Terms from time to time as LifeSeos develops or when legal, technical, operational, or business requirements change.",
+            "Updated Terms will be posted on this page with a revised effective date.",
+            "Your continued use of LifeSeos after updated Terms become effective may constitute acceptance of those updated Terms to the extent permitted by applicable law."
+          ]
+        },
+        "s20": {
+          "title": "Contact",
+          "paragraphs": [
+            "If you have questions about these Terms of Service, you may contact LifeSeos through the contact options provided on the website."
+          ]
+        }
+      }
+    },
+    "cta": {
+      "eyebrow": "LifeSeos",
+      "title": "Practical SEO tools and resources",
+      "body": "Analyze websites, review SEO signals, use practical tools, and learn more through our educational guides.",
+      "button": "Explore tools"
+    },
+    "authoritative": "This translation is provided for convenience. The English version is the authoritative legal text.",
+    "legalNoticeTitle": "Language notice"
+  },
+  "Auth": {
+    "login": {
+      "title": "Login",
+      "description": "Enter your email below to login to your account",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Password",
+      "forgot": "Forgot your password?",
+      "submit": "Login",
+      "submitting": "Logging in…",
+      "noAccount": "Don’t have an account?",
+      "signUpLink": "Sign up",
+      "errorFallback": "An error occurred while logging in."
+    },
+    "signUp": {
+      "title": "Sign up",
+      "description": "Create a new account",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Password",
+      "repeatPassword": "Repeat Password",
+      "submit": "Sign up",
+      "submitting": "Creating an account…",
+      "errorMismatch": "Passwords do not match",
+      "errorFallback": "An error occurred",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Login"
+    },
+    "forgot": {
+      "title": "Reset Your Password",
+      "description": "Type in your email and we’ll send you a link to reset your password",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "submit": "Send reset email",
+      "submitting": "Sending…",
+      "successTitle": "Check Your Email",
+      "successDescription": "Password reset instructions sent",
+      "successBody": "If you registered using your email and password, you will receive a password reset email.",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Login",
+      "errorFallback": "An error occurred"
+    },
+    "update": {
+      "title": "Reset Your Password",
+      "description": "Please enter your new password below.",
+      "password": "New password",
+      "passwordPlaceholder": "New password",
+      "submit": "Save new password",
+      "submitting": "Saving…",
+      "errorFallback": "An error occurred"
+    },
+    "success": {
+      "title": "Thank you for signing up!",
+      "description": "Check your email to confirm",
+      "body": "You’ve successfully signed up. Please check your email to confirm your account before signing in."
+    },
+    "error": {
+      "title": "Sorry, something went wrong.",
+      "codeError": "Code error: {code}",
+      "fallback": "An unspecified error occurred."
+    },
+    "greeting": "Hey, {email}!",
+    "logout": "Logout",
+    "nav": {
+      "signIn": "Sign in",
+      "signUp": "Sign up"
+    }
+  },
+  "Dashboard": {
+    "badge": "LifeSeos Dashboard",
+    "welcome": "Welcome back",
+    "signedInAs": "Signed in as",
+    "newAnalysis": "New SEO analysis",
+    "loadError": "Unable to load your SEO reports.",
+    "stats": {
+      "totalAudits": "Total audits",
+      "totalAuditsBody": "SEO reports saved to your account",
+      "averageScore": "Average score",
+      "averageScoreBody": "Average score across your audits",
+      "bestScore": "Best score",
+      "bestScoreBody": "Highest SEO score recorded",
+      "websites": "Websites analyzed",
+      "websitesBody": "Unique URLs in your audit history"
+    },
+    "latest": {
+      "badge": "Latest audit",
+      "title": "Your most recent SEO analysis",
+      "body": "Review your latest website score, status and report details, or run another audit to continue tracking improvements.",
+      "website": "Website",
+      "viewReport": "View latest report",
+      "runNew": "Run new analysis",
+      "score": "SEO score",
+      "outOf100": "out of 100",
+      "grade": "Grade",
+      "gradeHint": "Current audit grade",
+      "status": "Status",
+      "statusUnknown": "Unknown",
+      "changeUp": "+{change} vs previous",
+      "changeDown": "{change} vs previous",
+      "noChange": "No score change"
+    },
+    "history": {
+      "eyebrow": "SEO history",
+      "title": "Recent reports",
+      "count": "{count, plural, =0 {No reports} one {# report} other {# reports}}"
+    },
+    "empty": {
+      "title": "No SEO reports yet",
+      "body": "Run your first SEO analysis and the report will automatically appear here.",
+      "cta": "Analyze website"
+    },
+    "table": {
+      "website": "Website",
+      "score": "Score",
+      "grade": "Grade",
+      "status": "Status",
+      "date": "Date",
+      "report": "Report",
+      "viewReport": "View report"
+    },
+    "account": {
+      "eyebrow": "Account",
+      "title": "Account information",
+      "email": "Email"
+    },
+    "report": {
+      "back": "Back to Dashboard",
+      "analyzedOn": "Analyzed on",
+      "eyebrow": "Saved SEO Report",
+      "title": "SEO Audit Report",
+      "intro": "This is a saved SEO analysis from your LifeSeos account. Review the detected SEO signals, warnings, errors and recommendations below.",
+      "website": "Website",
+      "gradeLabel": "Grade",
+      "statusUnknown": "Unknown",
+      "score": "SEO Score",
+      "outOf100": "out of 100",
+      "fields": {
+        "pageTitle": "Page Title",
+        "h1": "H1 Heading",
+        "canonical": "Canonical",
+        "robots": "Robots Meta",
+        "noTitle": "No title found",
+        "noH1": "No H1 found",
+        "noDescription": "No description found",
+        "notFound": "Not found"
+      },
+      "labels": {
+        "title": "Title",
+        "metaDescription": "Meta Description",
+        "h1": "H1",
+        "canonicalUrl": "Canonical URL",
+        "robotsMeta": "Robots Meta",
+        "totalImages": "Total Images",
+        "missingAlt": "Missing ALT",
+        "ogTitle": "OG Title",
+        "ogDescription": "OG Description"
+      },
+      "sections": {
+        "contentSeo": "Content SEO",
+        "contentSeoBody": "Important metadata and content signals.",
+        "imageSeo": "Image SEO",
+        "imageSeoBody": "Image accessibility and ALT information.",
+        "socialSeo": "Social SEO",
+        "socialSeoBody": "Open Graph information detected during analysis.",
+        "technicalSeo": "Technical SEO",
+        "technicalSeoBody": "Technical page signals saved with this report."
+      },
+      "passed": "Passed",
+      "warnings": "Warnings",
+      "errors": "Errors",
+      "items": "{count, plural, =0 {No items} one {# item} other {# items}}",
+      "noPassed": "No passed checks saved.",
+      "noWarnings": "No warnings saved.",
+      "noErrors": "No errors saved.",
+      "actionPlan": "Action Plan",
+      "recommendations": "Recommendations",
+      "improvement": "SEO Improvement",
+      "noRecommendations": "No recommendations were saved for this report.",
+      "newAnalysis": "New SEO Analysis"
+    }
+  },
+  "Admin": {
+    "eyebrow": "LifeSeos Admin",
+    "title": "Admin Dashboard",
+    "subtitle": "Manage users, reports, tool activity and website data.",
+    "stats": {
+      "totalUsers": "Total Users",
+      "seoReports": "SEO Reports",
+      "toolUses": "Tool Uses",
+      "messages": "Messages"
+    },
+    "users": {
+      "title": "Users",
+      "subtitle": "Registered LifeSeos users, ordered by latest sign-in.",
+      "newToday": "New Today",
+      "last7Days": "Last 7 Days",
+      "thisMonth": "This Month",
+      "confirmed": "Confirmed",
+      "unconfirmed": "Unconfirmed"
+    },
+    "table": {
+      "email": "Email",
+      "created": "Created",
+      "lastSignIn": "Last Sign In",
+      "emailStatus": "Email Status",
+      "userId": "User ID",
+      "noUsers": "No users found."
+    },
+    "liveVisitors": {
+      "title": "Live Visitors",
+      "live": "Live",
+      "subtitle": "Visitors currently connected to LifeSeos.",
+      "onlineNow": "Online Now",
+      "registered": "Registered",
+      "guests": "Guests",
+      "listTitle": "Visitors Online",
+      "listSubtitle": "Current visitor type, page and session start time.",
+      "user": "User",
+      "type": "Type",
+      "currentPage": "Current Page",
+      "onlineSince": "Online Since",
+      "empty": "No visitors online right now.",
+      "registeredUser": "Registered user",
+      "guest": "Guest"
+    },
+    "geo": {
+      "title": "Visitor Geography",
+      "subtitle": "Page visits grouped by visitor country.",
+      "totalVisits": "Total Page Visits",
+      "countries": "Countries",
+      "visitsToday": "Visits Today",
+      "unknownLocation": "Unknown Location",
+      "unknownCountry": "Unknown",
+      "topCountries": "Top Countries",
+      "topCountriesBody": "Countries ranked by recorded page visits.",
+      "noData": "No visitor geography data yet.",
+      "table": {
+        "country": "Country",
+        "code": "Code",
+        "visits": "Visits",
+        "share": "Share",
+        "lastVisit": "Last Visit"
+      }
+    },
+    "tools": {
+      "title": "Tool Activity",
+      "subtitle": "Usage activity across LifeSeos tools.",
+      "totalUses": "Total Tool Uses",
+      "registeredUsers": "Registered Users",
+      "guestUses": "Guest Uses",
+      "performance": "Tool Performance",
+      "performanceBody": "Usage totals by tool.",
+      "noActivity": "No tool activity yet.",
+      "table": {
+        "tool": "Tool",
+        "totalUses": "Total Uses",
+        "registered": "Registered",
+        "guests": "Guests",
+        "lastUsed": "Last Used"
+      },
+      "recentTitle": "Recent Tool Activity",
+      "recentSubtitle": "Latest tool usage events.",
+      "noRecent": "No recent tool activity.",
+      "recentTable": {
+        "tool": "Tool",
+        "user": "User",
+        "type": "Type",
+        "date": "Date"
+      },
+      "guest": "Guest",
+      "registered": "Registered",
+      "unknownUser": "Unknown user"
+    }
+  },
+  "NotFound": {
+    "meta": {
+      "title": "Page not found"
+    },
+    "badge": "404",
+    "badgeLabel": "Page not found",
+    "titleLine1": "Lost in the",
+    "titleAccent": "search results?",
+    "body": "The page you're looking for doesn't exist, may have moved, or the URL may be incorrect.",
+    "backHome": "Back home",
+    "exploreTools": "Explore tools",
+    "dashboard": "Dashboard",
+    "quickAnalyzerTitle": "SEO Analyzer",
+    "quickAnalyzerBody": "Run a website SEO audit.",
+    "quickAboutTitle": "About",
+    "quickAboutBody": "Learn more about LifeSeos.",
+    "quickContactTitle": "Contact",
+    "quickContactBody": "Get help or send feedback."
+  },
+  "Protected": {
+    "backToDashboard": "Back to dashboard",
+    "notice": "This is a protected page that you can only see as an authenticated user.",
+    "detailsTitle": "Your user details"
+  }
 }

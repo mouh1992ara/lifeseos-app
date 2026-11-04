@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 
 import { createClient } from "@/lib/supabase/client";
 
@@ -33,13 +34,14 @@ type Props = {
 };
 
 function formatDate(
+  locale: string,
   value?: string | null
 ) {
   if (!value) {
     return "—";
   }
 
-  return new Intl.DateTimeFormat("en", {
+  return new Intl.DateTimeFormat(locale, {
     timeZone: ADMIN_TIME_ZONE,
     month: "short",
     day: "2-digit",
@@ -52,6 +54,9 @@ function formatDate(
 export default function LiveVisitors({
   userEmails,
 }: Props) {
+  const t = useTranslations("Admin.liveVisitors");
+  const locale = useLocale();
+
   const [visitors, setVisitors] =
     useState<OnlineVisitor[]>([]);
 
@@ -205,48 +210,56 @@ export default function LiveVisitors({
       <div className="mb-5">
         <div className="flex items-center gap-3">
           <h2 className="text-2xl font-semibold">
-            Live Visitors
+            {t("title")}
           </h2>
 
           <span className="flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300">
             <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            Live
+            {t("live")}
           </span>
         </div>
 
         <p className="mt-1 text-sm text-slate-400">
-          Visitors currently connected to
-          LifeSeos.
+          {t("subtitle")}
         </p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">
         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
           <p className="text-sm text-slate-400">
-            Online Now
+            {t("onlineNow")}
           </p>
 
-          <p className="mt-2 text-3xl font-semibold text-white">
+          <p
+            className="mt-2 text-3xl font-semibold text-white"
+            data-ltr-text
+          >
             {visitors.length}
           </p>
         </div>
 
         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
           <p className="text-sm text-slate-400">
-            Registered
+            {t("registered")}
           </p>
 
-          <p className="mt-2 text-3xl font-semibold text-emerald-300">
+          <p
+            className="mt-2 text-3xl font-semibold text-emerald-300"
+            data-ltr-text
+          >
             {registeredCount}
           </p>
         </div>
 
         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
           <p className="text-sm text-slate-400">
-            Guests
+            {t("guests")}
           </p>
 
-          <p className="mt-2 text-3xl font-semibold text-violet-300">
+          <p
+            className="mt-2 text-3xl font-semibold text-violet-300"
+            data-ltr-text
+          >
             {guestCount}
           </p>
         </div>
@@ -255,33 +268,32 @@ export default function LiveVisitors({
       <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
         <div className="border-b border-white/10 px-6 py-5">
           <h3 className="text-lg font-semibold">
-            Visitors Online
+            {t("listTitle")}
           </h3>
 
           <p className="mt-1 text-sm text-slate-400">
-            Current visitor type, page and
-            session start time.
+            {t("listSubtitle")}
           </p>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[800px] text-left">
+          <table className="w-full min-w-[800px] text-start">
             <thead className="border-b border-white/10 bg-white/[0.03]">
               <tr>
-                <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                  User
+                <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                  {t("user")}
                 </th>
 
-                <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                  Type
+                <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                  {t("type")}
                 </th>
 
-                <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                  Current Page
+                <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                  {t("currentPage")}
                 </th>
 
-                <th className="px-6 py-4 text-xs font-medium uppercase tracking-wide text-slate-400">
-                  Online Since
+                <th className="px-6 py-4 text-start text-xs font-medium uppercase tracking-wide text-slate-400">
+                  {t("onlineSince")}
                 </th>
               </tr>
             </thead>
@@ -293,7 +305,7 @@ export default function LiveVisitors({
                     colSpan={4}
                     className="px-6 py-10 text-center text-sm text-slate-400"
                   >
-                    No visitors online right now.
+                    {t("empty")}
                   </td>
                 </tr>
               ) : (
@@ -302,34 +314,41 @@ export default function LiveVisitors({
                     key={visitor.id}
                     className="border-b border-white/5 last:border-b-0"
                   >
-                    <td className="px-6 py-4 text-sm text-white">
+                    <td
+                      className="px-6 py-4 text-sm text-white"
+                      data-ltr-text={visitor.userId ? "" : undefined}
+                    >
                       {visitor.userId
                         ? userEmails[
                             visitor.userId
                           ] ??
-                          "Registered user"
-                        : "Guest"}
+                          t("registeredUser")
+                        : t("guest")}
                     </td>
 
                     <td className="px-6 py-4">
                       {visitor.type ===
                       "registered" ? (
                         <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300">
-                          Registered
+                          {t("registered")}
                         </span>
                       ) : (
                         <span className="rounded-full border border-violet-400/20 bg-violet-400/10 px-3 py-1 text-xs font-medium text-violet-300">
-                          Guest
+                          {t("guest")}
                         </span>
                       )}
                     </td>
 
-                    <td className="px-6 py-4 font-mono text-sm text-slate-300">
+                    <td
+                      className="px-6 py-4 font-mono text-sm text-slate-300"
+                      data-ltr-text
+                    >
                       {visitor.path}
                     </td>
 
                     <td className="px-6 py-4 text-sm text-slate-300">
                       {formatDate(
+                        locale,
                         visitor.onlineAt
                       )}
                     </td>

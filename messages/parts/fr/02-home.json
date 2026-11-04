@@ -1,0 +1,143 @@
+{
+  "Home": {
+    "meta": {
+      "title": "LifeSeos — Outils SEO gratuits pour l’analyse de sites",
+      "description": "Analysez des sites, améliorez votre contenu, générez des données structurées, optimisez vos métadonnées YouTube et résolvez vos problèmes de SEO technique avec les outils gratuits de LifeSeos.",
+      "ogDescription": "Analysez des sites, améliorez le contenu, générez des données structurées et utilisez des outils SEO et d’optimisation YouTube concrets avec LifeSeos."
+    },
+    "hero": {
+      "badge": "Des outils gratuits pour des décisions SEO plus intelligentes",
+      "titleLine1": "Auditez et analysez",
+      "titleAccent": "améliorez votre SEO.",
+      "subtitle": "Identifiez les problèmes de SEO technique, améliorez le contenu de votre site, générez des données structurées et construisez des workflows de recherche et YouTube plus solides.",
+      "primaryCta": "Analyser votre site",
+      "secondaryCta": "Découvrir les outils",
+      "highlightFree": "Outils SEO gratuits",
+      "highlightFast": "Analyse rapide",
+      "highlightClear": "Recommandations claires"
+    },
+    "preview": {
+      "overview": "Vue d’ensemble du site",
+      "sample": "Rapport d’exemple",
+      "auditBadge": "Audit SEO",
+      "technical": "SEO technique",
+      "onPage": "SEO on-page",
+      "performance": "Performance",
+      "content": "Contenu",
+      "https": "Configuration HTTPS",
+      "metaDescription": "Méta-description",
+      "brokenLinks": "Liens brisés détectés",
+      "improve": "À améliorer",
+      "fix": "Corriger"
+    },
+    "tools": {
+      "eyebrow": "Boîte à outils SEO",
+      "title": "Outils SEO populaires",
+      "subtitle": "Analysez les aspects de votre site qui comptent le plus pour la visibilité dans les recherches et la santé technique.",
+      "viewAll": "Voir tous les outils"
+    },
+    "workflows": {
+      "technicalEyebrow": "SEO technique",
+      "schemaTitle": "Générateur de données structurées",
+      "schemaBody": "Générez du JSON-LD pour les articles, FAQ, produits, entreprises, fils d’Ariane et autres types de données structurées courants.",
+      "schemaCta": "Générer les données",
+      "contentEyebrow": "SEO de contenu",
+      "rewriterTitle": "Réécriture d’articles SEO",
+      "rewriterBody": "Réécrivez le contenu de votre site pour plus de clarté, de lisibilité, de ton et de cohérence SEO, tout en préservant l’orientation principale.",
+      "rewriterCta": "Réécrire le contenu",
+      "youtubeEyebrow": "SEO YouTube",
+      "youtubeTitle": "Structurez votre workflow YouTube",
+      "youtubeBody": "Passez des idées de mots-clés à des titres, descriptions et scripts vidéo structurés grâce à des outils YouTube dédiés.",
+      "youtubeCta": "Découvrir les outils YouTube"
+    },
+    "commandCenter": {
+      "badge": "Centre de pilotage SEO",
+      "title": "Comprenez votre site depuis une seule vue SEO.",
+      "body": "Commencez par une analyse complète du site, identifiez les problèmes prioritaires, puis utilisez les outils spécialisés de LifeSeos pour approfondir chaque domaine.",
+      "cta": "Lancer l’analyse du site",
+      "technical": "SEO technique",
+      "indexability": "Indexabilité",
+      "onPage": "SEO on-page",
+      "performance": "Performance"
+    },
+    "categories": {
+      "eyebrow": "Explorer",
+      "title": "Des outils pour chaque facette du SEO",
+      "subtitle": "Trouvez l’outil adapté au SEO technique, au contenu, à la performance, aux données structurées ou à l’optimisation YouTube.",
+      "technicalTitle": "SEO technique",
+      "technicalBody": "Identifiez les problèmes d’exploration, d’indexation, de redirection et les problèmes techniques du site.",
+      "onPageTitle": "SEO on-page",
+      "onPageBody": "Passez en revue la structure des pages, les métadonnées et les signaux d’optimisation importants.",
+      "crawlingTitle": "Exploration et indexation",
+      "crawlingBody": "Aidez les moteurs de recherche à découvrir et à comprendre votre site.",
+      "performanceTitle": "Performance",
+      "performanceBody": "Mesurez les performances de chargement et identifiez des pistes d’amélioration.",
+      "contentTitle": "SEO de contenu",
+      "contentBody": "Améliorez vos textes, l’usage des mots-clés et le contenu orienté recherche.",
+      "youtubeTitle": "SEO YouTube",
+      "youtubeBody": "Planifiez mots-clés vidéo, titres, descriptions et scripts dans un seul workflow."
+    },
+    "howItWorks": {
+      "title": "Améliorez votre SEO en trois étapes",
+      "subtitle": "Repérez les problèmes, comprenez-les et passez à l’action.",
+      "step1Title": "Choisissez un outil",
+      "step1Body": "Sélectionnez l’outil SEO correspondant à la partie de votre site que vous voulez analyser.",
+      "step2Title": "Analysez votre site",
+      "step2Body": "Lancez l’analyse et examinez les signaux techniques, de contenu et de performance importants.",
+      "step3Title": "Corrigez les problèmes prioritaires",
+      "step3Body": "Utilisez les résultats et les recommandations pour améliorer votre site étape par étape."
+    },
+    "trust": {
+      "eyebrow": "Pourquoi LifeSeos",
+      "title": "Simple, rapide et pensé pour le SEO au quotidien",
+      "subtitle": "Utilisez des outils SEO concrets sans configuration complexe, étapes inutiles ni obstacles.",
+      "freeTitle": "Outils gratuits",
+      "freeBody": "Accédez à des outils SEO utiles sans payer chaque analyse.",
+      "fastTitle": "Analyse rapide",
+      "fastBody": "Obtenez des informations SEO claires sans workflow compliqué.",
+      "startTitle": "Prise en main immédiate",
+      "startBody": "Explorez les outils essentiels sans configuration superflue.",
+      "clarityTitle": "Pensé pour la clarté",
+      "clarityBody": "Les rapports privilégient l’information utile et les améliorations concrètes."
+    },
+    "guides": {
+      "eyebrow": "Apprendre le SEO",
+      "title": "Guides et ressources SEO",
+      "browseAll": "Parcourir tous les guides",
+      "tag": "Guide",
+      "readGuide": "Lire le guide",
+      "robotsTitle": "Guide robots.txt",
+      "robotsBody": "Comprenez le fonctionnement de robots.txt et son usage par les moteurs de recherche.",
+      "httpTitle": "Codes de statut HTTP pour le SEO",
+      "httpBody": "Découvrez ce que signifient les codes de statut HTTP courants pour l’exploration et l’indexation.",
+      "technicalTitle": "Guide du SEO technique",
+      "technicalBody": "Apprenez les fondamentaux techniques qui aident les moteurs de recherche à comprendre votre site."
+    },
+    "cta": {
+      "title": "Prêt à comprendre le SEO de votre site ?",
+      "body": "Commencez par une analyse de site et utilisez les outils LifeSeos pour explorer les opportunités techniques, de contenu et de performance.",
+      "urlLabel": "URL du site",
+      "urlPlaceholder": "https://example.com",
+      "submit": "Analyser le site",
+      "openDashboard": "Ouvrir le tableau de bord",
+      "createAccount": "Créer un compte gratuit"
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "q1": "Qu’est-ce que LifeSeos ?",
+      "a1": "LifeSeos propose des outils SEO gratuits qui aident les propriétaires de sites à analyser, optimiser et améliorer les performances de leur site.",
+      "q2": "Les outils SEO de LifeSeos sont-ils gratuits ?",
+      "a2": "Oui. LifeSeos propose des outils SEO gratuits pour l’analyse de sites, le SEO technique, l’optimisation de contenu et l’amélioration des performances dans les recherches.",
+      "q3": "Quels outils SEO sont disponibles sur LifeSeos ?",
+      "a3": "LifeSeos propose des outils d’analyse de sites, de SEO technique, d’optimisation de contenu, de données structurées, de métadonnées, de sitemaps et de SEO YouTube.",
+      "q4": "Faut-il de l’expérience en SEO pour utiliser LifeSeos ?",
+      "a4": "Non. Les outils LifeSeos sont conçus pour les débutants, les marketeurs, les développeurs et les propriétaires de sites.",
+      "q5": "LifeSeos peut-il améliorer mon classement sur Google ?",
+      "a5": "LifeSeos aide à identifier les problèmes SEO et les opportunités d’optimisation, mais le classement dépend aussi de la qualité du contenu, de la concurrence et d’autres facteurs de recherche."
+    },
+    "audiences": {
+      "title": "Pensé pour votre façon de travailler",
+      "subtitle": "Choisissez votre workflow et commencez avec les outils adaptés."
+    }
+  }
+}

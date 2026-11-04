@@ -1,0 +1,114 @@
+{
+  "Header": {
+    "tools": "Outils",
+    "solutions": "Solutions",
+    "blog": "Blog",
+    "dashboard": "Tableau de bord",
+    "signIn": "Se connecter",
+    "signOut": "Se déconnecter",
+    "getStarted": "Commencer",
+    "primaryNav": "Navigation principale",
+    "mobileNav": "Navigation mobile"
+  },
+  "Footer": {
+    "tagline": "Des outils SEO pour une croissance plus intelligente de votre site.",
+    "home": "Accueil",
+    "tools": "Outils",
+    "blog": "Blog",
+    "about": "À propos",
+    "contact": "Contact",
+    "privacy": "Confidentialité",
+    "terms": "Conditions",
+    "rights": "© {year} LifeSeos. Tous droits réservés.",
+    "built": "Conçu pour de meilleurs workflows SEO.",
+    "navLabel": "Navigation de pied de page"
+  },
+  "Language": {
+    "label": "Langue",
+    "change": "Changer de langue",
+    "current": "Langue actuelle : {language}"
+  },
+  "Logo": {
+    "alt": "LifeSeos — des outils SEO pour une croissance plus intelligente",
+    "tagline": "Des outils SEO pour une croissance plus intelligente"
+  },
+  "Solutions": {
+    "label": "Solutions",
+    "title": "Pensé pour votre façon de travailler",
+    "subtitle": "Choisissez votre workflow et commencez avec les outils adaptés.",
+    "seeTools": "Voir les outils",
+    "items": {
+      "youtubers": {
+        "title": "YouTubeurs et créateurs",
+        "description": "Mots-clés, titres, descriptions et scripts pour votre chaîne."
+      },
+      "bloggers": {
+        "title": "Blogueurs et rédacteurs",
+        "description": "Contrôles de contenu, aperçus d’extraits et données structurées avant publication."
+      },
+      "agencies": {
+        "title": "Agences et indépendants",
+        "description": "Auditez les sites clients, les codes de statut, les sitemaps et les fichiers robots."
+      }
+    }
+  },
+  "Common": {
+    "readMore": "Lire la suite",
+    "learnMore": "En savoir plus",
+    "openTool": "Ouvrir l’outil",
+    "viewAllTools": "Voir tous les outils",
+    "backHome": "Retour à l’accueil",
+    "loading": "Chargement…",
+    "tryAgain": "Réessayer",
+    "copy": "Copier",
+    "copied": "Copié",
+    "copyLink": "Copier le lien",
+    "share": "Partager",
+    "free": "Gratuit",
+    "optional": "Facultatif",
+    "required": "Obligatoire",
+    "close": "Fermer",
+    "step": "Étape {number}",
+    "yes": "Oui",
+    "no": "Non",
+    "example": "Exemple",
+    "result": "Résultat",
+    "score": "Score",
+    "status": "Statut",
+    "details": "Détails",
+    "urlLabel": "URL du site",
+    "urlPlaceholder": "https://example.com"
+  },
+  "Share": {
+    "title": "Partager cet outil",
+    "body": "Cet outil vous a été utile ? Partagez-le.",
+    "defaultText": "Essayez cet outil SEO gratuit de LifeSeos.",
+    "copy": "Copier le lien",
+    "copied": "Lien copié",
+    "copyError": "Impossible de copier le lien."
+  },
+  "State": {
+    "good": "Bon",
+    "warning": "À surveiller",
+    "error": "Problème détecté",
+    "neutral": "Info",
+    "passed": "Réussi",
+    "failed": "Échec",
+    "improve": "Améliorer",
+    "fixIssue": "Corriger",
+    "strong": "Solide",
+    "needsWork": "À retravailler",
+    "excellent": "Excellent",
+    "average": "Moyen",
+    "poor": "Faible"
+  },
+  "Errors": {
+    "generic": "Une erreur est survenue.",
+    "genericBody": "Veuillez réessayer dans un instant.",
+    "network": "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez.",
+    "urlRequired": "Veuillez saisir l’URL d’un site.",
+    "urlInvalid": "Saisissez une URL valide, par exemple https://example.com",
+    "rateLimited": "Trop de requêtes. Patientez un instant et réessayez.",
+    "timeout": "La requête a pris trop de temps. Veuillez réessayer."
+  }
+}

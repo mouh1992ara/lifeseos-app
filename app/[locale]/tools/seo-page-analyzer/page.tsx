@@ -2,6 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import ShareTool from "@/components/share-tool";
 
@@ -24,7 +25,17 @@ type SeoResult = {
   pageSizeKb: number;
 };
 
+const CHECK_IDS = ["1", "2", "3", "4", "5", "6"] as const;
+const STEP_IDS = ["1", "2", "3", "4"] as const;
+const BENEFIT_IDS = ["1", "2", "3", "4"] as const;
+const CHECK_ICONS = ["T", "D", "H", "C", "R", "ALT"] as const;
+
 export default function SeoPageAnalyzerPage() {
+  const t = useTranslations("Tool.seoPageAnalyzer");
+  const tc = useTranslations("Tools.catalog");
+  const tCommon = useTranslations("Common");
+  const tErr = useTranslations("Errors");
+
   const [url, setUrl] = useState("");
   const [result, setResult] =
     useState<SeoResult | null>(null);
@@ -77,9 +88,7 @@ export default function SeoPageAnalyzerPage() {
     setResult(null);
 
     if (!cleanUrl) {
-      setError(
-        "Please enter a website URL."
-      );
+      setError(tErr("urlRequired"));
       return;
     }
 
@@ -106,7 +115,7 @@ export default function SeoPageAnalyzerPage() {
       if (!response.ok) {
         setError(
           data.error ||
-            "Unable to analyze this page."
+            t("errorFallback")
         );
         return;
       }
@@ -116,7 +125,7 @@ export default function SeoPageAnalyzerPage() {
       setResult(data);
     } catch {
       setError(
-        "Unable to analyze this page."
+        t("errorFallback")
       );
     } finally {
       setLoading(false);
@@ -133,26 +142,23 @@ export default function SeoPageAnalyzerPage() {
         <div className="mx-auto max-w-4xl text-center">
 
           <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-300">
-            <span>⌕</span>
+            <span aria-hidden="true">⌕</span>
 
             <span>
-              LifeSeos SEO Page Analyzer
+              {t("badge")}
             </span>
           </div>
 
           <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Free SEO Page Analyzer
+            {t("titleLine1")}
 
             <span className="mt-2 block bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400 bg-clip-text text-transparent">
-              Run an On-Page SEO Analysis
+              {t("titleAccent")}
             </span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
-            Analyze page titles, meta descriptions,
-            headings, canonical tags, robots directives,
-            links, image ALT text and other important
-            on-page SEO elements.
+            {t("subtitle")}
           </p>
 
         </div>
@@ -162,13 +168,17 @@ export default function SeoPageAnalyzerPage() {
 
         <section className="mx-auto mt-10 max-w-4xl rounded-[28px] border border-white/10 bg-white/[0.03] p-5 shadow-2xl shadow-black/20 sm:p-6">
 
-          <label className="text-sm font-semibold text-slate-200">
-            Page URL
+          <label
+            htmlFor="seo-page-url"
+            className="text-sm font-semibold text-slate-200"
+          >
+            {t("urlLabel")}
           </label>
 
           <div className="mt-3 flex flex-col gap-3 sm:flex-row">
 
             <input
+              id="seo-page-url"
               value={url}
               onChange={(e) =>
                 setUrl(
@@ -183,8 +193,9 @@ export default function SeoPageAnalyzerPage() {
                   analyzePage();
                 }
               }}
-              placeholder="https://example.com"
-              className="flex-1 rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-400/60"
+              placeholder={tCommon("urlPlaceholder")}
+              dir="ltr"
+              className="flex-1 rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-start text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-400/60"
             />
 
             <button
@@ -196,19 +207,21 @@ export default function SeoPageAnalyzerPage() {
               className="rounded-2xl bg-gradient-to-r from-cyan-400 to-blue-500 px-7 py-3.5 font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:from-cyan-300 hover:to-blue-400 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading
-                ? "Analyzing..."
-                : "Analyze page"}
+                ? t("submitLoading")
+                : t("submit")}
             </button>
 
           </div>
 
           <p className="mt-3 text-sm text-slate-500">
-            Enter a publicly accessible page URL to review
-            its main on-page SEO elements.
+            {t("hint")}
           </p>
 
           {error && (
-            <div className="mt-6 rounded-2xl border border-red-400/20 bg-red-400/5 p-4 text-sm text-red-300">
+            <div
+              role="alert"
+              className="mt-6 rounded-2xl border border-red-400/20 bg-red-400/5 p-4 text-sm text-red-300"
+            >
               {error}
             </div>
           )}
@@ -230,29 +243,31 @@ export default function SeoPageAnalyzerPage() {
             <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 
               <MetricCard
-                label="HTTP Status"
+                label={t("metricStatus")}
                 value={String(
                   result.status
                 )}
               />
 
               <MetricCard
-                label="H1 Tags"
+                label={t("metricH1")}
                 value={String(
                   result.h1Count
                 )}
               />
 
               <MetricCard
-                label="Links"
+                label={t("metricLinks")}
                 value={String(
                   result.totalLinks
                 )}
               />
 
               <MetricCard
-                label="Page Size"
-                value={`${result.pageSizeKb} KB`}
+                label={t("metricPageSize")}
+                value={t("pageSizeValue", {
+                  size: result.pageSizeKb,
+                })}
               />
 
             </section>
@@ -261,36 +276,40 @@ export default function SeoPageAnalyzerPage() {
             <section className="grid gap-6 lg:grid-cols-2">
 
               <InfoCard
-                title="Page Title"
+                title={t("infoTitle")}
                 value={
                   result.title ||
-                  "No title found"
+                  t("noTitle")
                 }
-                note={`${result.titleLength} characters`}
+                note={t("charsCount", {
+                  count: result.titleLength,
+                })}
               />
 
               <InfoCard
-                title="Meta Description"
+                title={t("infoDescription")}
                 value={
                   result.description ||
-                  "No meta description found"
+                  t("noDescription")
                 }
-                note={`${result.descriptionLength} characters`}
+                note={t("charsCount", {
+                  count: result.descriptionLength,
+                })}
               />
 
               <InfoCard
-                title="Canonical URL"
+                title={t("infoCanonical")}
                 value={
                   result.canonical ||
-                  "No canonical tag found"
+                  t("noCanonical")
                 }
               />
 
               <InfoCard
-                title="Robots Meta"
+                title={t("infoRobots")}
                 value={
                   result.robots ||
-                  "No robots meta tag found"
+                  t("noRobots")
                 }
               />
 
@@ -302,24 +321,24 @@ export default function SeoPageAnalyzerPage() {
               <div className="rounded-[28px] border border-white/10 bg-slate-900/80 p-6">
 
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
-                  Page structure
+                  {t("structureEyebrow")}
                 </p>
 
                 <h2 className="mt-2 text-2xl font-bold">
-                  Heading Structure
+                  {t("structureTitle")}
                 </h2>
 
                 <div className="mt-5 grid grid-cols-2 gap-4">
 
                   <SmallMetricCard
-                    label="H1 count"
+                    label={t("h1Count")}
                     value={String(
                       result.h1Count
                     )}
                   />
 
                   <SmallMetricCard
-                    label="H2 count"
+                    label={t("h2Count")}
                     value={String(
                       result.h2Count
                     )}
@@ -352,7 +371,7 @@ export default function SeoPageAnalyzerPage() {
                 ) : (
 
                   <p className="mt-5 text-sm text-slate-500">
-                    No H1 headings were detected.
+                    {t("noH1")}
                   </p>
 
                 )}
@@ -363,24 +382,24 @@ export default function SeoPageAnalyzerPage() {
               <div className="rounded-[28px] border border-white/10 bg-slate-900/80 p-6">
 
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-300">
-                  Image SEO
+                  {t("imageEyebrow")}
                 </p>
 
                 <h2 className="mt-2 text-2xl font-bold">
-                  Images
+                  {t("imageTitle")}
                 </h2>
 
                 <div className="mt-5 grid gap-4 sm:grid-cols-2">
 
                   <SmallMetricCard
-                    label="Total images"
+                    label={t("totalImages")}
                     value={String(
                       result.totalImages
                     )}
                   />
 
                   <SmallMetricCard
-                    label="Missing ALT"
+                    label={t("missingAlt")}
                     value={String(
                       result.imagesWithoutAlt
                     )}
@@ -393,9 +412,7 @@ export default function SeoPageAnalyzerPage() {
                 </div>
 
                 <p className="mt-5 text-sm leading-7 text-slate-500">
-                  ALT text helps describe meaningful images
-                  for accessibility and provides additional
-                  context about image content.
+                  {t("imageNote")}
                 </p>
 
               </div>
@@ -406,24 +423,24 @@ export default function SeoPageAnalyzerPage() {
             <section className="rounded-[28px] border border-white/10 bg-slate-900/80 p-6 sm:p-8">
 
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">
-                URL information
+                {t("urlEyebrow")}
               </p>
 
               <h2 className="mt-2 text-2xl font-bold">
-                Analysis Details
+                {t("urlTitle")}
               </h2>
 
               <div className="mt-5 grid gap-4 md:grid-cols-2">
 
                 <UrlCard
-                  label="Requested URL"
+                  label={t("requestedUrl")}
                   value={
                     result.requestedUrl
                   }
                 />
 
                 <UrlCard
-                  label="Final URL"
+                  label={t("finalUrl")}
                   value={
                     result.finalUrl
                   }
@@ -440,8 +457,8 @@ export default function SeoPageAnalyzerPage() {
         <div className="mt-10">
 
           <ShareTool
-            title="SEO Page Analyzer"
-            description="Analyze titles, meta descriptions, headings, canonical tags, links and image SEO with this free LifeSeos tool."
+            title={tc("seoPageAnalyzer.title")}
+            description={t("shareBody")}
           />
 
         </div>
@@ -458,19 +475,15 @@ export default function SeoPageAnalyzerPage() {
           <div className="mx-auto max-w-3xl text-center">
 
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
-              On-Page SEO Analysis
+              {t("introEyebrow")}
             </p>
 
             <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Check Important SEO Elements on Any Page
+              {t("introTitle")}
             </h2>
 
             <p className="mt-5 leading-8 text-slate-400">
-              On-page SEO includes the page-level signals
-              that help users and search engines understand
-              what a webpage contains. LifeSeos checks
-              several important elements so you can quickly
-              identify missing or incomplete page signals.
+              {t("introBody")}
             </p>
 
           </div>
@@ -480,41 +493,14 @@ export default function SeoPageAnalyzerPage() {
 
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
 
-            <CheckInfoCard
-              icon="T"
-              title="Page Title"
-              description="Review the page title and its character length to identify missing or unusually structured titles."
-            />
-
-            <CheckInfoCard
-              icon="D"
-              title="Meta Description"
-              description="Check whether a meta description exists and review its current length."
-            />
-
-            <CheckInfoCard
-              icon="H"
-              title="Heading Structure"
-              description="Inspect H1 and H2 usage to better understand the visible structure of the page."
-            />
-
-            <CheckInfoCard
-              icon="C"
-              title="Canonical Tag"
-              description="Check whether the page declares a canonical URL for search engines."
-            />
-
-            <CheckInfoCard
-              icon="R"
-              title="Robots Meta"
-              description="Review robots directives that may influence how search engines index or follow the page."
-            />
-
-            <CheckInfoCard
-              icon="ALT"
-              title="Image ALT Text"
-              description="Identify how many images are present and whether some are missing ALT attributes."
-            />
+            {CHECK_IDS.map((id, index) => (
+              <CheckInfoCard
+                key={id}
+                icon={CHECK_ICONS[index]}
+                title={t(`checks.${id}.title`)}
+                description={t(`checks.${id}.body`)}
+              />
+            ))}
 
           </div>
 
@@ -528,17 +514,15 @@ export default function SeoPageAnalyzerPage() {
               <div>
 
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-violet-300">
-                  How it works
+                  {t("howEyebrow")}
                 </p>
 
                 <h2 className="mt-4 text-3xl font-bold">
-                  How to Use the SEO Page Analyzer
+                  {t("howTitle")}
                 </h2>
 
                 <p className="mt-4 leading-7 text-slate-400">
-                  Run a quick page-level audit before
-                  publishing changes or when reviewing an
-                  existing webpage.
+                  {t("howBody")}
                 </p>
 
               </div>
@@ -546,29 +530,14 @@ export default function SeoPageAnalyzerPage() {
 
               <div className="space-y-4">
 
-                <StepCard
-                  number="1"
-                  title="Enter a page URL"
-                  description="Paste the full public URL of the webpage you want to inspect."
-                />
-
-                <StepCard
-                  number="2"
-                  title="Run the page analysis"
-                  description="LifeSeos retrieves the page and extracts supported on-page SEO elements."
-                />
-
-                <StepCard
-                  number="3"
-                  title="Review the important signals"
-                  description="Check metadata, headings, canonical information, links, images and page size."
-                />
-
-                <StepCard
-                  number="4"
-                  title="Fix missing elements"
-                  description="Use the results to identify page elements that may need further review or improvement."
-                />
+                {STEP_IDS.map((id) => (
+                  <StepCard
+                    key={id}
+                    number={id}
+                    title={t(`how${id}Title`)}
+                    description={t(`how${id}Body`)}
+                  />
+                ))}
 
               </div>
 
@@ -584,26 +553,19 @@ export default function SeoPageAnalyzerPage() {
             <div>
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
-                Page-level optimization
+                {t("whyEyebrow")}
               </p>
 
               <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
-                Why On-Page SEO Matters
+                {t("whyTitle")}
               </h2>
 
               <p className="mt-5 leading-8 text-slate-400">
-                A webpage can contain useful content and
-                still have weak SEO signals if important
-                metadata or structural elements are
-                missing.
+                {t("whyP1")}
               </p>
 
               <p className="mt-4 leading-8 text-slate-400">
-                Reviewing titles, descriptions, headings,
-                canonical tags and image attributes gives
-                you a clearer picture of how the page is
-                structured and where additional
-                optimization may be needed.
+                {t("whyP2")}
               </p>
 
             </div>
@@ -611,25 +573,13 @@ export default function SeoPageAnalyzerPage() {
 
             <div className="grid gap-4 sm:grid-cols-2">
 
-              <BenefitCard
-                title="Find missing metadata"
-                description="Quickly identify missing titles, descriptions or canonical information."
-              />
-
-              <BenefitCard
-                title="Review page structure"
-                description="Check H1 and H2 usage to understand how the page content is organized."
-              />
-
-              <BenefitCard
-                title="Inspect image SEO"
-                description="Identify images that may be missing descriptive ALT attributes."
-              />
-
-              <BenefitCard
-                title="Check technical signals"
-                description="Review HTTP status, robots directives, final URL and page size."
-              />
+              {BENEFIT_IDS.map((id) => (
+                <BenefitCard
+                  key={id}
+                  title={t(`benefit${id}Title`)}
+                  description={t(`benefit${id}Body`)}
+                />
+              ))}
 
             </div>
 
@@ -643,16 +593,15 @@ export default function SeoPageAnalyzerPage() {
             <div className="mx-auto max-w-3xl text-center">
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
-                Continue Your SEO Workflow
+                {t("flowEyebrow")}
               </p>
 
               <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                Create, Preview and Analyze Your On-Page SEO
+                {t("flowTitle")}
               </h2>
 
               <p className="mt-4 leading-8 text-slate-400">
-                Use these tools together to prepare your metadata, preview how
-                it may appear in search and then audit the finished page.
+                {t("flowBody")}
               </p>
 
             </div>
@@ -667,27 +616,29 @@ export default function SeoPageAnalyzerPage() {
 
                 <div className="flex items-center justify-between gap-4">
 
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-fuchsia-400/20 bg-fuchsia-400/10 font-bold text-fuchsia-300">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-fuchsia-400/20 bg-fuchsia-400/10 font-bold text-fuchsia-300" data-ltr-text>
                     T
                   </div>
 
                   <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
-                    Step 1
+                    {t("step1")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-fuchsia-300">
-                  Meta Tag Generator
+                  {tc("metaTagGenerator.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Create a clear title tag and meta description before
-                  publishing or updating the page.
+                  {t("flow1Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-fuchsia-300">
-                  Create metadata →
+                  {t("flow1Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
 
               </Link>
@@ -705,22 +656,24 @@ export default function SeoPageAnalyzerPage() {
                   </div>
 
                   <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
-                    Step 2
+                    {t("step2")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-blue-300">
-                  SERP Snippet Preview
+                  {tc("serpSnippetPreview.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Preview how your title, URL and meta description may appear
-                  across desktop and mobile search layouts.
+                  {t("flow2Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-blue-300">
-                  Preview metadata →
+                  {t("flow2Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
 
               </Link>
@@ -735,22 +688,22 @@ export default function SeoPageAnalyzerPage() {
                   </div>
 
                   <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-300">
-                    Step 3 · Current
+                    {t("step3Current")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold">
-                  SEO Page Analyzer
+                  {tc("seoPageAnalyzer.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Analyze the live page and review metadata, headings, canonical
-                  tags, robots directives, links and image SEO.
+                  {t("flow3Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-cyan-300">
-                  Analyze page ✓
+                  {t("flow3Cta")}{" "}
+                  <span aria-hidden="true">✓</span>
                 </div>
 
               </div>
@@ -764,28 +717,40 @@ export default function SeoPageAnalyzerPage() {
                 href="/tools/seo-analyzer"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                SEO Analyzer →
+                {tc("seoAnalyzer.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools/content-analyzer"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                Content Analyzer →
+                {tc("contentAnalyzer.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools/page-speed"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                Page Speed Analyzer →
+                {tc("pageSpeed.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                View All Tools →
+                {tCommon("viewAllTools")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
             </div>
@@ -815,7 +780,7 @@ function MetricCard({
         {label}
       </p>
 
-      <p className="mt-2 text-2xl font-bold text-cyan-300">
+      <p className="mt-2 text-2xl font-bold text-cyan-300" data-ltr-text>
         {value}
       </p>
 
@@ -846,6 +811,7 @@ function SmallMetricCard({
             ? "text-amber-300"
             : "text-white"
         }`}
+        data-ltr-text
       >
         {value}
       </p>
@@ -900,7 +866,7 @@ function UrlCard({
         {label}
       </p>
 
-      <p className="mt-2 break-all text-sm leading-6 text-slate-300">
+      <p className="mt-2 break-all text-sm leading-6 text-slate-300" data-ltr-text>
         {value}
       </p>
 
@@ -921,7 +887,7 @@ function CheckInfoCard({
   return (
     <div className="rounded-[24px] border border-white/10 bg-slate-900/70 p-6">
 
-      <div className="flex h-10 min-w-10 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 px-2 text-xs font-bold text-cyan-300">
+      <div className="flex h-10 min-w-10 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 px-2 text-xs font-bold text-cyan-300" data-ltr-text>
         {icon}
       </div>
 
@@ -950,7 +916,7 @@ function StepCard({
   return (
     <div className="flex gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-5">
 
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 font-bold text-cyan-300">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 font-bold text-cyan-300" data-ltr-text>
         {number}
       </div>
 
@@ -994,43 +960,5 @@ function BenefitCard({
       </p>
 
     </div>
-  );
-}
-
-
-function RelatedToolCard({
-  href,
-  icon,
-  title,
-  description,
-}: {
-  href: string;
-  icon: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:-translate-y-1 hover:border-cyan-400/20 hover:bg-white/[0.05]"
-    >
-
-      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg">
-        {icon}
-      </div>
-
-      <h3 className="mt-4 font-semibold text-white transition group-hover:text-cyan-300">
-        {title}
-      </h3>
-
-      <p className="mt-2 text-sm leading-6 text-slate-400">
-        {description}
-      </p>
-
-      <div className="mt-4 text-sm font-semibold text-cyan-300">
-        Open tool →
-      </div>
-
-    </Link>
   );
 }

@@ -1,0 +1,53 @@
+{
+  "Blog": {
+    "meta": {
+      "title": "SEO Blog & Guides",
+      "description": "Read practical SEO guides, technical tutorials and website optimization strategies from LifeSeos."
+    },
+    "badge": "SEO insights & guides",
+    "titleLine1": "Learn SEO.",
+    "titleAccent": "Grow smarter.",
+    "subtitle": "Practical SEO tutorials, technical guides and actionable strategies designed to help you understand your website and improve it with confidence.",
+    "categories": {
+      "all": "All guides",
+      "technical": "Technical SEO",
+      "onPage": "On-Page SEO",
+      "content": "Content SEO",
+      "performance": "Performance",
+      "audits": "SEO Audits"
+    },
+    "featuredEyebrow": "Featured guide",
+    "featuredTitle": "Start with the fundamentals",
+    "featuredCta": "Read the complete guide",
+    "listEyebrow": "Latest knowledge",
+    "listTitle": "Explore SEO guides",
+    "listBody": "Each guide connects directly with a LifeSeos tool so you can learn the concept and immediately put it into practice.",
+    "readGuide": "Read guide",
+    "readTime": "{minutes} min read",
+    "updated": "Updated {date}",
+    "published": "Published {date}",
+    "byAuthor": "By {author}",
+    "contents": "On this page",
+    "relatedTool": "Try the matching tool",
+    "backToBlog": "All guides",
+    "moreGuides": "More guides",
+    "tip": "Tip",
+    "cta": {
+      "eyebrow": "Learn it. Test it. Improve it.",
+      "title": "Turn every SEO lesson into an actionable improvement.",
+      "body": "LifeSeos gives you practical tools to analyze pages, evaluate content, test performance and identify technical SEO problems.",
+      "button": "Explore SEO tools"
+    },
+    "final": {
+      "title": "Keep learning. Keep improving.",
+      "body": "Explore practical SEO guides and use LifeSeos tools alongside them to understand exactly what is happening on your website.",
+      "primary": "Browse tools",
+      "secondary": "About LifeSeos"
+    },
+    "notFound": "That guide could not be found.",
+    "articleCta": {
+      "title": "Put this guide into practice",
+      "body": "Open the related LifeSeos tool and apply what you just learned to your own website."
+    }
+  }
+}

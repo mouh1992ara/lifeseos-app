@@ -1,0 +1,2293 @@
+{
+  "ToolShared": {
+    "related": {
+      "eyebrow": "继续优化",
+      "title": "相关 SEO 工具",
+      "viewAll": "查看全部工具"
+    }
+  },
+  "Tool": {
+    "httpStatus": {
+      "meta": {
+        "title": "HTTP 状态检测 — 检测响应码与重定向",
+        "description": "用 LifeSeos 免费 HTTP 状态检测工具，查看任意 URL 的 HTTP 状态码、响应头、重定向与最终地址。"
+      },
+      "badge": "LifeSeos HTTP 状态检测",
+      "titleLine1": "免费 HTTP 状态码检测工具",
+      "titleAccent": "检测响应码与重定向",
+      "subtitle": "查看任意 URL 的 HTTP 状态码、响应、重定向与最终地址。用 LifeSeos 免费工具快速发现 200、301、302、404 与服务器错误。",
+      "urlLabel": "网站 URL",
+      "submit": "检测状态",
+      "checking": "检测中…",
+      "hint": "输入完整的公开 URL，即可检测其 HTTP 响应与最终地址。",
+      "resultEyebrow": "HTTP 响应",
+      "resultTitle": "HTTP 状态结果",
+      "statusCode": "状态码",
+      "statusFallback": "HTTP 响应",
+      "redirectLabel": "检测到重定向",
+      "redirectYes": "是",
+      "redirectNo": "否",
+      "redirectYesBody": "请求的 URL 已重定向到另一个地址。",
+      "redirectNoBody": "本次请求未检测到重定向。",
+      "requestedUrl": "请求的 URL",
+      "finalUrl": "最终 URL",
+      "basicsEyebrow": "HTTP 基础",
+      "basicsTitle": "什么是 HTTP 状态码？",
+      "basicsP1": "HTTP 状态码是浏览器、搜索引擎爬虫或其他客户端请求某个 URL 后，由 Web 服务器返回的三位数响应。",
+      "basicsP2": "该响应说明请求是成功、发生重定向、因资源不存在而失败，还是服务端出现了问题。",
+      "groupsEyebrow": "响应分类",
+      "groupsTitle": "理解 HTTP 状态码分组",
+      "groupsBody": "HTTP 响应按首位数字分组，便于判断服务器如何处理一次请求。",
+      "commonEyebrow": "常见响应",
+      "commonTitle": "SEO 中常见的 HTTP 状态码",
+      "commonBody": "在技术 SEO 审计与网站维护中，这些响应码出现频率很高。",
+      "redirectEyebrow": "重定向管理",
+      "redirectTitle": "检测重定向与最终 URL",
+      "redirectP1": "页面迁移、域名更换或 URL 结构调整时出现重定向很正常。关键在于重定向要把用户和爬虫带到正确的最终地址。",
+      "redirectP2": "同时检查请求的 URL 与最终 URL，有助于发现意料之外的重定向，并找出无法直接访问的 URL。",
+      "benefit1Title": "发现失效 URL",
+      "benefit1Body": "找出返回 404 或其他错误响应的页面。",
+      "benefit2Title": "检查重定向",
+      "benefit2Body": "确认请求的 URL 是否重定向到其他地址。",
+      "benefit3Title": "核对最终 URL",
+      "benefit3Body": "验证用户与爬虫最终到达的地址。",
+      "benefit4Title": "捕捉服务器错误",
+      "benefit4Body": "识别可能暂时阻断重要页面访问的 5xx 响应。",
+      "importanceEyebrow": "技术 SEO",
+      "importanceTitle": "HTTP 状态码为何对 SEO 重要",
+      "importanceBody": "搜索引擎依据 HTTP 响应判断 URL 是可用、已迁移、缺失还是暂时不可访问。",
+      "reason1Title": "可抓取性",
+      "reason1Body": "成功的 HTTP 响应让爬虫能够访问页面并处理其内容。",
+      "reason2Title": "重定向信号",
+      "reason2Body": "重定向响应提示用户与爬虫继续前往另一个 URL。",
+      "reason3Title": "失效 URL 识别",
+      "reason3Body": "4xx 响应能揭示过期链接与已不可用的页面。",
+      "reason4Title": "服务器可靠性",
+      "reason4Body": "5xx 错误可能说明服务器问题，导致抓取与访问暂时中断。",
+      "howEyebrow": "使用方式",
+      "howTitle": "如何使用 HTTP 状态检测工具",
+      "how1Title": "输入 URL",
+      "how1Body": "粘贴你要检测的完整网页或网站 URL。",
+      "how2Title": "运行状态检测",
+      "how2Body": "点击「检测状态」，LifeSeos 会请求该 URL 并检查其 HTTP 响应。",
+      "how3Title": "查看响应",
+      "how3Body": "查看状态码与状态文本，判断服务器如何处理该请求。",
+      "how4Title": "核对最终地址",
+      "how4Body": "如果 URL 发生重定向，请对比请求的 URL 与工具返回的最终 URL。",
+      "faqEyebrow": "HTTP 状态常见问题",
+      "faqTitle": "常见问题",
+      "faq1Q": "什么是 HTTP 状态码？",
+      "faq1A": "HTTP 状态码是浏览器、爬虫或其他客户端请求某个 URL 后，由 Web 服务器发送的三位数响应。它表明请求是成功、发生重定向、失败，还是遇到了服务器问题。",
+      "faq2Q": "为什么 HTTP 状态码对 SEO 很重要？",
+      "faq2A": "搜索引擎通过 HTTP 响应判断页面是可访问、已重定向、已缺失还是暂时不可用。状态码设置不当会造成失效链接，或让重要页面难以被正确抓取。",
+      "faq3Q": "正常网页应该返回什么状态码？",
+      "faq3A": "正常可访问的网页通常应返回 200 OK。如果页面已永久迁移，一般更适合使用 301 重定向。",
+      "faq4Q": "301 重定向对 SEO 有害吗？",
+      "faq4A": "不会。正确配置的 301 重定向是表明 URL 已永久迁移到新地址的标准做法。",
+      "faq5Q": "404 和 410 有什么区别？",
+      "faq5A": "404 表示请求的资源未找到，而 410 明确表示资源已被永久移除。",
+      "shareTitle": "HTTP 状态检测",
+      "shareBody": "用这款免费的 LifeSeos 技术 SEO 工具，检测 HTTP 状态码、重定向与最终 URL。",
+      "groups": {
+        "2xx": {
+          "title": "成功响应",
+          "description": "2xx 状态表示服务器已成功接收并处理请求。最常见的是 200 OK。"
+        },
+        "3xx": {
+          "title": "重定向响应",
+          "description": "3xx 状态表示请求的 URL 重定向到其他地址。常见示例包括 301 永久重定向与 302 临时重定向。"
+        },
+        "4xx": {
+          "title": "客户端错误",
+          "description": "4xx 状态通常表示无法访问请求的资源。例如 404 响应表示页面未找到。"
+        },
+        "5xx": {
+          "title": "服务器错误",
+          "description": "5xx 响应表示服务器在处理请求时遇到问题。这类错误可能导致用户与搜索引擎无法访问页面。"
+        }
+      },
+      "codes": {
+        "200": {
+          "title": "正常",
+          "description": "页面已成功加载，通常对用户与搜索引擎均可访问。"
+        },
+        "301": {
+          "title": "永久移动",
+          "description": "URL 永久重定向到其他地址。页面或域名永久迁移时常用此状态。"
+        },
+        "302": {
+          "title": "已找到 / 临时重定向",
+          "description": "URL 临时重定向到别处。搜索引擎可能会继续在索引中保留原 URL。"
+        },
+        "404": {
+          "title": "未找到",
+          "description": "请求的页面在该 URL 下不存在。失效的内部链接与过期 URL 经常返回此响应。"
+        },
+        "410": {
+          "title": "已删除",
+          "description": "页面已被有意永久移除，不会再恢复。"
+        },
+        "500": {
+          "title": "服务器内部错误",
+          "description": "服务器遇到意外问题，无法完成请求。"
+        },
+        "503": {
+          "title": "服务不可用",
+          "description": "服务器暂时不可用，通常由维护、过载或其他临时问题导致。"
+        }
+      }
+    },
+    "pageSpeed": {
+      "meta": {
+        "title": "页面速度分析器 — 免费网站性能测试",
+        "description": "用 LifeSeos 免费页面速度分析器，衡量网站加载性能并查看关键 Lighthouse 指标。"
+      },
+      "badge": "LifeSeos 页面速度分析器",
+      "titleLine1": "免费页面速度分析器",
+      "titleAccent": "测试网站性能",
+      "subtitle": "测量网站速度以及 Lighthouse 性能指标，包括加载、渲染和布局稳定性信号。",
+      "urlLabel": "页面 URL",
+      "submit": "分析速度",
+      "submitLoading": "分析中…",
+      "hint": "该分析使用移动端 Lighthouse 性能测试对提交的页面进行检测。",
+      "errorFallback": "无法分析页面速度。",
+      "shareDescription": "使用这款免费的 LifeSeos 工具测量网站性能、加载速度和 Lighthouse 指标。",
+      "scoreUnavailable": "暂无数据",
+      "scoreGood": "良好",
+      "scoreNeedsImprovement": "有待改进",
+      "scorePoor": "较差",
+      "scoreReview": "需检查",
+      "ringLabel": "性能",
+      "ringOutOf": "满分 100",
+      "resultTitle": "页面性能概览",
+      "resultBody": "查看 Lighthouse 性能得分以及加载、交互性和布局稳定性指标。",
+      "testedUrl": "已测试的 URL",
+      "metricFcpLabel": "首次内容绘制",
+      "metricFcpDesc": "首个可见内容",
+      "metricLcpLabel": "最大内容绘制",
+      "metricLcpDesc": "最大可见元素",
+      "metricClsLabel": "累计布局偏移",
+      "metricClsDesc": "视觉稳定性",
+      "metricTbtLabel": "总阻塞时间",
+      "metricTbtDesc": "主线程阻塞",
+      "metricSiLabel": "速度指数",
+      "metricSiDesc": "视觉加载速度",
+      "detailsEyebrow": "测试信息",
+      "detailsTitle": "分析详情",
+      "detailsBadge": "Lighthouse 性能",
+      "requestedUrl": "请求 URL",
+      "finalUrl": "最终 URL",
+      "strategy": "策略",
+      "recsEyebrow": "性能优化方案",
+      "recsTitle": "优化建议",
+      "recPerformance": "精简不必要的 JavaScript，优化图片，并检查阻塞渲染的资源。",
+      "recLcp": "通过优化首屏主要元素和服务器响应时间，改善最大内容绘制。",
+      "recCls": "为图片、嵌入内容和动态内容预留空间，以减少布局偏移。",
+      "recTbt": "拆分过长的 JavaScript 任务，减少主线程工作量。",
+      "recNone": "所测得的性能信号表现良好。请在网站发生重大变更后继续监测。",
+      "nextEyebrow": "推荐的下一个工具",
+      "nextTitle": "执行一次完整的 SEO 审计",
+      "nextBody": "页面速度只是 SEO 的一部分。使用 SEO 分析器查看同一页面的技术、内容、图片和社交元数据信号。",
+      "nextCta": "打开 SEO 分析器",
+      "infoEyebrow": "网站性能",
+      "infoTitle": "理解你的页面速度指标",
+      "infoBody": "网站性能不止一个分数。LifeSeos 页面速度分析器展示多项 Lighthouse 指标，帮助你了解页面开始渲染的速度、布局的稳定性，以及浏览器任务是否延迟了交互。",
+      "info1Title": "性能得分",
+      "info1Body": "综合的 Lighthouse 性能得分，汇总了多项加载与渲染测量结果。",
+      "info2Title": "首次内容绘制",
+      "info2Body": "衡量浏览器首次显示可见页面内容（如文字、图片或图形）的时间。",
+      "info3Title": "最大内容绘制",
+      "info3Body": "衡量视口内最大的可见内容元素完成渲染所需的时间。",
+      "info4Title": "累计布局偏移",
+      "info4Body": "通过追踪页面元素在加载期间的意外移动，衡量视觉稳定性。",
+      "info5Title": "总阻塞时间",
+      "info5Body": "衡量主线程长任务可能延迟浏览器快速响应的时间。",
+      "info6Title": "速度指数",
+      "info6Body": "估算页面可见部分在加载过程中的显示速度。",
+      "howEyebrow": "工作原理",
+      "howTitle": "如何使用页面速度分析器",
+      "howBody": "测试任何可公开访问的页面，并根据结果找出可能需要性能优化的部分。",
+      "how1Title": "输入页面 URL",
+      "how1Body": "粘贴要测试的完整公开 URL，包括 https://。",
+      "how2Title": "运行性能测试",
+      "how2Body": "LifeSeos 将页面发送至性能分析服务，并获取 Lighthouse 指标。",
+      "how3Title": "查看各项指标",
+      "how3Body": "查看整体性能得分以及 FCP、LCP、CLS、TBT 和速度指数。",
+      "how4Title": "排查缓慢环节",
+      "how4Body": "将表现较弱的指标作为线索，进一步排查图片、脚本、渲染和页面结构。",
+      "whyEyebrow": "性能至关重要",
+      "whyTitle": "为什么网站速度很重要",
+      "whyP1": "缓慢的页面会造成糟糕的浏览体验，尤其是在移动设备或较慢的网络环境中。体积过大的图片、庞大的脚本和低效的渲染都会延长加载时间。",
+      "whyP2": "性能测试能帮助你找出值得重点关注的页面，并提供可在优化后对比的可测量数值。",
+      "benefit1Title": "更快的加载",
+      "benefit1Body": "找出显示有效内容耗时更长的页面。",
+      "benefit2Title": "更好的稳定性",
+      "benefit2Body": "发现会让页面难以使用或令人烦躁的布局位移。",
+      "benefit3Title": "移动端性能",
+      "benefit3Body": "使用该工具采用的移动端测试策略查看页面性能。",
+      "benefit4Title": "跟踪改进效果",
+      "benefit4Body": "优化后再次测试，并对比得到的性能指标。"
+    },
+    "robotsTxt": {
+      "meta": {
+        "title": "Robots.txt 生成器 — 免费爬虫规则构建工具",
+        "description": "用 LifeSeos 免费 robots.txt 生成器，为你的网站生成对爬虫友好的 robots.txt 文件。"
+      },
+      "badge": "LifeSeos Robots.txt 生成器",
+      "titleLine1": "免费 Robots.txt 生成器",
+      "titleAccent": "掌控搜索引擎抓取",
+      "subtitle": "为网站创建免费的 robots.txt 文件，设置爬虫访问规则，添加 XML 网站地图，并生成可直接使用的 robots.txt 文件。",
+      "rulesEyebrow": "爬虫规则",
+      "rulesTitle": "配置你的 robots.txt",
+      "userAgentLabel": "User-agent",
+      "userAgentPlaceholder": "*",
+      "userAgentHint": "使用 * 可将该组规则应用于所有兼容的爬虫。",
+      "allowLabel": "允许路径",
+      "allowPlaceholder": "/",
+      "allowHint": "示例：/ 表示允许从根目录开始抓取，除非有更具体的规则限制某个路径。",
+      "disallowLabel": "禁止路径",
+      "disallowPlaceholder": "/admin/\n/private/\n/search/",
+      "disallowHint": "每行填写一个路径。",
+      "sitemapLabel": "网站地图 URL",
+      "sitemapPlaceholder": "https://example.com/sitemap.xml",
+      "sitemapHint": "请使用 XML 网站地图的完整绝对 URL。",
+      "outputEyebrow": "生成结果",
+      "outputTitle": "生成的 robots.txt",
+      "noteTitle": "重要提示",
+      "noteBody": "robots.txt 控制的是爬虫访问权限，不应被用来保护机密或敏感信息。",
+      "introEyebrow": "爬虫管理",
+      "introTitle": "Robots.txt 生成器会生成什么",
+      "introP1": "robots.txt 文件会告知支持的网页爬虫，网站的哪些区域可以抓取、哪些不可以。它通常放在网站根目录，让爬虫在请求其他 URL 之前先了解这些规则。",
+      "dirUserAgentTitle": "指定爬虫",
+      "dirUserAgentBody": "定义后续规则适用于哪一个爬虫或哪一组爬虫。",
+      "dirAllowTitle": "允许访问路径",
+      "dirAllowBody": "当规则适用于所选爬虫时，允许抓取指定路径。",
+      "dirDisallowTitle": "阻止抓取",
+      "dirDisallowBody": "请求兼容的爬虫不要抓取指定路径或目录。",
+      "dirSitemapTitle": "引用你的网站地图",
+      "dirSitemapBody": "向爬虫提供 XML 网站地图的绝对 URL。",
+      "howEyebrow": "使用方法",
+      "howTitle": "如何使用 Robots.txt 生成器",
+      "howBody": "配置爬虫规则，检查生成的文本，再把最终文件放到网站根目录。",
+      "how1Title": "选择 user-agent",
+      "how1Body": "使用 * 表示通用规则组，或填写你想专门针对的爬虫标识。",
+      "how2Title": "设置允许和禁止的路径",
+      "how2Body": "添加允许爬虫抓取的路径，或要求爬虫不要抓取的路径。",
+      "how3Title": "添加网站地图",
+      "how3Body": "可选择填入 XML 网站地图的完整 URL。",
+      "how4Title": "发布 robots.txt",
+      "how4Body": "复制生成的内容，并以 robots.txt 为文件名保存到网站根目录。",
+      "distEyebrow": "重要的 SEO 区分",
+      "distTitle": "阻止抓取并不等于阻止收录",
+      "distBody": "robots.txt 规则主要控制抓取，不能视为让 URL 不出现在搜索结果中的可靠方法。如果需要控制收录，请检查相应的收录指令，并确保搜索引擎在需要读取这些指令时能够访问该页面。",
+      "tipsEyebrow": "配置建议",
+      "tipsTitle": "Robots.txt 最佳实践",
+      "tipsP1": "robots.txt 的小失误就可能限制爬虫访问你原本希望被抓取的页面或资源。发布文件前请逐条检查规则。",
+      "tipsP2": "修改后请检查线上 robots.txt 文件，确认重要的公开页面和资源仍可被你希望支持的爬虫访问。",
+      "tip1Title": "使用精确路径",
+      "tip1Body": "除非确定整个路径都不应被抓取，否则避免使用大范围禁止规则。",
+      "tip2Title": "检查语法",
+      "tip2Body": "上传文件前，检查 user-agent 分组和路径规则。",
+      "tip3Title": "包含网站地图",
+      "tip3Body": "在合适的情况下加入 XML 网站地图 URL，方便爬虫发现。",
+      "tip4Title": "改动后测试",
+      "tip4Body": "更新 robots.txt 后，确认重要的公开页面仍然可以被抓取。",
+      "mistakesEyebrow": "避免常见错误",
+      "mistakesTitle": "Robots.txt 常见问题",
+      "mistake1Title": "屏蔽整个网站",
+      "mistake1Body": "范围过大的禁止规则可能让爬虫无法访问远超预期的页面。",
+      "mistake2Title": "屏蔽重要资源",
+      "mistake2Body": "限制 CSS、JavaScript 等资源会让爬虫更难正确渲染页面。",
+      "mistake3Title": "用 robots.txt 做安全防护",
+      "mistake3Body": "只要有人知道 URL，被禁止的路径依然可以公开访问，敏感数据需要真正的访问控制。",
+      "nextEyebrow": "继续你的技术 SEO 流程",
+      "nextTitle": "掌控抓取、提升发现效率并审查网站",
+      "nextBody": "把这些工具配合使用：管理爬虫访问权限，提供结构化的重要 URL 列表，然后开展更全面的 SEO 审查。",
+      "wfStep1": "第 1 步 · 当前",
+      "wfStep2": "第 2 步",
+      "wfStep3": "第 3 步",
+      "wf1Body": "在结构正确的 robots.txt 文件中设置爬虫访问规则并引用网站地图。",
+      "wf1Cta": "配置抓取",
+      "wf2Body": "创建 XML 网站地图，列出重要 URL，帮助搜索引擎发现网站结构。",
+      "wf2Cta": "生成网站地图",
+      "wf3Body": "配置好抓取和发现后，开展更全面的 SEO 审查，检查技术与内容信号。",
+      "wf3Cta": "运行 SEO 审查",
+      "shareBody": "使用这款免费的 LifeSeos 工具，生成整洁的 robots.txt 文件并管理爬虫访问。"
+    },
+    "xmlSitemap": {
+      "meta": {
+        "title": "XML 网站地图生成器 — 免费生成工具",
+        "description": "用 LifeSeos 免费网站地图生成器，创建 XML 网站地图结构，帮助搜索引擎发现并收录你的页面。"
+      },
+      "badge": "LifeSeos XML 网站地图生成器",
+      "titleLine1": "免费 XML 网站地图生成器",
+      "titleAccent": "生成你的 sitemap.xml",
+      "subtitle": "根据网站 URL 列表生成有效的 XML 网站地图，然后复制或下载生成的 sitemap.xml 文件。",
+      "urlsEyebrow": "网站地图 URL",
+      "urlsTitle": "添加你的网站页面",
+      "urlsCountLabel": "URL",
+      "urlsLabel": "网站 URL",
+      "urlsPlaceholder": "https://example.com/\nhttps://example.com/about\nhttps://example.com/contact",
+      "urlsHint": "每行填写一个完整的绝对 URL，需包含 https://。",
+      "freqLabel": "更新频率",
+      "freqAlways": "始终",
+      "freqHourly": "每小时",
+      "freqDaily": "每天",
+      "freqWeekly": "每周",
+      "freqMonthly": "每月",
+      "freqYearly": "每年",
+      "freqNever": "从不",
+      "priorityLabel": "优先级",
+      "priorityNote": "更新频率和优先级是网站地图协议中的可选字段。Google 目前会忽略这两个值，请仅将其视为供兼容方使用的可选元数据。",
+      "outputEyebrow": "生成结果",
+      "outputTitle": "生成的网站地图",
+      "download": "下载",
+      "outputNoteStart": "准备就绪后，将文件以",
+      "outputNoteEnd": "为名上传到网站，并通过搜索引擎的站长工具提交其 URL。",
+      "introEyebrow": "URL 发现",
+      "introTitle": "帮助搜索引擎发现你的页面",
+      "introP1": "XML 网站地图是一个文件，包含你认为网站上重要 URL 的相关信息。搜索引擎可以把网站地图作为发现和抓取这些 URL 的补充来源。",
+      "elUrlsetTitle": "网站地图容器",
+      "elUrlsetBody": "标准 XML 网站地图中承载所有 URL 条目的主要 XML 元素。",
+      "elUrlTitle": "URL 条目",
+      "elUrlBody": "在网站地图中归组某个网页的相关信息。",
+      "elLocTitle": "页面位置",
+      "elLocBody": "包含网站地图中所含页面的完整绝对 URL。",
+      "elOptionalTitle": "附加字段",
+      "elOptionalBody": "可以包含 changefreq 和 priority 等协议字段，不过不同搜索引擎可能会忽略它们。",
+      "howEyebrow": "使用方法",
+      "howTitle": "如何使用 XML 网站地图生成器",
+      "howBody": "用网站中的重要 URL 构建网站地图，并让搜索引擎能够访问它。",
+      "how1Title": "添加 URL",
+      "how1Body": "每行填写一个完整的网站 URL，包含协议和域名。",
+      "how2Title": "选择可选设置",
+      "how2Body": "如需在 XML 输出中包含更新频率和优先级，请在此选择对应数值。",
+      "how3Title": "下载 sitemap.xml",
+      "how3Body": "检查生成的 XML，然后复制内容或下载 sitemap.xml 文件。",
+      "how4Title": "发布并提交",
+      "how4Body": "将网站地图放到网站上，并通过相应的站长工具提交其 URL。",
+      "distEyebrow": "重要的 SEO 区分",
+      "distTitle": "网站地图有助发现，但不保证收录",
+      "distBody": "提交网站地图可以帮助搜索引擎发现你希望它了解的 URL。但被列入网站地图并不保证每个 URL 都会被抓取、收录或获得排名。每个页面仍需可访问并适合被收录。",
+      "tipsEyebrow": "网站地图质量",
+      "tipsTitle": "XML 网站地图最佳实践",
+      "tipsP1": "网站地图应只包含你确实希望搜索引擎发现、并可能展示在搜索结果中的 URL。",
+      "tipsP2": "使用完整的规范 URL，尽量避免失效或重定向的页面，并在网站变化时及时更新网站地图。",
+      "tip1Title": "使用绝对 URL",
+      "tip1Body": "填写完整 URL，例如 https://example.com/page，而不是相对路径。",
+      "tip2Title": "使用规范 URL",
+      "tip2Body": "优先使用你希望搜索引擎视为页面主要版本的 URL 形式。",
+      "tip3Title": "包含重要页面",
+      "tip3Body": "让网站地图聚焦于你确实希望搜索引擎发现的公开页面。",
+      "tip4Title": "保持更新",
+      "tip4Body": "当重要页面新增、删除或发生较大变化时，请更新网站地图。",
+      "problemsEyebrow": "避免常见错误",
+      "problemsTitle": "网站地图常见问题",
+      "problem1Title": "相对 URL",
+      "problem1Body": "网站地图条目应使用完整的绝对 URL，而不是 /about 之类的路径。",
+      "problem2Title": "失效 URL",
+      "problem2Body": "包含错误页面或无效 URL 会降低网站地图的实用性和整洁度。",
+      "problem3Title": "非规范 URL",
+      "problem3Body": "列出重复或替代版本的 URL 会传递不一致的信号，让人难以判断你偏好哪个版本。",
+      "nextEyebrow": "继续你的技术 SEO 流程",
+      "nextTitle": "掌控抓取、提升发现效率并审查网站",
+      "nextBody": "把这些工具配合使用：管理爬虫访问权限，发布整洁的网站地图，然后开展更全面的 SEO 审查。",
+      "wfStep1": "第 1 步",
+      "wfStep2": "第 2 步 · 当前",
+      "wfStep3": "第 3 步",
+      "wf1Body": "配置爬虫访问规则，并在 robots.txt 文件中引用网站地图。",
+      "wf1Cta": "配置抓取",
+      "wf2Body": "创建 XML 网站地图，列出重要的规范 URL，帮助搜索引擎发现网站结构。",
+      "wf2Cta": "生成网站地图",
+      "wf3Body": "配置好抓取和 URL 发现后，开展更全面的 SEO 审查，检查更多技术与内容信号。",
+      "wf3Cta": "运行 SEO 审查",
+      "shareBody": "使用这款免费的 LifeSeos 工具，为网站生成并下载 XML 网站地图。"
+    },
+    "metaTag": {
+      "meta": {
+        "title": "元标签生成器 — 免费标题与描述构建工具",
+        "description": "用 LifeSeos 免费元标签生成器，创建优化的页面标题与元描述，提升搜索可见性。"
+      },
+      "badge": "LifeSeos 元标签生成器",
+      "titleLine1": "免费 SEO 元标签生成器",
+      "titleAccent": "生成 SEO 标题与元描述",
+      "subtitle": "生成适合搜索展示的标题标签和元描述，检查字数长度，并即时预览生成的 HTML 代码。",
+      "formEyebrow": "创建元数据",
+      "formTitle": "页面信息",
+      "titleLabel": "标题标签",
+      "titlePlaceholder": "示例：提升排名的免费 SEO 工具",
+      "titleHint": "建议：约 50–60 个字符",
+      "charsCount": "{count} 个字符",
+      "descriptionLabel": "元描述",
+      "descriptionPlaceholder": "清楚描述页面内容，吸引搜索用户点击。",
+      "descriptionHint": "建议：约 140–160 个字符",
+      "statusStart": "开始输入",
+      "statusGood": "长度合适",
+      "statusShort": "可能偏短",
+      "statusLong": "可能偏长",
+      "outputEyebrow": "生成结果",
+      "outputTitle": "生成的元标签",
+      "previewTitle": "搜索预览",
+      "titleFallback": "你的页面标题",
+      "descriptionFallback": "你的元描述",
+      "previewNote": "此为简化预览。搜索引擎可能以不同方式展示标题和摘要。",
+      "infoEyebrow": "SEO 元数据",
+      "infoTitle": "写出清晰的标题与元描述",
+      "infoP1": "标题标签和元描述提供了网页的重要信息。清晰的写法能让用户和搜索引擎更容易理解页面的主题。",
+      "titleCardTitle": "标题标签",
+      "titleCardBody": "标题标签描述页面的主题，常作为搜索结果和浏览器标签页中醒目的标题显示。",
+      "titlePoint1": "清楚描述页面",
+      "titlePoint2": "用词具体明确",
+      "titlePoint3": "自然融入主题",
+      "titlePoint4": "避免重复堆砌关键词",
+      "descCardTitle": "元描述",
+      "descCardBody": "元描述概括页面内容，可能作为搜索结果中的说明文字展示。",
+      "descPoint1": "准确概括页面",
+      "descPoint2": "为真实用户而写",
+      "descPoint3": "用自然、有用的措辞",
+      "descPoint4": "给用户一个访问理由",
+      "howEyebrow": "使用方法",
+      "howTitle": "如何使用元标签生成器",
+      "howBody": "在发布新页面之前，或在优化现有页面时，先创建好元数据。",
+      "how1Title": "编写页面标题",
+      "how1Body": "输入简洁的标题，准确描述页面的主要主题。",
+      "how2Title": "添加元描述",
+      "how2Body": "写一段简短摘要，说明访客能从页面获得什么。",
+      "how3Title": "检查字符长度",
+      "how3Body": "把字数统计作为参考，同时保持措辞自然。",
+      "how4Title": "复制生成的 HTML",
+      "how4Body": "将生成的标题和描述标签加入网页的 head 部分。",
+      "tipsEyebrow": "写作建议",
+      "tipsTitle": "元标签最佳实践",
+      "tipsP1": "字符数是实用参考，但好的元数据首先要准确描述页面，并帮助用户判断结果是否与自己的搜索相关。",
+      "tipsP2": "不要为了凑够某个字符数而写标题或描述。表达清晰、具体、有用，比填满每一个字符更重要。",
+      "tip1Title": "保持具体",
+      "tip1Body": "让每个标题和描述都贴合对应页面，而不是套用通用元数据。",
+      "tip2Title": "与页面内容一致",
+      "tip2Body": "元数据应准确反映用户打开页面后实际看到的内容。",
+      "tip3Title": "避免重复",
+      "tip3Body": "不要不自然地重复关键词，也不要用无意义的变体填满元数据。",
+      "tip4Title": "为点击而写",
+      "tip4Body": "用易读的措辞，帮助用户判断你的页面是否解答了他们的疑问。",
+      "noteTitle": "搜索结果摘要可能变化",
+      "noteBody": "本工具生成的预览仅为近似效果。搜索引擎可能根据搜索词、页面内容和其他因素重写或展示不同的标题与描述。",
+      "nextEyebrow": "继续你的 SEO 流程",
+      "nextTitle": "创建、预览并分析你的元数据",
+      "nextBody": "把这些工具配合使用：先创建元数据，再预览它在搜索结果中的效果，最后分析发布后的页面。",
+      "wfStep1": "第 1 步 · 当前",
+      "wfStep2": "第 2 步",
+      "wfStep3": "第 3 步",
+      "wf1Body": "为要优化的页面撰写清晰的标题标签和元描述。",
+      "wf1Cta": "创建元数据",
+      "wf2Body": "预览标题、URL 和元描述在桌面端与移动端搜索结果中的展现效果。",
+      "wf2Cta": "预览元数据",
+      "wf3Body": "分析已发布的页面，检查元数据、标题、链接及其他重要的页面 SEO 要素。",
+      "wf3Cta": "分析页面",
+      "shareBody": "使用这款免费的 LifeSeos 工具，生成利于 SEO 的标题标签和元描述。"
+    },
+    "serpPreview": {
+      "meta": {
+        "title": "搜索结果摘要预览 — 免费 Google 预览工具",
+        "description": "用 LifeSeos 免费搜索结果摘要预览，查看页面标题、URL 与元描述在 Google 搜索结果中的展示效果。"
+      },
+      "badge": "页面 SEO 工具",
+      "titleLine1": "免费 SERP 预览工具",
+      "titleAccent": "实时摘要预览",
+      "subtitle": "通过实时 SERP 摘要预览查看页面标题标签、URL 和元描述，并在发布前检查它们的长度。",
+      "heroCheckDesktop": "桌面端预览",
+      "heroCheckMobile": "移动端预览",
+      "heroCheckLength": "长度提示",
+      "formTitle": "构建你的 SERP 摘要",
+      "formSubtitle": "在下方填写主要的搜索摘要字段。",
+      "titleLabel": "标题标签",
+      "titlePlaceholder": "输入页面标题",
+      "titleHint": "字符数仅供参考。搜索引擎可能会根据查询词和设备截断或改写标题。",
+      "copyTitleAria": "复制标题标签",
+      "descriptionLabel": "元描述",
+      "descriptionPlaceholder": "为页面撰写简洁的描述",
+      "descriptionHint": "当页面其他部分更贴合查询时，搜索引擎可能会采用不同的段落。",
+      "copyDescriptionAria": "复制元描述",
+      "pageUrlLabel": "页面 URL",
+      "urlPlaceholder": "https://example.com/page",
+      "charactersCount": "{count} 个字符",
+      "modeDesktop": "桌面端",
+      "modeMobile": "移动端",
+      "reset": "重置预览",
+      "liveEyebrow": "实时预览",
+      "desktopResult": "桌面端搜索结果",
+      "mobileResult": "移动端搜索结果",
+      "liveNote": "这是近似的视觉预览，并非 Google 的精确呈现。",
+      "previewTitleEmpty": "页面标题将显示在这里",
+      "previewDescriptionEmpty": "输入时，元描述预览将显示在这里。",
+      "statusEmpty": "空",
+      "statusTooShort": "过短",
+      "statusGood": "良好",
+      "statusTooLong": "过长",
+      "titleLengthLabel": "标题长度",
+      "descriptionLengthLabel": "描述长度",
+      "charsUnit": "{count} 字符",
+      "notesTitle": "预览说明",
+      "note1": "结果的实际可见宽度取决于字符宽度、设备和搜索环境，而不仅仅是字符数。",
+      "note2": "当其他版本更贴合查询时，搜索引擎可能会改写标题和描述。",
+      "shareHeading": "分享此工具",
+      "shareBody": "把 SERP 摘要预览分享给营销人员、作者和网站所有者。",
+      "shareTool": "分享工具",
+      "linkCopied": "链接已复制",
+      "shareMessageTitle": "免费 SERP 预览工具 — 实时摘要预览 | LifeSeos",
+      "shareMessageText": "发布前预览页面标题标签和元描述。",
+      "appearanceEyebrow": "搜索结果展现",
+      "appearanceTitle": "发布前检查你的摘要",
+      "appearanceBody": "SERP 预览能帮助你发现过长的标题、过短的描述，以及在搜索结果中可能显得不清晰的 URL。",
+      "feat1Title": "标题检查",
+      "feat1Body": "检查标题是否足够简洁，适合出现在搜索结果摘要中。",
+      "feat2Title": "描述长度",
+      "feat2Body": "在向页面添加元数据之前检查描述长度。",
+      "feat3Title": "URL 预览",
+      "feat3Body": "查看域名和页面路径在搜索结果中可能的呈现方式。",
+      "feat4Title": "桌面端预览",
+      "feat4Body": "在更宽的桌面端搜索结果布局中查看摘要。",
+      "feat5Title": "移动端预览",
+      "feat5Body": "切换到更窄的布局，查看移动端展现效果。",
+      "feat6Title": "便捷复制",
+      "feat6Body": "准备好发布时，复制完成的标题或描述。",
+      "howEyebrow": "工作原理",
+      "howTitle": "如何使用 SERP 摘要预览",
+      "howBody": "在撰写元数据时使用预览，最后再根据相关性和清晰度做决定，而不要只看字符数。",
+      "how1Title": "输入页面标题",
+      "how1Body": "添加你计划用于页面元数据的标题。",
+      "how2Title": "撰写元描述",
+      "how2Body": "清晰概括页面内容，并说明该结果为何相关。",
+      "how3Title": "添加页面 URL",
+      "how3Body": "查看域名和页面路径在结果中可能的呈现方式。",
+      "how4Title": "检查桌面端与移动端",
+      "how4Body": "查看两种布局，准备好后复制最终的元数据。",
+      "flowEyebrow": "继续你的 SEO 流程",
+      "flowTitle": "从创建元数据走向页面优化",
+      "flowBody": "配合使用这些工具，创建元数据、预览其在搜索中的呈现效果，然后检查完成后的页面。",
+      "stepCurrent": "当前",
+      "flow1Body": "在检查摘要在搜索中的呈现效果之前，先创建有力的页面标题和元描述。",
+      "flow1Cta": "创建元数据",
+      "flow2Body": "在发布前于桌面端和移动端预览页面标题、URL 和元描述。",
+      "flow2Cta": "预览元数据",
+      "flow3Body": "分析完成后的页面，检查元数据、标题、链接以及其他重要的页面 SEO 元素。",
+      "flow3Cta": "分析页面",
+      "alsoAnalyze": "还可以用内容分析器检查页面内容",
+      "sampleTitle": "免费的网站分析 SEO 工具 | LifeSeos",
+      "sampleDescription": "使用 LifeSeos 的实用免费 SEO 工具分析网站、发现技术 SEO 问题并提升搜索可见度。"
+    },
+    "keywordDensity": {
+      "meta": {
+        "title": "关键词密度检测 — 免费内容分析",
+        "description": "用 LifeSeos 免费关键词密度检测工具，分析内容中关键词的频次与密度。"
+      },
+      "badge": "LifeSeos 关键词密度检测",
+      "titleLine1": "免费关键词密度检测工具",
+      "titleAccent": "检查关键词频次与密度",
+      "subtitle": "检查内容中的关键词密度和出现频次，查看每个词出现的次数，并即时查看关键词密度百分比。",
+      "inputEyebrow": "内容输入",
+      "inputTitle": "粘贴你的内容",
+      "inputPlaceholder": "在此粘贴文章、落地页文案或 SEO 内容……",
+      "totalWords": "总词数",
+      "uniqueWords": "独立词数",
+      "inputNote": "输入或粘贴内容时，文本会直接在浏览器中完成分析。",
+      "resultsEyebrow": "关键词分析",
+      "resultsTitle": "高频关键词",
+      "shown": "已显示",
+      "empty": "粘贴一些文本即可查看关键词频次和密度。",
+      "colKeyword": "关键词",
+      "colCount": "出现次数",
+      "colDensity": "密度",
+      "introEyebrow": "关键词分析",
+      "introTitle": "了解关键词在内容中的使用情况",
+      "introP1": "关键词密度衡量某个词的出现次数在内容总词数中所占的比例。它有助于发现重复问题，但应作为诊断指标，而不是需要达成的目标分数。",
+      "freqTitle": "关键词频次",
+      "freqBody": "显示某个词在分析内容中出现的次数。",
+      "densityTitle": "关键词密度",
+      "densityBody": "显示某个关键词在全部词数中所占的百分比。",
+      "uniqueTitle": "独立词数",
+      "uniqueBody": "显示文本中出现了多少个不同的词，反映词汇的丰富程度。",
+      "formulaEyebrow": "理解指标",
+      "formulaTitle": "关键词密度如何计算",
+      "formulaBody": "工具用关键词出现次数除以总词数，再将结果换算为百分比。",
+      "formulaLabel": "关键词密度 =",
+      "formulaExpr": "关键词出现次数 ÷ 总词数 × 100",
+      "formulaExample": "示例：某个词在 200 个词中出现 5 次，密度为 2.5%。",
+      "howEyebrow": "使用方法",
+      "howTitle": "如何使用关键词密度检测工具",
+      "howBody": "借助报告了解哪些词在内容中占比最高，以及重复是否自然。",
+      "how1Title": "粘贴内容",
+      "how1Body": "加入文章、落地页、产品描述或任何想检查的文本。",
+      "how2Title": "查看总词数与独立词数",
+      "how2Body": "通过词数了解内容的整体篇幅和词汇丰富度。",
+      "how3Title": "检查关键词频次",
+      "how3Body": "查看出现最频繁的词，以及每个词被使用的次数。",
+      "how4Title": "结合实际判断密度",
+      "how4Body": "关注不自然的重复，而不是追求某个固定百分比。",
+      "noteEyebrow": "重要的 SEO 提示",
+      "noteTitle": "不存在通用的“完美”关键词密度",
+      "noteBody": "关键词密度不应被视为排名公式。有用的页面应当自然、清楚地讲清主题。仅仅为了提高百分比而重复同一句话，会让内容更难读、也更没用。",
+      "avoidEyebrow": "避免过度优化",
+      "avoidTitle": "避免不自然的关键词堆砌",
+      "avoidP1": "某个词或短语出现的次数超过实际需要，会让文字显得不自然。密度数据的最大价值，是帮你发现这类重复。",
+      "avoidP2": "与其在每一段里硬塞完全匹配的关键词，不如把主题讲清楚，并在合适的地方使用相关词汇。",
+      "practice1Title": "自然写作",
+      "practice1Body": "在确实有助于解释主题的地方使用关键词。",
+      "practice2Title": "检查重复",
+      "practice2Body": "查看出现异常频繁的词，判断重复使用是否必要。",
+      "practice3Title": "使用相关表达",
+      "practice3Body": "完整覆盖主题，而不是反复只用一个固定短语。",
+      "practice4Title": "以读者为先",
+      "practice4Body": "让清晰度、实用性和搜索意图比密度百分比更重要。",
+      "nextEyebrow": "继续你的内容 SEO 流程",
+      "nextTitle": "改写、分析并打磨你的内容",
+      "nextBody": "把这些工具配合使用：先改进草稿，再检查内容质量，最后确认关键词频次与密度。",
+      "wfStep1": "第 1 步",
+      "wfStep2": "第 2 步",
+      "wfStep3": "第 3 步 · 当前",
+      "wf1Body": "在深入评估内容之前，先改善表达的清晰度、语气和结构。",
+      "wf1Cta": "改写内容",
+      "wf2Body": "在检查关键词重复之前，先评估可读性、结构、词汇和整体内容质量。",
+      "wf2Cta": "分析内容",
+      "wf3Body": "最后检查关键词频次、密度以及可能不自然的重复。",
+      "wf3Cta": "检查关键词使用",
+      "shareBody": "使用这款免费的 LifeSeos 工具，分析内容中的关键词频次和密度。"
+    },
+    "contentAnalyzer": {
+      "meta": {
+        "title": "内容分析器 — 免费 SEO 内容评审",
+        "description": "用 LifeSeos 免费内容分析器，分析内容长度、可读性、关键词使用与 SEO 信号。"
+      },
+      "badge": "LifeSeos 内容分析器",
+      "titleLine1": "免费 SEO 内容分析工具",
+      "titleAccent": "分析关键词、可读性与 SEO",
+      "subtitle": "在浏览器中直接进行免费的 SEO 内容分析，查看内容长度、可读性、关键词使用情况、关键词密度以及基本的页面 SEO 质量信号。",
+      "inputLabel": "粘贴你的内容",
+      "inputPlaceholder": "在此粘贴你的文章、落地页文案、博客文章或其他 SEO 内容…",
+      "privacyNote": "你的文本会直接在浏览器中完成分析。",
+      "scoreLabel": "内容得分",
+      "scoreEmpty": "添加内容后开始",
+      "scoreExcellent": "优秀",
+      "scoreGood": "良好",
+      "scoreNeedsImprovement": "有待改进",
+      "scorePoor": "较差",
+      "readingTimeLabel": "阅读时间",
+      "minUnit": "分钟",
+      "wordsLabel": "词数",
+      "uniqueWordsLabel": "独立词数",
+      "sentencesLabel": "句子数",
+      "paragraphsLabel": "段落数",
+      "charactersLabel": "字符数",
+      "avgSentenceLabel": "平均句长",
+      "wordsUnit": "词",
+      "keywordsEyebrow": "关键词分析",
+      "keywordsTitle": "高频关键词",
+      "keywordsEmpty": "粘贴一些内容，即可查看使用频率最高的词及其关键词密度。",
+      "colKeyword": "关键词",
+      "colCount": "出现次数",
+      "colDensity": "密度",
+      "guidanceEyebrow": "内容建议",
+      "guidanceTitle": "SEO 建议",
+      "guidanceEmpty": "粘贴一些内容，即可获取 SEO 与可读性建议。",
+      "recThin": "建议补充更有用的内容。文字过少的页面可能无法充分满足搜索意图。",
+      "recLongSentences": "部分句子可能过长。更短的句子有助于提升可读性。",
+      "recParagraphs": "将过长的文本块拆分为多个段落，以提升可读性。",
+      "recRepetition": "内容中重复使用的词汇较多。建议使用更自然的表达变化。",
+      "recHighDensity": "关键词“{keyword}”出现过于频繁。请检查内容，避免不自然的重复。",
+      "recGood": "内容具备扎实的基础结构，长度和可读性都较为合理。",
+      "recBalanced": "内容结构看起来较为均衡。请再人工检查搜索意图、准确性和实用性。",
+      "detailsEyebrow": "内容指标",
+      "detailsTitle": "详细内容统计",
+      "detailCharsWithSpaces": "含空格字符数",
+      "detailCharsNoSpaces": "不含空格字符数",
+      "detailVocabularyRatio": "词汇丰富度",
+      "shareDescription": "使用这款免费的 LifeSeos 工具分析内容长度、可读性、关键词使用情况和 SEO 质量信号。",
+      "infoEyebrow": "内容 SEO 分析",
+      "infoTitle": "理解你的内容结构",
+      "infoBody": "优质的 SEO 内容应既有用又自然，同时易于阅读、结构清晰。LifeSeos 内容分析器帮助你在发布或更新页面之前检查可测量的内容信号。",
+      "info1Title": "内容长度",
+      "info1Body": "查看词数、字符数、句子数以及段落结构。",
+      "info2Title": "关键词使用",
+      "info2Body": "查看使用频率最高的词以及它们出现的次数。",
+      "info3Title": "关键词密度",
+      "info3Body": "测量高频重复词在内容中所占的百分比。",
+      "info4Title": "词汇多样性",
+      "info4Body": "将独立词数与总词数对比，找出过度重复的情况。",
+      "info5Title": "句子结构",
+      "info5Body": "以平均句长作为基础的可读性参考。",
+      "info6Title": "阅读时间",
+      "info6Body": "估算读者阅读该内容大致需要的时间。",
+      "howEyebrow": "工作原理",
+      "howTitle": "如何使用内容分析器",
+      "howBody": "在撰写、编辑或发布前审核内容时使用该分析器。",
+      "how1Title": "粘贴你的内容",
+      "how1Body": "添加你的文章、落地页文案、产品描述或其他书面内容。",
+      "how2Title": "查看内容得分",
+      "how2Body": "将该得分作为工具检查的基础内容信号的快速概览。",
+      "how3Title": "检查关键词与结构",
+      "how3Body": "查看高频词、密度、句长和段落结构。",
+      "how4Title": "自然地改进写作",
+      "how4Body": "将建议作为参考，同时保持内容有用、准确并对读者有价值。",
+      "whyEyebrow": "做出更好的内容决策",
+      "whyTitle": "为什么内容分析对 SEO 很重要",
+      "whyP1": "面向搜索的内容应清晰回应读者需求，而不依赖重复关键词或过度复杂的表达。",
+      "whyP2": "内容分析提供可测量的信号，帮助你在发布前发现内容单薄、词汇重复、句子过长和段落结构薄弱等问题。",
+      "benefit1Title": "识别单薄内容",
+      "benefit1Body": "找出文字有限、可能需要补充更多有用信息的页面。",
+      "benefit2Title": "避免关键词堆砌",
+      "benefit2Body": "查看高频重复的词以及异常偏高的关键词密度。",
+      "benefit3Title": "提升可读性",
+      "benefit3Body": "借助句子和段落指标，找出可能难以快速浏览的内容。",
+      "benefit4Title": "发布前先审核",
+      "benefit4Body": "在草稿上线前完成分析，尽早做出改进。",
+      "workflowEyebrow": "继续你的内容 SEO 流程",
+      "workflowTitle": "改写、分析并打磨你的内容",
+      "workflowBody": "配合使用这些工具，改进草稿、评估内容质量，然后更细致地检查关键词频率。",
+      "stepCurrent": "当前",
+      "card1Body": "在深入进行内容分析之前，先改善清晰度、语气和结构。",
+      "card1Cta": "改写内容",
+      "card2Body": "查看可读性、结构、词汇、关键词使用情况以及其他可测量的内容质量信号。",
+      "card2Cta": "分析内容",
+      "card3Body": "在查看整体内容结构之后，更细致地检查关键词频率与密度。",
+      "card3Cta": "检查关键词使用"
+    },
+    "articleRewriter": {
+      "meta": {
+        "title": "SEO 文章改写 — 免费内容重写工具",
+        "description": "用 LifeSeos 免费文章改写工具，重写网站内容，让表达更清晰、更易读、SEO 更一致。"
+      },
+      "badge": "内容 SEO 工具",
+      "titleLine1": "改写网站内容",
+      "titleAccent": "让表达更清晰、结构更完整。",
+      "subtitle": "提升文章的可读性、语气和结构，同时保留原有主题和核心含义。",
+      "heroCheckFree": "免费使用",
+      "heroCheckStyles": "多种改写风格",
+      "heroCheckSeo": "兼顾 SEO 的选项",
+      "panelSubtitle": "粘贴你的文章，选择偏好设置，然后开始改写。",
+      "originalCount": "原文：{count} 词",
+      "rewrittenCount": "改写后：{count} 词",
+      "originalLabel": "原始文章",
+      "rewrittenLabel": "改写后的文章",
+      "charactersCount": "{count} 个字符",
+      "originalPlaceholder": "在此粘贴你的文章、博客文章或网站内容…",
+      "rewrittenPlaceholder": "改写后的文章将显示在这里…",
+      "copyAria": "复制改写后的文章",
+      "styleLabel": "改写风格",
+      "toneLabel": "语气",
+      "levelLabel": "阅读难度",
+      "strengthLabel": "改写强度",
+      "keywordLabel": "目标关键词",
+      "keywordPlaceholder": "例如：技术 SEO",
+      "keepHeadings": "保留标题",
+      "keepLinks": "保留链接",
+      "errEmpty": "请先粘贴文章或段落，再进行改写。",
+      "errTooShort": "请至少输入 10 个词，以便工具有足够的文本进行改写。",
+      "actionRewrite": "改写文章",
+      "actionAgain": "再次改写",
+      "actionCopy": "复制结果",
+      "actionCopied": "已复制",
+      "summaryEyebrow": "改写摘要",
+      "summaryTitle": "对比原始内容与改写内容",
+      "statWordCount": "词数",
+      "statReadability": "可读性",
+      "statKeyword": "关键词",
+      "statMode": "改写模式",
+      "keywordNotSet": "未设置",
+      "keywordFound": "已包含",
+      "keywordMissing": "未包含",
+      "readabilityWaiting": "等待输入",
+      "readabilityEasy": "容易",
+      "readabilityStandard": "标准",
+      "readabilityAdvanced": "进阶",
+      "shareHeading": "分享此工具",
+      "shareBody": "把 SEO 文章改写工具分享给作者、营销人员和网站所有者。",
+      "shareTool": "分享工具",
+      "linkCopied": "链接已复制",
+      "shareMessageTitle": "免费 SEO 文章改写工具 | LifeSeos",
+      "shareMessageText": "使用 LifeSeos 改写网站内容，提升清晰度、可读性和 SEO 一致性。",
+      "featuresEyebrow": "内容改进",
+      "featuresTitle": "改写文章，不丢失原有方向",
+      "featuresBody": "使用不同的改写设置提升清晰度、结构、可读性和语气，同时保持主要话题一致。",
+      "feat1Title": "改写风格",
+      "feat1Body": "选择更清晰、更自然、更简洁、更正式或更贴合 SEO 的方向。",
+      "feat2Title": "语气控制",
+      "feat2Body": "将改写内容调整为中性、友好、专业或简洁的沟通方式。",
+      "feat3Title": "阅读难度",
+      "feat3Body": "根据受众让内容更易阅读或更具深度。",
+      "feat4Title": "改写强度",
+      "feat4Body": "控制对原文措辞的改动幅度。",
+      "feat5Title": "关键词检查",
+      "feat5Body": "跟踪可选的目标关键词是否出现在改写版本中。",
+      "feat6Title": "结构保留",
+      "feat6Body": "当标题和链接对文章结构很重要时，保留它们。",
+      "howEyebrow": "工作原理",
+      "howTitle": "如何使用 SEO 文章改写工具",
+      "howBody": "从原始草稿开始，选择改写设置，并在发布到网站之前检查结果。",
+      "how1Title": "粘贴你的文章",
+      "how1Body": "添加你想要改进的文章、博客文章或网站内容。",
+      "how2Title": "选择改写设置",
+      "how2Body": "选择风格、语气、阅读难度和改写强度。",
+      "how3Title": "添加可选的目标关键词",
+      "how3Body": "当你想持续关注某个特定 SEO 短语时，可使用关键词字段。",
+      "how4Title": "发布前先审核",
+      "how4Body": "将改写版本与原文对比，完成最后的编辑调整。",
+      "whyEyebrow": "更好的网站内容",
+      "whyTitle": "为什么文章改写很有用",
+      "whyP1": "改写有助于改善表达不清的句子、减少冗余措辞，并把现有草稿调整为不同的语气或阅读难度。",
+      "whyP2": "在发布到线上网站之前，请务必检查改写结果的准确性、原创性和事实正确性。",
+      "benefit1Title": "提升清晰度",
+      "benefit1Body": "简化拗口的表达，让重点更易理解。",
+      "benefit2Title": "调整语气",
+      "benefit2Body": "在不改变主要主题的前提下，为不同受众调整内容。",
+      "benefit3Title": "减少冗余",
+      "benefit3Body": "删除填充性表达，精简显得不必要冗长的段落。",
+      "benefit4Title": "更新现有草稿",
+      "benefit4Body": "以现有文章为基础，产出更精炼的更新版本。",
+      "flowEyebrow": "继续你的内容 SEO 流程",
+      "flowTitle": "改写、分析并打磨你的内容",
+      "flowBody": "配合使用这些工具，改进草稿、评估内容质量，然后检查目标词的出现频率。",
+      "stepCurrent": "当前",
+      "flow1Body": "改写文章，让结构、语气、可读性和 SEO 一致性更清晰。",
+      "flow1Cta": "改写内容",
+      "flow2Body": "查看改写版本的可读性、内容结构、关键词使用情况和基础质量信号。",
+      "flow2Cta": "分析内容",
+      "flow3Body": "在内容完成改写和审核后，检查关键词频率与密度。",
+      "flow3Cta": "检查关键词使用",
+      "styleClear": "清晰",
+      "styleProfessional": "专业",
+      "styleNatural": "自然",
+      "styleConcise": "简洁",
+      "styleSeoFriendly": "SEO 友好",
+      "styleFormal": "正式",
+      "toneNeutral": "中性",
+      "toneFriendly": "友好",
+      "toneExpert": "专业",
+      "toneSimple": "简洁",
+      "levelSimple": "简单",
+      "levelStandard": "标准",
+      "levelAdvanced": "进阶",
+      "strengthLight": "轻度",
+      "strengthModerate": "中度",
+      "strengthStrong": "强度"
+    },
+    "schemaMarkup": {
+      "meta": {
+        "title": "结构化数据生成器 — 免费 JSON-LD 构建工具",
+        "description": "用 LifeSeos 免费结构化数据生成器，为文章、FAQ、商品与商家生成 JSON-LD 结构化数据。"
+      },
+      "badge": "技术 SEO 工具",
+      "titleLine1": "生成结构化数据",
+      "titleAccent": "无需手写 JSON-LD。",
+      "subtitle": "为常见 schema 类型创建干净的 JSON-LD 标记，并将生成的代码直接复制到你的网站。",
+      "heroCheck1": "免费使用",
+      "heroCheck2": "多种 schema 类型",
+      "heroCheck3": "JSON-LD 输出",
+      "panelSubtitle": "选择一种 schema 类型并填写相关字段。",
+      "typeLabel": "schema 类型",
+      "types": {
+        "article": {
+          "label": "文章",
+          "description": "适用于博客文章、新闻稿和编辑内容。"
+        },
+        "faq": {
+          "label": "常见问题",
+          "description": "适用于包含常见问题的页面。"
+        },
+        "product": {
+          "label": "产品",
+          "description": "适用于包含价格和库存信息的产品页面。"
+        },
+        "localBusiness": {
+          "label": "本地商家",
+          "description": "适用于本地企业、门店和服务型商家。"
+        },
+        "breadcrumb": {
+          "label": "面包屑导航",
+          "description": "适用于面包屑导航路径。"
+        },
+        "organization": {
+          "label": "组织",
+          "description": "适用于公司、品牌和组织。"
+        },
+        "website": {
+          "label": "网站",
+          "description": "适用于网站级结构化数据。"
+        },
+        "person": {
+          "label": "人物",
+          "description": "适用于作者、个人资料和个人页面。"
+        }
+      },
+      "fields": {
+        "headline": "主标题",
+        "description": "描述",
+        "articleUrl": "文章 URL",
+        "imageUrl": "图片 URL",
+        "author": "作者",
+        "publisher": "发布者",
+        "datePublished": "发布日期",
+        "dateModified": "修改日期",
+        "question": "问题",
+        "answer": "回答",
+        "productName": "产品名称",
+        "productUrl": "产品 URL",
+        "brand": "品牌",
+        "sku": "SKU",
+        "price": "价格",
+        "currency": "货币",
+        "availability": "库存状态",
+        "businessName": "商家名称",
+        "businessType": "商家类型",
+        "websiteUrl": "网站 URL",
+        "telephone": "电话",
+        "streetAddress": "街道地址",
+        "city": "城市",
+        "region": "省 / 州",
+        "postalCode": "邮编",
+        "country": "国家",
+        "breadcrumbName": "面包屑第 {index} 项名称",
+        "breadcrumbUrl": "面包屑第 {index} 项 URL",
+        "organizationName": "组织名称",
+        "logoUrl": "Logo URL",
+        "socialProfiles": "社交资料",
+        "websiteName": "网站名称",
+        "searchUrlTemplate": "搜索 URL 模板",
+        "personName": "姓名",
+        "profileUrl": "个人资料 URL",
+        "jobTitle": "职位"
+      },
+      "ph": {
+        "headline": "例如：完整技术 SEO 指南",
+        "articleDescription": "简短的文章描述",
+        "author": "作者姓名",
+        "publisher": "发布者名称",
+        "question": "输入问题",
+        "answer": "输入回答",
+        "productName": "例如：SEO 审核模板",
+        "productDescription": "产品描述",
+        "brand": "品牌名称",
+        "businessName": "商家名称",
+        "street": "123 号主街",
+        "city": "上海",
+        "region": "广东省",
+        "postalCode": "200000",
+        "country": "CN",
+        "breadcrumbHome": "首页",
+        "breadcrumbPage": "页面名称",
+        "organization": "组织名称",
+        "person": "姓名全称",
+        "jobTitle": "SEO 专员"
+      },
+      "help": {
+        "socialProfiles": "多个资料 URL 之间用逗号分隔。",
+        "searchUrl": "可选的 SearchAction URL 模板。"
+      },
+      "err": {
+        "articleHeadline": "必须填写文章主标题。",
+        "faq": "请至少添加一组完整的常见问题与回答。",
+        "product": "必须填写产品名称。",
+        "localBusiness": "必须填写商家名称。",
+        "breadcrumb": "请至少添加一项面包屑名称和 URL。",
+        "organization": "必须填写组织名称。",
+        "websiteName": "必须填写网站名称。",
+        "websiteUrl": "必须填写网站 URL。",
+        "person": "必须填写姓名。"
+      },
+      "errorsTitle": "请填写必填字段",
+      "requiredOk": "必填字段已填写。",
+      "outputEyebrow": "JSON-LD 输出",
+      "outputTitle": "{type} schema 预览",
+      "outputNote": "代码会随字段填写自动更新。",
+      "copyJsonLd": "复制 JSON-LD",
+      "copySchema": "复制 schema",
+      "reset": "重置",
+      "installEyebrow": "实施",
+      "installTitle": "如何为页面添加 JSON-LD",
+      "installBodyBefore": "复制生成的 JSON-LD，并将其放入 type 为 ",
+      "installBodyAfter": " 的 script 元素中。",
+      "installNote": "确保结构化数据准确反映页面上实际可见或相关的内容。",
+      "shareTitle": "分享此工具",
+      "shareBody": "把 schema 标记生成器分享给开发者、营销人员和网站所有者。",
+      "shareTool": "分享工具",
+      "linkCopied": "链接已复制",
+      "shareMessageTitle": "免费 schema 标记生成器 | LifeSeos",
+      "shareMessageText": "使用 LifeSeos 生成 JSON-LD 结构化数据。",
+      "whyEyebrow": "结构化数据",
+      "whyTitle": "让搜索引擎更容易理解页面信息",
+      "whyBody": "schema 标记以结构化方式描述页面实体，例如文章、产品、组织和本地商家。",
+      "feat1Title": "更清晰的上下文",
+      "feat1Body": "以结构化格式描述重要实体和页面关系。",
+      "feat2Title": "JSON-LD 输出",
+      "feat2Body": "生成可直接嵌入现代网站的干净格式。",
+      "feat3Title": "多种 schema 类型",
+      "feat3Body": "为常见的内容、商家和导航场景创建标记。",
+      "feat4Title": "必填字段检查",
+      "feat4Body": "在复制生成的标记前发现缺失的核心字段。",
+      "feat5Title": "更快完成配置",
+      "feat5Body": "无需每次手动重复编写相同的结构化数据模板。",
+      "feat6Title": "可直接用于网站",
+      "feat6Body": "将生成的代码作为实施的实用起点。",
+      "relatedBody": "借助 LifeSeos 持续改善网站的技术 SEO。",
+      "relSeoAnalyzerBody": "检查技术 SEO 问题与优化机会。",
+      "relSeoPageAnalyzerBody": "分析标题、标题层级、链接和页面 SEO 元素。",
+      "relXmlSitemapBody": "生成供搜索引擎抓取的站点地图结构。",
+      "relSchemaBody": "为常见结构化数据类型生成 JSON-LD 标记。",
+      "currentBadge": "当前"
+    },
+    "seoAnalyzer": {
+      "meta": {
+        "title": "SEO 分析器 — 免费网站 SEO 审计工具",
+        "description": "用 LifeSeos 免费 SEO 分析器，分析网站 SEO 表现、技术问题、内容信号、图片 SEO、社交元数据、警告与建议。"
+      },
+      "badge": "LifeSeos SEO 分析器",
+      "titleLine1": "免费网站 SEO 分析器",
+      "titleAccent": "执行网站 SEO 审核",
+      "subtitle": "使用免费的 LifeSeos 网站 SEO 分析器，审核技术 SEO、页面内容、元数据、图片和社交分享信号。查看 SEO 得分、发现问题，并获得可执行的改进建议。",
+      "arabicLink": "试用阿拉伯语版工具",
+      "submit": "分析",
+      "submitLoading": "正在分析…",
+      "errorFallback": "无法分析网站。",
+      "scoreLabel": "SEO 得分",
+      "scoreOutOf": "满分 100",
+      "grade": "等级 {grade}",
+      "overviewTitle": "SEO 审核概览",
+      "overviewBody": "该得分汇总了 LifeSeos 当前支持的 SEO 检查项。查看下方各分类，了解需要改进的地方。",
+      "urlInline": "URL",
+      "metricTechnical": "技术 SEO",
+      "metricTechnicalDesc": "核心技术信号",
+      "metricContent": "内容 SEO",
+      "metricContentDesc": "页面内容结构",
+      "metricImages": "图片 SEO",
+      "metricImagesDesc": "图片无障碍",
+      "metricSocial": "社交 SEO",
+      "metricSocialDesc": "Open Graph 元数据",
+      "panelTechnicalSubtitle": "帮助搜索引擎理解页面的技术信号。",
+      "panelImageSubtitle": "图片无障碍与 ALT 属性覆盖率。",
+      "panelContentSubtitle": "搜索引擎可见的重要内容元素。",
+      "panelSocialSubtitle": "页面在社交平台分享时所使用的元数据。",
+      "canonical": "canonical URL",
+      "h1Structure": "H1 结构",
+      "metaDescription": "元描述",
+      "robotsMeta": "robots 元标签",
+      "totalImages": "图片总数",
+      "missingAlt": "缺少 ALT",
+      "altCoverage": "ALT 覆盖率",
+      "titleLabel": "标题",
+      "h1Label": "H1",
+      "ogTitle": "OG 标题",
+      "ogDescription": "OG 描述",
+      "checkPageTitle": "页面标题",
+      "checkH1": "H1 标题",
+      "checkImageAlt": "图片 ALT",
+      "checkOgTitle": "Open Graph 标题",
+      "checkOgDescription": "Open Graph 描述",
+      "noTitle": "未找到标题",
+      "noDescription": "未找到描述",
+      "noH1": "未找到 H1",
+      "notFound": "未找到",
+      "noImages": "未检测到图片",
+      "imageAltMissing": "{total} 张图片中有 {missing} 张缺少 ALT",
+      "checkPassed": "{label} 通过",
+      "checkNeedsAttention": "{label} 需要处理",
+      "checkImprove": "{label} 建议优化",
+      "checksEyebrow": "审核清单",
+      "checksTitle": "SEO 检查项",
+      "checksCount": "{count} 项检查",
+      "itemsCount": "{count} 项",
+      "passedTitle": "通过",
+      "warningsTitle": "警告",
+      "errorsTitle": "错误",
+      "passedEmpty": "暂无通过的检查项。",
+      "warningsEmpty": "未检测到警告。",
+      "errorsEmpty": "未检测到严重错误。",
+      "recsEyebrow": "行动计划",
+      "recsTitle": "优化建议",
+      "recsEmpty": "目前没有建议，已分析的检查项表现良好。",
+      "recCardTitle": "SEO 优化",
+      "download": "下载 PDF",
+      "newAnalysis": "重新分析",
+      "shareBody": "使用这款免费 LifeSeos SEO 分析器，审核技术 SEO、内容、图片和社交元数据。",
+      "introEyebrow": "免费网站 SEO 审核",
+      "introTitle": "LifeSeos SEO 分析器检查什么",
+      "introBody": "LifeSeos SEO 分析器提供免费的网站 SEO 审核，覆盖重要的技术与页面信号。检查元数据、标题层级、canonical 与 robots 指令、图片 ALT 覆盖率以及 Open Graph 元数据，再根据报告发现问题并确定 SEO 优化优先级。",
+      "info": {
+        "1": {
+          "title": "技术 SEO 检查",
+          "body": "查看帮助搜索引擎抓取、理解并正确解读页面的信号。",
+          "items": {
+            "1": "canonical URL",
+            "2": "robots 元指令",
+            "3": "H1 标题结构",
+            "4": "元描述"
+          }
+        },
+        "2": {
+          "title": "页面内容",
+          "body": "检查页面必备元素是否存在，并且对用户和搜索引擎结构清晰。",
+          "items": {
+            "1": "页面标题",
+            "2": "元描述",
+            "3": "主 H1 标题",
+            "4": "核心页面信息"
+          }
+        },
+        "3": {
+          "title": "图片 SEO",
+          "body": "找出可能缺少 ALT 文本的图片，改善无障碍体验与图片搜索信号。",
+          "items": {
+            "1": "检测到的图片总数",
+            "2": "缺失的 ALT 属性",
+            "3": "ALT 文本覆盖率",
+            "4": "图片无障碍"
+          }
+        },
+        "4": {
+          "title": "社交元数据",
+          "body": "检查网站分享到社交平台和通讯应用时使用的 Open Graph 元数据。",
+          "items": {
+            "1": "Open Graph 标题",
+            "2": "Open Graph 描述",
+            "3": "社交预览完备度",
+            "4": "分享元数据覆盖率"
+          }
+        }
+      },
+      "howEyebrow": "工作原理",
+      "howTitle": "如何使用 SEO 分析器",
+      "howBody": "快速审核网站，并把报告作为改进 SEO 的实用起点。",
+      "how1Title": "输入你的网站 URL",
+      "how1Body": "粘贴要分析的页面完整 URL（包含 https://）。",
+      "how2Title": "运行 SEO 分析",
+      "how2Body": "LifeSeos 会检查页面中受支持的技术、内容、图片和社交 SEO 信号。",
+      "how3Title": "查看 SEO 得分",
+      "how3Body": "结合总分和分类明细，了解哪些方面需要处理。",
+      "how4Title": "按优先级修复问题",
+      "how4Body": "先处理错误和警告，再逐步落实报告中的建议。",
+      "whyEyebrow": "更明智的 SEO 决策",
+      "whyTitle": "为何需要定期做 SEO 审核",
+      "whyP1": "网站会不断变化。新增页面、改版、插件、元数据变更和内容修改都可能引入不易察觉的 SEO 问题。",
+      "whyP2": "定期审核有助于尽早发现问题，并提供结构化的方式，在投入更多内容或推广时间之前检查各类技术与页面 SEO 信号。",
+      "benefit1Title": "发现隐藏问题",
+      "benefit1Body": "找出容易被忽略的缺失或不完整 SEO 元素。",
+      "benefit2Title": "确定优化优先级",
+      "benefit2Body": "利用警告、错误和建议，优先处理最重要的改动。",
+      "benefit3Title": "提升一致性",
+      "benefit3Body": "用统一的检查项审查页面，而不是只依赖人工查看。",
+      "benefit4Title": "跟踪网站质量",
+      "benefit4Body": "在网站重大更新后执行审核，确认重要 SEO 元素仍然到位。",
+      "vsEyebrow": "选择合适的分析",
+      "vsTitle": "SEO 分析器与 SEO 页面分析器",
+      "vsBody": "使用 SEO 分析器获得技术 SEO、内容、图片和社交元数据的整体概览；需要针对特定页面深入检查重要页面 SEO 元素时，使用 SEO 页面分析器。",
+      "guidesEyebrow": "了解更多",
+      "guidesTitle": "SEO 审核指南",
+      "guidesBody": "浏览实用的 SEO 指南，更好地理解审核结果并逐步改进网站。",
+      "guide1Tag": "SEO 审核",
+      "guide1Title": "完整 SEO 审核指南",
+      "guide1Body": "了解如何通过结构化审核流程检查技术、页面和内容 SEO 问题。",
+      "guide2Tag": "技术 SEO",
+      "guide2Title": "技术 SEO 指南",
+      "guide2Body": "了解抓取、收录、元数据以及其他影响搜索可见度的技术信号。",
+      "guide3Tag": "页面 SEO",
+      "guide3Title": "页面 SEO 检查清单",
+      "guide3Body": "检查标题、描述、标题层级和页面结构等重要页面元素。",
+      "guidesCta": "阅读指南",
+      "flowEyebrow": "完成你的技术 SEO 工作流",
+      "flowTitle": "管理抓取、改善发现并审核你的网站",
+      "flowBody": "结合使用这些工具：管理爬虫访问、发布干净的 XML 站点地图，再通过更全面的 SEO 审核检查网站。",
+      "step1": "第 1 步",
+      "step2": "第 2 步",
+      "step3Current": "第 3 步 · 当前",
+      "flow1Body": "配置爬虫访问规则，确保搜索引擎可以访问你希望被抓取的网站区域。",
+      "flow1Cta": "配置抓取",
+      "flow2Body": "创建干净的 XML 站点地图，包含你希望搜索引擎发现的重要 canonical URL。",
+      "flow2Cta": "创建站点地图",
+      "flow3Body": "通过覆盖技术、内容、图片和社交 SEO 信号的更全面审核，完成整个流程。",
+      "flow3Cta": "运行 SEO 审核"
+    },
+    "seoPageAnalyzer": {
+      "meta": {
+        "title": "SEO 页面分析器 — 免费页面 SEO 检测",
+        "description": "用 LifeSeos 免费 SEO 页面分析器，分析标题、元描述、各级标题、链接、图片与 canonical 标签。"
+      },
+      "badge": "LifeSeos SEO 页面分析器",
+      "titleLine1": "免费 SEO 页面分析器",
+      "titleAccent": "执行页面 SEO 分析",
+      "subtitle": "分析页面标题标签、元描述、标题层级、canonical 标签、robots 指令、链接、图片 ALT 文本以及其他重要的页面 SEO 元素。",
+      "urlLabel": "页面 URL",
+      "submit": "分析页面",
+      "submitLoading": "正在分析…",
+      "hint": "输入可公开访问的页面 URL，查看其主要的页面 SEO 元素。",
+      "errorFallback": "无法分析此页面。",
+      "metricStatus": "HTTP 状态",
+      "metricH1": "H1 标签",
+      "metricLinks": "链接",
+      "metricPageSize": "页面大小",
+      "pageSizeValue": "{size} KB",
+      "infoTitle": "页面标题",
+      "infoDescription": "元描述",
+      "infoCanonical": "canonical URL",
+      "infoRobots": "robots 元标签",
+      "noTitle": "未找到标题",
+      "noDescription": "未找到元描述",
+      "noCanonical": "未找到 canonical 标签",
+      "noRobots": "未找到 robots 元标签",
+      "charsCount": "{count} 个字符",
+      "structureEyebrow": "页面结构",
+      "structureTitle": "标题层级结构",
+      "h1Count": "H1 数量",
+      "h2Count": "H2 数量",
+      "noH1": "未检测到 H1 标题。",
+      "imageEyebrow": "图片 SEO",
+      "imageTitle": "图片",
+      "totalImages": "图片总数",
+      "missingAlt": "缺少 ALT",
+      "imageNote": "ALT 文本有助于为无障碍访问描述有意义的图片，并提供图片内容的额外背景信息。",
+      "urlEyebrow": "URL 信息",
+      "urlTitle": "分析详情",
+      "requestedUrl": "请求的 URL",
+      "finalUrl": "最终 URL",
+      "shareBody": "使用这款免费 LifeSeos 工具分析标题、元描述、标题层级、canonical 标签、链接和图片 SEO。",
+      "introEyebrow": "页面 SEO 分析",
+      "introTitle": "检查任意页面的重要 SEO 元素",
+      "introBody": "页面 SEO 包含帮助用户和搜索引擎理解网页内容的页面级信号。LifeSeos 会检查多个重要元素，帮助你快速发现缺失或不完整的页面信号。",
+      "checks": {
+        "1": {
+          "title": "页面标题",
+          "body": "检查页面标题及其字符长度，识别缺失或结构异常的标题。"
+        },
+        "2": {
+          "title": "元描述",
+          "body": "检查是否存在元描述，并查看其当前长度。"
+        },
+        "3": {
+          "title": "标题层级结构",
+          "body": "检查 H1 与 H2 的使用情况，更好地了解页面的可见结构。"
+        },
+        "4": {
+          "title": "canonical 标签",
+          "body": "检查页面是否为搜索引擎声明了 canonical URL。"
+        },
+        "5": {
+          "title": "robots 元标签",
+          "body": "查看可能影响搜索引擎收录或跟踪页面的 robots 指令。"
+        },
+        "6": {
+          "title": "图片 ALT 文本",
+          "body": "识别页面中的图片数量，以及是否有图片缺少 ALT 属性。"
+        }
+      },
+      "howEyebrow": "工作原理",
+      "howTitle": "如何使用 SEO 页面分析器",
+      "howBody": "在发布改动前或检查现有网页时，快速执行页面级审核。",
+      "how1Title": "输入页面 URL",
+      "how1Body": "粘贴要检查的网页完整公开 URL。",
+      "how2Title": "运行页面分析",
+      "how2Body": "LifeSeos 会抓取页面并提取支持的页面 SEO 元素。",
+      "how3Title": "查看重要信号",
+      "how3Body": "检查元数据、标题层级、canonical 信息、链接、图片和页面大小。",
+      "how4Title": "修复缺失元素",
+      "how4Body": "根据结果找出需要进一步检查或改进的页面元素。",
+      "whyEyebrow": "页面级优化",
+      "whyTitle": "页面 SEO 为何重要",
+      "whyP1": "即使网页内容有用，若缺少重要的元数据或结构元素，SEO 信号仍然会偏弱。",
+      "whyP2": "查看标题、描述、标题层级、canonical 标签和图片属性，能更清楚地了解页面结构以及需要额外优化的位置。",
+      "benefit1Title": "发现缺失的元数据",
+      "benefit1Body": "快速找出缺失的标题、描述或 canonical 信息。",
+      "benefit2Title": "检查页面结构",
+      "benefit2Body": "检查 H1 与 H2 的使用，了解页面内容的组织方式。",
+      "benefit3Title": "检查图片 SEO",
+      "benefit3Body": "找出可能缺少描述性 ALT 属性的图片。",
+      "benefit4Title": "检查技术信号",
+      "benefit4Body": "查看 HTTP 状态、robots 指令、最终 URL 和页面大小。",
+      "flowEyebrow": "延续你的 SEO 工作流",
+      "flowTitle": "创建、预览并分析你的页面 SEO",
+      "flowBody": "结合使用这些工具，准备好元数据、预览其在搜索结果中的呈现，然后审核完成的页面。",
+      "step1": "第 1 步",
+      "step2": "第 2 步",
+      "step3Current": "第 3 步 · 当前",
+      "flow1Body": "在发布或更新页面前，创建清晰的标题标签和元描述。",
+      "flow1Cta": "创建元数据",
+      "flow2Body": "预览标题、URL 和元描述在桌面与移动搜索结果中的呈现效果。",
+      "flow2Cta": "预览元数据",
+      "flow3Body": "分析线上页面，检查元数据、标题层级、canonical 标签、robots 指令、链接和图片 SEO。",
+      "flow3Cta": "分析页面"
+    },
+    "youtubeKeywordIdeas": {
+      "meta": {
+        "title": "YouTube 关键词灵感 — 免费视频关键词工具",
+        "description": "用 LifeSeos 免费 YouTube 关键词工具，生成视频关键词组合、长尾短语与选题想法。"
+      },
+      "badge": "YouTube SEO 工具",
+      "titleLine1": "发现更好的",
+      "titleAccent": "YouTube 关键词创意。",
+      "subtitle": "把一个视频主题转化为实用的关键词短语、长尾创意、问题和内容角度，用于接下来的 YouTube 视频。",
+      "perks": {
+        "free": "免费使用",
+        "groups": "多组关键词",
+        "topics": "视频主题创意"
+      },
+      "formTitle": "生成 YouTube 关键词创意",
+      "formSubtitle": "先输入主题，再根据内容意图调整创意方向。",
+      "topicLabel": "视频主题",
+      "topicPlaceholder": "例如：YouTube 频道增长",
+      "seedLabel": "种子关键词",
+      "seedPlaceholder": "例如：YouTube SEO",
+      "seedHint": "留空时将使用视频主题作为种子词。",
+      "intentLabel": "内容意图",
+      "intents": {
+        "broadDiscovery": "广泛发现",
+        "howTo": "操作教程",
+        "beginner": "新手入门",
+        "comparison": "对比",
+        "problemSolving": "解决问题",
+        "review": "测评"
+      },
+      "audienceLabel": "目标受众",
+      "audiencePlaceholder": "例如：新晋创作者",
+      "errorTopicRequired": "请先输入视频主题，再生成关键词创意。",
+      "submit": "生成关键词创意",
+      "sideEyebrow": "关键词地图",
+      "sideTitle": "YouTube 关键词创意预览",
+      "sideDesc": "查看根据你的输入生成的主题、意图和关键词组合。",
+      "previewBadge": "仅为预览",
+      "seedTopicLabel": "种子主题",
+      "seedTopicFallback": "你的关键词",
+      "quickReviewTitle": "关键词快速检查",
+      "quickReviewHint": "根据已生成的关键词集合实时显示的指标。",
+      "stats": {
+        "ideas": "创意",
+        "longTail": "长尾",
+        "questions": "问题"
+      },
+      "resultsEyebrow": "关键词创意",
+      "resultsTitle": "浏览你的 YouTube 关键词集合",
+      "resultsDesc": "浏览关键词分组，复制单个短语，或一次性复制全部内容。",
+      "copyAll": "复制全部关键词",
+      "copiedAll": "已全部复制",
+      "copyItem": "复制：{item}",
+      "groups": {
+        "core": {
+          "title": "核心关键词",
+          "description": "与主主题相关的简短种子短语。"
+        },
+        "longTail": {
+          "title": "长尾关键词",
+          "description": "更具体的短语，可以启发更聚焦的视频创意。"
+        },
+        "questions": {
+          "title": "疑问式关键词",
+          "description": "以问题形式表达、可以变成实用视频主题的短语。"
+        },
+        "intent": {
+          "title": "{intent}类创意",
+          "description": "围绕你选择的{intent}意图生成的关键词创意。"
+        }
+      },
+      "ideasCount": "{count} 个创意",
+      "anglesEyebrow": "推荐视频角度",
+      "anglesTitle": "把关键词变成视频创意",
+      "anglesDesc": "把这些内容当作视频构思的起点，再调整措辞，让它准确贴合你的内容。",
+      "shareTitle": "分享此工具",
+      "shareDesc": "把 YouTube 关键词创意工具分享给正在寻找新视频主题和关键词角度的创作者。",
+      "shareButton": "分享工具",
+      "linkCopied": "链接已复制",
+      "shareMessageTitle": "免费 YouTube 关键词创意工具 | LifeSeos",
+      "shareMessageText": "用 LifeSeos 生成 YouTube 关键词和主题创意。",
+      "factorsEyebrow": "YouTube 关键词研究",
+      "factorsTitle": "为你的视频探索不同关键词角度",
+      "factorsBody": "LifeSeos 会把你的主题整理成实用的关键词形式，方便你探索更宽泛的创意、具体短语以及问题类视频构思。",
+      "factors": {
+        "core": {
+          "title": "核心关键词",
+          "text": "从描述视频主要内容的简短短语开始。"
+        },
+        "longTail": {
+          "title": "长尾创意",
+          "text": "探索更具体的短语，从中获得更聚焦的视频主题。"
+        },
+        "questions": {
+          "title": "疑问式关键词",
+          "text": "把常见问题变成实用的教学或讲解视频。"
+        },
+        "intent": {
+          "title": "搜索意图",
+          "text": "围绕教程、新手、对比、测评或解决问题类内容构思创意。"
+        },
+        "audience": {
+          "title": "受众匹配",
+          "text": "借助受众背景，让部分关键词创意更具体。"
+        },
+        "angles": {
+          "title": "视频角度",
+          "text": "把关键词短语转化为视频标题的实用起点。"
+        }
+      },
+      "howEyebrow": "使用步骤",
+      "howTitle": "如何使用 YouTube 关键词创意工具",
+      "howBody": "从一个宽泛的主题开始，用生成的分组探索不同的视频方向。",
+      "steps": {
+        "1": {
+          "title": "输入视频主题",
+          "text": "描述你想要创作内容的主要对象。"
+        },
+        "2": {
+          "title": "添加种子关键词",
+          "text": "可选：补充一个更具体的短语，让创意更聚焦。"
+        },
+        "3": {
+          "title": "选择内容意图",
+          "text": "选择广泛发现、操作教程、新手入门、对比、解决问题或测评。"
+        },
+        "4": {
+          "title": "探索并复制创意",
+          "text": "查看关键词分组，复制实用的短语，把它们变成视频构思。"
+        }
+      },
+      "whyEyebrow": "视频发现",
+      "whyTitle": "为什么 YouTube 关键词创意很重要",
+      "whyP1": "关键词研究能帮助创作者思考观众查找某个主题的视频时可能使用的表达方式，也有助于发现更细致的问题、痛点和内容角度。",
+      "whyP2": "本工具根据你的输入生成创意，不提供 YouTube 官方搜索量、竞争数据，也不保证排名预测。",
+      "benefits": {
+        "discover": {
+          "title": "发现新主题",
+          "text": "把一个宽泛的主题拆成多个可能的视频方向。"
+        },
+        "language": {
+          "title": "探索搜索用语",
+          "text": "思考观众可能用哪些不同方式描述同一个主题。"
+        },
+        "clusters": {
+          "title": "搭建内容集群",
+          "text": "把相关短语组合成一系列相互关联的视频。"
+        },
+        "planning": {
+          "title": "改善内容规划",
+          "text": "把关键词创意作为标题、描述和后续视频的起点。"
+        }
+      },
+      "workflowEyebrow": "继续你的 YouTube SEO 流程",
+      "workflowTitle": "从关键词研究走向完整的视频规划",
+      "workflowBody": "按顺序使用 YouTube SEO 工具：找到关键词角度、创建标题、检查标题、编写描述，然后撰写完整的视频脚本。",
+      "workflow": {
+        "step": "第 {number} 步",
+        "current": "第 {number} 步 · 当前",
+        "items": {
+          "keywords": {
+            "desc": "从主主题中发现关键词分组、长尾短语、问题和视频角度。",
+            "cta": "查找关键词"
+          },
+          "titleGenerator": {
+            "desc": "把你最有优势的关键词或主题变成多个视频标题创意。",
+            "cta": "生成标题"
+          },
+          "titleAnalyzer": {
+            "desc": "发布前检查候选标题的清晰度、结构、长度和关键词使用。",
+            "cta": "分析标题"
+          },
+          "descriptionGenerator": {
+            "desc": "用主题、标题和视频计划中的重要关键词搭出结构化描述。",
+            "cta": "创建描述"
+          },
+          "scriptWriter": {
+            "desc": "把完成的视频构思变成含开场、主体段落和结尾的结构化脚本。",
+            "cta": "撰写脚本"
+          }
+        }
+      }
+    },
+    "youtubeTitleGenerator": {
+      "meta": {
+        "title": "YouTube 标题生成器 — 免费视频标题灵感",
+        "description": "用 LifeSeos 免费标题生成器，根据主题、关键词与受众创建有吸引力的 YouTube 标题。"
+      },
+      "badge": "YouTube SEO 工具",
+      "titleLine1": "生成更好的",
+      "titleAccent": "YouTube 标题。",
+      "subtitle": "几秒钟内把视频主题和关键词转化为清晰、有吸引力的 YouTube 标题创意。",
+      "perks": {
+        "free": "免费使用",
+        "noAccount": "无需账号",
+        "styles": "多种标题风格"
+      },
+      "formTitle": "创建 YouTube 标题创意",
+      "formSubtitle": "填写主题，并选择你想要的标题类型。",
+      "topicLabel": "视频主题",
+      "topicPlaceholder": "例如：如何运营 YouTube 频道",
+      "keywordLabel": "主关键词",
+      "keywordPlaceholder": "例如：YouTube SEO",
+      "keywordHint": "可选。留空时将改用你的视频主题。",
+      "styleLabel": "标题风格",
+      "styles": {
+        "seoFocused": "SEO 导向",
+        "howTo": "操作教程",
+        "curiosity": "引发好奇",
+        "list": "清单式",
+        "beginnerFriendly": "新手友好",
+        "professional": "专业严谨"
+      },
+      "audienceLabel": "目标受众",
+      "audiencePlaceholder": "例如：小微企业主",
+      "errorTopicRequired": "请先输入视频主题，再生成标题。",
+      "submit": "生成 YouTube 标题",
+      "previewEyebrow": "预览",
+      "previewTitle": "YouTube 风格标题预览",
+      "previewDesc": "看看生成的标题放在视频卡片中是什么效果，并快速查看几项有用的标题指标。",
+      "previewBadge": "仅为预览",
+      "previewEmptyTitle": "生成的 YouTube 标题会显示在这里",
+      "previewChannel": "LifeSeos 创作者",
+      "previewLabel": "预览",
+      "previewSample": "仅为示例展示",
+      "quickTitle": "标题快速检查",
+      "quickHint": "根据你选中的生成标题实时显示的指标。",
+      "quick": {
+        "length": "长度",
+        "keyword": "关键词",
+        "clarity": "清晰度"
+      },
+      "quickLength": {
+        "waiting": "等待中",
+        "good": "良好",
+        "short": "偏短",
+        "long": "偏长"
+      },
+      "quickKeyword": {
+        "notSet": "未设置",
+        "found": "已包含",
+        "missing": "未包含"
+      },
+      "quickClarity": {
+        "waiting": "等待中",
+        "clear": "清晰",
+        "basic": "一般"
+      },
+      "titleLengthLabel": "标题长度",
+      "characters": "{count} 个字符",
+      "scale": {
+        "short": "偏短",
+        "balanced": "适中",
+        "long": "偏长"
+      },
+      "resultsEyebrow": "已生成的标题",
+      "resultsTitle": "挑一个你最满意的标题",
+      "resultsDesc": "选择一个标题即可预览，然后复制你想使用的版本。",
+      "generateMore": "再生成一批",
+      "lengthStatus": {
+        "short": "偏短",
+        "good": "长度合适",
+        "long": "偏长"
+      },
+      "insightsEyebrow": "标题洞察",
+      "insightsTitle": "这个标题为什么有效",
+      "reasons": {
+        "keyword": "包含了你的主关键词",
+        "length": "标题长度清晰且实用",
+        "format": "所用格式清楚传达了视频角度",
+        "clarity": "让视频主题更容易理解"
+      },
+      "shareTitle": "分享此工具",
+      "shareDesc": "身边有创作者需要更好的视频标题创意？把这个 YouTube 标题生成器分享给他。",
+      "shareButton": "分享工具",
+      "linkCopied": "链接已复制",
+      "shareMessageTitle": "免费 YouTube 标题生成器 | LifeSeos",
+      "shareMessageText": "使用 LifeSeos 免费 YouTube 标题生成器生成视频标题创意。",
+      "optimizationEyebrow": "YouTube 标题优化",
+      "optimizationTitle": "写出清晰、贴题、易懂的标题",
+      "optimizationBody": "好的 YouTube 标题应当快速说明视频内容，同时契合你想触达的主题、关键词和受众。LifeSeos 帮你探索不同的标题角度，但不会给出不切实际的排名承诺。",
+      "factors": {
+        "keywordRelevance": {
+          "title": "关键词相关性",
+          "text": "当主题或主关键词能帮助观众理解视频时，把它保留在标题中。"
+        },
+        "clarity": {
+          "title": "标题清晰度",
+          "text": "让主题容易被理解，而不是依赖含糊的措辞。"
+        },
+        "intent": {
+          "title": "搜索意图",
+          "text": "使用与观众想学习或想发现的内容相匹配的标题格式。"
+        },
+        "clickAppeal": {
+          "title": "点击吸引力",
+          "text": "用具体、有用的措辞引发兴趣，同时不误导观众。"
+        },
+        "length": {
+          "title": "标题长度",
+          "text": "留意标题长度，让重要信息依然便于快速浏览。"
+        },
+        "audience": {
+          "title": "受众匹配",
+          "text": "根据视频要帮助或取悦的人群调整措辞。"
+        }
+      },
+      "howEyebrow": "使用步骤",
+      "howTitle": "如何使用 YouTube 标题生成器",
+      "howBody": "用几个简单步骤生成标题创意，对比各选项，再借助预览挑出最贴合视频的版本。",
+      "steps": {
+        "1": {
+          "title": "输入视频主题",
+          "text": "用一句清晰的表述说明视频内容。"
+        },
+        "2": {
+          "title": "补充关键词和受众",
+          "text": "可选：添加主关键词和目标受众，让创意更具体。"
+        },
+        "3": {
+          "title": "选择标题风格",
+          "text": "选择 SEO 导向、操作教程、引发好奇、清单式、新手友好或专业严谨。"
+        },
+        "4": {
+          "title": "生成、预览并复制",
+          "text": "对比标题创意，预览最喜欢的那条，准备好后直接复制。"
+        }
+      },
+      "whyEyebrow": "视频发现",
+      "whyTitle": "为什么 YouTube 标题很重要",
+      "whyP1": "标题是观众判断视频是否符合需求时最先看到的信息之一。清晰的标题有助于传达主题、设定预期，让内容更容易被理解。",
+      "whyP2": "标题只有作为完整视频包装的一部分才能发挥最好效果，包括缩略图、描述、内容质量，以及视频满足观众的程度。",
+      "benefits": {
+        "topic": {
+          "title": "传达视频主题",
+          "text": "在观众点击之前就告诉他们可以看到什么。"
+        },
+        "search": {
+          "title": "支撑搜索相关性",
+          "text": "使用能反映视频实际内容的主题措辞。"
+        },
+        "expectations": {
+          "title": "设定预期",
+          "text": "让标题的承诺与视频实际交付的内容一致。"
+        },
+        "consistency": {
+          "title": "提升一致性",
+          "text": "把清晰的标题与相关的缩略图和描述搭配使用。"
+        }
+      },
+      "relatedEyebrow": "继续优化",
+      "relatedTitle": "相关 YouTube SEO 工具",
+      "relatedDesc": "用 LifeSeos 更多面向创作者的工具，继续完善你的视频元数据。",
+      "related": {
+        "current": "当前工具",
+        "comingSoon": "即将推出",
+        "titleGenerator": {
+          "desc": "根据视频主题、关键词和偏好风格生成标题创意。"
+        },
+        "titleAnalyzer": {
+          "desc": "检查现有标题的清晰度、关键词使用和标题结构。"
+        },
+        "keywords": {
+          "desc": "为后续视频内容探索关键词和主题创意。"
+        },
+        "descriptionGenerator": {
+          "desc": "为视频描述搭一个结构化的起点。"
+        }
+      }
+    },
+    "youtubeTitleAnalyzer": {
+      "meta": {
+        "title": "YouTube 标题分析器 — 免费标题质量评估",
+        "description": "用 LifeSeos 免费标题分析器，评估 YouTube 标题的清晰度、结构、关键词使用、长度与点击吸引力。"
+      },
+      "badge": "YouTube SEO 工具",
+      "titleLine1": "分析并优化你的",
+      "titleAccent": "YouTube 标题。",
+      "subtitle": "用这个免费的 YouTube 标题检查与测试工具，在发布前评估标题的长度、关键词使用、清晰度、具体程度和点击吸引力。评分只反映标题指标，不能预测 YouTube 排名。",
+      "perks": {
+        "free": "免费使用",
+        "instant": "即时分析",
+        "recommendations": "实用改进建议"
+      },
+      "formTitle": "检查并分析你的 YouTube 标题",
+      "formSubtitle": "输入现有标题，可选填目标关键词。",
+      "titleLabel": "YouTube 标题",
+      "titlePlaceholder": "例如：2026 年如何运营 YouTube 频道",
+      "liveLength": {
+        "empty": "请输入标题",
+        "short": "偏短",
+        "good": "长度合适",
+        "long": "偏长"
+      },
+      "keywordLabel": "主关键词",
+      "keywordPlaceholder": "例如：YouTube SEO",
+      "keywordHint": "填入你希望标题清楚传达的关键词。",
+      "characters": "{count} 个字符",
+      "errorTitleRequired": "请先输入 YouTube 标题，再开始分析。",
+      "submit": "分析 YouTube 标题",
+      "previewEyebrow": "预览",
+      "previewTitle": "YouTube 风格标题预览",
+      "previewDesc": "看看标题放在视频卡片中是什么效果，并快速查看几项重要的标题指标。",
+      "previewBadge": "仅为预览",
+      "previewEmptyTitle": "你的 YouTube 标题会显示在这里",
+      "previewChannel": "LifeSeos 创作者",
+      "previewLabel": "预览",
+      "previewSample": "仅为示例展示",
+      "quickTitle": "标题快速检查",
+      "quickHint": "根据你输入的标题实时显示的指标。",
+      "quick": {
+        "length": "长度",
+        "keyword": "关键词",
+        "clarity": "清晰度"
+      },
+      "quickLength": {
+        "waiting": "等待中",
+        "good": "良好",
+        "short": "偏短",
+        "long": "偏长"
+      },
+      "quickKeyword": {
+        "notSet": "未设置",
+        "found": "已包含",
+        "missing": "未包含"
+      },
+      "quickClarity": {
+        "waiting": "等待中",
+        "clear": "清晰",
+        "basic": "一般"
+      },
+      "titleLengthLabel": "标题长度",
+      "scale": {
+        "short": "偏短",
+        "balanced": "适中",
+        "long": "偏长"
+      },
+      "scoreEyebrow": "标题评分",
+      "outOf": "满分 100",
+      "scoreDesc": "该评分概括了标题结构、关键词使用、清晰度、具体程度和点击吸引力。",
+      "grades": {
+        "excellent": "优秀",
+        "good": "良好",
+        "fair": "一般",
+        "needsWork": "需要改进"
+      },
+      "status": {
+        "good": "良好",
+        "needsImprovement": "需要改进",
+        "weak": "较弱"
+      },
+      "metrics": {
+        "length": {
+          "label": "标题长度",
+          "desc": "{count} 个字符"
+        },
+        "keywordPresence": {
+          "label": "关键词出现",
+          "found": "已包含主关键词",
+          "missing": "未包含主关键词",
+          "none": "未填写关键词"
+        },
+        "keywordPosition": {
+          "label": "关键词位置",
+          "reviewed": "已评估关键词位置",
+          "unknown": "无法评估位置",
+          "none": "未填写关键词"
+        },
+        "clarity": {
+          "label": "清晰度",
+          "desc": "标题是否容易被理解"
+        },
+        "specificity": {
+          "label": "具体程度",
+          "desc": "标题在多大程度上明确了视频角度"
+        },
+        "clickAppeal": {
+          "label": "点击吸引力",
+          "desc": "标题引发兴趣的强度"
+        }
+      },
+      "strengthsEyebrow": "优势",
+      "strengthsTitle": "表现不错的地方",
+      "strengthsEmpty": "暂时没有检测到明显优势，可参考下方建议。",
+      "issuesEyebrow": "问题",
+      "issuesTitle": "可以改进的地方",
+      "issuesEmpty": "这个标题没有发现明显的结构问题。",
+      "recsEyebrow": "改进建议",
+      "recsTitle": "如何改进这个标题",
+      "recsEmpty": "标题结构已经很扎实。让它继续贴合视频实际内容和缩略图即可。",
+      "insights": {
+        "strengths": {
+          "lengthGood": "标题长度清晰且实用。",
+          "keywordFound": "标题中出现了主关键词。",
+          "keywordEarly": "主关键词出现在标题靠前的位置。",
+          "clarityGood": "标题一眼就能理解。",
+          "specificityGood": "标题传达了明确的角度或承诺。",
+          "clickGood": "标题结构有力，容易吸引注意。"
+        },
+        "issues": {
+          "short": "标题偏短，可能传达的信息不够充分。",
+          "long": "标题偏长，快速浏览时可能不够轻松。",
+          "keywordMissing": "标题中没有出现主关键词。",
+          "clarity": "标题可以更清楚地表达视频主题。"
+        },
+        "recommendations": {
+          "addBenefit": "给标题补充更清晰的收益、角度或具体细节。",
+          "moveEarlier": "把最重要的措辞往前放，并删掉多余的词。",
+          "moveKeyword": "考虑把主关键词移近标题开头。",
+          "includeKeyword": "如果主关键词能准确反映视频内容，自然地把它加进去。",
+          "directWording": "用更直接的措辞，减少含糊表达。",
+          "specificFormat": "加入具体形式，例如指南、清单、问题、教程或明确结果。",
+          "moreInterest": "用更清晰的收益、问题、数字或痛点角度提升吸引力。"
+        }
+      },
+      "suggestionsEyebrow": "优化创意",
+      "suggestionsTitle": "如何改进这个标题",
+      "suggestionsDesc": "根据你输入的主题，对比几个更有力的标题方向。每个选项使用不同角度，方便你挑出最贴合实际视频的那一个。",
+      "generateMore": "生成更多标题",
+      "angles": {
+        "howTo": "操作教程",
+        "list": "清单",
+        "explainer": "讲解",
+        "problem": "痛点",
+        "beginner": "新手",
+        "tips": "技巧",
+        "mistakes": "误区",
+        "professional": "专业",
+        "question": "提问",
+        "tutorial": "分步教程"
+      },
+      "suggestionReasons": {
+        "r1": "教学意图明确，并直接承诺提供有用的指导。",
+        "r2": "编号式格式让价值在点击前就能被快速看懂。",
+        "r3": "明确传达这是讲解型视频，能快速设定预期。",
+        "r4": "聚焦痛点，自然给出继续读下去的理由。",
+        "r5": "点明目标受众，减少新观众的犹豫。",
+        "r6": "把具体数字和以收益为核心的实用格式结合起来。",
+        "r7": "使用规避风险的角度，让主题显得与观众当下相关。",
+        "r8": "保持关键词醒目，同时加入面向结果的实用承诺。",
+        "r9": "提问式格式适合正在比较方案或寻找观点的观众。",
+        "r10": "把明确结果和结构化的学习形式结合起来。"
+      },
+      "shareTitle": "分享此工具",
+      "shareDesc": "把这个 YouTube 标题分析器分享给想更清楚地检查视频标题的创作者。",
+      "shareButton": "分享工具",
+      "linkCopied": "链接已复制",
+      "shareMessageTitle": "免费 YouTube 标题检查与分析工具 | LifeSeos",
+      "shareMessageText": "用 LifeSeos 分析和优化 YouTube 视频标题。",
+      "factorsEyebrow": "YouTube 标题分析",
+      "factorsTitle": "分析器会检查哪些内容",
+      "factorsBody": "分析器会检查标题中的实用指标，帮你在发布视频前评估措辞、结构和相关性。",
+      "factors": {
+        "length": {
+          "title": "标题长度",
+          "text": "检查标题是否提供了足够的背景信息，同时没有变得冗长。"
+        },
+        "keywordPresence": {
+          "title": "关键词出现",
+          "text": "检查你选填的主关键词是否自然地出现在标题中。"
+        },
+        "keywordPosition": {
+          "title": "关键词位置",
+          "text": "填写关键词后，检查主关键词出现在标题中的位置有多靠前。"
+        },
+        "clarity": {
+          "title": "清晰度",
+          "text": "观察标题是否用直接、易读的方式传达主题。"
+        },
+        "specificity": {
+          "title": "具体程度",
+          "text": "检查标题是否明确了角度、形式或结果。"
+        },
+        "clickAppeal": {
+          "title": "点击吸引力",
+          "text": "检查标题是否在不依赖误导性说法的情况下引发兴趣。"
+        }
+      },
+      "howEyebrow": "使用步骤",
+      "howTitle": "如何使用 YouTube 标题分析器",
+      "howBody": "用几个简单步骤检查现有标题，并在发布前参考建议做进一步打磨。",
+      "steps": {
+        "1": {
+          "title": "输入当前标题",
+          "text": "粘贴或输入你想检查的 YouTube 标题。"
+        },
+        "2": {
+          "title": "添加主关键词",
+          "text": "可选：添加你希望标题传达的关键词。"
+        },
+        "3": {
+          "title": "开始分析",
+          "text": "查看总体评分、标题各项指标、优势与问题。"
+        },
+        "4": {
+          "title": "优化你的标题",
+          "text": "把改进建议或备选创意作为起点继续优化。"
+        }
+      },
+      "whyEyebrow": "视频发现",
+      "whyTitle": "为什么 YouTube 标题很重要",
+      "whyP1": "视频标题能帮助观众在点击前理解主题。它可以传达相关性、设定预期，并支撑视频的整体呈现。",
+      "whyP2": "标题需要与缩略图、描述和视频实际内容配合发挥作用。本分析器只关注标题结构，不声称能预测排名或播放量。",
+      "benefits": {
+        "topic": {
+          "title": "说明主题",
+          "text": "帮助观众快速理解视频讲了什么。"
+        },
+        "relevance": {
+          "title": "支撑相关性",
+          "text": "使用能准确反映视频主题的措辞。"
+        },
+        "interest": {
+          "title": "制造兴趣",
+          "text": "给观众一个明确理由去了解内容，同时不误导他们。"
+        },
+        "expectations": {
+          "title": "设定预期",
+          "text": "确保标题的承诺与视频实际内容相符。"
+        }
+      },
+      "workflowEyebrow": "继续你的 YouTube SEO 流程",
+      "workflowTitle": "从关键词研究走向完整的视频规划",
+      "workflowBody": "按顺序使用 YouTube SEO 工具：找到关键词角度、创建标题、检查标题、编写描述，然后撰写完整的视频脚本。",
+      "workflow": {
+        "step": "第 {number} 步",
+        "current": "第 {number} 步 · 当前",
+        "items": {
+          "keywords": {
+            "desc": "从主主题中发现关键词分组、长尾短语、问题和视频角度。",
+            "cta": "查找关键词"
+          },
+          "titleGenerator": {
+            "desc": "把你最有优势的关键词或主题变成多个视频标题创意。",
+            "cta": "生成标题"
+          },
+          "titleAnalyzer": {
+            "desc": "发布前检查标题的清晰度、关键词使用、结构、长度和点击吸引力。",
+            "cta": "分析标题"
+          },
+          "descriptionGenerator": {
+            "desc": "用主题、标题和视频计划中的重要关键词搭出结构化描述。",
+            "cta": "创建描述"
+          },
+          "scriptWriter": {
+            "desc": "把完成的视频构思变成含开场、主体段落和结尾的结构化脚本。",
+            "cta": "撰写脚本"
+          }
+        }
+      }
+    },
+    "youtubeDescriptionGenerator": {
+      "meta": {
+        "title": "YouTube 简介生成器 — 免费简介构建工具",
+        "description": "生成结构化的 YouTube 视频简介，涵盖关键词、话题标签与行动号召。"
+      },
+      "badge": "YouTube SEO 工具",
+      "titleLine1": "写出更专业的",
+      "titleAccent": "YouTube 描述。",
+      "subtitle": "把你的视频主题、关键词和观众，快速变成清晰、结构化的 YouTube 描述文案。",
+      "perks": {
+        "free": "免费使用",
+        "styles": "多种描述风格",
+        "hashtags": "话题标签建议"
+      },
+      "formTitle": "生成 YouTube 描述",
+      "formSubtitle": "填写视频信息，选择你想要的描述风格。",
+      "topicLabel": "视频主题",
+      "topicPlaceholder": "例如：如何运营一个 YouTube 频道",
+      "keywordLabel": "核心关键词",
+      "keywordPlaceholder": "例如：YouTube SEO",
+      "styleLabel": "描述风格",
+      "styles": {
+        "balanced": "均衡",
+        "seoFocused": "SEO 优先",
+        "professional": "专业",
+        "friendly": "亲切",
+        "short": "简短",
+        "detailed": "详细"
+      },
+      "audienceLabel": "目标观众",
+      "audiencePlaceholder": "例如：新手创作者",
+      "ctaLabel": "行动号召",
+      "ctaPlaceholder": "例如：订阅获取更多 YouTube SEO 技巧",
+      "errorTopicRequired": "请先填写视频主题，再生成描述。",
+      "submit": "生成 YouTube 描述",
+      "previewEyebrow": "预览",
+      "previewTitle": "YouTube 风格描述预览",
+      "previewDesc": "预览选中的描述，并快速查看几项内容指标。",
+      "previewBadge": "仅作预览",
+      "previewTag": "YouTube 描述",
+      "previewEmpty": "生成的 YouTube 描述会显示在这里。",
+      "quickTitle": "描述快速检查",
+      "quickHint": "根据当前选中的描述实时计算。",
+      "stats": {
+        "characters": "字符数",
+        "words": "词数",
+        "keyword": "关键词"
+      },
+      "keywordStatus": {
+        "notSet": "未填写",
+        "found": "已包含",
+        "missing": "未包含"
+      },
+      "resultsEyebrow": "生成的描述",
+      "resultsTitle": "挑选最合适的一条",
+      "resultsDesc": "选择任意版本进行预览，然后复制并按你的视频内容调整。",
+      "copyAll": "复制描述 + 话题标签",
+      "labels": {
+        "balanced": "均衡",
+        "educational": "教学",
+        "creatorFriendly": "创作者友好",
+        "seoFocused": "SEO 优先",
+        "searchFriendly": "搜索友好",
+        "keywordRich": "关键词丰富",
+        "professional": "专业",
+        "structured": "结构化",
+        "expertTone": "专家口吻",
+        "friendly": "亲切",
+        "conversational": "对话式",
+        "approachable": "易懂",
+        "short": "简短",
+        "compact": "精简",
+        "minimal": "极简",
+        "detailed": "详细",
+        "inDepth": "深入",
+        "comprehensive": "全面"
+      },
+      "hashtagsEyebrow": "话题标签",
+      "hashtagsTitle": "推荐话题标签",
+      "ctaTipEyebrow": "CTA 建议",
+      "ctaTipTitle": "让行动号召贴合视频内容",
+      "ctaTipBody": "使用与视频内容一致的明确行动号召。只有在合理的情况下，才请观众订阅、访问相关链接、观看其他视频或留言评论。",
+      "shareTitle": "分享这个工具",
+      "shareDesc": "把 YouTube 描述生成器分享给想要更快写出结构化描述文案的创作者。",
+      "shareButton": "分享工具",
+      "linkCopied": "链接已复制",
+      "shareMessageTitle": "免费 YouTube 描述生成器 | LifeSeos",
+      "shareMessageText": "用 LifeSeos 生成 YouTube 视频描述。",
+      "factorsEyebrow": "YouTube 描述写作",
+      "factorsTitle": "写出更清晰、更有用的视频描述",
+      "factorsBody": "有用的描述应当清楚说明视频内容、支撑核心主题，并给观众明确的下一步，而不是堆砌无关关键词。",
+      "factors": {
+        "topicRelevance": {
+          "title": "主题相关性",
+          "text": "让描述聚焦在视频真正讲的内容上。"
+        },
+        "clearStructure": {
+          "title": "结构清晰",
+          "text": "用短段落和易读的表达，而不是一大段文字。"
+        },
+        "usefulLinks": {
+          "title": "有用链接",
+          "text": "只在确实对观众有帮助时才添加相关链接。"
+        },
+        "audienceFit": {
+          "title": "贴合观众",
+          "text": "根据视频面向的人群调整措辞与详细程度。"
+        },
+        "hashtags": {
+          "title": "话题标签",
+          "text": "使用少量相关话题标签，避免与内容无关的标签。"
+        },
+        "callToAction": {
+          "title": "行动号召",
+          "text": "给出一个与视频目的相符的明确下一步。"
+        }
+      },
+      "howEyebrow": "使用步骤",
+      "howTitle": "如何使用 YouTube 描述生成器",
+      "howBody": "先生成一个结构化初稿，再根据真实视频内容修改，然后发布。",
+      "steps": {
+        "1": {
+          "title": "填写视频主题",
+          "text": "用一句话清楚说明视频的主要内容。"
+        },
+        "2": {
+          "title": "补充关键词与观众信息",
+          "text": "可选填关键词、目标观众和行动号召。"
+        },
+        "3": {
+          "title": "选择描述风格",
+          "text": "可选择均衡、SEO 优先、专业、亲切、简短或详细。"
+        },
+        "4": {
+          "title": "生成并调整",
+          "text": "挑选一条描述，复制后修改，让它准确对应你的视频。"
+        }
+      },
+      "whyEyebrow": "视频信息",
+      "whyTitle": "为什么 YouTube 描述很重要",
+      "whyP1": "描述能为观众补充视频背景，说明他们会学到什么、有哪些相关资源，以及接下来可以做什么。",
+      "whyP2": "生成的文字在发布前一定要再检查并修改，确保与真实视频内容一致。",
+      "benefits": {
+        "explainVideo": {
+          "title": "说明视频内容",
+          "text": "为观众交代主题背景以及视频涵盖的内容。"
+        },
+        "relevance": {
+          "title": "强化相关性",
+          "text": "用自然的主题表述，与视频实际内容保持一致。"
+        },
+        "resources": {
+          "title": "补充有用资源",
+          "text": "只在确实能为观众提供帮助时加入链接或参考。"
+        },
+        "nextAction": {
+          "title": "引导下一步",
+          "text": "使用相关行动号召，同时避免描述过于冗长。"
+        }
+      },
+      "relatedBody": "用 LifeSeos 的其他 YouTube 工具继续完善视频信息。",
+      "relTitleGeneratorBody": "根据主题和关键词生成视频标题灵感。",
+      "relTitleAnalyzerBody": "检查标题结构、清晰度和关键词使用情况。",
+      "relKeywordIdeasBody": "探索关键词分组与视频选题灵感。",
+      "relDescriptionBody": "生成结构化描述文案、话题标签与行动号召。",
+      "currentBadge": "当前"
+    },
+    "youtubeScriptWriter": {
+      "meta": {
+        "title": "YouTube 脚本撰写 — 免费视频脚本构建工具",
+        "description": "搭建结构化视频脚本，包含开场钩子、核心要点、过渡与行动号召。"
+      },
+      "badge": "YouTube SEO 工具",
+      "titleLine1": "写出更好的",
+      "titleAccent": "YouTube 视频脚本。",
+      "subtitle": "把主题变成结构化视频脚本，包含开场白、引言、核心要点、过渡、行动号召和结尾。",
+      "perks": {
+        "free": "免费使用",
+        "styles": "多种脚本风格",
+        "structure": "清晰的视频流程"
+      },
+      "formTitle": "生成 YouTube 脚本",
+      "formSubtitle": "设定主题、观众和你想要的视频风格。",
+      "topicLabel": "视频主题",
+      "topicPlaceholder": "例如：如何运营一个 YouTube 频道",
+      "keywordLabel": "核心关键词",
+      "keywordPlaceholder": "例如：YouTube SEO",
+      "styleLabel": "脚本风格",
+      "styles": {
+        "educational": "教学",
+        "conversational": "对话式",
+        "professional": "专业",
+        "storytelling": "讲故事",
+        "tutorial": "教程"
+      },
+      "lengthLabel": "视频时长",
+      "lengths": {
+        "short": "短视频",
+        "five": "5 分钟",
+        "eight": "8 分钟",
+        "tenPlus": "10 分钟以上"
+      },
+      "audienceLabel": "目标观众",
+      "audiencePlaceholder": "例如：新手创作者",
+      "goalLabel": "视频目标",
+      "goalPlaceholder": "例如：帮助新手理解 YouTube SEO",
+      "errorTopicRequired": "请先填写视频主题，再生成脚本。",
+      "submit": "生成 YouTube 脚本",
+      "previewEyebrow": "脚本预览",
+      "previewTitle": "YouTube 风格脚本结构",
+      "previewDesc": "在复制完整脚本之前，先看看视频的整体流程。",
+      "previewBadge": "脚本预览",
+      "hookLabel": "开场白",
+      "previewEmpty": "生成的开场白会显示在这里。",
+      "quickTitle": "脚本快速检查",
+      "quickHint": "根据生成的脚本实时估算。",
+      "stats": {
+        "words": "词数",
+        "speakTime": "口播时长",
+        "sections": "分段"
+      },
+      "durationMinutes": "约 {minutes} 分钟",
+      "resultsEyebrow": "生成的脚本",
+      "resultsTitle": "你的结构化 YouTube 脚本",
+      "resultsDesc": "可以逐段查看，也可以一键复制完整脚本。",
+      "copyFullScript": "复制完整脚本",
+      "copiedFullScript": "已复制完整脚本",
+      "sectionLabels": {
+        "hook": "开场白",
+        "introduction": "引言",
+        "cta": "行动号召",
+        "outro": "结尾"
+      },
+      "mainScriptEyebrow": "主体脚本",
+      "mainScriptTitle": "核心讲述要点",
+      "point": "要点 {number}",
+      "transitionLabel": "过渡",
+      "hookAltEyebrow": "开场白备选",
+      "hookAltTitle": "换个开头试试",
+      "ctaAltEyebrow": "行动号召备选",
+      "ctaAltTitle": "选一个更有力的下一步",
+      "shareTitle": "分享这个工具",
+      "shareDesc": "把 YouTube 脚本撰写工具分享给需要结构化开头的创作者。",
+      "shareButton": "分享工具",
+      "linkCopied": "链接已复制",
+      "shareMessageTitle": "免费 YouTube 脚本撰写 | LifeSeos",
+      "shareMessageText": "用 LifeSeos 生成结构化的 YouTube 视频脚本。",
+      "factorsEyebrow": "YouTube 脚本规划",
+      "factorsTitle": "开录前先搭好清晰结构",
+      "factorsBody": "有用的脚本能给视频方向，又不会让表达变得生硬。把生成的结构当作起点，再调整措辞，让它符合你自己的说话方式。",
+      "factors": {
+        "hook": {
+          "title": "强开场",
+          "text": "一开始就给观众一个继续看下去的理由。"
+        },
+        "intro": {
+          "title": "清晰引言",
+          "text": "说明预期，交代视频会讲什么。"
+        },
+        "points": {
+          "title": "核心讲述要点",
+          "text": "把主题拆成有逻辑的分段，而不是一整段长内容。"
+        },
+        "pacing": {
+          "title": "更好节奏",
+          "text": "根据视频时长控制分段数量，保持现实可行。"
+        },
+        "audience": {
+          "title": "贴合观众",
+          "text": "把讲解方式调整到视频面向的人群。"
+        },
+        "cta": {
+          "title": "相关 CTA",
+          "text": "用一个与视频目的相符的下一步收尾。"
+        }
+      },
+      "howEyebrow": "使用步骤",
+      "howTitle": "如何使用 YouTube 脚本撰写",
+      "howBody": "先用工具生成结构化初稿，再重写各个分段，让最终脚本听起来自然、像你自己说的话。",
+      "steps": {
+        "1": {
+          "title": "填写视频主题",
+          "text": "说明视频主要讲什么。"
+        },
+        "2": {
+          "title": "选择风格与时长",
+          "text": "选择想要的语气和大概的视频时长。"
+        },
+        "3": {
+          "title": "补充观众与目标",
+          "text": "可选说明视频面向谁、希望达成什么。"
+        },
+        "4": {
+          "title": "生成并个性化",
+          "text": "查看脚本结构，复制有用的分段，在开录前调整措辞。"
+        }
+      },
+      "whyEyebrow": "视频结构",
+      "whyTitle": "为什么 YouTube 脚本很重要",
+      "whyP1": "脚本能帮创作者整理思路、减少重复，让视频保持清晰的方向。主要表达要点提前规划好，录制也会更轻松。",
+      "whyP2": "生成的脚本只是起点，不是最终表现。请检查并改写措辞，让它匹配你真实的内容和说话习惯。",
+      "benefits": {
+        "rambling": {
+          "title": "减少跑题",
+          "text": "录制前先定好核心要点，让视频保持聚焦。"
+        },
+        "flow": {
+          "title": "改善衔接",
+          "text": "用好过渡，让视频各部分自然衔接。"
+        },
+        "planning": {
+          "title": "节省策划时间",
+          "text": "从结构化提纲开始，而不是面对空白页。"
+        },
+        "voice": {
+          "title": "更有意图",
+          "text": "让每个分段都有明确目的，同时保留你自己的声音。"
+        }
+      },
+      "relatedBody": "用 LifeSeos 的 YouTube 工具，把主题、标题、描述和脚本一次搭好。",
+      "relTitleGeneratorBody": "根据主题和关键词生成标题灵感。",
+      "relTitleAnalyzerBody": "检查标题的清晰度、结构和关键词使用。",
+      "relKeywordIdeasBody": "探索关键词分组与视频选题灵感。",
+      "relDescriptionBody": "生成结构化视频描述与行动号召。",
+      "relScriptBody": "从开场白到结尾，生成结构化视频脚本。",
+      "currentBadge": "当前"
+    }
+  }
+}

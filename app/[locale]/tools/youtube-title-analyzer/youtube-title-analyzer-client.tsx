@@ -6,6 +6,8 @@ import { Link } from "@/i18n/navigation";
 
 import { useMemo, useState } from "react";
 
+import { useTranslations } from "next-intl";
+
 import {
 
   AlertTriangle,
@@ -46,7 +48,6 @@ import {
 
   TextCursorInput,
 
-  Users,
 
   Youtube,
 
@@ -60,13 +61,15 @@ type MetricStatus = "Good" | "Needs Improvement" | "Weak";
 
 type Metric = {
 
-  label: string;
+  key: string;
 
   score: number;
 
   status: MetricStatus;
 
-  description: string;
+  descriptionKey: string;
+
+  descriptionCount?: number;
 
 };
 
@@ -159,6 +162,28 @@ function getGrade(score: number): AnalysisResult["grade"] {
 }
 
 
+
+function gradeKey(grade: AnalysisResult["grade"]) {
+
+  if (grade === "Excellent") return "excellent";
+
+  if (grade === "Good") return "good";
+
+  if (grade === "Fair") return "fair";
+
+  return "needsWork";
+
+}
+
+function statusKey(status: MetricStatus) {
+
+  if (status === "Good") return "good";
+
+  if (status === "Needs Improvement") return "needsImprovement";
+
+  return "weak";
+
+}
 
 function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
@@ -290,89 +315,91 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
     {
 
-      label: "Title Length",
+      key: "length",
 
       score: lengthScore,
 
       status: getMetricStatus(lengthScore),
 
-      description: `${length} characters`,
+      descriptionKey: "metrics.length.desc",
+
+      descriptionCount: length,
 
     },
 
     {
 
-      label: "Keyword Presence",
+      key: "keywordPresence",
 
       score: keywordScore,
 
       status: getMetricStatus(keywordScore),
 
-      description: cleanKeyword
+      descriptionKey: !cleanKeyword
 
-        ? lowerTitle.includes(lowerKeyword)
+        ? "metrics.keywordPresence.none"
 
-          ? "Main keyword found"
+        : lowerTitle.includes(lowerKeyword)
 
-          : "Main keyword not found"
+          ? "metrics.keywordPresence.found"
 
-        : "No keyword provided",
+          : "metrics.keywordPresence.missing",
 
     },
 
     {
 
-      label: "Keyword Position",
+      key: "keywordPosition",
 
       score: keywordPositionScore,
 
       status: getMetricStatus(keywordPositionScore),
 
-      description: cleanKeyword
+      descriptionKey: !cleanKeyword
 
-        ? lowerTitle.includes(lowerKeyword)
+        ? "metrics.keywordPosition.none"
 
-          ? "Keyword placement reviewed"
+        : lowerTitle.includes(lowerKeyword)
 
-          : "Cannot evaluate placement"
+          ? "metrics.keywordPosition.reviewed"
 
-        : "No keyword provided",
+          : "metrics.keywordPosition.unknown",
 
     },
 
     {
 
-      label: "Clarity",
+      key: "clarity",
 
       score: clarityScore,
 
       status: getMetricStatus(clarityScore),
 
-      description: "How easy the title is to understand",
+      descriptionKey: "metrics.clarity.desc",
 
     },
 
     {
 
-      label: "Specificity",
+      key: "specificity",
 
       score: specificityScore,
 
       status: getMetricStatus(specificityScore),
 
-      description: "How clearly the title defines the video angle",
+      descriptionKey: "metrics.specificity.desc",
 
     },
 
     {
 
-      label: "Click Appeal",
+      key: "clickAppeal",
 
       score: clickAppealScore,
 
       status: getMetricStatus(clickAppealScore),
 
-      description: "How strongly the title creates interest",
+      descriptionKey: "metrics.clickAppeal.desc",
 
     },
 
@@ -398,25 +425,25 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
   if (length >= 35 && length <= 65) {
 
-    strengths.push("The title uses a clear, practical length.");
+    strengths.push("lengthGood");
 
   } else if (length < 35) {
 
-    issues.push("The title is quite short and may not communicate enough context.");
+    issues.push("short");
 
     recommendations.push(
 
-      "Add a clearer benefit, angle or specific detail to the title."
+      "addBenefit"
 
     );
 
   } else {
 
-    issues.push("The title is relatively long and may be harder to scan quickly.");
+    issues.push("long");
 
     recommendations.push(
 
-      "Move the most important wording earlier and remove unnecessary words."
+      "moveEarlier"
 
     );
 
@@ -428,7 +455,7 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
     if (lowerTitle.includes(lowerKeyword)) {
 
-      strengths.push("The main keyword appears in the title.");
+      strengths.push("keywordFound");
 
 
 
@@ -436,13 +463,13 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
       if (keywordIndex <= cleanTitle.length * 0.25) {
 
-        strengths.push("The main keyword appears early in the title.");
+        strengths.push("keywordEarly");
 
       } else {
 
         recommendations.push(
 
-          "Consider moving the main keyword closer to the beginning."
+          "moveKeyword"
 
         );
 
@@ -450,11 +477,11 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
     } else {
 
-      issues.push("The main keyword does not appear in the title.");
+      issues.push("keywordMissing");
 
       recommendations.push(
 
-        "Include the main keyword naturally if it accurately reflects the video."
+        "includeKeyword"
 
       );
 
@@ -466,13 +493,13 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
   if (clarityScore >= 80) {
 
-    strengths.push("The title is easy to understand at a glance.");
+    strengths.push("clarityGood");
 
   } else {
 
-    issues.push("The title could communicate the video topic more clearly.");
+    issues.push("clarity");
 
-    recommendations.push("Use more direct wording and reduce vague phrases.");
+    recommendations.push("directWording");
 
   }
 
@@ -480,13 +507,13 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
   if (specificityScore >= 80) {
 
-    strengths.push("The title communicates a specific angle or promise.");
+    strengths.push("specificityGood");
 
   } else {
 
     recommendations.push(
 
-      "Add a specific format such as a guide, list, question, tutorial or clear outcome."
+      "specificFormat"
 
     );
 
@@ -496,13 +523,13 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
   if (clickAppealScore >= 80) {
 
-    strengths.push("The title has a strong, attention-friendly structure.");
+    strengths.push("clickGood");
 
   } else {
 
     recommendations.push(
 
-      "Increase interest with a clearer benefit, question, number or problem-focused angle."
+      "moreInterest"
 
     );
 
@@ -524,9 +551,9 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
       title: `How to ${topicTitle}: A Complete Guide`,
 
-      angle: "How-To",
+      angle: "howTo",
 
-      reason: "Clear instructional intent and a direct promise of useful guidance.",
+      reason: "r1",
 
     },
 
@@ -534,9 +561,9 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
       title: `7 Ways to Improve ${topicTitle}`,
 
-      angle: "List",
+      angle: "list",
 
-      reason: "A numbered format makes the value easy to scan before clicking.",
+      reason: "r2",
 
     },
 
@@ -544,9 +571,9 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
       title: `${topicTitle} Explained: What You Need to Know`,
 
-      angle: "Explainer",
+      angle: "explainer",
 
-      reason: "Signals a clear educational video and sets expectations quickly.",
+      reason: "r3",
 
     },
 
@@ -554,9 +581,9 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
       title: `Why Your ${topicTitle} May Not Be Working`,
 
-      angle: "Problem",
+      angle: "problem",
 
-      reason: "Focuses on a pain point and creates a natural reason to keep reading.",
+      reason: "r4",
 
     },
 
@@ -564,9 +591,9 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
       title: `${topicTitle} for Beginners: Start Here`,
 
-      angle: "Beginner",
+      angle: "beginner",
 
-      reason: "Makes the intended audience explicit and reduces uncertainty for new viewers.",
+      reason: "r5",
 
     },
 
@@ -574,9 +601,9 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
       title: `10 ${topicTitle} Tips You Should Know`,
 
-      angle: "Tips",
+      angle: "tips",
 
-      reason: "Combines a specific number with a practical benefit-focused format.",
+      reason: "r6",
 
     },
 
@@ -584,9 +611,9 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
       title: `The Biggest ${topicTitle} Mistakes to Avoid`,
 
-      angle: "Mistakes",
+      angle: "mistakes",
 
-      reason: "Uses a risk-avoidance angle that can make the topic feel immediately relevant.",
+      reason: "r7",
 
     },
 
@@ -594,9 +621,9 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
       title: `${topicTitle}: Simple Strategies for Better Results`,
 
-      angle: "Professional",
+      angle: "professional",
 
-      reason: "Keeps the keyword prominent while adding a practical outcome-oriented promise.",
+      reason: "r8",
 
     },
 
@@ -604,9 +631,9 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
       title: `Is ${topicTitle} Really Worth It?`,
 
-      angle: "Question",
+      angle: "question",
 
-      reason: "A question format can match viewers who are comparing options or looking for an opinion.",
+      reason: "r9",
 
     },
 
@@ -614,9 +641,9 @@ function analyzeTitle(title: string, keyword: string): AnalysisResult {
 
       title: `Master ${topicTitle}: Step-by-Step Tutorial`,
 
-      angle: "Tutorial",
+      angle: "tutorial",
 
-      reason: "Combines a strong outcome with a structured learning format.",
+      reason: "r10",
 
     },
 
@@ -708,6 +735,12 @@ function statusClass(status: MetricStatus) {
 
 export default function YouTubeTitleAnalyzerClient() {
 
+  const t = useTranslations("Tool.youtubeTitleAnalyzer");
+
+  const tc = useTranslations("Tools.catalog");
+
+  const tCommon = useTranslations("Common");
+
   const [title, setTitle] = useState("");
 
   const [keyword, setKeyword] = useState("");
@@ -728,13 +761,13 @@ export default function YouTubeTitleAnalyzerClient() {
 
   const liveLengthStatus = useMemo(() => {
 
-    if (!titleLength) return "Enter a title";
+    if (!titleLength) return "empty";
 
-    if (titleLength < 35) return "Short";
+    if (titleLength < 35) return "short";
 
-    if (titleLength <= 65) return "Good length";
+    if (titleLength <= 65) return "good";
 
-    return "Long";
+    return "long";
 
   }, [titleLength]);
 
@@ -748,7 +781,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
     if (!cleanText(title)) {
 
-      setError("Please enter a YouTube title before running the analysis.");
+      setError(t("errorTitleRequired"));
 
       return;
 
@@ -816,9 +849,9 @@ export default function YouTubeTitleAnalyzerClient() {
 
     const shareData = {
 
-      title: "Free YouTube Title Checker & Analyzer | LifeSeos",
+      title: t("shareMessageTitle"),
 
-      text: "Analyze and improve a YouTube video title with LifeSeos.",
+      text: t("shareMessageText"),
 
       url: window.location.href,
 
@@ -886,7 +919,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
             <Youtube className="h-4 w-4" />
 
-            YouTube SEO Tools
+            {t("badge")}
 
           </div>
 
@@ -894,11 +927,11 @@ export default function YouTubeTitleAnalyzerClient() {
 
           <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
 
-            Analyze and improve your
+            {t("titleLine1")}
 
             <span className="block bg-gradient-to-r from-red-400 via-rose-300 to-white bg-clip-text text-transparent">
 
-              YouTube title.
+              {t("titleAccent")}
 
             </span>
 
@@ -908,7 +941,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-400">
 
-            Use this free YouTube SEO title checker and title tester to review length, keyword use, clarity, specificity and click appeal before publishing. The score evaluates title signals and does not predict YouTube rankings.
+            {t("subtitle")}
 
           </p>
 
@@ -920,7 +953,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
               <Check className="h-4 w-4 text-red-400" />
 
-              Free to use
+              {t("perks.free")}
 
             </span>
 
@@ -930,7 +963,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
               <Check className="h-4 w-4 text-red-400" />
 
-              Instant analysis
+              {t("perks.instant")}
 
             </span>
 
@@ -940,7 +973,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
               <Check className="h-4 w-4 text-red-400" />
 
-              Practical recommendations
+              {t("perks.recommendations")}
 
             </span>
 
@@ -976,7 +1009,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 <h2 className="text-xl font-semibold">
 
-                  Check and analyze your YouTube title
+                  {t("formTitle")}
 
                 </h2>
 
@@ -984,7 +1017,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 <p className="mt-1 text-sm text-slate-400">
 
-                  Enter an existing title and an optional target keyword.
+                  {t("formSubtitle")}
 
                 </p>
 
@@ -1006,7 +1039,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 >
 
-                  YouTube Title
+                  {t("titleLabel")}
 
                 </label>
 
@@ -1020,7 +1053,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   onChange={(event) => setTitle(event.target.value)}
 
-                  placeholder="e.g. How to Grow a YouTube Channel in 2026"
+                  placeholder={t("titlePlaceholder")}
 
                   rows={4}
 
@@ -1032,11 +1065,13 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 <div className="mt-2 flex items-center justify-between gap-3 text-xs">
 
-                  <span className="text-slate-500">{liveLengthStatus}</span>
+                  <span className="text-slate-500">
+                    {t(`liveLength.${liveLengthStatus}`)}
+                  </span>
 
                   <span className="text-slate-500">
 
-                    {titleLength} characters
+                    {t("characters", { count: titleLength })}
 
                   </span>
 
@@ -1056,9 +1091,9 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 >
 
-                  Main Keyword
+                  {t("keywordLabel")}
 
-                  <span className="ml-2 text-slate-500">Optional</span>
+                  <span className="ms-2 text-slate-500">{tCommon("optional")}</span>
 
                 </label>
 
@@ -1072,7 +1107,9 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   onChange={(event) => setKeyword(event.target.value)}
 
-                  placeholder="e.g. YouTube SEO"
+                  placeholder={t("keywordPlaceholder")}
+
+                  dir="ltr"
 
                   className="h-12 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-red-400/50 focus:ring-2 focus:ring-red-400/10"
 
@@ -1082,7 +1119,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 <p className="mt-2 text-xs leading-5 text-slate-500">
 
-                  Add the keyword you want the title to communicate clearly.
+                  {t("keywordHint")}
 
                 </p>
 
@@ -1114,7 +1151,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 <Gauge className="h-4 w-4" />
 
-                Analyze YouTube Title
+                {t("submit")}
 
               </button>
 
@@ -1136,7 +1173,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-red-400">
 
-                  Preview
+                  {t("previewEyebrow")}
 
                 </p>
 
@@ -1144,7 +1181,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 <h2 className="mt-2 text-xl font-semibold">
 
-                  YouTube-style title preview
+                  {t("previewTitle")}
 
                 </h2>
 
@@ -1152,9 +1189,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 <p className="mt-2 max-w-md text-sm leading-6 text-slate-500">
 
-                  See how your title may look in a video-style card and review a
-
-                  few important title signals at a glance.
+                  {t("previewDesc")}
 
                 </p>
 
@@ -1192,7 +1227,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 <div className="absolute left-4 top-4 rounded-full border border-white/10 bg-black/40 px-3 py-1.5 text-xs font-medium text-slate-200 backdrop-blur">
 
-                  Preview only
+                  {t("previewBadge")}
 
                 </div>
 
@@ -1202,7 +1237,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-500 shadow-[0_12px_40px_rgba(239,68,68,0.35)] transition duration-300 hover:scale-105">
 
-                    <Play className="ml-1 h-7 w-7 fill-white text-white" />
+                    <Play className="ms-1 h-7 w-7 fill-white text-white" />
 
                   </div>
 
@@ -1250,11 +1285,12 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <div className="min-w-0 flex-1">
 
-                    <h3 className="line-clamp-2 text-[15px] font-semibold leading-6 text-white">
+                    <h3
+                      className="line-clamp-2 text-[15px] font-semibold leading-6 text-white"
+                      data-ltr-text
+                    >
 
-                      {cleanText(title) ||
-
-                        "Your YouTube title will appear here"}
+                      {cleanText(title) || t("previewEmptyTitle")}
 
                     </h3>
 
@@ -1262,11 +1298,11 @@ export default function YouTubeTitleAnalyzerClient() {
 
                     <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
 
-                      <span>LifeSeos Creator</span>
+                      <span>{t("previewChannel")}</span>
 
                       <span className="text-slate-700">•</span>
 
-                      <span>Preview</span>
+                      <span>{t("previewLabel")}</span>
 
                     </div>
 
@@ -1274,7 +1310,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                     <p className="mt-1 text-xs text-slate-600">
 
-                      Sample display only
+                      {t("previewSample")}
 
                     </p>
 
@@ -1298,7 +1334,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 <p className="text-sm font-semibold text-slate-200">
 
-                  Quick title review
+                  {t("quickTitle")}
 
                 </p>
 
@@ -1306,7 +1342,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 <p className="mt-1 text-xs text-slate-500">
 
-                  Live signals based on the title you entered.
+                  {t("quickHint")}
 
                 </p>
 
@@ -1320,7 +1356,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <p className="text-xs uppercase tracking-wider text-slate-500">
 
-                    Length
+                    {t("quick.length")}
 
                   </p>
 
@@ -1356,17 +1392,17 @@ export default function YouTubeTitleAnalyzerClient() {
 
                       {titleLength === 0
 
-                        ? "Waiting"
+                        ? t("quickLength.waiting")
 
                         : titleLength >= 35 && titleLength <= 65
 
-                          ? "Good"
+                          ? t("quickLength.good")
 
                           : titleLength < 35
 
-                            ? "Short"
+                            ? t("quickLength.short")
 
-                            : "Long"}
+                            : t("quickLength.long")}
 
                     </span>
 
@@ -1380,7 +1416,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <p className="text-xs uppercase tracking-wider text-slate-500">
 
-                    Keyword
+                    {t("quick.keyword")}
 
                   </p>
 
@@ -1416,7 +1452,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                       {!cleanText(keyword)
 
-                        ? "Not set"
+                        ? t("quickKeyword.notSet")
 
                         : cleanText(title)
 
@@ -1424,9 +1460,9 @@ export default function YouTubeTitleAnalyzerClient() {
 
                             .includes(cleanText(keyword).toLowerCase())
 
-                          ? "Found"
+                          ? t("quickKeyword.found")
 
-                          : "Missing"}
+                          : t("quickKeyword.missing")}
 
                     </span>
 
@@ -1440,7 +1476,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <p className="text-xs uppercase tracking-wider text-slate-500">
 
-                    Clarity
+                    {t("quick.clarity")}
 
                   </p>
 
@@ -1472,13 +1508,13 @@ export default function YouTubeTitleAnalyzerClient() {
 
                       {!cleanText(title)
 
-                        ? "Waiting"
+                        ? t("quickClarity.waiting")
 
                         : cleanText(title).split(" ").length >= 5
 
-                          ? "Clear"
+                          ? t("quickClarity.clear")
 
-                          : "Basic"}
+                          : t("quickClarity.basic")}
 
                     </span>
 
@@ -1498,7 +1534,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                     <span className="text-sm text-slate-400">
 
-                      Title length
+                      {t("titleLengthLabel")}
 
                     </span>
 
@@ -1506,7 +1542,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                     <span className="text-sm font-medium">
 
-                      {titleLength} characters
+                      {t("characters", { count: titleLength })}
 
                     </span>
 
@@ -1548,11 +1584,11 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <div className="mt-2 flex justify-between text-[11px] text-slate-600">
 
-                    <span>Short</span>
+                    <span>{t("scale.short")}</span>
 
-                    <span>Balanced</span>
+                    <span>{t("scale.balanced")}</span>
 
-                    <span>Long</span>
+                    <span>{t("scale.long")}</span>
 
                   </div>
 
@@ -1596,7 +1632,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
 
-                    Title Score
+                    {t("scoreEyebrow")}
 
                   </p>
 
@@ -1626,7 +1662,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                         <div className="mt-1 text-xs text-slate-500">
 
-                          out of 100
+                          {t("outOf")}
 
                         </div>
 
@@ -1638,15 +1674,15 @@ export default function YouTubeTitleAnalyzerClient() {
 
                     <div>
 
-                      <h2 className="text-2xl font-bold">{result.grade}</h2>
+                      <h2 className="text-2xl font-bold">
+                        {t(`grades.${gradeKey(result.grade)}`)}
+                      </h2>
 
 
 
                       <p className="mt-3 text-sm leading-6 text-slate-400">
 
-                        This score summarizes the title structure, keyword use,
-
-                        clarity, specificity and click appeal.
+                        {t("scoreDesc")}
 
                       </p>
 
@@ -1664,7 +1700,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                     <div
 
-                      key={metric.label}
+                      key={metric.key}
 
                       className="rounded-2xl border border-white/10 bg-white/[0.025] p-5"
 
@@ -1676,7 +1712,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                           <p className="text-sm text-slate-400">
 
-                            {metric.label}
+                            {t(`metrics.${metric.key}.label`)}
 
                           </p>
 
@@ -1702,7 +1738,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                         >
 
-                          {metric.status}
+                          {t(`status.${statusKey(metric.status)}`)}
 
                         </span>
 
@@ -1712,7 +1748,12 @@ export default function YouTubeTitleAnalyzerClient() {
 
                       <p className="mt-4 text-sm leading-6 text-slate-500">
 
-                        {metric.description}
+                        {t(
+                          metric.descriptionKey,
+                          metric.descriptionCount === undefined
+                            ? undefined
+                            : { count: metric.descriptionCount },
+                        )}
 
                       </p>
 
@@ -1754,13 +1795,13 @@ export default function YouTubeTitleAnalyzerClient() {
 
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300">
 
-                      Strengths
+                      {t("strengthsEyebrow")}
 
                     </p>
 
                     <h2 className="mt-1 text-xl font-semibold">
 
-                      What is working well
+                      {t("strengthsTitle")}
 
                     </h2>
 
@@ -1788,7 +1829,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                         <span className="text-sm leading-6 text-slate-300">
 
-                          {item}
+                          {t(`insights.strengths.${item}`)}
 
                         </span>
 
@@ -1800,9 +1841,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                     <p className="text-sm leading-6 text-slate-400">
 
-                      No strong signals were detected yet. Review the
-
-                      recommendations below.
+                      {t("strengthsEmpty")}
 
                     </p>
 
@@ -1830,13 +1869,13 @@ export default function YouTubeTitleAnalyzerClient() {
 
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-300">
 
-                      Issues
+                      {t("issuesEyebrow")}
 
                     </p>
 
                     <h2 className="mt-1 text-xl font-semibold">
 
-                      What could be improved
+                      {t("issuesTitle")}
 
                     </h2>
 
@@ -1864,7 +1903,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                         <span className="text-sm leading-6 text-slate-300">
 
-                          {item}
+                          {t(`insights.issues.${item}`)}
 
                         </span>
 
@@ -1876,7 +1915,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                     <p className="text-sm leading-6 text-slate-400">
 
-                      No major structural issues were detected in this title.
+                      {t("issuesEmpty")}
 
                     </p>
 
@@ -1914,7 +1953,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-300">
 
-                    Recommendations
+                    {t("recsEyebrow")}
 
                   </p>
 
@@ -1922,7 +1961,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <h2 className="mt-2 text-2xl font-semibold">
 
-                    How to improve this title
+                    {t("recsTitle")}
 
                   </h2>
 
@@ -1946,7 +1985,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                           <span className="text-sm leading-6 text-slate-300">
 
-                            {item}
+                            {t(`insights.recommendations.${item}`)}
 
                           </span>
 
@@ -1958,9 +1997,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                       <div className="rounded-xl border border-emerald-400/15 bg-emerald-400/[0.04] p-4 text-sm leading-6 text-emerald-200">
 
-                        The title already has a strong structure. Keep it aligned
-
-                        with the actual video content and thumbnail.
+                        {t("recsEmpty")}
 
                       </div>
 
@@ -1992,7 +2029,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
 
-                    Improved Ideas
+                    {t("suggestionsEyebrow")}
 
                   </p>
 
@@ -2000,7 +2037,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <h2 className="mt-3 text-3xl font-bold">
 
-                    How to improve this title
+                    {t("recsTitle")}
 
                   </h2>
 
@@ -2008,11 +2045,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <p className="mt-3 max-w-2xl text-slate-400">
 
-                    Compare several stronger title directions based on the topic
-
-                    you entered. Each option uses a different angle so you can
-
-                    choose the one that best matches your actual video.
+                    {t("suggestionsDesc")}
 
                   </p>
 
@@ -2030,7 +2063,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <Sparkles className="h-4 w-4" />
 
-                  Generate more titles
+                  {t("generateMore")}
 
                 </Link>
 
@@ -2064,7 +2097,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                             <span className="rounded-full border border-red-400/20 bg-red-400/10 px-2.5 py-1 text-xs font-medium text-red-300">
 
-                              {suggestion.angle}
+                              {t(`angles.${suggestion.angle}`)}
 
                             </span>
 
@@ -2072,7 +2105,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                             <span className="text-xs text-slate-500">
 
-                              {suggestion.title.length} characters
+                              {t("characters", { count: suggestion.title.length })}
 
                             </span>
 
@@ -2080,7 +2113,10 @@ export default function YouTubeTitleAnalyzerClient() {
 
 
 
-                          <h3 className="mt-3 text-lg font-semibold leading-7 text-white">
+                          <h3
+                            className="mt-3 text-lg font-semibold leading-7 text-white"
+                            data-ltr-text
+                          >
 
                             {suggestion.title}
 
@@ -2090,7 +2126,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                           <p className="mt-2 text-sm leading-6 text-slate-400">
 
-                            {suggestion.reason}
+                            {t(`suggestionReasons.${suggestion.reason}`)}
 
                           </p>
 
@@ -2114,7 +2150,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                               <Check className="h-4 w-4 text-emerald-400" />
 
-                              Copied
+                              {tCommon("copied")}
 
                             </>
 
@@ -2124,7 +2160,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                               <Copy className="h-4 w-4" />
 
-                              Copy
+                              {tCommon("copy")}
 
                             </>
 
@@ -2174,15 +2210,13 @@ export default function YouTubeTitleAnalyzerClient() {
 
               <div>
 
-                <h2 className="font-semibold">Share this tool</h2>
+                <h2 className="font-semibold">{t("shareTitle")}</h2>
 
 
 
                 <p className="mt-1 text-sm leading-6 text-slate-400">
 
-                  Share the YouTube Title Analyzer with creators who want a
-
-                  clearer way to review their video titles.
+                  {t("shareDesc")}
 
                 </p>
 
@@ -2208,7 +2242,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <Check className="h-4 w-4 text-emerald-400" />
 
-                  Link copied
+                  {t("linkCopied")}
 
                 </>
 
@@ -2218,7 +2252,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <Share2 className="h-4 w-4" />
 
-                  Share tool
+                  {t("shareButton")}
 
                 </>
 
@@ -2246,7 +2280,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
 
-              YouTube Title Analysis
+              {t("factorsEyebrow")}
 
             </p>
 
@@ -2254,7 +2288,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
 
-              What the analyzer reviews
+              {t("factorsTitle")}
 
             </h2>
 
@@ -2262,9 +2296,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
             <p className="mt-5 leading-8 text-slate-400">
 
-              The analyzer checks practical title signals that help you review
-
-              wording, structure and relevance before publishing a video.
+              {t("factorsBody")}
 
             </p>
 
@@ -2280,9 +2312,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 icon: BarChart3,
 
-                title: "Title Length",
-
-                text: "Reviews whether the title provides enough context without becoming unnecessarily long.",
+                key: "length",
 
               },
 
@@ -2290,9 +2320,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 icon: Search,
 
-                title: "Keyword Presence",
-
-                text: "Checks whether your optional main keyword appears naturally in the title.",
+                key: "keywordPresence",
 
               },
 
@@ -2300,9 +2328,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 icon: Target,
 
-                title: "Keyword Position",
-
-                text: "Reviews how early the main keyword appears when a keyword is provided.",
+                key: "keywordPosition",
 
               },
 
@@ -2310,9 +2336,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 icon: TextCursorInput,
 
-                title: "Clarity",
-
-                text: "Looks at whether the title communicates the topic in a direct, readable way.",
+                key: "clarity",
 
               },
 
@@ -2320,9 +2344,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 icon: Compass,
 
-                title: "Specificity",
-
-                text: "Checks whether the title defines a clear angle, format or outcome.",
+                key: "specificity",
 
               },
 
@@ -2330,9 +2352,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 icon: MousePointerClick,
 
-                title: "Click Appeal",
-
-                text: "Reviews whether the title creates interest without relying on misleading claims.",
+                key: "clickAppeal",
 
               },
 
@@ -2346,7 +2366,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                 <div
 
-                  key={item.title}
+                  key={item.key}
 
                   className="rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition duration-300 hover:-translate-y-0.5 hover:border-red-400/25 hover:bg-white/[0.04]"
 
@@ -2360,13 +2380,15 @@ export default function YouTubeTitleAnalyzerClient() {
 
 
 
-                  <h3 className="mt-5 text-lg font-semibold">{item.title}</h3>
+                  <h3 className="mt-5 text-lg font-semibold">
+                    {t(`factors.${item.key}.title`)}
+                  </h3>
 
 
 
                   <p className="mt-3 text-sm leading-7 text-slate-400">
 
-                    {item.text}
+                    {t(`factors.${item.key}.text`)}
 
                   </p>
 
@@ -2398,7 +2420,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
 
-                How It Works
+                {t("howEyebrow")}
 
               </p>
 
@@ -2406,7 +2428,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
               <h2 className="mt-3 text-3xl font-bold">
 
-                How to use the YouTube Title Analyzer
+                {t("howTitle")}
 
               </h2>
 
@@ -2414,9 +2436,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
               <p className="mt-5 leading-8 text-slate-400">
 
-                Review an existing title in a few simple steps and use the
-
-                recommendations to refine it before publishing.
+                {t("howBody")}
 
               </p>
 
@@ -2432,9 +2452,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   number: "1",
 
-                  title: "Enter your current title",
 
-                  text: "Paste or type the YouTube title you want to review.",
 
                 },
 
@@ -2442,9 +2460,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   number: "2",
 
-                  title: "Add your main keyword",
 
-                  text: "Optionally add the keyword you want the title to communicate.",
 
                 },
 
@@ -2452,9 +2468,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   number: "3",
 
-                  title: "Run the analysis",
 
-                  text: "Review the overall score, title factors, strengths and issues.",
 
                 },
 
@@ -2462,9 +2476,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   number: "4",
 
-                  title: "Improve your title",
 
-                  text: "Use the recommendations or alternative ideas as a starting point.",
 
                 },
 
@@ -2488,13 +2500,15 @@ export default function YouTubeTitleAnalyzerClient() {
 
                   <div>
 
-                    <h3 className="font-semibold">{step.title}</h3>
+                    <h3 className="font-semibold">
+                      {t(`steps.${step.number}.title`)}
+                    </h3>
 
 
 
                     <p className="mt-1.5 text-sm leading-6 text-slate-400">
 
-                      {step.text}
+                      {t(`steps.${step.number}.text`)}
 
                     </p>
 
@@ -2526,7 +2540,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
 
-              Video Discovery
+              {t("whyEyebrow")}
 
             </p>
 
@@ -2534,7 +2548,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
 
-              Why YouTube titles matter
+              {t("whyTitle")}
 
             </h2>
 
@@ -2542,11 +2556,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
             <p className="mt-5 leading-8 text-slate-400">
 
-              A video title helps viewers understand the subject before they
-
-              click. It can communicate relevance, set expectations and support
-
-              the overall presentation of the video.
+              {t("whyP1")}
 
             </p>
 
@@ -2554,11 +2564,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
             <p className="mt-4 leading-8 text-slate-400">
 
-              Titles work together with thumbnails, descriptions and the actual
-
-              video content. This analyzer focuses on title structure only and
-
-              does not claim to predict rankings or views.
+              {t("whyP2")}
 
             </p>
 
@@ -2572,33 +2578,25 @@ export default function YouTubeTitleAnalyzerClient() {
 
               {
 
-                title: "Explain the topic",
-
-                text: "Help viewers quickly understand what the video is about.",
+                key: "topic",
 
               },
 
               {
 
-                title: "Support relevance",
-
-                text: "Use wording that accurately reflects the subject of the video.",
+                key: "relevance",
 
               },
 
               {
 
-                title: "Create interest",
-
-                text: "Give viewers a clear reason to explore the content without misleading them.",
+                key: "interest",
 
               },
 
               {
 
-                title: "Set expectations",
-
-                text: "Make sure the title promise matches what the video actually delivers.",
+                key: "expectations",
 
               },
 
@@ -2606,7 +2604,7 @@ export default function YouTubeTitleAnalyzerClient() {
 
               <div
 
-                key={item.title}
+                key={item.key}
 
                 className="rounded-2xl border border-white/10 bg-white/[0.025] p-5"
 
@@ -2616,13 +2614,15 @@ export default function YouTubeTitleAnalyzerClient() {
 
 
 
-                <h3 className="mt-4 font-semibold">{item.title}</h3>
+                <h3 className="mt-4 font-semibold">
+                  {t(`benefits.${item.key}.title`)}
+                </h3>
 
 
 
                 <p className="mt-2 text-sm leading-6 text-slate-400">
 
-                  {item.text}
+                  {t(`benefits.${item.key}.text`)}
 
                 </p>
 
@@ -2645,17 +2645,15 @@ export default function YouTubeTitleAnalyzerClient() {
 
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-400">
-              Continue Your YouTube SEO Workflow
+              {t("workflowEyebrow")}
             </p>
 
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-              Go from keyword research to a complete video plan
+              {t("workflowTitle")}
             </h2>
 
             <p className="mt-4 leading-7 text-slate-400">
-              Use the YouTube SEO tools in sequence to find keyword angles,
-              create a title, review it, build the description and then draft
-              the full video script.
+              {t("workflowBody")}
             </p>
           </div>
 
@@ -2671,21 +2669,23 @@ export default function YouTubeTitleAnalyzerClient() {
                 </div>
 
                 <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                  Step 1
+                  {t("workflow.step", { number: 1 })}
                 </span>
               </div>
 
               <h3 className="mt-5 font-semibold transition group-hover:text-red-300">
-                YouTube Keyword Ideas
+                {tc("youtubeKeywordIdeas.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Discover keyword groups, long-tail phrases, questions and video
-                angles from your main topic.
+                {t("workflow.items.keywords.desc")}
               </p>
 
               <div className="mt-5 text-sm font-semibold text-red-300">
-                Find keywords →
+                {t("workflow.items.keywords.cta")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </div>
             </Link>
 
@@ -2699,21 +2699,23 @@ export default function YouTubeTitleAnalyzerClient() {
                 </div>
 
                 <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                  Step 2
+                  {t("workflow.step", { number: 2 })}
                 </span>
               </div>
 
               <h3 className="mt-5 font-semibold transition group-hover:text-red-300">
-                YouTube Title Generator
+                {tc("youtubeTitleGenerator.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Turn your strongest keyword or topic into multiple title ideas
-                for the video.
+                {t("workflow.items.titleGenerator.desc")}
               </p>
 
               <div className="mt-5 text-sm font-semibold text-red-300">
-                Generate titles →
+                {t("workflow.items.titleGenerator.cta")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </div>
             </Link>
 
@@ -2724,21 +2726,20 @@ export default function YouTubeTitleAnalyzerClient() {
                 </div>
 
                 <span className="rounded-full border border-rose-400/25 bg-rose-400/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-rose-300">
-                  Step 3 · Current
+                  {t("workflow.current", { number: 3 })}
                 </span>
               </div>
 
               <h3 className="mt-5 font-semibold">
-                YouTube Title Analyzer
+                {tc("youtubeTitleAnalyzer.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Review your title for clarity, keyword use, structure, length
-                and click appeal before publishing.
+                {t("workflow.items.titleAnalyzer.desc")}
               </p>
 
               <div className="mt-5 text-sm font-semibold text-rose-300">
-                Analyze title ✓
+                {t("workflow.items.titleAnalyzer.cta")} ✓
               </div>
             </div>
 
@@ -2752,21 +2753,23 @@ export default function YouTubeTitleAnalyzerClient() {
                 </div>
 
                 <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                  Step 4
+                  {t("workflow.step", { number: 4 })}
                 </span>
               </div>
 
               <h3 className="mt-5 font-semibold transition group-hover:text-fuchsia-300">
-                YouTube Description Generator
+                {tc("youtubeDescriptionGenerator.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Build a structured description using the topic, title and
-                important keywords from your video plan.
+                {t("workflow.items.descriptionGenerator.desc")}
               </p>
 
               <div className="mt-5 text-sm font-semibold text-fuchsia-300">
-                Create description →
+                {t("workflow.items.descriptionGenerator.cta")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </div>
             </Link>
 
@@ -2780,21 +2783,23 @@ export default function YouTubeTitleAnalyzerClient() {
                 </div>
 
                 <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                  Step 5
+                  {t("workflow.step", { number: 5 })}
                 </span>
               </div>
 
               <h3 className="mt-5 font-semibold transition group-hover:text-pink-300">
-                YouTube Script Writer
+                {tc("youtubeScriptWriter.title")}
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-400">
-                Turn the completed video concept into a structured script with
-                a hook, main sections and closing.
+                {t("workflow.items.scriptWriter.desc")}
               </p>
 
               <div className="mt-5 text-sm font-semibold text-pink-300">
-                Write script →
+                {t("workflow.items.scriptWriter.cta")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </div>
             </Link>
 
@@ -2805,7 +2810,7 @@ export default function YouTubeTitleAnalyzerClient() {
               href="/tools"
               className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-red-400/20 hover:bg-white/[0.05] hover:text-white"
             >
-              View All Tools
+              {tCommon("viewAllTools")}
               <ExternalLink className="h-4 w-4" />
             </Link>
           </div>

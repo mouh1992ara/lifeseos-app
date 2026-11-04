@@ -1,438 +1,242 @@
 import { Link } from "@/i18n/navigation";
+import type { BlogArticle } from "@/lib/blog";
 
-import type { BlogArticle } from "../articles";
-
+type Labels = {
+  contents: string;
+  relatedTool: string;
+  backToBlog: string;
+  moreGuides: string;
+  tip: string;
+  published: string;
+  updated: string;
+  byAuthor: string;
+  readGuide: string;
+  ctaTitle: string;
+  ctaBody: string;
+  toolLabel: string;
+};
 
 type RelatedArticle = Pick<
   BlogArticle,
   "slug" | "title" | "description" | "category" | "readTime"
 >;
 
-
 export default function ArticleView({
   article,
   relatedArticles,
+  labels,
 }: {
   article: BlogArticle;
   relatedArticles: RelatedArticle[];
+  labels: Labels;
 }) {
-
-  console.log("ARTICLE IMAGE:", article.featuredImage);
-
   return (
-
     <main className="min-h-screen bg-slate-950 text-white">
-
-
       {/* HERO */}
-
       <section className="border-b border-white/10">
-
-        <div className="mx-auto max-w-6xl px-6 py-20">
-
-
+        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-6 sm:py-20">
           <Link
             href="/blog"
-            className="text-sm text-slate-400 hover:text-white"
+            className="inline-flex items-center gap-2 text-sm text-slate-400 transition hover:text-white"
           >
-            ← Back to Blog
+            <span aria-hidden="true" className="rtl:rotate-180">
+              ←
+            </span>
+            {labels.backToBlog}
           </Link>
 
-
-
           <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:items-center">
-
-
             <div>
-
               <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm text-cyan-300">
                 {article.category}
               </span>
 
-
-
-              <h1 className="mt-6 text-4xl font-black leading-tight sm:text-5xl">
+              <h1 className="text-balance mt-6 text-3xl font-black leading-tight sm:text-5xl">
                 {article.title}
               </h1>
-
-
 
               <p className="mt-6 text-lg leading-8 text-slate-300">
                 {article.description}
               </p>
 
-
-
-              <div className="mt-8 text-sm text-slate-400">
-
-                Written by{" "}
-
-                <span className="font-semibold text-white">
-                  {article.author}
+              <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-400">
+                <span>{labels.byAuthor}</span>
+                <span aria-hidden="true" className="text-slate-600">
+                  ·
                 </span>
-
+                <span>{labels.published}</span>
+                <span aria-hidden="true" className="text-slate-600">
+                  ·
+                </span>
+                <span>{article.readTime}</span>
               </div>
 
-
-
-              <div className="mt-2 text-sm text-slate-500">
-
-                Updated {article.updatedAt}
-
-              </div>
-
-
+              <p className="mt-1 text-xs text-slate-500">{labels.updated}</p>
             </div>
 
-
-
-
-            <div className="overflow-hidden rounded-3xl border border-white/10">
-
+            <div className="relative">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-
                 src={article.featuredImage}
-
                 alt={article.imageAlt}
-
-                className="h-full w-full object-cover"
-
+                className="w-full rounded-[28px] border border-white/10 object-cover shadow-2xl"
                 loading="eager"
-
               />
-
             </div>
-
-
-
           </div>
-
-
         </div>
-
-
       </section>
 
-
-
-
-
-      {/* ARTICLE CONTENT */}
-
-
-      <section className="mx-auto max-w-4xl px-6 py-16">
-
-
-        {article.sections.map((section, sectionIndex) => {
-
-
-          const sectionImage =
-            article.images?.[sectionIndex];
-
-
-
-          return (
-
-            <article
-              key={section.id}
-              className="mb-16"
-            >
-
-
-
-              {sectionImage && (
-
-                <figure className="mb-10 overflow-hidden rounded-3xl border border-white/10">
-
-                  <img
-
-                    src={sectionImage.src}
-
-                    alt={sectionImage.alt}
-
-                    className="w-full object-cover"
-
-                    loading="lazy"
-
-                  />
-
-
-                  <figcaption className="px-5 py-3 text-sm text-slate-400">
-
-                    {sectionImage.alt}
-
-                  </figcaption>
-
-
-                </figure>
-
-              )}
-
-
-
-
-
-              <h2 className="mb-5 text-3xl font-bold">
-
-                {section.title}
-
-              </h2>
-
-
-
-
-
-              {section.paragraphs.map(
-                (paragraph, paragraphIndex) => (
-
-                  <p
-
-                    key={paragraphIndex}
-
-                    className="mb-5 text-lg leading-8 text-slate-300"
-
+      {/* BODY */}
+      <section className="mx-auto max-w-6xl px-5 py-14 sm:px-6">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
+          <article className="min-w-0 space-y-10">
+            {article.sections.map((section, index) => (
+              <section key={section.id} id={section.id} className="scroll-mt-24">
+                <h2 className="flex items-start gap-3 text-2xl font-bold leading-snug sm:text-3xl">
+                  <span
+                    aria-hidden="true"
+                    className="mt-1 font-mono text-sm font-normal text-emerald-400"
                   >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span>{section.title}</span>
+                </h2>
 
-                    {paragraph}
-
-                  </p>
-
-                )
-
-              )}
-
-
-{section.links && section.links.length > 0 && (
-
-  <div className="mb-6 flex flex-wrap gap-3">
-
-    {section.links.map((link) => (
-
-      <Link
-        key={link.href}
-        href={link.href}
-        className="text-sm font-semibold text-cyan-300 hover:text-cyan-200"
-      >
-        {link.label} →
-      </Link>
-
-    ))}
-
-  </div>
-
-)}
-
-
-
-              {section.bullets && (
-
-                <ul className="mt-6 space-y-3">
-
-
-                  {section.bullets.map((bullet) => (
-
-                    <li
-
-                      key={bullet}
-
-                      className="rounded-xl border border-white/10 bg-white/5 p-4 text-slate-300"
-
-                    >
-
-                      ✓ {bullet}
-
-                    </li>
-
-
+                <div className="mt-5 space-y-4 text-base leading-8 text-slate-300">
+                  {section.paragraphs?.map((paragraph, i) => (
+                    <p key={i}>{paragraph}</p>
                   ))}
-
-
-                </ul>
-
-
-              )}
-
-
-
-
-
-
-
-              {section.tip && (
-
-                <div className="mt-6 rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-5">
-
-
-                  <strong>
-
-                    Practical tip:
-
-                  </strong>
-
-
-
-                  <p className="mt-2 text-slate-200">
-
-                    {section.tip}
-
-                  </p>
-
-
                 </div>
 
+                {section.bullets?.length ? (
+                  <ul className="mt-5 space-y-3 text-base leading-7 text-slate-300">
+                    {section.bullets.map((bullet, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span
+                          aria-hidden="true"
+                          className="mt-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-400/10 text-[10px] font-bold text-emerald-300"
+                        >
+                          ✓
+                        </span>
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
 
-              )}
+                {section.tip ? (
+                  <aside className="mt-6 rounded-2xl border border-emerald-400/20 bg-emerald-400/[0.06] p-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">
+                      {labels.tip}
+                    </p>
+                    <p className="mt-2 text-sm leading-7 text-emerald-100/80">
+                      {section.tip}
+                    </p>
+                  </aside>
+                ) : null}
 
+                {section.links?.length ? (
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    {section.links.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-emerald-400/30 hover:text-emerald-300"
+                      >
+                        {link.label}
+                        <span aria-hidden="true" className="rtl:rotate-180">
+                          →
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </section>
+            ))}
 
+            {/* TOOL CTA */}
+            <section className="rounded-[28px] border border-emerald-400/20 bg-emerald-400/[0.06] p-7">
+              <h2 className="text-2xl font-bold">{labels.ctaTitle}</h2>
+              <p className="mt-3 leading-7 text-slate-300">{labels.ctaBody}</p>
 
+              <Link
+                href={article.toolUrl}
+                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-emerald-300"
+              >
+                {labels.toolLabel}
+                <span aria-hidden="true" className="rtl:rotate-180">
+                  →
+                </span>
+              </Link>
+            </section>
+          </article>
 
+          {/* SIDEBAR */}
+          <aside className="lg:sticky lg:top-8">
+            <nav className="rounded-[24px] border border-white/10 bg-white/[0.03] p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                {labels.contents}
+              </p>
 
-            </article>
-
-
-          );
-
-
-        })}
-
-
-
-
-
-        {/* TOOL CTA */}
-
-
-
-        <div className="rounded-3xl border border-emerald-400/20 bg-emerald-400/10 p-8">
-
-
-          <h2 className="text-2xl font-bold">
-
-            Try {article.toolName}
-
-          </h2>
-
-
-
-          <p className="mt-3 text-slate-300">
-
-            Apply this guide directly using LifeSeos tools.
-
-          </p>
-
-
-
-          <Link
-
-            href={article.toolUrl}
-
-            className="mt-6 inline-flex rounded-xl bg-emerald-400 px-6 py-3 font-bold text-slate-950"
-
-          >
-
-            Open Tool →
-
-          </Link>
-
-
-
+              <ol className="mt-4 space-y-2 text-sm">
+                {article.sections.map((section, index) => (
+                  <li key={section.id}>
+                    <a
+                      href={`#${section.id}`}
+                      className="flex items-start gap-2 leading-6 text-slate-400 transition hover:text-white"
+                    >
+                      <span className="font-mono text-xs text-slate-600">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <span>{section.title}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          </aside>
         </div>
-
-
-
       </section>
 
+      {/* RELATED */}
+      <section className="border-t border-white/10">
+        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-6">
+          <h2 className="text-2xl font-bold sm:text-3xl">{labels.moreGuides}</h2>
 
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedArticles.map((related) => (
+              <Link
+                key={related.slug}
+                href={`/blog/${related.slug}`}
+                className="group rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition hover:-translate-y-0.5 hover:border-emerald-400/30 hover:bg-white/[0.045]"
+              >
+                <p className="text-xs font-semibold uppercase tracking-widest text-emerald-300">
+                  {related.category}
+                </p>
 
+                <h3 className="mt-3 text-lg font-semibold leading-snug">
+                  {related.title}
+                </h3>
 
+                <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-400">
+                  {related.description}
+                </p>
 
-
-      {/* RELATED ARTICLES */}
-
-
-
-      {relatedArticles.length > 0 && (
-
-
-        <section className="border-t border-white/10 bg-slate-900/30">
-
-
-          <div className="mx-auto max-w-6xl px-6 py-16">
-
-
-            <h2 className="text-3xl font-bold">
-
-              Related Guides
-
-            </h2>
-
-
-
-
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
-
-
-
-              {relatedArticles.map((item) => (
-
-
-                <Link
-
-                  key={item.slug}
-
-                  href={`/blog/${item.slug}`}
-
-                  className="rounded-2xl border border-white/10 bg-white/5 p-6"
-
-                >
-
-
-                  <p className="text-sm text-cyan-300">
-
-                    {item.category}
-
-                  </p>
-
-
-
-                  <h3 className="mt-3 text-xl font-bold">
-
-                    {item.title}
-
-                  </h3>
-
-
-
-                  <p className="mt-3 text-sm text-slate-400">
-
-                    {item.description}
-
-                  </p>
-
-
-
-                </Link>
-
-
-              ))}
-
-
-            </div>
-
-
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-emerald-300">
+                  {labels.readGuide}
+                  <span
+                    aria-hidden="true"
+                    className="transition group-hover:translate-x-0.5 rtl:rotate-180"
+                  >
+                    →
+                  </span>
+                </span>
+              </Link>
+            ))}
           </div>
-
-
-        </section>
-
-
-      )}
-
-
-
+        </div>
+      </section>
     </main>
-
-
   );
-
 }

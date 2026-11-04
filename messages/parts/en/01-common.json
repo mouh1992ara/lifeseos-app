@@ -1,0 +1,114 @@
+{
+  "Header": {
+    "tools": "Tools",
+    "solutions": "Solutions",
+    "blog": "Blog",
+    "dashboard": "Dashboard",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "getStarted": "Get started",
+    "primaryNav": "Primary navigation",
+    "mobileNav": "Mobile navigation"
+  },
+  "Footer": {
+    "tagline": "SEO tools for smarter website growth.",
+    "home": "Home",
+    "tools": "Tools",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "rights": "© {year} LifeSeos. All rights reserved.",
+    "built": "Built for better SEO workflows.",
+    "navLabel": "Footer navigation"
+  },
+  "Language": {
+    "label": "Language",
+    "change": "Change language",
+    "current": "Current language: {language}"
+  },
+  "Logo": {
+    "alt": "LifeSeos — SEO tools for smarter growth",
+    "tagline": "SEO tools for smarter growth"
+  },
+  "Solutions": {
+    "label": "Solutions",
+    "title": "Built for how you work",
+    "subtitle": "Pick your workflow and start with the tools that fit it.",
+    "seeTools": "See the tools",
+    "items": {
+      "youtubers": {
+        "title": "YouTubers & Creators",
+        "description": "Keywords, titles, descriptions and scripts for your channel."
+      },
+      "bloggers": {
+        "title": "Bloggers & Writers",
+        "description": "Content checks, snippet previews and schema before you publish."
+      },
+      "agencies": {
+        "title": "Agencies & Freelancers",
+        "description": "Audit client sites, status codes, sitemaps and robots files."
+      }
+    }
+  },
+  "Common": {
+    "readMore": "Read more",
+    "learnMore": "Learn more",
+    "openTool": "Open tool",
+    "viewAllTools": "View all tools",
+    "backHome": "Back home",
+    "loading": "Loading…",
+    "tryAgain": "Try again",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyLink": "Copy link",
+    "share": "Share",
+    "free": "Free",
+    "optional": "Optional",
+    "required": "Required",
+    "close": "Close",
+    "step": "Step {number}",
+    "yes": "Yes",
+    "no": "No",
+    "example": "Example",
+    "result": "Result",
+    "score": "Score",
+    "status": "Status",
+    "details": "Details",
+    "urlLabel": "Website URL",
+    "urlPlaceholder": "https://example.com"
+  },
+  "Share": {
+    "title": "Share this tool",
+    "body": "Found this tool useful? Share it with others.",
+    "defaultText": "Try this free SEO tool from LifeSeos.",
+    "copy": "Copy link",
+    "copied": "Link copied",
+    "copyError": "Unable to copy the link."
+  },
+  "State": {
+    "good": "Good",
+    "warning": "Needs attention",
+    "error": "Issue found",
+    "neutral": "Info",
+    "passed": "Passed",
+    "failed": "Failed",
+    "improve": "Improve",
+    "fixIssue": "Fix issue",
+    "strong": "Strong",
+    "needsWork": "Needs work",
+    "excellent": "Excellent",
+    "average": "Average",
+    "poor": "Poor"
+  },
+  "Errors": {
+    "generic": "Something went wrong.",
+    "genericBody": "Please try again in a moment.",
+    "network": "Unable to reach the server. Check your connection and try again.",
+    "urlRequired": "Please enter a website URL.",
+    "urlInvalid": "Enter a valid URL, for example https://example.com",
+    "rateLimited": "Too many requests. Please wait a moment and try again.",
+    "timeout": "The request took too long. Please try again."
+  }
+}

@@ -1,21 +1,18 @@
 import type { Metadata } from "next";
 import ArticleRewriterClient from "./article-rewriter-client";
+import { buildToolMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Free SEO Article Rewriter | LifeSeos",
-  description:
-    "Rewrite website articles for better clarity, readability, tone and SEO consistency with the free LifeSeos SEO Article Rewriter.",
-  alternates: {
-    canonical: "/tools/article-rewriter",
-  },
-  openGraph: {
-    title: "Free SEO Article Rewriter | LifeSeos",
-    description:
-      "Rewrite website content while preserving meaning, structure and SEO relevance with LifeSeos.",
-    url: "/tools/article-rewriter",
-    type: "website",
-  },
-};
+type MetaProps = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: MetaProps): Promise<Metadata> {
+  const { locale } = await params;
+  return buildToolMetadata({
+    locale,
+    path: "/tools/article-rewriter",
+    toolKey: "articleRewriter",
+  });
+}
+
 
 export default function ArticleRewriterPage() {
   const softwareApplicationJsonLd = {

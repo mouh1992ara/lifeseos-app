@@ -1,0 +1,143 @@
+{
+  "Home": {
+    "meta": {
+      "title": "LifeSeos — 免费 SEO 工具，专业网站分析",
+      "description": "用 LifeSeos 免费工具分析网站、优化内容、生成结构化数据、优化 YouTube 元数据，并解决技术 SEO 问题。",
+      "ogDescription": "用 LifeSeos 分析网站、优化内容、生成结构化数据，并使用实用的 SEO 与 YouTube 优化工具。"
+    },
+    "hero": {
+      "badge": "免费工具，让 SEO 决策更聪明",
+      "titleLine1": "审计、分析",
+      "titleAccent": "优化你的 SEO。",
+      "subtitle": "发现技术 SEO 问题，优化网站内容，生成结构化数据，打造更强大的搜索与 YouTube 工作流。",
+      "primaryCta": "分析我的网站",
+      "secondaryCta": "浏览工具",
+      "highlightFree": "免费 SEO 工具",
+      "highlightFast": "分析迅速",
+      "highlightClear": "建议清晰"
+    },
+    "preview": {
+      "overview": "网站概览",
+      "sample": "示例报告",
+      "auditBadge": "SEO 审计",
+      "technical": "技术 SEO",
+      "onPage": "页面 SEO",
+      "performance": "性能",
+      "content": "内容",
+      "https": "HTTPS 配置",
+      "metaDescription": "元描述",
+      "brokenLinks": "发现失效链接",
+      "improve": "待改进",
+      "fix": "修复问题"
+    },
+    "tools": {
+      "eyebrow": "SEO 工具箱",
+      "title": "热门 SEO 工具",
+      "subtitle": "针对搜索可见性与技术健康度最关键的环节，深入分析你的网站。",
+      "viewAll": "查看全部工具"
+    },
+    "workflows": {
+      "technicalEyebrow": "技术 SEO",
+      "schemaTitle": "结构化数据生成器",
+      "schemaBody": "为文章、FAQ、商品、商家、面包屑等常见结构化数据类型生成 JSON-LD。",
+      "schemaCta": "生成结构化数据",
+      "contentEyebrow": "内容 SEO",
+      "rewriterTitle": "SEO 文章改写",
+      "rewriterBody": "在保留原有方向的前提下，重写网站内容，让表达更清晰、更易读、语气更统一、SEO 更一致。",
+      "rewriterCta": "改写内容",
+      "youtubeEyebrow": "YouTube SEO",
+      "youtubeTitle": "搭建你的 YouTube 工作流",
+      "youtubeBody": "用专属 YouTube 工具，从关键词灵感一路走到更强的标题、简介与结构化视频脚本。",
+      "youtubeCta": "浏览 YouTube 工具"
+    },
+    "commandCenter": {
+      "badge": "SEO 指挥中心",
+      "title": "一个 SEO 概览，看懂整个网站。",
+      "body": "先做一次完整网站分析，找出优先处理的问题，再用 LifeSeos 专项工具逐项深挖。",
+      "cta": "运行网站分析",
+      "technical": "技术 SEO",
+      "indexability": "可索引性",
+      "onPage": "页面 SEO",
+      "performance": "性能"
+    },
+    "categories": {
+      "eyebrow": "探索",
+      "title": "覆盖 SEO 每个环节的工具",
+      "subtitle": "为技术 SEO、内容、性能、结构化数据或 YouTube 优化，找到合适的工具。",
+      "technicalTitle": "技术 SEO",
+      "technicalBody": "发现抓取、收录、重定向与技术层面的网站问题。",
+      "onPageTitle": "页面 SEO",
+      "onPageBody": "检查页面结构、元数据与关键优化信号。",
+      "crawlingTitle": "抓取与收录",
+      "crawlingBody": "帮助搜索引擎发现并理解你的网站。",
+      "performanceTitle": "性能",
+      "performanceBody": "衡量加载表现，发现提速空间。",
+      "contentTitle": "内容 SEO",
+      "contentBody": "优化网站文案、关键词使用与面向搜索的内容。",
+      "youtubeTitle": "YouTube SEO",
+      "youtubeBody": "在一个流程里规划视频关键词、标题、简介与脚本。"
+    },
+    "howItWorks": {
+      "title": "三步提升网站 SEO",
+      "subtitle": "找出问题，理解问题，落地执行。",
+      "step1Title": "选择工具",
+      "step1Body": "挑出与你想分析的网站环节相匹配的 SEO 工具。",
+      "step2Title": "分析网站",
+      "step2Body": "运行分析，查看关键的技术、内容与性能信号。",
+      "step3Title": "解决优先问题",
+      "step3Body": "依据结果与建议，一步步改进你的网站。"
+    },
+    "trust": {
+      "eyebrow": "为什么选择 LifeSeos",
+      "title": "简单、快速，为日常 SEO 而生",
+      "subtitle": "无需复杂配置、多余步骤或门槛，直接使用实用的 SEO 工具。",
+      "freeTitle": "免费工具",
+      "freeBody": "无需为每次分析付费，也能用上实用的 SEO 工具。",
+      "fastTitle": "分析迅速",
+      "fastBody": "不必折腾复杂流程，就能拿到清晰的 SEO 信息。",
+      "startTitle": "上手简单",
+      "startBody": "无需繁琐配置，直接探索核心工具。",
+      "clarityTitle": "专注清晰",
+      "clarityBody": "报告只讲有用信息与可落地的改进方向。"
+    },
+    "guides": {
+      "eyebrow": "学习 SEO",
+      "title": "SEO 指南与资源",
+      "browseAll": "浏览全部指南",
+      "tag": "指南",
+      "readGuide": "阅读指南",
+      "robotsTitle": "Robots.txt 指南",
+      "robotsBody": "了解 robots.txt 的运作方式，以及搜索引擎如何使用它。",
+      "httpTitle": "SEO 中的 HTTP 状态码",
+      "httpBody": "了解常见 HTTP 状态码对抓取与收录意味着什么。",
+      "technicalTitle": "技术 SEO 指南",
+      "technicalBody": "掌握帮助搜索引擎理解网站的技术基础。"
+    },
+    "cta": {
+      "title": "想看懂你网站的 SEO 表现吗？",
+      "body": "从一次网站分析开始，用 LifeSeos 工具挖掘技术、内容与性能方面的优化机会。",
+      "urlLabel": "网站 URL",
+      "urlPlaceholder": "https://example.com",
+      "submit": "分析网站",
+      "openDashboard": "打开控制台",
+      "createAccount": "创建免费账户"
+    },
+    "faq": {
+      "title": "常见问题",
+      "q1": "LifeSeos 是什么？",
+      "a1": "LifeSeos 提供免费 SEO 工具，帮助网站所有者分析、优化并提升网站表现。",
+      "q2": "LifeSeos 的 SEO 工具免费吗？",
+      "a2": "是的。LifeSeos 提供免费 SEO 工具，覆盖网站分析、技术 SEO、内容优化与搜索表现提升。",
+      "q3": "LifeSeos 上有哪些 SEO 工具？",
+      "a3": "LifeSeos 提供网站分析、技术 SEO、内容优化、结构化数据、元数据、网站地图与 YouTube SEO 等工具。",
+      "q4": "使用 LifeSeos 需要 SEO 经验吗？",
+      "a4": "不需要。LifeSeos 工具面向新手、营销人员、开发者和网站所有者设计。",
+      "q5": "LifeSeos 能提升我的 Google 排名吗？",
+      "a5": "LifeSeos 能帮你发现 SEO 问题与优化机会，但排名还取决于内容质量、竞争程度以及其他搜索因素。"
+    },
+    "audiences": {
+      "title": "贴合你的工作方式",
+      "subtitle": "选择你的工作流，从合适的工具开始。"
+    }
+  }
+}

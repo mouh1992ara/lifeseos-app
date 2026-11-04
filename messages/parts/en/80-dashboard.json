@@ -1,0 +1,208 @@
+{
+  "Dashboard": {
+    "badge": "LifeSeos Dashboard",
+    "welcome": "Welcome back",
+    "signedInAs": "Signed in as",
+    "newAnalysis": "New SEO analysis",
+    "loadError": "Unable to load your SEO reports.",
+    "stats": {
+      "totalAudits": "Total audits",
+      "totalAuditsBody": "SEO reports saved to your account",
+      "averageScore": "Average score",
+      "averageScoreBody": "Average score across your audits",
+      "bestScore": "Best score",
+      "bestScoreBody": "Highest SEO score recorded",
+      "websites": "Websites analyzed",
+      "websitesBody": "Unique URLs in your audit history"
+    },
+    "latest": {
+      "badge": "Latest audit",
+      "title": "Your most recent SEO analysis",
+      "body": "Review your latest website score, status and report details, or run another audit to continue tracking improvements.",
+      "website": "Website",
+      "viewReport": "View latest report",
+      "runNew": "Run new analysis",
+      "score": "SEO score",
+      "outOf100": "out of 100",
+      "grade": "Grade",
+      "gradeHint": "Current audit grade",
+      "status": "Status",
+      "statusUnknown": "Unknown",
+      "changeUp": "+{change} vs previous",
+      "changeDown": "{change} vs previous",
+      "noChange": "No score change"
+    },
+    "history": {
+      "eyebrow": "SEO history",
+      "title": "Recent reports",
+      "count": "{count, plural, =0 {No reports} one {# report} other {# reports}}"
+    },
+    "empty": {
+      "title": "No SEO reports yet",
+      "body": "Run your first SEO analysis and the report will automatically appear here.",
+      "cta": "Analyze website"
+    },
+    "table": {
+      "website": "Website",
+      "score": "Score",
+      "grade": "Grade",
+      "status": "Status",
+      "date": "Date",
+      "report": "Report",
+      "viewReport": "View report"
+    },
+    "account": {
+      "eyebrow": "Account",
+      "title": "Account information",
+      "email": "Email"
+    },
+    "report": {
+      "back": "Back to Dashboard",
+      "analyzedOn": "Analyzed on",
+      "eyebrow": "Saved SEO Report",
+      "title": "SEO Audit Report",
+      "intro": "This is a saved SEO analysis from your LifeSeos account. Review the detected SEO signals, warnings, errors and recommendations below.",
+      "website": "Website",
+      "gradeLabel": "Grade",
+      "statusUnknown": "Unknown",
+      "score": "SEO Score",
+      "outOf100": "out of 100",
+      "fields": {
+        "pageTitle": "Page Title",
+        "h1": "H1 Heading",
+        "canonical": "Canonical",
+        "robots": "Robots Meta",
+        "noTitle": "No title found",
+        "noH1": "No H1 found",
+        "noDescription": "No description found",
+        "notFound": "Not found"
+      },
+      "labels": {
+        "title": "Title",
+        "metaDescription": "Meta Description",
+        "h1": "H1",
+        "canonicalUrl": "Canonical URL",
+        "robotsMeta": "Robots Meta",
+        "totalImages": "Total Images",
+        "missingAlt": "Missing ALT",
+        "ogTitle": "OG Title",
+        "ogDescription": "OG Description"
+      },
+      "sections": {
+        "contentSeo": "Content SEO",
+        "contentSeoBody": "Important metadata and content signals.",
+        "imageSeo": "Image SEO",
+        "imageSeoBody": "Image accessibility and ALT information.",
+        "socialSeo": "Social SEO",
+        "socialSeoBody": "Open Graph information detected during analysis.",
+        "technicalSeo": "Technical SEO",
+        "technicalSeoBody": "Technical page signals saved with this report."
+      },
+      "passed": "Passed",
+      "warnings": "Warnings",
+      "errors": "Errors",
+      "items": "{count, plural, =0 {No items} one {# item} other {# items}}",
+      "noPassed": "No passed checks saved.",
+      "noWarnings": "No warnings saved.",
+      "noErrors": "No errors saved.",
+      "actionPlan": "Action Plan",
+      "recommendations": "Recommendations",
+      "improvement": "SEO Improvement",
+      "noRecommendations": "No recommendations were saved for this report.",
+      "newAnalysis": "New SEO Analysis"
+    }
+  },
+  "Admin": {
+    "eyebrow": "LifeSeos Admin",
+    "title": "Admin Dashboard",
+    "subtitle": "Manage users, reports, tool activity and website data.",
+    "stats": {
+      "totalUsers": "Total Users",
+      "seoReports": "SEO Reports",
+      "toolUses": "Tool Uses",
+      "messages": "Messages"
+    },
+    "users": {
+      "title": "Users",
+      "subtitle": "Registered LifeSeos users, ordered by latest sign-in.",
+      "newToday": "New Today",
+      "last7Days": "Last 7 Days",
+      "thisMonth": "This Month",
+      "confirmed": "Confirmed",
+      "unconfirmed": "Unconfirmed"
+    },
+    "table": {
+      "email": "Email",
+      "created": "Created",
+      "lastSignIn": "Last Sign In",
+      "emailStatus": "Email Status",
+      "userId": "User ID",
+      "noUsers": "No users found."
+    },
+    "liveVisitors": {
+      "title": "Live Visitors",
+      "live": "Live",
+      "subtitle": "Visitors currently connected to LifeSeos.",
+      "onlineNow": "Online Now",
+      "registered": "Registered",
+      "guests": "Guests",
+      "listTitle": "Visitors Online",
+      "listSubtitle": "Current visitor type, page and session start time.",
+      "user": "User",
+      "type": "Type",
+      "currentPage": "Current Page",
+      "onlineSince": "Online Since",
+      "empty": "No visitors online right now.",
+      "registeredUser": "Registered user",
+      "guest": "Guest"
+    },
+    "geo": {
+      "title": "Visitor Geography",
+      "subtitle": "Page visits grouped by visitor country.",
+      "totalVisits": "Total Page Visits",
+      "countries": "Countries",
+      "visitsToday": "Visits Today",
+      "unknownLocation": "Unknown Location",
+      "unknownCountry": "Unknown",
+      "topCountries": "Top Countries",
+      "topCountriesBody": "Countries ranked by recorded page visits.",
+      "noData": "No visitor geography data yet.",
+      "table": {
+        "country": "Country",
+        "code": "Code",
+        "visits": "Visits",
+        "share": "Share",
+        "lastVisit": "Last Visit"
+      }
+    },
+    "tools": {
+      "title": "Tool Activity",
+      "subtitle": "Usage activity across LifeSeos tools.",
+      "totalUses": "Total Tool Uses",
+      "registeredUsers": "Registered Users",
+      "guestUses": "Guest Uses",
+      "performance": "Tool Performance",
+      "performanceBody": "Usage totals by tool.",
+      "noActivity": "No tool activity yet.",
+      "table": {
+        "tool": "Tool",
+        "totalUses": "Total Uses",
+        "registered": "Registered",
+        "guests": "Guests",
+        "lastUsed": "Last Used"
+      },
+      "recentTitle": "Recent Tool Activity",
+      "recentSubtitle": "Latest tool usage events.",
+      "noRecent": "No recent tool activity.",
+      "recentTable": {
+        "tool": "Tool",
+        "user": "User",
+        "type": "Type",
+        "date": "Date"
+      },
+      "guest": "Guest",
+      "registered": "Registered",
+      "unknownUser": "Unknown user"
+    }
+  }
+}

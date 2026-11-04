@@ -6,10 +6,15 @@ import {
   useRef,
   useState,
 } from "react";
+import { useTranslations } from "next-intl";
 
 import ShareTool from "@/components/share-tool";
 
 export default function RobotsTxtGeneratorPage() {
+  const t = useTranslations("Tool.robotsTxt");
+  const tc = useTranslations("Tools.catalog");
+  const tCommon = useTranslations("Common");
+
   const [userAgent, setUserAgent] =
     useState("*");
 
@@ -158,27 +163,23 @@ export default function RobotsTxtGeneratorPage() {
         <div className="mx-auto max-w-4xl text-center">
 
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-300">
-            <span>🤖</span>
+            <span aria-hidden="true">🤖</span>
 
             <span>
-              LifeSeos Robots.txt Generator
+              {t("badge")}
             </span>
           </div>
 
           <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Free Robots.txt Generator
+            {t("titleLine1")}
 
             <span className="mt-2 block bg-gradient-to-r from-emerald-300 via-cyan-300 to-blue-400 bg-clip-text text-transparent">
-              Control Search Engine Crawling
+              {t("titleAccent")}
             </span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
-            Create a free robots.txt file for your
-            website, define crawler access rules,
-            add your XML sitemap and generate a
-            ready-to-use robots.txt file for
-            search engines.
+            {t("subtitle")}
           </p>
 
         </div>
@@ -191,16 +192,16 @@ export default function RobotsTxtGeneratorPage() {
           <section className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
 
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">
-              Crawler rules
+              {t("rulesEyebrow")}
             </p>
 
             <h2 className="mt-2 text-2xl font-bold">
-              Configure Your Robots.txt
+              {t("rulesTitle")}
             </h2>
 
 
             <label className="mt-6 block text-sm font-semibold text-slate-200">
-              User-agent
+              {t("userAgentLabel")}
             </label>
 
             <input
@@ -210,18 +211,18 @@ export default function RobotsTxtGeneratorPage() {
                   e.target.value
                 )
               }
-              placeholder="*"
-              className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/60"
+              placeholder={t("userAgentPlaceholder")}
+              dir="ltr"
+              className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-start text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/60"
             />
 
             <p className="mt-2 text-xs leading-5 text-slate-500">
-              Use * to apply the rule group
-              to all compatible crawlers.
+              {t("userAgentHint")}
             </p>
 
 
             <label className="mt-8 block text-sm font-semibold text-slate-200">
-              Allow path
+              {t("allowLabel")}
             </label>
 
             <input
@@ -231,19 +232,18 @@ export default function RobotsTxtGeneratorPage() {
                   e.target.value
                 )
               }
-              placeholder="/"
-              className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/60"
+              placeholder={t("allowPlaceholder")}
+              dir="ltr"
+              className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-start text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/60"
             />
 
             <p className="mt-2 text-xs leading-5 text-slate-500">
-              Example: / allows crawling from
-              the root unless a more specific
-              rule restricts a path.
+              {t("allowHint")}
             </p>
 
 
             <label className="mt-8 block text-sm font-semibold text-slate-200">
-              Disallow paths
+              {t("disallowLabel")}
             </label>
 
             <textarea
@@ -253,20 +253,19 @@ export default function RobotsTxtGeneratorPage() {
                   e.target.value
                 )
               }
-              placeholder={
-                "/admin/\n/private/\n/search/"
-              }
+              placeholder={t("disallowPlaceholder")}
               rows={6}
-              className="mt-3 w-full resize-y rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 leading-7 text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/60"
+              dir="ltr"
+              className="mt-3 w-full resize-y rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-start leading-7 text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/60"
             />
 
             <p className="mt-2 text-xs leading-5 text-slate-500">
-              Enter one path per line.
+              {t("disallowHint")}
             </p>
 
 
             <label className="mt-8 block text-sm font-semibold text-slate-200">
-              Sitemap URL
+              {t("sitemapLabel")}
             </label>
 
             <input
@@ -276,13 +275,13 @@ export default function RobotsTxtGeneratorPage() {
                   e.target.value
                 )
               }
-              placeholder="https://example.com/sitemap.xml"
-              className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/60"
+              placeholder={t("sitemapPlaceholder")}
+              dir="ltr"
+              className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3.5 text-start text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/60"
             />
 
             <p className="mt-2 text-xs leading-5 text-slate-500">
-              Use the full absolute URL of
-              your XML sitemap.
+              {t("sitemapHint")}
             </p>
 
           </section>
@@ -295,11 +294,11 @@ export default function RobotsTxtGeneratorPage() {
               <div>
 
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
-                  Generated output
+                  {t("outputEyebrow")}
                 </p>
 
                 <h2 className="mt-2 text-2xl font-bold">
-                  Generated robots.txt
+                  {t("outputTitle")}
                 </h2>
 
               </div>
@@ -312,7 +311,7 @@ export default function RobotsTxtGeneratorPage() {
                 }
                 className="rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-400 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:from-emerald-300 hover:to-cyan-300"
               >
-                Copy
+                {tCommon("copy")}
               </button>
 
             </div>
@@ -320,7 +319,7 @@ export default function RobotsTxtGeneratorPage() {
 
             <div className="mt-5 rounded-2xl border border-white/5 bg-black/30 p-5">
 
-              <pre className="whitespace-pre-wrap break-words text-sm leading-7 text-emerald-300">
+              <pre className="whitespace-pre-wrap break-words text-sm leading-7 text-emerald-300" data-ltr-text>
                 {robotsTxt}
               </pre>
 
@@ -338,14 +337,11 @@ export default function RobotsTxtGeneratorPage() {
                 <div>
 
                   <h3 className="font-semibold text-amber-200">
-                    Important
+                    {t("noteTitle")}
                   </h3>
 
                   <p className="mt-2 text-sm leading-6 text-amber-100/70">
-                    Robots.txt controls crawler
-                    access. It should not be used
-                    to protect confidential or
-                    sensitive information.
+                    {t("noteBody")}
                   </p>
 
                 </div>
@@ -362,8 +358,8 @@ export default function RobotsTxtGeneratorPage() {
         <div className="mt-10">
 
           <ShareTool
-            title="Robots.txt Generator"
-            description="Create a clean robots.txt file and manage crawler access with this free LifeSeos tool."
+            title={tc("robotsTxtGenerator.title")}
+            description={t("shareBody")}
           />
 
         </div>
@@ -380,21 +376,15 @@ export default function RobotsTxtGeneratorPage() {
           <div className="mx-auto max-w-3xl text-center">
 
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
-              Crawler Management
+              {t("introEyebrow")}
             </p>
 
             <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              What the Robots.txt Generator Creates
+              {t("introTitle")}
             </h2>
 
             <p className="mt-5 leading-8 text-slate-400">
-              A robots.txt file gives supported
-              web crawlers instructions about
-              which areas of a website they may
-              or may not crawl. It is normally
-              placed at the root of the website
-              so crawlers can discover the rules
-              before requesting other URLs.
+              {t("introP1")}
             </p>
 
           </div>
@@ -406,29 +396,29 @@ export default function RobotsTxtGeneratorPage() {
 
             <DirectiveCard
               directive="User-agent"
-              title="Choose the Crawler"
-              description="Defines which crawler or group of crawlers the following rules apply to."
+              title={t("dirUserAgentTitle")}
+              description={t("dirUserAgentBody")}
               example="User-agent: *"
             />
 
             <DirectiveCard
               directive="Allow"
-              title="Allow a Path"
-              description="Allows crawling of a specific path when the rule is applicable to the selected crawler."
+              title={t("dirAllowTitle")}
+              description={t("dirAllowBody")}
               example="Allow: /"
             />
 
             <DirectiveCard
               directive="Disallow"
-              title="Block Crawling"
-              description="Requests that compatible crawlers do not crawl a specified path or directory."
+              title={t("dirDisallowTitle")}
+              description={t("dirDisallowBody")}
               example="Disallow: /private/"
             />
 
             <DirectiveCard
               directive="Sitemap"
-              title="Reference Your Sitemap"
-              description="Provides crawlers with the absolute URL of an XML sitemap."
+              title={t("dirSitemapTitle")}
+              description={t("dirSitemapBody")}
               example="Sitemap: https://example.com/sitemap.xml"
             />
 
@@ -444,18 +434,15 @@ export default function RobotsTxtGeneratorPage() {
               <div>
 
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
-                  How it works
+                  {t("howEyebrow")}
                 </p>
 
                 <h2 className="mt-4 text-3xl font-bold">
-                  How to Use the Robots.txt Generator
+                  {t("howTitle")}
                 </h2>
 
                 <p className="mt-4 leading-7 text-slate-400">
-                  Configure the crawler rules,
-                  review the generated text and
-                  place the final file in your
-                  website root.
+                  {t("howBody")}
                 </p>
 
               </div>
@@ -465,26 +452,26 @@ export default function RobotsTxtGeneratorPage() {
 
                 <StepCard
                   number="1"
-                  title="Choose a user-agent"
-                  description="Use * for a general rule group or enter the crawler token you specifically want to target."
+                  title={t("how1Title")}
+                  description={t("how1Body")}
                 />
 
                 <StepCard
                   number="2"
-                  title="Define allowed and blocked paths"
-                  description="Add the paths that crawlers should be permitted or requested not to crawl."
+                  title={t("how2Title")}
+                  description={t("how2Body")}
                 />
 
                 <StepCard
                   number="3"
-                  title="Add your sitemap"
-                  description="Optionally include the full URL of your XML sitemap."
+                  title={t("how3Title")}
+                  description={t("how3Body")}
                 />
 
                 <StepCard
                   number="4"
-                  title="Publish robots.txt"
-                  description="Copy the generated content and save it as robots.txt at the root of your website."
+                  title={t("how4Title")}
+                  description={t("how4Body")}
                 />
 
               </div>
@@ -508,24 +495,15 @@ export default function RobotsTxtGeneratorPage() {
               <div>
 
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-violet-300">
-                  Important SEO distinction
+                  {t("distEyebrow")}
                 </p>
 
                 <h2 className="mt-3 text-2xl font-bold sm:text-3xl">
-                  Blocking Crawling Is Not the Same as Preventing Indexing
+                  {t("distTitle")}
                 </h2>
 
                 <p className="mt-4 max-w-4xl leading-8 text-slate-400">
-                  A robots.txt rule primarily
-                  controls crawling. It should
-                  not be treated as a guaranteed
-                  method for keeping a URL out
-                  of search results. If you need
-                  to control indexing, review the
-                  appropriate indexing directives
-                  and make sure search engines can
-                  access the page when those
-                  directives need to be read.
+                  {t("distBody")}
                 </p>
 
               </div>
@@ -542,29 +520,19 @@ export default function RobotsTxtGeneratorPage() {
             <div>
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
-                Configuration tips
+                {t("tipsEyebrow")}
               </p>
 
               <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
-                Robots.txt Best Practices
+                {t("tipsTitle")}
               </h2>
 
               <p className="mt-5 leading-8 text-slate-400">
-                Small robots.txt mistakes can
-                restrict crawler access to pages
-                or resources you intended to keep
-                crawlable. Review every rule
-                carefully before publishing the
-                file.
+                {t("tipsP1")}
               </p>
 
               <p className="mt-4 leading-8 text-slate-400">
-                After making changes, verify the
-                live robots.txt file and check
-                that important public pages and
-                resources are still accessible
-                to the crawlers you want to
-                support.
+                {t("tipsP2")}
               </p>
 
             </div>
@@ -573,23 +541,23 @@ export default function RobotsTxtGeneratorPage() {
             <div className="grid gap-4 sm:grid-cols-2">
 
               <BestPracticeCard
-                title="Use precise paths"
-                description="Avoid broad Disallow rules unless you are certain the entire path should not be crawled."
+                title={t("tip1Title")}
+                description={t("tip1Body")}
               />
 
               <BestPracticeCard
-                title="Check your syntax"
-                description="Review user-agent groups and path rules before uploading the file."
+                title={t("tip2Title")}
+                description={t("tip2Body")}
               />
 
               <BestPracticeCard
-                title="Include your sitemap"
-                description="Add your XML sitemap URL when appropriate so crawlers can discover it easily."
+                title={t("tip3Title")}
+                description={t("tip3Body")}
               />
 
               <BestPracticeCard
-                title="Test after changes"
-                description="Confirm that important public pages remain crawlable after updating robots.txt."
+                title={t("tip4Title")}
+                description={t("tip4Body")}
               />
 
             </div>
@@ -604,11 +572,11 @@ export default function RobotsTxtGeneratorPage() {
             <div className="mx-auto max-w-3xl text-center">
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-amber-300">
-                Avoid mistakes
+                {t("mistakesEyebrow")}
               </p>
 
               <h2 className="mt-4 text-3xl font-bold">
-                Common Robots.txt Problems
+                {t("mistakesTitle")}
               </h2>
 
             </div>
@@ -617,18 +585,18 @@ export default function RobotsTxtGeneratorPage() {
             <div className="mt-8 grid gap-4 md:grid-cols-3">
 
               <MistakeCard
-                title="Blocking the whole site"
-                description="A broad Disallow rule can prevent crawlers from accessing far more pages than intended."
+                title={t("mistake1Title")}
+                description={t("mistake1Body")}
               />
 
               <MistakeCard
-                title="Blocking important resources"
-                description="Restricting CSS, JavaScript or other resources can make it harder for crawlers to render a page properly."
+                title={t("mistake2Title")}
+                description={t("mistake2Body")}
               />
 
               <MistakeCard
-                title="Using robots.txt for security"
-                description="Blocked paths remain publicly accessible if someone knows the URL, so sensitive data requires real access control."
+                title={t("mistake3Title")}
+                description={t("mistake3Body")}
               />
 
             </div>
@@ -643,16 +611,15 @@ export default function RobotsTxtGeneratorPage() {
             <div className="mx-auto max-w-3xl text-center">
 
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
-                Continue Your Technical SEO Workflow
+                {t("nextEyebrow")}
               </p>
 
               <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
-                Control crawling, improve discovery and audit your site
+                {t("nextTitle")}
               </h2>
 
               <p className="mt-4 leading-8 text-slate-400">
-                Use these tools together to manage crawler access, provide a
-                structured list of important URLs and then run a broader SEO audit.
+                {t("nextBody")}
               </p>
 
             </div>
@@ -669,22 +636,24 @@ export default function RobotsTxtGeneratorPage() {
                   </div>
 
                   <span className="rounded-full border border-emerald-400/25 bg-emerald-400/10 px-3 py-1 text-xs font-semibold text-emerald-300">
-                    Step 1 · Current
+                    {t("wfStep1")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold">
-                  Robots.txt Generator
+                  {tc("robotsTxtGenerator.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Create crawler access rules and reference your sitemap from a
-                  correctly structured robots.txt file.
+                  {t("wf1Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-emerald-300">
-                  Configure crawling ✓
+                  {t("wf1Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block">
+                    ✓
+                  </span>
                 </div>
 
               </div>
@@ -702,22 +671,24 @@ export default function RobotsTxtGeneratorPage() {
                   </div>
 
                   <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
-                    Step 2
+                    {t("wfStep2")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-cyan-300">
-                  XML Sitemap Generator
+                  {tc("xmlSitemapGenerator.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Create an XML sitemap that lists important URLs and helps
-                  search engines discover your website structure.
+                  {t("wf2Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-cyan-300">
-                  Create sitemap →
+                  {t("wf2Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
 
               </Link>
@@ -735,22 +706,24 @@ export default function RobotsTxtGeneratorPage() {
                   </div>
 
                   <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-slate-400">
-                    Step 3
+                    {t("wfStep3")}
                   </span>
 
                 </div>
 
                 <h3 className="mt-5 text-lg font-semibold text-white transition group-hover:text-blue-300">
-                  SEO Analyzer
+                  {tc("seoAnalyzer.title")}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Run a broader SEO audit after configuring crawling and
-                  discovery to review technical and content signals.
+                  {t("wf3Body")}
                 </p>
 
                 <div className="mt-5 text-sm font-semibold text-blue-300">
-                  Run SEO audit →
+                  {t("wf3Cta")}
+                  <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                    →
+                  </span>
                 </div>
 
               </Link>
@@ -764,28 +737,40 @@ export default function RobotsTxtGeneratorPage() {
                 href="/tools/http-status-checker"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-emerald-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                HTTP Status Checker →
+                {tc("httpStatusChecker.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools/seo-page-analyzer"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-emerald-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                SEO Page Analyzer →
+                {tc("seoPageAnalyzer.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools/page-speed"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-emerald-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                Page Speed Analyzer →
+                {tc("pageSpeed.title")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
               <Link
                 href="/tools"
                 className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-emerald-400/20 hover:bg-white/[0.05] hover:text-white"
               >
-                View All Tools →
+                {tCommon("viewAllTools")}
+                <span aria-hidden="true" className="ms-1 inline-block rtl:rotate-180">
+                  →
+                </span>
               </Link>
 
             </div>
@@ -815,7 +800,7 @@ function DirectiveCard({
   return (
     <div className="rounded-[24px] border border-white/10 bg-slate-900/70 p-6">
 
-      <div className="inline-flex rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 font-mono text-xs font-bold text-emerald-300">
+      <div className="inline-flex rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 font-mono text-xs font-bold text-emerald-300" data-ltr-text>
         {directive}
       </div>
 
@@ -827,7 +812,7 @@ function DirectiveCard({
         {description}
       </p>
 
-      <div className="mt-4 rounded-xl border border-white/5 bg-black/20 px-3 py-2 font-mono text-xs leading-5 text-slate-400">
+      <div className="mt-4 rounded-xl border border-white/5 bg-black/20 px-3 py-2 font-mono text-xs leading-5 text-slate-400" data-ltr-text>
         {example}
       </div>
 
@@ -848,7 +833,7 @@ function StepCard({
   return (
     <div className="flex gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-5">
 
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 font-bold text-emerald-300">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 font-bold text-emerald-300" data-ltr-text>
         {number}
       </div>
 
@@ -919,43 +904,5 @@ function MistakeCard({
       </p>
 
     </div>
-  );
-}
-
-
-function RelatedToolCard({
-  href,
-  icon,
-  title,
-  description,
-}: {
-  href: string;
-  icon: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:-translate-y-1 hover:border-emerald-400/20 hover:bg-white/[0.05]"
-    >
-
-      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg">
-        {icon}
-      </div>
-
-      <h3 className="mt-4 font-semibold text-white transition group-hover:text-emerald-300">
-        {title}
-      </h3>
-
-      <p className="mt-2 text-sm leading-6 text-slate-400">
-        {description}
-      </p>
-
-      <div className="mt-4 text-sm font-semibold text-emerald-300">
-        Open tool →
-      </div>
-
-    </Link>
   );
 }
