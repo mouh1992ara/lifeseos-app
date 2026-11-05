@@ -1206,7 +1206,53 @@
       "flow2Body": "Créez un sitemap XML propre contenant les URL canoniques importantes que vous voulez faire découvrir aux moteurs de recherche.",
       "flow2Cta": "Créer un sitemap",
       "flow3Body": "Terminez le workflow par un audit plus large couvrant les signaux SEO techniques, de contenu, d’image et sociaux.",
-      "flow3Cta": "Lancer l’audit SEO"
+      "flow3Cta": "Lancer l’audit SEO",
+      "errors": {
+        "invalidUrl": "Veuillez saisir une URL de site valide.",
+        "invalidRequest": "La requête n'a pas pu être lue. Réessayez.",
+        "unsupportedProtocol": "Seules les adresses HTTP et HTTPS peuvent être analysées.",
+        "credentialsNotAllowed": "Les URL contenant un identifiant ou un mot de passe ne sont pas autorisées.",
+        "blockedHost": "Cette adresse pointe vers un hôte local ou interne et ne peut pas être analysée.",
+        "blockedAddress": "Cette adresse correspond à un réseau privé et ne peut pas être analysée.",
+        "tooManyRedirects": "La page effectue trop de redirections. Essayez l'URL finale.",
+        "notHtml": "Cette URL ne renvoie pas une page HTML.",
+        "tooLarge": "La page est trop volumineuse pour être analysée (limite 5 Mo).",
+        "timeout": "Le site a mis trop de temps à répondre (limite de 10 secondes).",
+        "upstreamError": "Impossible d'atteindre ce site. Vérifiez l'adresse et réessayez.",
+        "rateLimited": "Vous avez lancé plusieurs analyses d'affilée. Patientez une minute."
+      },
+      "findings": {
+        "httpStatus": "La page a renvoyé le code HTTP {status}.",
+        "robotsNoindex": "Une balise meta robots bloque l'indexation ({robots}).",
+        "robotsNofollow": "La balise meta robots définit nofollow.",
+        "titleMissing": "Aucun titre n'a été trouvé.",
+        "titleLength": "Le titre fait {length} caractères (recommandé {min}–{max}).",
+        "descriptionMissing": "Aucune méta description n'a été trouvée.",
+        "descriptionLength": "La méta description fait {length} caractères (recommandé {min}–{max}).",
+        "h1Missing": "Aucun titre H1 n'a été trouvé.",
+        "h1Multiple": "{count} titres H1 ont été trouvés.",
+        "canonicalMissing": "Aucune URL canonique n'a été trouvée.",
+        "canonicalMismatch": "L'URL canonique pointe vers une autre page ({canonical}).",
+        "imgAlt": "{missing} images sur {total} n'ont pas de texte alternatif.",
+        "ogTitle": "og:title manquant.",
+        "ogDescription": "og:description manquant.",
+        "ogImage": "og:image manquant.",
+        "ogUrl": "og:url manquant.",
+        "ogType": "og:type manquant.",
+        "https": "La page est servie en HTTP non chiffré.",
+        "lang": "L'élément html n'a pas d'attribut lang."
+      },
+      "passed": {
+        "httpStatus": "La page a renvoyé le code HTTP {status}.",
+        "indexable": "La page est indexable (aucune directive noindex).",
+        "title": "Titre de page détecté.",
+        "description": "Méta description détectée.",
+        "h1": "Titre H1 détecté.",
+        "canonical": "URL canonique détectée.",
+        "images": "Toutes les images ont un texte alternatif.",
+        "og": "Métadonnées Open Graph complètes.",
+        "https": "Servie en HTTPS."
+      }
     },
     "seoPageAnalyzer": {
       "meta": {

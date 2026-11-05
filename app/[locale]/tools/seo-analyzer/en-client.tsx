@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import {
   FormEvent,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -34,6 +35,30 @@ type SEOResult = {
     ogTitle?: string;
     ogDescription?: string;
   };
+
+  httpStatus?: number;
+  state?: string;
+  indexable?: boolean;
+
+  meta?: {
+    titleLength?: number;
+    descriptionLength?: number;
+    h1Count?: number;
+    h2Count?: number;
+    canonicalIsSelf?: boolean;
+    lang?: string;
+    https?: boolean;
+  };
+
+  issues?: {
+    id: string;
+    severity: "critical" | "error" | "warning";
+    message: string;
+    impact: string;
+  }[];
+
+  /** Stable ids for the "what works" list, translated on the client. */
+  passedIds?: string[];
 
   passed?: string[];
   errors?: string[];
@@ -193,9 +218,29 @@ export default function SEOAnalyzerPage() {
         await response.json();
 
       if (!response.ok) {
+        // The API answers with a stable code; translate it so visitors never
+        // see a raw English message on the Arabic, French or Chinese UI.
+        const code =
+          typeof data.code ===
+          "string"
+            ? data.code
+            : "";
+
+        const key =
+          `errors.${code
+            .toLowerCase()
+            .replace(
+              /_([a-z])/g,
+              (_match: string, c: string) =>
+                c.toUpperCase()
+            )}`;
+
         throw new Error(
-          data.error ||
-            t("errorFallback")
+          code &&
+            t.has(key)
+            ? t(key)
+            : data.error ||
+                t("errorFallback")
         );
       }
 
@@ -651,10 +696,74 @@ export default function SEOAnalyzerPage() {
       ];
     }, [result, t]);
 
+  // Findings come from the API as stable ids + English text. Translate by id so
+  // the Arabic, French and Chinese pages do not show English recommendations.
+  const localizeFinding = useCallback(
+    (id: string, fallback: string) => {
+      const key = `findings.${id}`;
+      if (!t.has(key)) {
+        return fallback;
+      }
+
+      return t(key, {
+        status: result?.httpStatus ?? "",
+        robots: result?.robots ?? "",
+        canonical: result?.canonical ?? "",
+        length:
+          id === "titleLength"
+            ? result?.meta?.titleLength ?? 0
+            : result?.meta?.descriptionLength ?? 0,
+        min: id === "titleLength" ? 30 : 70,
+        max: id === "titleLength" ? 65 : 160,
+        count: result?.meta?.h1Count ?? 0,
+        total: result?.images?.total ?? 0,
+        missing: result?.images?.missingAlt ?? 0,
+      });
+    },
+    [t, result],
+  );
+
+  // The recommendation cards used to print the API's English strings verbatim.
+  // Keep the English source for fix-link matching, but display translated text.
+  const localizedRecommendations = useMemo(() => {
+    if (!result) {
+      return [] as { key: string; text: string; fixSource: string }[];
+    }
+
+    if (result.issues && result.issues.length > 0) {
+      return result.issues.map((issue, index) => {
+        const source =
+          issue.severity === "critical"
+            ? `${issue.message} ${issue.impact}`
+            : issue.message;
+
+        return {
+          key: `${issue.id}-${index}`,
+          text: localizeFinding(issue.id, source),
+          fixSource: source,
+        };
+      });
+    }
+
+    return (result.recommendations ?? []).map((text, index) => ({
+      key: `${index}-${text}`,
+      text,
+      fixSource: text,
+    }));
+  }, [result, localizeFinding]);
+
   const derivedPassed =
     useMemo(() => {
       if (!result) {
         return [];
+      }
+
+      if (result.passedIds && result.passedIds.length > 0) {
+        return result.passedIds.map((id) =>
+          t.has(`passed.${id}`)
+            ? t(`passed.${id}`, { status: result.httpStatus ?? "" })
+            : id,
+        );
       }
 
       if (
@@ -689,6 +798,19 @@ export default function SEOAnalyzerPage() {
         return [];
       }
 
+      if (result.issues && result.issues.length > 0) {
+        return result.issues
+          .filter((issue) => issue.severity !== "warning")
+          .map((issue) =>
+            localizeFinding(
+              issue.id,
+              issue.severity === "critical"
+                ? `${issue.message} ${issue.impact}`
+                : issue.message,
+            ),
+          );
+      }
+
       if (
         result.errors &&
         result.errors.length >
@@ -719,6 +841,12 @@ export default function SEOAnalyzerPage() {
     useMemo(() => {
       if (!result) {
         return [];
+      }
+
+      if (result.issues && result.issues.length > 0) {
+        return result.issues
+          .filter((issue) => issue.severity === "warning")
+          .map((issue) => localizeFinding(issue.id, issue.message));
       }
 
       if (
@@ -1321,31 +1449,17 @@ export default function SEOAnalyzerPage() {
 
               <div className="mt-6 space-y-3">
 
-                {(result.recommendations ??
-                  []).length >
-                0 ? (
+                {localizedRecommendations.length > 0 ? (
 
-                  (
-                    result.recommendations ??
-                    []
-                  ).map(
-                    (
-                      item,
-                      index
-                    ) => (
+                  localizedRecommendations.map((item, index) => (
 
                       <RecommendationCard
-                        key={`${item}-${index}`}
-                        number={
-                          index +
-                          1
-                        }
-                        text={
-                          item
-                        }
+                        key={item.key}
+                        number={index + 1}
+                        text={item.text}
                         title={t("recCardTitle")}
                         fix={getFixLink(
-                          item,
+                          item.fixSource,
                           result,
                           locale as FixLang
                         )}

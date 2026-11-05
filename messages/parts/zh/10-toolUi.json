@@ -1206,7 +1206,53 @@
       "flow2Body": "创建干净的 XML 站点地图，包含你希望搜索引擎发现的重要 canonical URL。",
       "flow2Cta": "创建站点地图",
       "flow3Body": "通过覆盖技术、内容、图片和社交 SEO 信号的更全面审核，完成整个流程。",
-      "flow3Cta": "运行 SEO 审核"
+      "flow3Cta": "运行 SEO 审核",
+      "errors": {
+        "invalidUrl": "请输入有效的网站地址。",
+        "invalidRequest": "无法读取请求，请重试。",
+        "unsupportedProtocol": "仅支持分析 HTTP 和 HTTPS 地址。",
+        "credentialsNotAllowed": "不允许包含用户名或密码的链接。",
+        "blockedHost": "该地址指向本地或内部主机，无法分析。",
+        "blockedAddress": "该地址解析到私有网络，无法分析。",
+        "tooManyRedirects": "该页面重定向次数过多，请尝试最终地址。",
+        "notHtml": "该链接返回的不是 HTML 页面。",
+        "tooLarge": "页面过大，无法分析（上限 5 MB）。",
+        "timeout": "网站响应超时（上限 10 秒）。",
+        "upstreamError": "无法访问该网站，请检查地址后重试。",
+        "rateLimited": "你已连续分析多次，请等待一分钟后再试。"
+      },
+      "findings": {
+        "httpStatus": "页面返回 HTTP {status}。",
+        "robotsNoindex": "robots 元标签禁止索引（{robots}）。",
+        "robotsNofollow": "robots 元标签设置了 nofollow。",
+        "titleMissing": "未找到页面标题。",
+        "titleLength": "标题长度为 {length} 个字符（建议 {min}–{max}）。",
+        "descriptionMissing": "未找到 meta 描述。",
+        "descriptionLength": "描述长度为 {length} 个字符（建议 {min}–{max}）。",
+        "h1Missing": "未找到 H1 标题。",
+        "h1Multiple": "共发现 {count} 个 H1 标题。",
+        "canonicalMissing": "未找到 canonical 链接。",
+        "canonicalMismatch": "canonical 指向其他页面（{canonical}）。",
+        "imgAlt": "{total} 张图片中有 {missing} 张缺少 alt 文本。",
+        "ogTitle": "缺少 og:title。",
+        "ogDescription": "缺少 og:description。",
+        "ogImage": "缺少 og:image。",
+        "ogUrl": "缺少 og:url。",
+        "ogType": "缺少 og:type。",
+        "https": "页面通过未加密的 HTTP 提供。",
+        "lang": "html 元素缺少 lang 属性。"
+      },
+      "passed": {
+        "httpStatus": "页面返回 HTTP {status}。",
+        "indexable": "页面可被索引（未设置 noindex）。",
+        "title": "已检测到页面标题。",
+        "description": "已检测到 meta 描述。",
+        "h1": "已检测到 H1 标题。",
+        "canonical": "已检测到 canonical 链接。",
+        "images": "所有图片都有 alt 文本。",
+        "og": "Open Graph 元数据完整。",
+        "https": "通过 HTTPS 提供。"
+      }
     },
     "seoPageAnalyzer": {
       "meta": {

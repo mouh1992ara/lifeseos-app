@@ -1645,7 +1645,53 @@
       "flow2Body": "أنشئ خريطة موقع XML نظيفة تضم روابط canonical المهمة التي تريد أن تكتشفها محركات البحث.",
       "flow2Cta": "أنشئ خريطة الموقع",
       "flow3Body": "أكمل سير العمل بتدقيق أوسع يغطي إشارات SEO التقنية والمحتوى والصور والاجتماعية.",
-      "flow3Cta": "أجرِ تدقيق SEO"
+      "flow3Cta": "أجرِ تدقيق SEO",
+      "errors": {
+        "invalidUrl": "يرجى إدخال رابط موقع صالح.",
+        "invalidRequest": "تعذّر قراءة الطلب. يرجى المحاولة مرة أخرى.",
+        "unsupportedProtocol": "يمكن تحليل عناوين HTTP وHTTPS فقط.",
+        "credentialsNotAllowed": "لا يُسمح بالروابط التي تحتوي على اسم مستخدم أو كلمة مرور.",
+        "blockedHost": "يشير هذا العنوان إلى مضيف محلي أو داخلي ولا يمكن تحليله.",
+        "blockedAddress": "يشير هذا العنوان إلى شبكة خاصة ولا يمكن تحليله.",
+        "tooManyRedirects": "تُعيد الصفحة التوجيه مرات كثيرة جدًا. جرّب الرابط النهائي.",
+        "notHtml": "هذا الرابط لا يُرجع صفحة HTML.",
+        "tooLarge": "الصفحة كبيرة جدًا للتحليل (الحد 5 ميغابايت).",
+        "timeout": "استغرق الموقع وقتًا طويلًا للرد (الحد 10 ثوانٍ).",
+        "upstreamError": "تعذّر الوصول إلى هذا الموقع. تحقق من العنوان وحاول مجددًا.",
+        "rateLimited": "أجريت عدة تحليلات متتابعة. يرجى الانتظار دقيقة ثم المحاولة."
+      },
+      "findings": {
+        "httpStatus": "أعادت الصفحة رمز HTTP {status}.",
+        "robotsNoindex": "وسم robots يمنع الفهرسة ({robots}).",
+        "robotsNofollow": "وسم robots يضبط nofollow.",
+        "titleMissing": "لم يتم العثور على عنوان للصفحة.",
+        "titleLength": "طول العنوان {length} حرفًا (المستحسن {min}–{max}).",
+        "descriptionMissing": "لم يتم العثور على وصف ميتا.",
+        "descriptionLength": "طول الوصف {length} حرفًا (المستحسن {min}–{max}).",
+        "h1Missing": "لم يتم العثور على عنوان H1.",
+        "h1Multiple": "تم العثور على {count} عناوين H1.",
+        "canonicalMissing": "لم يتم العثور على رابط canonical.",
+        "canonicalMismatch": "يشير canonical إلى صفحة أخرى ({canonical}).",
+        "imgAlt": "{missing} من {total} صور بدون نص بديل.",
+        "ogTitle": "og:title مفقود.",
+        "ogDescription": "og:description مفقود.",
+        "ogImage": "og:image مفقود.",
+        "ogUrl": "og:url مفقود.",
+        "ogType": "og:type مفقود.",
+        "https": "الصفحة تُقدَّم عبر HTTP غير المشفّر.",
+        "lang": "عنصر html بدون سمة lang."
+      },
+      "passed": {
+        "httpStatus": "أعادت الصفحة رمز HTTP {status}.",
+        "indexable": "الصفحة قابلة للفهرسة (لا يوجد noindex).",
+        "title": "تم العثور على عنوان الصفحة.",
+        "description": "تم العثور على وصف ميتا.",
+        "h1": "تم العثور على عنوان H1.",
+        "canonical": "تم العثور على رابط canonical.",
+        "images": "جميع الصور تحتوي على نص بديل.",
+        "og": "بيانات Open Graph مكتملة.",
+        "https": "تُقدَّم عبر HTTPS."
+      }
     },
     "seoPageAnalyzer": {
       "meta": {

@@ -1645,7 +1645,53 @@
       "flow2Body": "Create a clean XML sitemap containing important canonical URLs you want search engines to discover.",
       "flow2Cta": "Create sitemap",
       "flow3Body": "Complete the workflow with a broader audit covering technical, content, image and social SEO signals.",
-      "flow3Cta": "Run SEO audit"
+      "flow3Cta": "Run SEO audit",
+      "errors": {
+        "invalidUrl": "Please enter a valid website URL.",
+        "invalidRequest": "The request could not be read. Please try again.",
+        "unsupportedProtocol": "Only HTTP and HTTPS addresses can be analysed.",
+        "credentialsNotAllowed": "URLs containing a username or password are not allowed.",
+        "blockedHost": "This address points to a local or internal host and cannot be analysed.",
+        "blockedAddress": "This address resolves to a private network and cannot be analysed.",
+        "tooManyRedirects": "The page redirects too many times. Try the final URL instead.",
+        "notHtml": "This URL does not return an HTML page.",
+        "tooLarge": "The page is too large to analyse (limit 5 MB).",
+        "timeout": "The site took too long to respond (10 second limit).",
+        "upstreamError": "We could not reach this site. Check the address and try again.",
+        "rateLimited": "You have run several analyses in a row. Please wait a minute and try again."
+      },
+      "findings": {
+        "httpStatus": "The page returned HTTP {status}.",
+        "robotsNoindex": "A robots meta tag blocks indexing ({robots}).",
+        "robotsNofollow": "The robots meta tag sets nofollow.",
+        "titleMissing": "No title was found.",
+        "titleLength": "The title is {length} characters long (recommended {min}–{max}).",
+        "descriptionMissing": "No meta description was found.",
+        "descriptionLength": "The meta description is {length} characters long (recommended {min}–{max}).",
+        "h1Missing": "No H1 heading was found.",
+        "h1Multiple": "{count} H1 headings were found.",
+        "canonicalMissing": "No canonical URL was found.",
+        "canonicalMismatch": "The canonical URL points to a different page ({canonical}).",
+        "imgAlt": "{missing} of {total} images have no alt text.",
+        "ogTitle": "Missing og:title.",
+        "ogDescription": "Missing og:description.",
+        "ogImage": "Missing og:image.",
+        "ogUrl": "Missing og:url.",
+        "ogType": "Missing og:type.",
+        "https": "The page is served over plain HTTP.",
+        "lang": "The html element has no lang attribute."
+      },
+      "passed": {
+        "httpStatus": "The page returned HTTP {status}.",
+        "indexable": "The page is indexable (no noindex directive).",
+        "title": "Page title detected.",
+        "description": "Meta description detected.",
+        "h1": "H1 heading detected.",
+        "canonical": "Canonical URL detected.",
+        "images": "All images have alt text.",
+        "og": "Open Graph metadata complete.",
+        "https": "Served over HTTPS."
+      }
     },
     "seoPageAnalyzer": {
       "meta": {

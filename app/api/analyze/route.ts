@@ -1,452 +1,119 @@
 import { NextResponse } from "next/server";
-import { isIP } from "node:net";
+
 import { getAnalyzeRatelimit } from "@/lib/ratelimit";
+import { SafeFetchError, safeFetchHtml } from "@/lib/safe-fetch";
+import { extractSeo, scoreSeo, SENTINELS } from "@/lib/seo-html";
 
-const MAX_REDIRECTS = 5;
-const MAX_RESPONSE_BYTES = 5 * 1024 * 1024;
-const REQUEST_TIMEOUT_MS = 10000;
+/**
+ * SEO Analyzer endpoint.
+ *
+ * All fetching goes through `lib/safe-fetch` (SSRF guards, DNS pinning,
+ * redirect re-validation, timeouts, size caps) and all parsing/scoring through
+ * `lib/seo-html`, which uses a real HTML parser and a single score → grade →
+ * status mapping.
+ */
 
-function isPrivateIPv4(ip: string) {
-  const parts = ip.split(".").map(Number);
-
-  if (parts.length !== 4 || parts.some((part) => Number.isNaN(part))) {
-    return true;
-  }
-
-  const [a, b] = parts;
-
-  return (
-    a === 0 ||
-    a === 10 ||
-    a === 127 ||
-    (a === 169 && b === 254) ||
-    (a === 172 && b >= 16 && b <= 31) ||
-    (a === 192 && b === 168) ||
-    (a === 100 && b >= 64 && b <= 127) ||
-    (a === 198 && (b === 18 || b === 19)) ||
-    a >= 224
-  );
+function errorResponse(code: string, message: string, status: number) {
+  return NextResponse.json({ error: message, code }, { status });
 }
 
-function isPrivateIPv6(ip: string) {
-  const normalized = ip.toLowerCase();
-
-  if (
-    normalized === "::" ||
-    normalized === "::1" ||
-    normalized.startsWith("fe80:") ||
-    normalized.startsWith("fc") ||
-    normalized.startsWith("fd")
-  ) {
-    return true;
-  }
-
-  if (normalized.startsWith("::ffff:")) {
-    const mappedIPv4 = normalized.replace("::ffff:", "");
-
-    if (isIP(mappedIPv4) === 4) {
-      return isPrivateIPv4(mappedIPv4);
-    }
-  }
-
-  return false;
-}
-
-function isBlockedIPAddress(ip: string) {
-  const version = isIP(ip);
-
-  if (version === 4) {
-    return isPrivateIPv4(ip);
-  }
-
-  if (version === 6) {
-    return isPrivateIPv6(ip);
-  }
-
-  return false;
-}
-
-function validateTargetUrl(rawUrl: string) {
-  let parsedUrl: URL;
-
-  try {
-    parsedUrl = new URL(rawUrl);
-  } catch {
-    throw new Error("Please enter a valid website URL.");
-  }
-
-  if (!["http:", "https:"].includes(parsedUrl.protocol)) {
-    throw new Error("Only HTTP and HTTPS URLs are allowed.");
-  }
-
-  if (parsedUrl.username || parsedUrl.password) {
-    throw new Error("URLs containing credentials are not allowed.");
-  }
-
-  const hostname = parsedUrl.hostname
-    .toLowerCase()
-    .replace(/^\[|\]$/g, "");
-
-  if (
-    hostname === "localhost" ||
-    hostname === "localhost.localdomain" ||
-    hostname === "metadata.google.internal" ||
-    hostname.endsWith(".localhost") ||
-    hostname.endsWith(".local") ||
-    hostname.endsWith(".internal")
-  ) {
-    throw new Error("This website address is not allowed.");
-  }
-
-  if (isIP(hostname) && isBlockedIPAddress(hostname)) {
-    throw new Error(
-      "Private or internal network addresses are not allowed."
-    );
-  }
-
-  return parsedUrl;
-}
-
-async function safeFetch(initialUrl: string) {
-  let currentUrl = validateTargetUrl(initialUrl);
-
-  for (let redirectCount = 0; redirectCount <= MAX_REDIRECTS; redirectCount++) {
-    const controller = new AbortController();
-
-    const timeout = setTimeout(() => {
-      controller.abort();
-    }, REQUEST_TIMEOUT_MS);
-
-    let response: Response;
-
-    try {
-      response = await fetch(currentUrl, {
-        headers: {
-          "User-Agent": "LifeSeos SEO Analyzer",
-          Accept: "text/html,application/xhtml+xml",
-        },
-        redirect: "manual",
-        signal: controller.signal,
-      });
-    } finally {
-      clearTimeout(timeout);
-    }
-
-    if (
-      response.status >= 300 &&
-      response.status < 400 &&
-      response.headers.get("location")
-    ) {
-      if (redirectCount >= MAX_REDIRECTS) {
-        throw new Error("Too many redirects.");
-      }
-
-      const redirectUrl = new URL(
-        response.headers.get("location")!,
-        currentUrl
-      ).toString();
-
-      currentUrl = validateTargetUrl(redirectUrl);
-      continue;
-    }
-
-    const contentType = response.headers.get("content-type") || "";
-
-    if (
-      contentType &&
-      !contentType.includes("text/html") &&
-      !contentType.includes("application/xhtml+xml")
-    ) {
-      throw new Error("The URL does not appear to be an HTML webpage.");
-    }
-
-    const contentLength = Number(
-      response.headers.get("content-length") || "0"
-    );
-
-    if (
-      Number.isFinite(contentLength) &&
-      contentLength > MAX_RESPONSE_BYTES
-    ) {
-      throw new Error("The webpage is too large to analyze.");
-    }
-
-    const buffer = await response.arrayBuffer();
-
-    if (buffer.byteLength > MAX_RESPONSE_BYTES) {
-      throw new Error("The webpage is too large to analyze.");
-    }
-
-    const html = new TextDecoder().decode(buffer);
-
-    return {
-      response,
-      html,
-      finalUrl: currentUrl.toString(),
-    };
-  }
-
-  throw new Error("Too many redirects.");
-}
 export async function POST(request: Request) {
-  try {
-    const forwardedFor = request.headers.get("x-forwarded-for");
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  const ip =
+    forwardedFor?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "local";
 
-    const ip =
-      forwardedFor?.split(",")[0]?.trim() ||
-      request.headers.get("x-real-ip") ||
-      "local";
-
-    // Rate limiting is skipped when Redis is not configured.
-    const limiter = getAnalyzeRatelimit();
-    if (limiter) {
+  const limiter = getAnalyzeRatelimit();
+  if (limiter) {
+    try {
       const { success } = await limiter.limit(ip);
-
       if (!success) {
-        return NextResponse.json(
-          {
-            error:
-              "Too many SEO analysis requests. Please wait a moment and try again.",
-          },
-          {
-            status: 429,
-          }
+        return errorResponse(
+          "RATE_LIMITED",
+          "Too many SEO analysis requests. Please wait a moment and try again.",
+          429,
         );
       }
+    } catch {
+      // Redis hiccup must not take the tool down for everyone.
     }
+  }
 
+  let rawUrl: string;
+  try {
     const body = await request.json();
+    rawUrl = typeof body?.url === "string" ? body.url.trim() : "";
+  } catch {
+    return errorResponse("INVALID_REQUEST", "Please enter a valid website URL.", 400);
+  }
 
-    const url =
-      typeof body.url === "string"
-        ? body.url.trim()
-        : "";
+  if (!rawUrl) {
+    return errorResponse("INVALID_URL", "URL is required", 400);
+  }
 
-    if (!url) {
-      return NextResponse.json(
-        {
-          error: "URL is required",
-        },
-        {
-          status: 400,
-        }
-      );
-    }
+  const normalizedUrl = /^[a-z][a-z0-9+.-]*:\/\//i.test(rawUrl) ? rawUrl : `https://${rawUrl}`;
 
-    const normalizedUrl =
-      /^https?:\/\//i.test(url)
-        ? url
-        : `https://${url}`;
-
-    const {
-      html,
-      finalUrl,
-    } = await safeFetch(normalizedUrl);
-
-    const titleMatch = html.match(
-      /<title[^>]*>([\s\S]*?)<\/title>/i
-    );
-
-    const title =
-      titleMatch?.[1]
-        ?.replace(/\s+/g, " ")
-        .trim() || "No title found";
-
-    const descriptionMatch =
-      html.match(
-        /<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i
-      ) ||
-      html.match(
-        /<meta[^>]+content=["']([^"']*)["'][^>]+name=["']description["']/i
-      );
-
-    const description =
-      descriptionMatch?.[1]?.trim() ||
-      "No description found";
-
-    const h1Match = html.match(
-      /<h1[^>]*>([\s\S]*?)<\/h1>/i
-    );
-
-    const h1 =
-      h1Match?.[1]
-        ?.replace(/<[^>]*>/g, "")
-        .replace(/\s+/g, " ")
-        .trim() || "No H1 found";
-
-    const images =
-      html.match(/<img\b[^>]*>/gi) || [];
-
-    const missingAlt = images.filter(
-      (img) =>
-        !/\salt\s*=\s*["'][^"']*["']/i.test(img)
-    );
-
-    const canonicalMatch =
-      html.match(
-        /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i
-      ) ||
-      html.match(
-        /<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["']/i
-      );
-
-    const canonical =
-      canonicalMatch?.[1] || "Not found";
-
-    const robotsMatch =
-      html.match(
-        /<meta[^>]+name=["']robots["'][^>]+content=["']([^"']+)["']/i
-      ) ||
-      html.match(
-        /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']robots["']/i
-      );
-
-    const robots =
-      robotsMatch?.[1] || "Not found";
-
-    const ogTitleMatch =
-      html.match(
-        /<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i
-      ) ||
-      html.match(
-        /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i
-      );
-
-    const ogDescriptionMatch =
-      html.match(
-        /<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']+)["']/i
-      ) ||
-      html.match(
-        /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:description["']/i
-      );
-
-    const ogTitle =
-      ogTitleMatch?.[1] || "Not found";
-
-    const ogDescription =
-      ogDescriptionMatch?.[1] || "Not found";
-
-    let score = 100;
-
-    const passed: string[] = [];
-    const errors: string[] = [];
-    const warnings: string[] = [];
-
-    if (title !== "No title found") {
-      passed.push("Page title detected");
-    } else {
-      score -= 15;
-      errors.push("Missing page title");
-    }
-
-    if (description !== "No description found") {
-      passed.push("Meta description detected");
-    } else {
-      score -= 15;
-      errors.push("Missing meta description");
-    }
-
-    if (h1 !== "No H1 found") {
-      passed.push("H1 heading detected");
-    } else {
-      score -= 15;
-      errors.push("Missing H1 heading");
-    }
-
-    if (canonical !== "Not found") {
-      passed.push("Canonical URL detected");
-    } else {
-      score -= 10;
-      warnings.push("Missing canonical URL");
-    }
-
-    if (
-      images.length > 0 &&
-      missingAlt.length === 0
-    ) {
-      passed.push("Images ALT attributes detected");
-    } else if (images.length > 0) {
-      score -= 10;
-      warnings.push("Some images missing ALT attributes");
-    }
-
-    if (ogTitle !== "Not found") {
-      passed.push("Social OG title detected");
-    } else {
-      score -= 5;
-      warnings.push("Missing social metadata");
-    }
-
-    score = Math.max(score, 0);
-
-    let grade = "F";
-
-    if (score >= 90) grade = "A";
-    else if (score >= 75) grade = "B";
-    else if (score >= 60) grade = "C";
-    else if (score >= 40) grade = "D";
-
-    const recommendations = [
-      ...errors,
-      ...warnings,
-    ];
+  try {
+    const page = await safeFetchHtml(normalizedUrl);
+    const extract = extractSeo(page.html, page.finalUrl);
+    const scoring = scoreSeo(extract, { httpStatus: page.status });
 
     return NextResponse.json({
-      url: finalUrl,
-      score,
-      grade,
-      status:
-        score >= 80
-          ? "Excellent"
-          : score >= 60
-            ? "Good"
-            : "Needs Improvement",
-      title,
-      description,
-      h1,
+      ok: page.status < 400,
+      state: page.status < 400 ? "analyzed" : "http_error",
+      httpStatus: page.status,
+      url: page.finalUrl,
+      requestedUrl: normalizedUrl,
+      redirects: page.redirects,
+      elapsedMs: page.elapsedMs,
+      pageSizeKb: Math.round(page.bytes / 1024),
+
+      score: scoring.score,
+      grade: scoring.grade,
+      status: scoring.status,
+      indexable: scoring.indexable,
+
+      title: extract.title || SENTINELS.title,
+      description: extract.description || SENTINELS.description,
+      h1: extract.h1[0] || SENTINELS.h1,
       images: {
-        total: images.length,
-        missingAlt: missingAlt.length,
+        total: extract.images.total,
+        missingAlt: extract.images.missingAlt,
+        emptyAlt: extract.images.emptyAlt,
       },
-      canonical,
-      robots,
+      canonical: extract.canonical || SENTINELS.notFound,
+      robots: extract.robots || SENTINELS.notFound,
       social: {
-        ogTitle,
-        ogDescription,
+        ogTitle: extract.og.title || SENTINELS.notFound,
+        ogDescription: extract.og.description || SENTINELS.notFound,
+        ogImage: extract.og.image || SENTINELS.notFound,
+        ogUrl: extract.og.url || SENTINELS.notFound,
+        ogType: extract.og.type || SENTINELS.notFound,
       },
-      passed,
-      errors,
-      warnings,
-      recommendations,
+      meta: {
+        titleLength: extract.titleLength,
+        descriptionLength: extract.descriptionLength,
+        h1Count: extract.h1Count,
+        h2Count: extract.h2Count,
+        canonicalIsSelf: extract.canonicalIsSelf,
+        lang: extract.lang,
+        https: extract.isHttps,
+      },
+
+      // Structured findings: severity + impact, for the UI and API consumers.
+      issues: scoring.issues,
+
+      passedIds: scoring.passedIds,
+      passed: scoring.passed,
+      errors: scoring.errors,
+      warnings: scoring.warnings,
+      recommendations: scoring.recommendations,
     });
   } catch (error) {
+    if (error instanceof SafeFetchError) {
+      return errorResponse(error.code, error.message, error.httpStatus);
+    }
+
     console.error("SEO analyzer error:", error);
-
-    const message =
-      error instanceof Error
-        ? error.message
-        : "Unable to analyze website";
-
-    const safeMessages = [
-      "Please enter a valid website URL.",
-      "Only HTTP and HTTPS URLs are allowed.",
-      "URLs containing credentials are not allowed.",
-      "This website address is not allowed.",
-      "Private or internal network addresses are not allowed.",
-      "Too many redirects.",
-      "The URL does not appear to be an HTML webpage.",
-      "The webpage is too large to analyze.",
-    ];
-
-    return NextResponse.json(
-      {
-        error: safeMessages.includes(message)
-          ? message
-          : "Unable to analyze website",
-      },
-      {
-        status: 400,
-      }
-    );
+    return errorResponse("UPSTREAM_ERROR", "Unable to analyze website", 502);
   }
 }
