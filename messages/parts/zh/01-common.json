@@ -116,6 +116,20 @@
     "urlRequired": "请输入网站 URL。",
     "urlInvalid": "请输入有效 URL，例如 https://example.com",
     "rateLimited": "请求过于频繁。请稍等片刻后重试。",
-    "timeout": "请求超时。请重试。"
+    "timeout": "请求超时。请重试。",
+    "codes": {
+      "invalidUrl": "请输入有效的网站地址。",
+      "invalidRequest": "无法读取请求，请重试。",
+      "unsupportedProtocol": "仅支持分析 HTTP 和 HTTPS 地址。",
+      "credentialsNotAllowed": "不允许包含用户名或密码的链接。",
+      "blockedHost": "该地址指向本地或内部主机，无法分析。",
+      "blockedAddress": "该地址解析到私有网络，无法分析。",
+      "tooManyRedirects": "该页面重定向次数过多，请尝试最终地址。",
+      "notHtml": "该链接返回的不是 HTML 页面。",
+      "tooLarge": "页面过大，无法分析（上限 5 MB）。",
+      "timeout": "网站响应超时（上限 10 秒）。",
+      "upstreamError": "无法访问该网站，请检查地址后重试。",
+      "rateLimited": "你已连续分析多次，请等待一分钟后再试。"
+    }
   }
 }

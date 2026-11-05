@@ -65,6 +65,17 @@ export type OgData = {
   siteName: string;
 };
 
+export type HeadingItem = { level: number; text: string };
+
+export type HeadingAnalysis = {
+  counts: Record<1 | 2 | 3 | 4 | 5 | 6, number>;
+  items: HeadingItem[];
+  order: number[];
+  empty: number;
+  multipleH1: boolean;
+  skipped: { from: number; to: number }[];
+};
+
 export type SeoExtract = {
   title: string;
   titleLength: number;
@@ -77,8 +88,9 @@ export type SeoExtract = {
   h1: string[];
   h1Count: number;
   h2Count: number;
-  images: { total: number; missingAlt: number; emptyAlt: number };
+  images: { total: number; missingAlt: number; emptyAlt: number; descriptive: number };
   links: { total: number; internal: number; external: number };
+  headings: HeadingAnalysis;
   og: OgData;
   lang: string;
   isHttps: boolean;
@@ -179,6 +191,29 @@ export function extractSeo(html: string, finalUrl: string): SeoExtract {
     }
   }
 
+  const headingNodes = root.querySelectorAll("h1, h2, h3, h4, h5, h6");
+  const headingItems: HeadingItem[] = headingNodes.slice(0, 200).map((node) => ({
+    level: Number(node.tagName.replace(/[^1-6]/g, "")) || 1,
+    text: clean(node.text),
+  }));
+  const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 } as HeadingAnalysis["counts"];
+  for (const item of headingItems) counts[item.level as 1] += 1;
+
+  const skipped: { from: number; to: number }[] = [];
+  for (let i = 1; i < headingItems.length; i += 1) {
+    const gap = headingItems[i].level - headingItems[i - 1].level;
+    if (gap > 1) skipped.push({ from: headingItems[i - 1].level, to: headingItems[i].level });
+  }
+
+  const headings: HeadingAnalysis = {
+    counts,
+    items: headingItems.slice(0, 40),
+    order: headingItems.map((item) => item.level),
+    empty: headingItems.filter((item) => item.text === "").length,
+    multipleH1: counts[1] > 1,
+    skipped,
+  };
+
   const lang = clean(root.querySelector("html")?.getAttribute("lang"));
   const canonicalTarget = normaliseForCompare(canonical, finalUrl);
   const canonicalIsSelf = canonical !== "" && canonicalTarget === normaliseForCompare(finalUrl, finalUrl);
@@ -195,7 +230,8 @@ export function extractSeo(html: string, finalUrl: string): SeoExtract {
     h1,
     h1Count: h1.length,
     h2Count,
-    images: { total, missingAlt, emptyAlt },
+    headings,
+    images: { total, missingAlt, emptyAlt, descriptive: Math.max(0, total - missingAlt - emptyAlt) },
     links: { total: linkTotal, internal: linkInternal, external: linkTotal - linkInternal },
     og,
     lang,
@@ -525,4 +561,129 @@ export function scoreSeo(
     warnings,
     recommendations: [...errors, ...warnings],
   };
+}
+
+/* ------------------------------------------------------------------------- */
+/* Page-level findings for the "SEO Page Analyzer" tool                       */
+/* ------------------------------------------------------------------------- */
+
+export type PageFinding = {
+  id: string;
+  severity: "warning" | "info";
+  /** Values consumed by the localized ICU message for this id. */
+  values?: Record<string, string | number>;
+};
+
+/**
+ * Turns extracted facts into structured findings. Severities stay conservative:
+ * a non-self canonical or a noindex directive is reported as something to
+ * review, not as a defect — both are legitimate in many setups.
+ */
+export function buildPageFindings(
+  extract: SeoExtract,
+  options: { httpStatus: number; redirects?: string[] },
+): PageFinding[] {
+  const findings: PageFinding[] = [];
+
+  /* Title / description */
+  if (!extract.title) {
+    findings.push({ id: "titleMissing", severity: "warning" });
+  } else if (extract.titleLength < TITLE_MIN) {
+    findings.push({ id: "titleShort", severity: "info", values: { length: extract.titleLength, min: TITLE_MIN } });
+  } else if (extract.titleLength > TITLE_MAX) {
+    findings.push({ id: "titleLong", severity: "info", values: { length: extract.titleLength, max: TITLE_MAX } });
+  }
+
+  if (!extract.description) {
+    findings.push({ id: "descriptionMissing", severity: "warning" });
+  } else if (extract.descriptionLength < DESC_MIN) {
+    findings.push({ id: "descriptionShort", severity: "info", values: { length: extract.descriptionLength, min: DESC_MIN } });
+  } else if (extract.descriptionLength > DESC_MAX) {
+    findings.push({ id: "descriptionLong", severity: "info", values: { length: extract.descriptionLength, max: DESC_MAX } });
+  }
+
+  /* Headings */
+  const { counts, empty, multipleH1, skipped } = extract.headings;
+
+  if (counts[1] === 0) {
+    findings.push({ id: "noH1", severity: "warning" });
+  } else if (multipleH1) {
+    // Multiple H1s are valid HTML and often intentional; report as context only.
+    findings.push({ id: "multipleH1", severity: "info", values: { count: counts[1] } });
+  }
+
+  if (skipped.length > 0) {
+    findings.push({
+      id: "skippedHeading",
+      severity: "info",
+      values: { from: skipped[0].from, to: skipped[0].to, count: skipped.length },
+    });
+  }
+
+  if (empty > 0) {
+    findings.push({ id: "emptyHeading", severity: "info", values: { count: empty } });
+  }
+
+  if (counts[1] > 0 && counts[2] === 0) {
+    findings.push({ id: "noSubheadings", severity: "info" });
+  }
+
+  /* Canonical */
+  if (!extract.canonical) {
+    findings.push({ id: "canonicalMissing", severity: "info" });
+  } else if (!extract.canonicalIsSelf) {
+    findings.push({ id: "canonicalOther", severity: "info", values: { target: extract.canonical } });
+  }
+
+  /* Robots */
+  const tokens = extract.robotsTokens;
+  const hasNoindex = tokens.includes("noindex") || tokens.includes("none");
+  const hasIndex = tokens.includes("index");
+
+  if (hasNoindex) {
+    findings.push({ id: "robotsNoindex", severity: "warning", values: { robots: extract.robots } });
+  }
+  if (tokens.includes("nofollow")) {
+    findings.push({ id: "robotsNofollow", severity: "info" });
+  }
+  if (hasNoindex && hasIndex) {
+    findings.push({ id: "robotsConflict", severity: "warning" });
+  }
+
+  /* Images */
+  if (extract.images.missingAlt > 0) {
+    findings.push({
+      id: "imagesMissingAlt",
+      severity: "warning",
+      values: { missing: extract.images.missingAlt, total: extract.images.total },
+    });
+  }
+  if (extract.images.emptyAlt > 0) {
+    findings.push({
+      id: "imagesEmptyAlt",
+      severity: "info",
+      values: { empty: extract.images.emptyAlt, total: extract.images.total },
+    });
+  }
+
+  /* Links */
+  if (extract.links.total > 0 && extract.links.internal === 0) {
+    findings.push({ id: "linksNoInternal", severity: "info" });
+  }
+
+  /* Transport / response */
+  if (!extract.isHttps) {
+    findings.push({ id: "pageHttp", severity: "warning" });
+  }
+  if (!extract.lang) {
+    findings.push({ id: "pageNoLang", severity: "info" });
+  }
+  if (options.httpStatus >= 400) {
+    findings.push({ id: "pageHttpError", severity: "warning", values: { status: options.httpStatus } });
+  }
+  if (options.redirects && options.redirects.length > 0) {
+    findings.push({ id: "pageRedirects", severity: "info", values: { count: options.redirects.length } });
+  }
+
+  return findings;
 }

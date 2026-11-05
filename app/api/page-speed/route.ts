@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 
+import { getPageSpeedRatelimit } from "@/lib/ratelimit";
+import { SafeFetchError, validateTargetUrl } from "@/lib/safe-fetch";
+
 type LighthouseAudit = {
   displayValue?: string;
   numericValue?: number;
@@ -24,6 +27,28 @@ type PageSpeedResponse = {
 };
 
 export async function POST(request: Request) {
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  const ip =
+    forwardedFor?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "local";
+
+  const limiter = getPageSpeedRatelimit();
+  if (limiter) {
+    try {
+      const { success } = await limiter.limit(ip);
+      if (!success) {
+        return NextResponse.json(
+          {
+            error: "Too many PageSpeed checks. Please wait a moment and try again.",
+            code: "RATE_LIMITED",
+          },
+          { status: 429 },
+        );
+      }
+    } catch {
+      // Limiter outages must not break the tool.
+    }
+  }
+
   try {
     const body = await request.json();
 
@@ -34,7 +59,7 @@ export async function POST(request: Request) {
 
     if (!rawUrl) {
       return NextResponse.json(
-        { error: "Please enter a website URL." },
+        { error: "Please enter a website URL.", code: "INVALID_URL" },
         { status: 400 }
       );
     }
@@ -42,20 +67,18 @@ export async function POST(request: Request) {
     let parsedUrl: URL;
 
     try {
-      parsedUrl = new URL(rawUrl);
-    } catch {
+      // Same structural validation the fetchers use: scheme, credentials and
+      // internal hostnames are rejected before anything is sent upstream.
+      parsedUrl = validateTargetUrl(rawUrl);
+    } catch (error) {
+      if (error instanceof SafeFetchError) {
+        return NextResponse.json(
+          { error: error.message, code: error.code },
+          { status: error.httpStatus },
+        );
+      }
       return NextResponse.json(
-        { error: "Please enter a valid full URL." },
-        { status: 400 }
-      );
-    }
-
-    if (
-      parsedUrl.protocol !== "http:" &&
-      parsedUrl.protocol !== "https:"
-    ) {
-      return NextResponse.json(
-        { error: "Only HTTP and HTTPS URLs are supported." },
+        { error: "Please enter a valid full URL.", code: "INVALID_URL" },
         { status: 400 }
       );
     }
@@ -78,6 +101,7 @@ export async function POST(request: Request) {
       {
         method: "GET",
         cache: "no-store",
+        signal: AbortSignal.timeout(45_000),
       }
     );
 
@@ -89,13 +113,15 @@ export async function POST(request: Request) {
       };
 
     if (!response.ok) {
+      const rateLimited = response.status === 429;
       return NextResponse.json(
         {
           error:
             data.error?.message ||
             "Unable to run PageSpeed analysis.",
+          code: rateLimited ? "RATE_LIMITED" : "UPSTREAM_ERROR",
         },
-        { status: response.status }
+        { status: rateLimited ? 429 : 502 }
       );
     }
 
@@ -107,6 +133,7 @@ export async function POST(request: Request) {
         {
           error:
             "PageSpeed did not return a valid Lighthouse result.",
+          code: "UPSTREAM_ERROR",
         },
         { status: 502 }
       );

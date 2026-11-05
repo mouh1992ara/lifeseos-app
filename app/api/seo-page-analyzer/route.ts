@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { getAnalyzeRatelimit } from "@/lib/ratelimit";
 import { SafeFetchError, safeFetchHtml } from "@/lib/safe-fetch";
-import { extractSeo } from "@/lib/seo-html";
+import { buildPageFindings, extractSeo } from "@/lib/seo-html";
 
 /**
  * Page-level SEO inspector (the "SEO Page Analyzer" tool).
@@ -81,6 +81,22 @@ export async function POST(request: NextRequest) {
       openGraph: extract.og,
       lang: extract.lang,
       pageSizeKb: Math.round(page.bytes / 1024),
+
+      headings: extract.headings,
+      images: extract.images,
+      canonicalAnalysis: {
+        status: !extract.canonical ? "missing" : extract.canonicalIsSelf ? "self" : "other",
+        target: extract.canonical,
+      },
+      robotsAnalysis: {
+        value: extract.robots,
+        noindex: extract.robotsTokens.includes("noindex") || extract.robotsTokens.includes("none"),
+        nofollow: extract.robotsTokens.includes("nofollow"),
+      },
+      findings: buildPageFindings(extract, {
+        httpStatus: page.status,
+        redirects: page.redirects,
+      }),
     });
   } catch (error) {
     if (error instanceof SafeFetchError) {

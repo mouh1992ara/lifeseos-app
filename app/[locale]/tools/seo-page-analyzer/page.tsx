@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import ShareTool from "@/components/share-tool";
@@ -22,7 +22,37 @@ type SeoResult = {
   totalLinks: number;
   totalImages: number;
   imagesWithoutAlt: number;
+  imagesWithEmptyAlt?: number;
   pageSizeKb: number;
+
+  redirects?: string[];
+  internalLinks?: number;
+  externalLinks?: number;
+
+  headings?: {
+    counts: Record<string, number>;
+    order: number[];
+    empty: number;
+    multipleH1: boolean;
+    skipped: { from: number; to: number }[];
+    items: { level: number; text: string }[];
+  };
+
+  images?: {
+    total: number;
+    missingAlt: number;
+    emptyAlt: number;
+    descriptive: number;
+  };
+
+  canonicalAnalysis?: { status: "missing" | "self" | "other"; target: string };
+  robotsAnalysis?: { value: string; noindex: boolean; nofollow: boolean };
+
+  findings?: {
+    id: string;
+    severity: "warning" | "info";
+    values?: Record<string, string | number>;
+  }[];
 };
 
 const CHECK_IDS = ["1", "2", "3", "4", "5", "6"] as const;
@@ -42,6 +72,19 @@ export default function SeoPageAnalyzerPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] =
     useState(false);
+  const [elapsed, setElapsed] = useState(0);
+
+  useEffect(() => {
+    if (!loading) {
+      setElapsed(0);
+      return;
+    }
+    const started = Date.now();
+    const id = window.setInterval(() => {
+      setElapsed(Math.floor((Date.now() - started) / 1000));
+    }, 1000);
+    return () => window.clearInterval(id);
+  }, [loading]);
 
   const hasTrackedUse = useRef(false);
 
@@ -113,9 +156,18 @@ export default function SeoPageAnalyzerPage() {
         await response.json();
 
       if (!response.ok) {
+        // The API answers with a stable code; translate it instead of showing
+        // the raw English message on the Arabic, French and Chinese pages.
+        const code: string =
+          typeof data.code === "string" ? data.code : "";
+        const key = `errors.${code
+          .toLowerCase()
+          .replace(/_([a-z])/g, (_m: string, c: string) => c.toUpperCase())}`;
+
         setError(
-          data.error ||
-            t("errorFallback")
+          code && t.has(key)
+            ? t(key)
+            : data.error || t("errorFallback")
         );
         return;
       }
@@ -227,8 +279,13 @@ export default function SeoPageAnalyzerPage() {
           )}
 
           {loading && (
-            <div className="mt-6 overflow-hidden rounded-full bg-slate-900">
-              <div className="h-1.5 w-1/2 animate-pulse rounded-full bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400" />
+            <div className="mt-6">
+              <div className="overflow-hidden rounded-full bg-slate-900">
+                <div className="h-1.5 w-1/2 animate-pulse rounded-full bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400" />
+              </div>
+              <p className="mt-2 text-xs text-slate-500">
+                {t("loadingElapsed", { seconds: elapsed })}
+              </p>
             </div>
           )}
 
@@ -303,6 +360,13 @@ export default function SeoPageAnalyzerPage() {
                   result.canonical ||
                   t("noCanonical")
                 }
+                note={
+                  result.canonicalAnalysis?.status === "self"
+                    ? t("canonicalSelfNote")
+                    : result.canonicalAnalysis?.status === "other"
+                      ? t("canonicalOtherNote")
+                      : t("canonicalMissingNote")
+                }
               />
 
               <InfoCard
@@ -310,6 +374,11 @@ export default function SeoPageAnalyzerPage() {
                 value={
                   result.robots ||
                   t("noRobots")
+                }
+                note={
+                  result.robotsAnalysis?.noindex
+                    ? t("robotsNoindexNote")
+                    : t("robotsIndexNote")
                 }
               />
 
@@ -328,23 +397,33 @@ export default function SeoPageAnalyzerPage() {
                   {t("structureTitle")}
                 </h2>
 
-                <div className="mt-5 grid grid-cols-2 gap-4">
+                <div className="mt-5 grid grid-cols-3 gap-3">
 
-                  <SmallMetricCard
-                    label={t("h1Count")}
-                    value={String(
-                      result.h1Count
-                    )}
-                  />
-
-                  <SmallMetricCard
-                    label={t("h2Count")}
-                    value={String(
-                      result.h2Count
-                    )}
-                  />
+                  {[1, 2, 3, 4, 5, 6].map((level) => (
+                    <SmallMetricCard
+                      key={level}
+                      label={t("levelCount", { level })}
+                      value={String(
+                        result.headings?.counts?.[String(level)] ?? 0
+                      )}
+                      warning={
+                        level === 1 &&
+                        (result.headings?.counts?.["1"] ?? 0) === 0
+                      }
+                    />
+                  ))}
 
                 </div>
+
+                {result.headings && result.headings.order.length > 0 && (
+                  <p className="mt-4 text-xs leading-6 text-slate-500">
+                    {t("headingOrder")}:{" "}
+                    {result.headings.order
+                      .slice(0, 16)
+                      .map((lvl) => `H${lvl}`)
+                      .join(" → ")}
+                  </p>
+                )}
 
                 {result.h1.length > 0 ? (
 
@@ -409,11 +488,120 @@ export default function SeoPageAnalyzerPage() {
                     }
                   />
 
+                  <SmallMetricCard
+                    label={t("emptyAlt")}
+                    value={String(
+                      result.images?.emptyAlt ?? 0
+                    )}
+                  />
+
+                  <SmallMetricCard
+                    label={t("descriptiveAlt")}
+                    value={String(
+                      result.images?.descriptive ?? 0
+                    )}
+                  />
+
                 </div>
 
                 <p className="mt-5 text-sm leading-7 text-slate-500">
                   {t("imageNote")}
                 </p>
+
+              </div>
+
+            </section>
+
+
+            <section className="rounded-[28px] border border-white/10 bg-slate-900/80 p-6">
+
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">
+                {t("linkEyebrow")}
+              </p>
+
+              <h2 className="mt-2 text-2xl font-bold">
+                {t("linkTitle")}
+              </h2>
+
+              <div className="mt-5 grid gap-4 sm:grid-cols-3">
+
+                <SmallMetricCard
+                  label={t("linkTotal")}
+                  value={String(result.totalLinks)}
+                />
+
+                <SmallMetricCard
+                  label={t("linkInternal")}
+                  value={String(result.internalLinks ?? 0)}
+                />
+
+                <SmallMetricCard
+                  label={t("linkExternal")}
+                  value={String(result.externalLinks ?? 0)}
+                />
+
+              </div>
+
+              <p className="mt-5 text-sm leading-7 text-slate-500">
+                {t("linkNote")}
+              </p>
+
+              {result.redirects && result.redirects.length > 0 && (
+                <p className="mt-2 text-sm leading-7 text-slate-400">
+                  {t("redirectNote", { count: result.redirects.length })}
+                </p>
+              )}
+
+            </section>
+
+
+            <section className="rounded-[28px] border border-white/10 bg-slate-900/80 p-6 sm:p-8">
+
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-300/80">
+                {t("findingsEyebrow")}
+              </p>
+
+              <h2 className="mt-2 text-2xl font-bold">
+                {t("findingsTitle")}
+              </h2>
+
+              <div className="mt-5 space-y-3">
+
+                {result.findings && result.findings.length > 0 ? (
+
+                  result.findings.map((finding, index) => (
+
+                    <div
+                      key={`${finding.id}-${index}`}
+                      className={
+                        finding.severity === "warning"
+                          ? "rounded-2xl border border-amber-400/20 bg-amber-400/5 px-5 py-4"
+                          : "rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4"
+                      }
+                    >
+                      <span
+                        className={
+                          finding.severity === "warning"
+                            ? "text-[10px] font-semibold uppercase tracking-[0.16em] text-amber-300"
+                            : "text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500"
+                        }
+                      >
+                        {t(`severity.${finding.severity}`)}
+                      </span>
+                      <p className="mt-1 text-sm leading-6 text-slate-300">
+                        {t(`findings.${finding.id}`, finding.values ?? {})}
+                      </p>
+                    </div>
+
+                  ))
+
+                ) : (
+
+                  <div className="rounded-2xl border border-emerald-400/15 bg-emerald-400/5 px-5 py-4 text-sm text-emerald-300">
+                    {t("findingsEmpty")}
+                  </div>
+
+                )}
 
               </div>
 

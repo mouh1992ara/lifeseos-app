@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import ShareTool from "@/components/share-tool";
+import { errorCodeKey } from "@/lib/tool-errors";
 import { Link } from "@/i18n/navigation";
 
 type Result = {
@@ -83,7 +84,12 @@ export default function HttpStatusCheckerPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || tErr("generic"));
+        const key = errorCodeKey(data.code);
+        setError(
+          key && tErr.has(key)
+            ? tErr(key)
+            : data.error || tErr("generic")
+        );
         return;
       }
 

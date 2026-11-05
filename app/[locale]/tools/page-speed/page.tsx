@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 
 import CwvDashboard, { parseMetric } from "@/components/cwv-dashboard";
 import ShareTool from "@/components/share-tool";
+import { errorCodeKey } from "@/lib/tool-errors";
 
 type PageSpeedResult = {
   requestedUrl: string;
@@ -49,8 +50,8 @@ export default function PageSpeedAnalyzerPage() {
   const t = useTranslations("Tool.pageSpeed");
   const tc = useTranslations("Tools.catalog");
   const tCommon = useTranslations("Common");
-  const tRelated = useTranslations("ToolShared.related");
   const tErr = useTranslations("Errors");
+  const tRelated = useTranslations("ToolShared.related");
 
   const [url, setUrl] = useState("");
   const [result, setResult] =
@@ -135,8 +136,11 @@ export default function PageSpeedAnalyzerPage() {
         await response.json();
 
       if (!response.ok) {
+        const key = errorCodeKey(data.code);
         setError(
-          data.error || t("errorFallback")
+          key && tErr.has(key)
+            ? tErr(key)
+            : data.error || t("errorFallback")
         );
         return;
       }

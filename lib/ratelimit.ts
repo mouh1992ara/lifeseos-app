@@ -46,6 +46,7 @@ function makeLimiter(
 let analyzeLimiter: Ratelimit | null | undefined;
 let contactLimiter: Ratelimit | null | undefined;
 let statusLimiter: Ratelimit | null | undefined;
+let pageSpeedLimiter: Ratelimit | null | undefined;
 
 /** `null` means Redis is unavailable; callers should skip limiting. */
 export function getAnalyzeRatelimit(): Ratelimit | null {
@@ -61,6 +62,14 @@ export function getStatusRatelimit(): Ratelimit | null {
     statusLimiter = makeLimiter(30, "1 m", "lifeseos:http-status");
   }
   return statusLimiter;
+}
+
+/** PageSpeed calls are expensive upstream (Lighthouse), so keep the budget small. */
+export function getPageSpeedRatelimit(): Ratelimit | null {
+  if (pageSpeedLimiter === undefined) {
+    pageSpeedLimiter = makeLimiter(10, "1 m", "lifeseos:page-speed");
+  }
+  return pageSpeedLimiter;
 }
 
 export function getContactRatelimit(): Ratelimit | null {

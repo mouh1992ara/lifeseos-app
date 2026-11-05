@@ -116,6 +116,20 @@
     "urlRequired": "Please enter a website URL.",
     "urlInvalid": "Enter a valid URL, for example https://example.com",
     "rateLimited": "Too many requests. Please wait a moment and try again.",
-    "timeout": "The request took too long. Please try again."
+    "timeout": "The request took too long. Please try again.",
+    "codes": {
+      "invalidUrl": "Please enter a valid website URL.",
+      "invalidRequest": "The request could not be read. Please try again.",
+      "unsupportedProtocol": "Only HTTP and HTTPS addresses can be analysed.",
+      "credentialsNotAllowed": "URLs containing a username or password are not allowed.",
+      "blockedHost": "This address points to a local or internal host and cannot be analysed.",
+      "blockedAddress": "This address resolves to a private network and cannot be analysed.",
+      "tooManyRedirects": "The page redirects too many times. Try the final URL instead.",
+      "notHtml": "This URL does not return an HTML page.",
+      "tooLarge": "The page is too large to analyse (limit 5 MB).",
+      "timeout": "The site took too long to respond (10 second limit).",
+      "upstreamError": "We could not reach this site. Check the address and try again.",
+      "rateLimited": "You have run several analyses in a row. Please wait a minute and try again."
+    }
   }
 }

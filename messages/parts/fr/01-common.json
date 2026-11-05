@@ -116,6 +116,20 @@
     "urlRequired": "Veuillez saisir l’URL d’un site.",
     "urlInvalid": "Saisissez une URL valide, par exemple https://example.com",
     "rateLimited": "Trop de requêtes. Patientez un instant et réessayez.",
-    "timeout": "La requête a pris trop de temps. Veuillez réessayer."
+    "timeout": "La requête a pris trop de temps. Veuillez réessayer.",
+    "codes": {
+      "invalidUrl": "Veuillez saisir une URL de site valide.",
+      "invalidRequest": "La requête n'a pas pu être lue. Réessayez.",
+      "unsupportedProtocol": "Seules les adresses HTTP et HTTPS peuvent être analysées.",
+      "credentialsNotAllowed": "Les URL contenant un identifiant ou un mot de passe ne sont pas autorisées.",
+      "blockedHost": "Cette adresse pointe vers un hôte local ou interne et ne peut pas être analysée.",
+      "blockedAddress": "Cette adresse correspond à un réseau privé et ne peut pas être analysée.",
+      "tooManyRedirects": "La page effectue trop de redirections. Essayez l'URL finale.",
+      "notHtml": "Cette URL ne renvoie pas une page HTML.",
+      "tooLarge": "La page est trop volumineuse pour être analysée (limite 5 Mo).",
+      "timeout": "Le site a mis trop de temps à répondre (limite de 10 secondes).",
+      "upstreamError": "Impossible d'atteindre ce site. Vérifiez l'adresse et réessayez.",
+      "rateLimited": "Vous avez lancé plusieurs analyses d'affilée. Patientez une minute."
+    }
   }
 }
