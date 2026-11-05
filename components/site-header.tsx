@@ -12,8 +12,14 @@ import { createClient } from "@/lib/supabase/server";
 
 /* One set of classes per role, so the header cannot drift from the rest of the
    site as pages are added. Sizes are identical between desktop and mobile:
-   only padding changes. */
-const mobileLink = "text-[12px] font-medium text-slate-300 transition hover:text-white";
+   only padding changes.
+
+   The mobile links are 12px text, so their natural box is ~18-22px tall. The
+   padding below grows the touch target to 44px (WCAG 2.5.5); the matching
+   negative vertical margin keeps the visual line box exactly where it was, so
+   spacing in the mobile bar does not change. */
+const mobileLink =
+  "inline-flex items-center justify-center px-[10px] py-[13px] -my-[13px] text-[12px] font-medium text-slate-300 transition hover:text-white";
 const mobileCta =
   "rounded-lg bg-emerald-400 px-3 py-1.5 text-[12px] font-semibold text-slate-950 transition hover:bg-emerald-300";
 const deskLink =
@@ -25,7 +31,7 @@ const deskOutline =
 const deskCta =
   "rounded-lg bg-emerald-400 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:-translate-y-px hover:bg-emerald-300 hover:shadow-[0_10px_30px_-12px_rgba(52,211,153,.8)]";
 const solutionsMobile =
-  "inline-flex items-center gap-1 text-[12px] font-medium text-slate-300 hover:text-white";
+  "inline-flex items-center gap-1 px-[10px] py-[13px] -my-[13px] text-[12px] font-medium text-slate-300 hover:text-white";
 const solutionsDesk =
   "inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm text-slate-300 transition hover:bg-white/[0.06] hover:text-white aria-expanded:bg-white/[0.08] aria-expanded:text-white";
 

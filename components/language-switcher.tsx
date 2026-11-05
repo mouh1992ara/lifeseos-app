@@ -49,8 +49,11 @@ export default function LanguageSwitcher({
         title={t("change")}
         onClick={() => setOpen((v) => !v)}
         className={
+          /* The compact (mobile) trigger is an icon + chevron, ~38x16px. Padding
+             grows the touch target to 54x44 (WCAG 2.5.5); the equal negative
+             margins cancel it out, so the header layout does not move at all. */
           compact
-            ? "inline-flex items-center gap-2 text-slate-300 transition hover:text-white"
+            ? "inline-flex items-center gap-2 px-2 -mx-2 py-[14px] -my-[14px] text-slate-300 transition hover:text-white"
             : "inline-flex items-center gap-2 rounded-xl border border-white/[0.07] bg-white/[0.03] px-2.5 py-2 text-sm text-slate-300 transition hover:border-white/15 hover:bg-white/[0.06] hover:text-white aria-expanded:border-emerald-400/30 aria-expanded:bg-emerald-400/[0.08] aria-expanded:text-white"
         }
       >
