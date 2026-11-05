@@ -2,7 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   ArrowRightLeft,
   Check,
@@ -350,6 +350,7 @@ function getReadabilityKey(words: number, chars: number): ReadabilityKey {
 
 export default function ArticleRewriterClient() {
   const t = useTranslations("Tool.articleRewriter");
+  const locale = useLocale();
   const tc = useTranslations("Tools.catalog");
   const tCommon = useTranslations("Common");
 
@@ -563,7 +564,13 @@ export default function ArticleRewriterClient() {
                   </span>
                 </div>
 
-                <textarea
+                {locale !== "en" && (
+              <p className="mb-4 rounded-2xl border border-amber-400/20 bg-amber-400/5 px-4 py-3 text-sm leading-6 text-amber-200/90">
+                {t("languageLimitation")}
+              </p>
+            )}
+
+            <textarea
                   id="original-article"
                   value={article}
                   onChange={(event) => setArticle(event.target.value)}

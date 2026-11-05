@@ -1,10 +1,12 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/config";
+import { buildDescriptions, hashtagsFor, type DescriptionStyleKey } from "@/lib/content-i18n";
 
 import { useMemo, useState } from "react";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import {
   Check,
@@ -87,524 +89,15 @@ function cleanText(value: string) {
 
 
 
-function titleCase(value: string) {
-
-  return value
-
-    .split(" ")
-
-    .map((word) =>
-
-      word.length > 0
-
-        ? `${word.charAt(0).toUpperCase()}${word.slice(1)}`
-
-        : word
-
-    )
-
-    .join(" ");
-
-}
-
-
-
-function slugify(value: string) {
-
-  return cleanText(value)
-
-    .toLowerCase()
-
-    .replace(/[^a-z0-9\s-]/g, "")
-
-    .split(/\s+/)
-
-    .filter(Boolean)
-
-    .slice(0, 4)
-
-    .join("");
-
-}
-
-
-
-function buildHashtags(topic: string, keyword: string) {
-
-  const baseTopic = slugify(topic);
-
-  const baseKeyword = slugify(keyword || topic);
-
-
-
-  return Array.from(
-
-    new Set(
-
-      [
-
-        baseKeyword ? `#${baseKeyword}` : "",
-
-        baseTopic ? `#${baseTopic}` : "",
-
-        "#YouTubeTips",
-
-        "#ContentCreator",
-
-        "#YouTubeSEO",
-
-      ].filter(Boolean)
-
-    )
-
-  );
-
-}
-
-
-
-function generateDescriptions(
-
-  topic: string,
-
-  keyword: string,
-
-  audience: string,
-
-  style: DescriptionStyle,
-
-  cta: string
-
-): GeneratedDescription[] {
-
-  const cleanTopic = cleanText(topic);
-
-  const cleanKeyword = cleanText(keyword || topic);
-
-  const cleanAudience = cleanText(audience);
-
-  const cleanCta = cleanText(cta);
-
-
-
-  const topicTitle = titleCase(cleanTopic);
-
-  const keywordTitle = titleCase(cleanKeyword);
-
-
-
-  const audienceLine = cleanAudience
-
-    ? `This video is especially useful for ${cleanAudience}.`
-
-    : "";
-
-
-
-  const ctaLine = cleanCta
-
-    ? cleanCta
-
-    : "If you found this video useful, consider liking the video and subscribing for more.";
-
-
-
-  const keywordLine =
-
-    cleanKeyword && cleanKeyword.toLowerCase() !== cleanTopic.toLowerCase()
-
-      ? `We also cover practical ideas related to ${cleanKeyword}.`
-
-      : "";
-
-
-
-  const templates: Record<DescriptionStyle, GeneratedDescription[]> = {
-
-    Balanced: [
-
-      {
-
-        label: "Balanced",
-
-        description: `Learn more about ${topicTitle} in this video.
-
-
-
-We break down the topic in a clear and practical way so you can understand the key ideas and apply them more easily. ${keywordLine}
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-      {
-
-        label: "Educational",
-
-        description: `In this video, we explore ${topicTitle} and explain the most important points you should know.
-
-
-
-You will get a practical overview of ${keywordTitle}, along with useful ideas you can apply to your own content or workflow.
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-      {
-
-        label: "Creator Friendly",
-
-        description: `Want to understand ${topicTitle} better?
-
-
-
-This video gives you a simple breakdown of the topic, practical tips and useful takeaways related to ${keywordTitle}.
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-    ],
-
-
-
-    "SEO Focused": [
-
-      {
-
-        label: "SEO Focused",
-
-        description: `${keywordTitle} is the main focus of this video.
-
-
-
-We explain how ${topicTitle} works, what to pay attention to and which practical steps can help you get better results. The goal is to give you a clear understanding of ${keywordTitle} without unnecessary complexity.
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-      {
-
-        label: "Search Friendly",
-
-        description: `Looking for information about ${keywordTitle}?
-
-
-
-In this video, we cover ${topicTitle}, explain the core ideas and share practical tips that can help you understand the topic more clearly.
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-      {
-
-        label: "Keyword Rich",
-
-        description: `This video is a practical guide to ${keywordTitle}.
-
-
-
-You will learn about ${topicTitle}, common considerations, useful strategies and ways to improve your approach.
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-    ],
-
-
-
-    Professional: [
-
-      {
-
-        label: "Professional",
-
-        description: `This video provides a structured overview of ${topicTitle}.
-
-
-
-We examine the key concepts behind ${keywordTitle}, highlight practical considerations and explain how the topic can be approached more effectively.
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-      {
-
-        label: "Structured",
-
-        description: `Explore ${topicTitle} through a clear and structured explanation.
-
-
-
-This video covers the main principles, practical applications and important considerations related to ${keywordTitle}.
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-      {
-
-        label: "Expert Tone",
-
-        description: `In this video, we review the essential elements of ${topicTitle} and discuss practical approaches related to ${keywordTitle}.
-
-
-
-The content is designed to provide a concise but useful overview for viewers who want a clearer understanding of the subject.
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-    ],
-
-
-
-    Friendly: [
-
-      {
-
-        label: "Friendly",
-
-        description: `Let's talk about ${topicTitle}.
-
-
-
-In this video, I break the topic down in a simple way and share useful ideas related to ${keywordTitle} that you can start using right away.
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-      {
-
-        label: "Conversational",
-
-        description: `If ${topicTitle} feels confusing, this video is a good place to start.
-
-
-
-We'll go through the main ideas, explain ${keywordTitle} in simple terms and look at a few practical tips.
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-      {
-
-        label: "Approachable",
-
-        description: `Curious about ${topicTitle}?
-
-
-
-This video walks you through the topic step by step and gives you practical ideas around ${keywordTitle} without overcomplicating things.
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-    ],
-
-
-
-    Short: [
-
-      {
-
-        label: "Short",
-
-        description: `Learn the basics of ${topicTitle} and discover practical tips related to ${keywordTitle}.
-
-
-
-${ctaLine}`,
-
-      },
-
-      {
-
-        label: "Compact",
-
-        description: `A quick guide to ${topicTitle} with practical ideas around ${keywordTitle}.
-
-
-
-${ctaLine}`,
-
-      },
-
-      {
-
-        label: "Minimal",
-
-        description: `Explore ${topicTitle}, understand ${keywordTitle} and take away a few practical tips.
-
-
-
-${ctaLine}`,
-
-      },
-
-    ],
-
-
-
-    Detailed: [
-
-      {
-
-        label: "Detailed",
-
-        description: `In this video, we take a closer look at ${topicTitle} and explore the most important ideas you should understand.
-
-
-
-We cover the core concepts behind ${keywordTitle}, explain how they connect to the broader topic and highlight practical considerations that can help you make better decisions.
-
-
-
-You will also see how different approaches can affect your results and what to keep in mind when applying these ideas yourself.
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-      {
-
-        label: "In-Depth",
-
-        description: `This video provides an in-depth introduction to ${topicTitle}.
-
-
-
-We start with the fundamentals, move into practical examples and then look at the main considerations related to ${keywordTitle}. The goal is to help you understand both the theory and the practical side of the topic.
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-      {
-
-        label: "Comprehensive",
-
-        description: `If you want a more complete understanding of ${topicTitle}, this video gives you a structured starting point.
-
-
-
-We explain the main ideas behind ${keywordTitle}, discuss practical applications and highlight common mistakes or considerations that are useful to know before you begin.
-
-
-
-${audienceLine}
-
-
-
-${ctaLine}`,
-
-      },
-
-    ],
-
-  };
-
-
-
-  return templates[style];
-
+function buildHashtags(topic: string, keyword: string, locale: Locale) {
+  // The old version slugified to [a-z0-9], which emptied Arabic and Chinese
+  // topics and left only English tags. The shared generator keeps each script.
+  return hashtagsFor(topic, keyword, locale, 5);
 }
 
 export default function YouTubeDescriptionGeneratorClient() {
   const t = useTranslations("Tool.youtubeDescriptionGenerator");
+  const locale = useLocale() as Locale;
   const tc = useTranslations("Tools.catalog");
   const tCommon = useTranslations("Common");
   const tRelated = useTranslations("ToolShared.related");
@@ -621,8 +114,8 @@ export default function YouTubeDescriptionGeneratorClient() {
   const [shareCopied, setShareCopied] = useState(false);
 
   const hashtags = useMemo(
-    () => buildHashtags(topic, keyword),
-    [topic, keyword]
+    () => buildHashtags(topic, keyword, locale),
+    [topic, keyword, locale]
   );
 
   const descriptionLength = selectedDescription.length;
@@ -644,13 +137,21 @@ export default function YouTubeDescriptionGeneratorClient() {
       return;
     }
 
-    const generated = generateDescriptions(
+    // Localized generation: the shared builder writes in the current language
+    // instead of translating English templates word for word.
+    const localized = buildDescriptions({
       topic,
       keyword,
       audience,
-      style,
-      cta
-    );
+      cta,
+      locale,
+      style: STYLE_KEYS[style] as DescriptionStyleKey,
+    });
+
+    const generated = localized.map((description) => ({
+      label: style,
+      description,
+    }));
 
     setResults(generated);
     setSelectedDescription(generated[0]?.description ?? "");

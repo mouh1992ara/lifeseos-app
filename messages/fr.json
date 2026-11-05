@@ -859,7 +859,8 @@
       "wf2Cta": "Créer le sitemap",
       "wf3Body": "Lancez un audit SEO plus large après avoir configuré l’exploration et la découverte des URL, pour examiner d’autres signaux techniques et de contenu.",
       "wf3Cta": "Lancer l’audit SEO",
-      "shareBody": "Créez et téléchargez un sitemap XML pour votre site avec cet outil gratuit LifeSeos."
+      "shareBody": "Créez et téléchargez un sitemap XML pour votre site avec cet outil gratuit LifeSeos.",
+      "invalidUrls": "{count} ligne(s) ignorée(s) : ce ne sont pas des URL http(s) valides."
     },
     "metaTag": {
       "meta": {
@@ -1325,7 +1326,8 @@
       "levelAdvanced": "Avancé",
       "strengthLight": "Légère",
       "strengthModerate": "Modérée",
-      "strengthStrong": "Forte"
+      "strengthStrong": "Forte",
+      "languageLimitation": "Ce réécrivain repose sur un moteur de synonymes anglais intégré. En arabe, en français et en chinois, votre texte est renvoyé quasiment inchangé plutôt que présenté comme une réécriture."
     },
     "schemaMarkup": {
       "meta": {

@@ -406,7 +406,8 @@
       "wf2Cta": "生成网站地图",
       "wf3Body": "配置好抓取和 URL 发现后，开展更全面的 SEO 审查，检查更多技术与内容信号。",
       "wf3Cta": "运行 SEO 审查",
-      "shareBody": "使用这款免费的 LifeSeos 工具，为网站生成并下载 XML 网站地图。"
+      "shareBody": "使用这款免费的 LifeSeos 工具，为网站生成并下载 XML 网站地图。",
+      "invalidUrls": "已跳过 {count} 行：不是有效的 http(s) 地址。"
     },
     "metaTag": {
       "meta": {
@@ -872,7 +873,8 @@
       "levelAdvanced": "进阶",
       "strengthLight": "轻度",
       "strengthModerate": "中度",
-      "strengthStrong": "强度"
+      "strengthStrong": "强度",
+      "languageLimitation": "本工具的重写引擎以内置英文同义词与句式调整为主。阿拉伯语、法语和中文文本会基本原样返回，而不是假装完成了语义重写。"
     },
     "schemaMarkup": {
       "meta": {

@@ -3,6 +3,7 @@
 import { Link } from "@/i18n/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { escapeHtmlAttribute, escapeHtmlText } from "@/lib/tool-input";
 
 import ShareTool from "@/components/share-tool";
 
@@ -295,11 +296,11 @@ export default function MetaTagGeneratorPage() {
             <div className="mt-5 rounded-2xl border border-white/5 bg-black/30 p-5">
 
               <pre className="whitespace-pre-wrap break-words text-sm leading-7 text-emerald-300" data-ltr-text>
-{`<title>${title || t("titleFallback")}</title>
+{`<title>${escapeHtmlText(title || t("titleFallback"))}</title>
 
-<meta name="description" content="${
+<meta name="description" content="${escapeHtmlAttribute(
                 description || t("descriptionFallback")
-              }" />`}
+              )}" />`}
               </pre>
 
             </div>

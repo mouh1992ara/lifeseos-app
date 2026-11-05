@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import { useTranslations } from "next-intl";
+import { parseSitemapUrls } from "@/lib/tool-input";
 
 import ShareTool from "@/components/share-tool";
 
@@ -101,15 +102,16 @@ export default function XmlSitemapGeneratorPage() {
       );
   }
 
+  const parsedUrls =
+    useMemo(
+      () => parseSitemapUrls(urls),
+      [urls]
+    );
+
   const sitemap =
     useMemo(() => {
       const urlList =
-        urls
-          .split("\n")
-          .map((url) =>
-            url.trim()
-          )
-          .filter(Boolean);
+        parsedUrls.valid;
 
       const entries =
         urlList
@@ -129,21 +131,13 @@ export default function XmlSitemapGeneratorPage() {
 ${entries}
 </urlset>`;
     }, [
-      urls,
+      parsedUrls,
       changefreq,
       priority,
     ]);
 
-  const urlCount =
-    useMemo(() => {
-      return urls
-        .split("\n")
-        .map((url) =>
-          url.trim()
-        )
-        .filter(Boolean)
-        .length;
-    }, [urls]);
+  const urlCount = parsedUrls.valid.length;
+  const invalidUrlCount = parsedUrls.invalid;
 
   function handleUrlsChange(
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -277,6 +271,12 @@ ${entries}
               </div>
 
             </div>
+
+            {invalidUrlCount > 0 ? (
+              <p className="mt-3 rounded-xl border border-amber-400/20 bg-amber-400/5 px-4 py-3 text-xs leading-5 text-amber-200/90">
+                {t("invalidUrls", { count: invalidUrlCount })}
+              </p>
+            ) : null}
 
 
             <label

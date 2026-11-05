@@ -859,7 +859,8 @@
       "wf2Cta": "Create sitemap",
       "wf3Body": "Run a broader SEO audit after configuring crawling and URL discovery to review additional technical and content signals.",
       "wf3Cta": "Run SEO audit",
-      "shareBody": "Create and download an XML sitemap for your website with this free LifeSeos tool."
+      "shareBody": "Create and download an XML sitemap for your website with this free LifeSeos tool.",
+      "invalidUrls": "{count} line(s) were skipped: they are not valid http(s) URLs."
     },
     "metaTag": {
       "meta": {
@@ -1325,7 +1326,8 @@
       "levelAdvanced": "Advanced",
       "strengthLight": "Light",
       "strengthModerate": "Moderate",
-      "strengthStrong": "Strong"
+      "strengthStrong": "Strong",
+      "languageLimitation": "This rewriter uses a built-in English synonym and structure engine. For Arabic, French and Chinese it returns your text largely unchanged rather than pretending to rewrite it."
     },
     "schemaMarkup": {
       "meta": {

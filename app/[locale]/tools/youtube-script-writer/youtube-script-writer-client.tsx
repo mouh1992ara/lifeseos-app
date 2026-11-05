@@ -1,8 +1,10 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/config";
+import { buildScriptContent, type ScriptStyleKey } from "@/lib/content-i18n";
 import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   Check,
   ClipboardCopy,
@@ -243,6 +245,7 @@ ${result.outro}`;
 
 export default function YouTubeScriptWriterClient() {
   const t = useTranslations("Tool.youtubeScriptWriter");
+  const locale = useLocale() as Locale;
   const tc = useTranslations("Tools.catalog");
   const tCommon = useTranslations("Common");
   const tRelated = useTranslations("ToolShared.related");
@@ -280,9 +283,31 @@ export default function YouTubeScriptWriterClient() {
       return;
     }
 
-    setResult(
-      buildScript(topic, keyword, audience, style, videoLength, goal)
-    );
+    const base = buildScript(topic, keyword, audience, style, videoLength, goal);
+
+    // Keep the English structure for counts/timing, but write the actual script
+    // text in the visitor's language.
+    const localized = buildScriptContent({
+      topic,
+      keyword,
+      audience,
+      goal,
+      locale,
+      style: STYLE_KEYS[style] as ScriptStyleKey,
+      points: base.mainPoints.length,
+    });
+
+    setResult({
+      ...base,
+      hook: localized.hook,
+      introduction: localized.introduction,
+      mainPoints: localized.mainPoints,
+      transitions: localized.transitions,
+      cta: localized.cta,
+      outro: localized.outro,
+      hookAlternatives: localized.hookAlternatives,
+      ctaAlternatives: localized.ctaAlternatives,
+    });
 
     void fetch("/api/tool-events", {
       method: "POST",

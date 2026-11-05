@@ -3,10 +3,12 @@
 
 
 import { Link } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/config";
+import { buildKeywords, type KeywordIntentKey } from "@/lib/content-i18n";
 
 import { useMemo, useRef, useState } from "react";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import {
 
@@ -514,6 +516,7 @@ function buildVideoAngles(topic: string, seedKeyword: string, intent: Intent) {
 export default function YouTubeKeywordIdeasClient() {
 
   const t = useTranslations("Tool.youtubeKeywordIdeas");
+  const locale = useLocale() as Locale;
 
   const tc = useTranslations("Tools.catalog");
 
@@ -657,17 +660,23 @@ const allKeywords = useMemo(
 
 
 
-    const generatedGroups = buildKeywordGroups(
+    const baseGroups = buildKeywordGroups(topic, seedKeyword, intent, audience);
 
+    const order: KeywordIntentKey[] = ["broad", "howTo", "beginner", "comparison", "problem", "review"];
+
+    // Localized keyword phrasing (no invented volume or competition data).
+    const localized = buildKeywords({
       topic,
+      seed: seedKeyword,
+      audience,
+      locale,
+      intents: order,
+    });
 
-      seedKeyword,
-
-      intent,
-
-      audience
-
-    );
+    const generatedGroups = baseGroups.map((group, index) => ({
+      ...group,
+      items: localized[order[index]] ?? group.items,
+    }));
 
 
 

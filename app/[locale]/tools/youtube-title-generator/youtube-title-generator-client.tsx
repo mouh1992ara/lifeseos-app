@@ -1,8 +1,10 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/config";
+import { buildTitles, type TitleStyleKey } from "@/lib/youtube-titles";
 import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   BarChart3,
   Check,
@@ -59,113 +61,22 @@ function cleanText(value: string) {
   return value.trim().replace(/\s+/g, " ");
 }
 
-function titleCase(value: string) {
-  return value
-    .split(" ")
-    .map((word) =>
-      word.length > 0
-        ? `${word.charAt(0).toUpperCase()}${word.slice(1)}`
-        : word
-    )
-    .join(" ");
-}
-
 function generateTitles(
   topic: string,
   keyword: string,
   style: TitleStyle,
-  audience: string
+  audience: string,
+  locale: Locale
 ): GeneratedTitle[] {
-  const cleanTopic = titleCase(cleanText(topic));
-  const cleanKeyword = titleCase(cleanText(keyword || topic));
-  const cleanAudience = cleanText(audience);
+  const titles = buildTitles({
+    topic,
+    keyword,
+    audience,
+    locale,
+    style: STYLE_KEYS[style] as TitleStyleKey,
+  });
 
-  const audienceText = cleanAudience ? ` for ${cleanAudience}` : "";
-
-  const templates: Record<TitleStyle, string[]> = {
-    "SEO Focused": [
-      `${cleanKeyword}: Complete Guide to ${cleanTopic}`,
-      `How to Improve ${cleanKeyword}${audienceText}`,
-      `${cleanKeyword} Explained: What You Need to Know`,
-      `Best Ways to Improve ${cleanKeyword}`,
-      `${cleanTopic}: A Practical Guide to Better Results`,
-      `How ${cleanKeyword} Can Help You Improve ${cleanTopic}`,
-      `${cleanKeyword} Tips You Should Know`,
-      `The Complete ${cleanKeyword} Guide${audienceText}`,
-      `${cleanTopic} Strategy: Improve Your ${cleanKeyword}`,
-      `Master ${cleanKeyword}: A Step-by-Step Guide`,
-    ],
-
-    "How-To": [
-      `How to ${cleanTopic}`,
-      `How to Improve ${cleanKeyword} Step by Step`,
-      `How to Get Better Results with ${cleanKeyword}`,
-      `How to Master ${cleanTopic}${audienceText}`,
-      `How to Start with ${cleanKeyword}`,
-      `How to Use ${cleanKeyword} the Right Way`,
-      `How to Improve ${cleanTopic} Without Overcomplicating It`,
-      `How to Get Started with ${cleanTopic}`,
-      `How to Fix Common ${cleanKeyword} Mistakes`,
-      `How to Make ${cleanTopic} Work Better`,
-    ],
-
-    Curiosity: [
-      `Why Your ${cleanKeyword} Is Not Working`,
-      `The Truth About ${cleanTopic}`,
-      `What Nobody Tells You About ${cleanKeyword}`,
-      `Are You Making These ${cleanKeyword} Mistakes?`,
-      `The Biggest Mistake People Make with ${cleanTopic}`,
-      `Why Most People Get ${cleanKeyword} Wrong`,
-      `What Happens When You Improve ${cleanKeyword}?`,
-      `The Hidden Problem with ${cleanTopic}`,
-      `Is ${cleanKeyword} Really Worth It?`,
-      `The Simple Change That Can Improve ${cleanTopic}`,
-    ],
-
-    List: [
-      `7 Ways to Improve ${cleanKeyword}`,
-      `10 ${cleanKeyword} Tips You Should Know`,
-      `5 Common ${cleanKeyword} Mistakes to Avoid`,
-      `8 Simple Ways to Improve ${cleanTopic}`,
-      `6 Things You Need to Know About ${cleanKeyword}`,
-      `9 Powerful ${cleanKeyword} Tips${audienceText}`,
-      `5 Easy Steps to Better ${cleanTopic}`,
-      `7 ${cleanKeyword} Strategies That Actually Make Sense`,
-      `10 Ideas to Improve ${cleanTopic}`,
-      `6 Practical Tips for Better ${cleanKeyword}`,
-    ],
-
-    "Beginner Friendly": [
-      `${cleanKeyword} for Beginners: Start Here`,
-      `A Beginner's Guide to ${cleanTopic}`,
-      `${cleanTopic} Made Simple`,
-      `How to Start with ${cleanKeyword} as a Beginner`,
-      `${cleanKeyword} Explained for Beginners`,
-      `Everything Beginners Need to Know About ${cleanTopic}`,
-      `Simple ${cleanKeyword} Tips for Beginners`,
-      `Getting Started with ${cleanTopic}`,
-      `${cleanKeyword} Basics: A Simple Guide`,
-      `Learn ${cleanTopic} Step by Step`,
-    ],
-
-    Professional: [
-      `A Practical Guide to ${cleanTopic}`,
-      `${cleanKeyword}: Strategies, Tips and Best Practices`,
-      `Improving ${cleanKeyword}: A Professional Approach`,
-      `${cleanTopic}: Key Strategies for Better Results`,
-      `A Strategic Approach to ${cleanKeyword}`,
-      `${cleanKeyword} Best Practices${audienceText}`,
-      `How to Build a Strong ${cleanKeyword} Strategy`,
-      `${cleanTopic}: Practical Insights and Recommendations`,
-      `Optimizing ${cleanKeyword} for Better Performance`,
-      `A Complete Framework for ${cleanTopic}`,
-    ],
-  };
-
-  return templates[style].map((title) => ({
-    title,
-    style,
-  }));
+  return titles.map((title) => ({ title, style }));
 }
 
 function getLengthStatus(length: number) {
@@ -192,6 +103,7 @@ function getLengthStatus(length: number) {
 
 export default function YouTubeTitleGeneratorClient() {
   const t = useTranslations("Tool.youtubeTitleGenerator");
+  const locale = useLocale() as Locale;
   const tc = useTranslations("Tools.catalog");
   const tCommon = useTranslations("Common");
 
@@ -247,7 +159,7 @@ export default function YouTubeTitleGeneratorClient() {
       return;
     }
 
-    const generated = generateTitles(topic, keyword, style, audience);
+    const generated = generateTitles(topic, keyword, style, audience, locale);
 
     setTitles(generated);
     setSelectedTitle(generated[0]?.title ?? "");
@@ -307,7 +219,7 @@ export default function YouTubeTitleGeneratorClient() {
       return;
     }
 
-    const generated = generateTitles(topic, keyword, style, audience);
+    const generated = generateTitles(topic, keyword, style, audience, locale);
 
     const rotated = [...generated.slice(3), ...generated.slice(0, 3)];
 

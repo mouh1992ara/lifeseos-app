@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import { useTranslations } from "next-intl";
+import { countSentences, isCjkToken, readingMinutes, tokenize } from "@/lib/text-stats";
 
 import ShareTool from "@/components/share-tool";
 
@@ -111,31 +112,11 @@ export default function ContentAnalyzerPage() {
       };
     }
 
-    const cleaned = trimmed
-      .toLowerCase()
-      .replace(
-        /[^\p{L}\p{N}\s'-]/gu,
-        " "
-      )
-      .replace(/\s+/g, " ")
-      .trim();
+    // Shared tokeniser: smart apostrophes no longer split words, and Han/kana
+    // characters count individually instead of collapsing into one token.
+    const { words, cjkChars } = tokenize(trimmed);
 
-    const words = cleaned
-      ? cleaned
-          .split(" ")
-          .filter(Boolean)
-      : [];
-
-    const sentenceMatches =
-      trimmed.match(
-        /[^.!?]+[.!?]+|[^.!?]+$/g
-      );
-
-    const sentences =
-      sentenceMatches?.filter(
-        (item) =>
-          item.trim()
-      ).length || 0;
+    const sentences = countSentences(trimmed);
 
     const paragraphs = trimmed
       .split(/\n\s*\n/)
@@ -151,7 +132,7 @@ export default function ContentAnalyzerPage() {
       >();
 
     for (const word of words) {
-      if (word.length < 3) {
+      if (!isCjkToken(word) && word.length < 3) {
         continue;
       }
 
@@ -207,16 +188,10 @@ export default function ContentAnalyzerPage() {
           sentences
         : words.length;
 
-    const readingTime =
-      words.length > 0
-        ? Math.max(
-            1,
-            Math.ceil(
-              words.length /
-                200
-            )
-          )
-        : 0;
+    const readingTime = readingMinutes(
+      words.length,
+      cjkChars
+    );
 
     const recommendations:
       Recommendation[] = [];

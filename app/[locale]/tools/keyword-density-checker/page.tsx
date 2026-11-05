@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import { useTranslations } from "next-intl";
+import { tokenize } from "@/lib/text-stats";
 
 import ShareTool from "@/components/share-tool";
 
@@ -20,16 +21,11 @@ export default function KeywordDensityCheckerPage() {
   const hasTrackedUse = useRef(false);
 
   const analysis = useMemo(() => {
-    const cleaned = text
-      .toLowerCase()
-      .replace(
-        /[^\p{L}\p{N}\s'-]/gu,
-        " "
-      )
-      .replace(/\s+/g, " ")
-      .trim();
+    // Shared tokeniser: keeps "l'outil" / "don't" as one word and counts each
+    // Han/kana character as a token, so Chinese pages are not a single "word".
+    const { words } = tokenize(text);
 
-    if (!cleaned) {
+    if (words.length === 0) {
       return {
         totalWords: 0,
         uniqueWords: 0,
@@ -40,10 +36,6 @@ export default function KeywordDensityCheckerPage() {
         }[],
       };
     }
-
-    const words = cleaned
-      .split(" ")
-      .filter(Boolean);
 
     const counts =
       new Map<string, number>();

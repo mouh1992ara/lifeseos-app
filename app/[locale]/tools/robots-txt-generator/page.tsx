@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import { useTranslations } from "next-intl";
+import { normalisePath, normaliseUrl, splitLines } from "@/lib/tool-input";
 
 import ShareTool from "@/components/share-tool";
 
@@ -38,17 +39,17 @@ export default function RobotsTxtGeneratorPage() {
 
     if (allowPath.trim()) {
       lines.push(
-        `Allow: ${allowPath.trim()}`
+        `Allow: ${normalisePath(allowPath)}`
       );
     }
 
-    const disallowList =
-      disallowPaths
-        .split("\n")
-        .map((item) =>
-          item.trim()
-        )
-        .filter(Boolean);
+    // robots.txt requires a leading "/" — "Disallow: admin" is ignored by
+    // crawlers, which is a silent, common mistake.
+    const disallowList = Array.from(
+      new Set(
+        splitLines(disallowPaths).map(normalisePath)
+      )
+    );
 
     disallowList.forEach(
       (path) => {
@@ -58,10 +59,11 @@ export default function RobotsTxtGeneratorPage() {
       }
     );
 
-    if (sitemap.trim()) {
+    const sitemapUrl = normaliseUrl(sitemap);
+    if (sitemapUrl) {
       lines.push("");
       lines.push(
-        `Sitemap: ${sitemap.trim()}`
+        `Sitemap: ${sitemapUrl}`
       );
     }
 
