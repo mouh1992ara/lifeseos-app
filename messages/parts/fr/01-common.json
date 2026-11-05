@@ -21,7 +21,14 @@
     "terms": "Conditions",
     "rights": "© {year} LifeSeos. Tous droits réservés.",
     "built": "Conçu pour de meilleurs workflows SEO.",
-    "navLabel": "Navigation de pied de page"
+    "navLabel": "Navigation de pied de page",
+    "browseTools": "Tous les outils",
+    "dashboard": "Tableau de bord",
+    "groups": {
+      "product": "Produit",
+      "company": "Entreprise",
+      "legal": "Mentions légales"
+    }
   },
   "Language": {
     "label": "Langue",

@@ -226,7 +226,12 @@
       "benefit3Title": "Mobile performance",
       "benefit3Body": "Review page performance using the mobile testing strategy used by the tool.",
       "benefit4Title": "Track improvements",
-      "benefit4Body": "Run another test after optimization and compare the resulting performance metrics."
+      "benefit4Body": "Run another test after optimization and compare the resulting performance metrics.",
+      "cwvHeadline": "Core Web Vitals",
+      "cwvDemo": "Demo data",
+      "cwvNote": "Sample values shown so you can see the layout. Run an analysis to replace them with your own measurements.",
+      "cwvInpLabel": "Interaction to Next Paint",
+      "cwvInpDesc": "Interactivity"
     },
     "robotsTxt": {
       "meta": {

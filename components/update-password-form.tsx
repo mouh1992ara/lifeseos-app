@@ -1,33 +1,41 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { createClient } from "@/lib/supabase/client";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { AlertCircle, ArrowRight, Loader2 } from "lucide-react";
 
-export function UpdatePasswordForm({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+import PasswordField from "@/components/password-field";
+import { scorePassword } from "@/components/sign-up-form";
+import { createClient } from "@/lib/supabase/client";
+
+const STRENGTH_COLOR = ["#f87171", "#f87171", "#fbbf24", "#34d399", "#34d399"];
+
+export function UpdatePasswordForm({ className = "" }: { className?: string }) {
   const t = useTranslations("Auth.update");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const tc = useTranslations("Auth.common");
   const router = useRouter();
 
-  const handleForgotPassword = async (e: React.FormEvent) => {
+  const [password, setPassword] = useState("");
+  const [repeat, setRepeat] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const strength = useMemo(() => scorePassword(password), [password]);
+  const mismatch = repeat.length > 0 && repeat !== password;
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (password.length < 8) {
+      setError(t("tooShort"));
+      return;
+    }
+    if (password !== repeat) {
+      setError(t("mismatch"));
+      return;
+    }
+
     const supabase = createClient();
     setIsLoading(true);
     setError(null);
@@ -35,47 +43,104 @@ export function UpdatePasswordForm({
     try {
       const { error } = await supabase.auth.updateUser({ password });
       if (error) throw error;
-      // Update this route to redirect to an authenticated route. The user already has an active session.
-      router.push("/protected");
-    } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : t("errorFallback"));
+
+      // The recovery link already established a session; the dashboard is the
+      // first place the new password is actually exercised.
+      router.push("/dashboard");
+      router.refresh();
+    } catch (err: unknown) {
+      const m = err instanceof Error ? err.message.toLowerCase() : "";
+      setError(
+        m.includes("session") || m.includes("auth")
+          ? t("sessionExpired")
+          : err instanceof Error
+            ? err.message
+            : t("errorFallback"),
+      );
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">{t("title")}</CardTitle>
-          <CardDescription>{t("description")}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleForgotPassword}>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
-                <Label htmlFor="password">{t("password")}</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder={t("passwordPlaceholder")}
-                  dir="ltr"
-                  className="text-start"
-                  autoComplete="new-password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+    <div className={className}>
+      <p className="mt-1.5 text-sm leading-6 text-slate-400">{t("description")}</p>
+
+      <form onSubmit={handleSubmit} className="mt-7 grid gap-4">
+        <PasswordField
+          id="password"
+          value={password}
+          onChange={setPassword}
+          label={t("password")}
+          placeholder={t("passwordPlaceholder")}
+          autoComplete="new-password"
+        >
+          <div className="mt-1 flex items-center gap-2">
+            <div className="flex flex-1 gap-1" aria-hidden="true">
+              {[1, 2, 3, 4].map((step) => (
+                <span
+                  key={step}
+                  className="h-1 flex-1 rounded-full transition-colors duration-300"
+                  style={{
+                    background:
+                      password && strength >= step
+                        ? STRENGTH_COLOR[strength]
+                        : "rgb(255 255 255 / 0.09)",
+                  }}
                 />
-              </div>
-              {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? t("submitting") : t("submit")}
-              </Button>
+              ))}
             </div>
-          </form>
-        </CardContent>
-      </Card>
+            <span
+              className="w-14 text-end text-[11px] font-medium"
+              style={{ color: password ? STRENGTH_COLOR[strength] : undefined }}
+            >
+              {password
+                ? t(`strength.${["weak", "weak", "fair", "good", "strong"][strength]}`)
+                : ""}
+            </span>
+          </div>
+        </PasswordField>
+
+        <PasswordField
+          id="repeat"
+          value={repeat}
+          onChange={setRepeat}
+          label={tc("confirmPassword")}
+          autoComplete="new-password"
+          invalid={mismatch}
+        >
+          {mismatch ? (
+            <p className="flex items-center gap-1.5 text-[11px] text-red-300">
+              <AlertCircle className="h-3 w-3" aria-hidden="true" />
+              {t("mismatch")}
+            </p>
+          ) : null}
+        </PasswordField>
+
+        {error ? (
+          <div
+            role="alert"
+            className="flex items-start gap-2 rounded-xl border border-red-400/25 bg-red-400/[0.08] px-3 py-2.5 text-[13px] leading-6 text-red-200"
+          >
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+            <span>{error}</span>
+          </div>
+        ) : null}
+
+        <button type="submit" disabled={isLoading} className="btn-primary mt-1 h-11 w-full text-sm">
+          {isLoading ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+              {t("submitting")}
+            </>
+          ) : (
+            <>
+              {t("submit")}
+              <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
+            </>
+          )}
+        </button>
+      </form>
     </div>
   );
 }

@@ -226,7 +226,12 @@
       "benefit3Title": "Performances mobiles",
       "benefit3Body": "Examinez les performances de la page avec la stratégie de test mobile utilisée par l’outil.",
       "benefit4Title": "Suivi des améliorations",
-      "benefit4Body": "Relancez un test après optimisation et comparez les métriques obtenues."
+      "benefit4Body": "Relancez un test après optimisation et comparez les métriques obtenues.",
+      "cwvHeadline": "Core Web Vitals",
+      "cwvDemo": "Données de démo",
+      "cwvNote": "Valeurs d’exemple pour montrer la mise en page. Lancez une analyse pour les remplacer par vos mesures.",
+      "cwvInpLabel": "Interaction to Next Paint",
+      "cwvInpDesc": "Réactivité"
     },
     "robotsTxt": {
       "meta": {

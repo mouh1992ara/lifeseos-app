@@ -226,7 +226,12 @@
       "benefit3Title": "移动端性能",
       "benefit3Body": "使用该工具采用的移动端测试策略查看页面性能。",
       "benefit4Title": "跟踪改进效果",
-      "benefit4Body": "优化后再次测试，并对比得到的性能指标。"
+      "benefit4Body": "优化后再次测试，并对比得到的性能指标。",
+      "cwvHeadline": "核心网页指标",
+      "cwvDemo": "示例数据",
+      "cwvNote": "此处为示例数值，仅用于展示布局。运行分析后将替换为你站点的真实测量值。",
+      "cwvInpLabel": "交互到下次绘制",
+      "cwvInpDesc": "交互响应"
     },
     "robotsTxt": {
       "meta": {

@@ -26,7 +26,14 @@
     "terms": "Conditions",
     "rights": "© {year} LifeSeos. Tous droits réservés.",
     "built": "Conçu pour de meilleurs workflows SEO.",
-    "navLabel": "Navigation de pied de page"
+    "navLabel": "Navigation de pied de page",
+    "browseTools": "Tous les outils",
+    "dashboard": "Tableau de bord",
+    "groups": {
+      "product": "Produit",
+      "company": "Entreprise",
+      "legal": "Mentions légales"
+    }
   },
   "Language": {
     "label": "Langue",
@@ -266,23 +273,29 @@
       "badge": "Bibliothèque d’outils LifeSeos",
       "titleLine1": "Des outils SEO puissants",
       "titleLine2": "pour chaque site",
-      "subtitle": "Analysez des sites, améliorez le contenu, générez des données structurées et optimisez votre contenu YouTube avec les outils gratuits de LifeSeos.",
-      "searchPlaceholder": "Rechercher un outil SEO…",
-      "searchLabel": "Rechercher un outil SEO",
-      "resultCount": "{count, plural, =0 {Aucun outil trouvé.} one {# outil trouvé} other {# outils trouvés}}",
-      "noResultsTitle": "Aucun outil trouvé",
-      "noResultsBody": "Essayez un autre nom d’outil ou une autre catégorie.",
-      "clearSearch": "Effacer la recherche",
+      "subtitle": "Analysez, optimisez et développez votre présence en ligne avec des outils conçus pour des décisions SEO plus pertinentes.",
+      "explore": "Explorer les outils",
+      "searchPlaceholder": "Rechercher un outil, une catégorie ou un mot-clé…",
+      "searchLabel": "Rechercher des outils SEO",
+      "searchHint": "Essayez « sitemap », « vitesse » ou « YouTube »",
+      "searchClear": "Effacer la recherche",
+      "resultLabel": "{shown} outils affichés sur {total}",
+      "noResultsTitle": "Aucun outil ne correspond",
+      "noResultsBody": "Essayez un autre nom d’outil, une catégorie comme « Performance » ou un mot-clé comme « schema ».",
+      "clearAll": "Réinitialiser les filtres",
+      "filterLabel": "Filtrer par catégorie",
       "statsTools": "Outils gratuits",
-      "statsCategories": "Catégories d’outils",
-      "statsAccess": "Accès immédiat",
-      "statsAccessValue": "Immédiat"
+      "statsCategories": "Catégories",
+      "statsAccess": "Sans compte",
+      "statsAccessValue": "Toujours"
     },
     "categories": {
+      "all": "Tous les outils",
       "technical": "SEO technique",
-      "content": "SEO de contenu",
+      "onPage": "SEO on-page",
+      "crawling": "Exploration et indexation",
       "performance": "Performance",
-      "management": "Gestion de contenu",
+      "content": "SEO de contenu",
       "youtube": "SEO YouTube"
     },
     "youtubeBlurb": "Découvrez des mots-clés vidéo, créez des titres et descriptions plus forts, analysez la qualité des titres et construisez des scripts structurés.",
@@ -373,6 +386,57 @@
         "long": "Construisez des scripts vidéo structurés avec accroches, points principaux, transitions et appels à l’action."
       }
     }
+  },
+  "Radial": {
+    "label": "Disciplines SEO",
+    "hubLabel": "Cœur",
+    "nodes": {
+      "technical": "SEO technique",
+      "onPage": "SEO on-page",
+      "crawling": "Exploration et indexation",
+      "performance": "Performance",
+      "content": "SEO de contenu",
+      "schema": "Données structurées",
+      "keywords": "Recherche de mots-clés",
+      "youtube": "SEO YouTube"
+    }
+  },
+  "Analytics": {
+    "eyebrow": "Performance de recherche",
+    "title": "Voyez la recherche telle qu’elle se comporte vraiment",
+    "subtitle": "Clics, impressions et mots-clés classés sur douze mois — avec les creux, pas seulement les sommets.",
+    "demo": "Données d’exemple",
+    "demoNote": "Chiffres illustratifs pour un site de démonstration, et non des statistiques de la plateforme LifeSeos.",
+    "series": {
+      "clicks": "Clics organiques",
+      "impressions": "Impressions",
+      "keywords": "Mots-clés classés"
+    },
+    "tooltip": {
+      "clicks": "clics",
+      "impressions": "impressions",
+      "keywords": "mots-clés"
+    },
+    "stats": {
+      "organic": "Clics organiques",
+      "impressions": "Impressions",
+      "keywords": "Mots-clés suivis",
+      "score": "Score SEO moyen",
+      "pages": "Pages analysées"
+    }
+  },
+  "BlogFeed": {
+    "eyebrow": "Analyses",
+    "title": "Des guides issus d’audits réels",
+    "subtitle": "SEO technique, on-page, performance et contenu — écrits par ceux qui font tourner les robots.",
+    "all": "Tous les guides",
+    "read": "Lire le guide"
+  },
+  "HeroForm": {
+    "label": "URL du site",
+    "placeholder": "votredomaine.com",
+    "cta": "Analyser le site",
+    "hint": "Gratuit · Sans inscription · Résultat en quelques secondes"
   },
   "ToolShared": {
     "related": {
@@ -601,7 +665,12 @@
       "benefit3Title": "Performances mobiles",
       "benefit3Body": "Examinez les performances de la page avec la stratégie de test mobile utilisée par l’outil.",
       "benefit4Title": "Suivi des améliorations",
-      "benefit4Body": "Relancez un test après optimisation et comparez les métriques obtenues."
+      "benefit4Body": "Relancez un test après optimisation et comparez les métriques obtenues.",
+      "cwvHeadline": "Core Web Vitals",
+      "cwvDemo": "Données de démo",
+      "cwvNote": "Valeurs d’exemple pour montrer la mise en page. Lancez une analyse pour les remplacer par vos mesures.",
+      "cwvInpLabel": "Interaction to Next Paint",
+      "cwvInpDesc": "Réactivité"
     },
     "robotsTxt": {
       "meta": {
@@ -2912,6 +2981,27 @@
       "consentLink": "politique de confidentialité"
     }
   },
+  "Community": {
+    "eyebrow": "Communauté",
+    "title": "Conçu pour celles et ceux qui grandissent en ligne",
+    "subtitle": "Découvrez comment propriétaires de sites, créateurs et professionnels du SEO utilisent LifeSeos pour comprendre leurs sites et prendre de meilleures décisions d’optimisation.",
+    "prev": "Avis précédents",
+    "next": "Avis suivants",
+    "dot": "Aller au groupe d’avis {index}",
+    "range": "Avis {from}–{to} sur {total}",
+    "pause": "Suspendre la rotation automatique",
+    "play": "Reprendre la rotation automatique",
+    "ctaTitle": "Votre prochaine réussite SEO commence ici.",
+    "ctaButton": "Commencer avec LifeSeos",
+    "featuresEyebrow": "Ce que vous pouvez faire",
+    "featuresTitle": "Découvrez tout ce que vous pouvez faire avec LifeSeos",
+    "featuresSubtitle": "Six outils disponibles dès le premier jour. Chacun travaille sur une vraie URL et renvoie un résultat exploitable.",
+    "openTool": "Ouvrir l’outil",
+    "featuresPrev": "Outils précédents",
+    "featuresNext": "Outils suivants",
+    "featuresDot": "Aller au groupe d’outils {index}",
+    "featuresRange": "Outils {from}–{to} sur {total}"
+  },
   "Blog": {
     "meta": {
       "title": "Blog et guides SEO",
@@ -2961,7 +3051,18 @@
     "articleCta": {
       "title": "Mettez ce guide en pratique",
       "body": "Ouvrez l’outil LifeSeos associé et appliquez ce que vous venez d’apprendre à votre propre site."
-    }
+    },
+    "heroCta": "Explorer les articles",
+    "searchPlaceholder": "Rechercher un guide, un outil ou un sujet…",
+    "searchLabel": "Rechercher des articles",
+    "clearSearch": "Effacer la recherche",
+    "filterLabel": "Filtrer par catégorie",
+    "resultsCount": "{count} guides",
+    "emptyTitle": "Aucun guide ne correspond",
+    "emptyBody": "Essayez un autre mot-clé ou revenez à tous les guides.",
+    "emptyReset": "Afficher tous les guides",
+    "featuredBadge": "Guide à la une",
+    "readingProgress": "Progression de lecture"
   },
   "Legal": {
     "privacy": {
@@ -3316,8 +3417,8 @@
   },
   "Auth": {
     "login": {
-      "title": "Se connecter",
-      "description": "Saisissez votre adresse e-mail ci-dessous pour vous connecter à votre compte",
+      "title": "Content de vous revoir",
+      "description": "Connectez-vous à votre espace LifeSeos.",
       "email": "Adresse e-mail",
       "emailPlaceholder": "m@example.com",
       "password": "Mot de passe",
@@ -3326,21 +3427,47 @@
       "submitting": "Connexion en cours…",
       "noAccount": "Vous n’avez pas de compte ?",
       "signUpLink": "S’inscrire",
-      "errorFallback": "Une erreur s’est produite lors de la connexion."
+      "errorFallback": "Une erreur s’est produite lors de la connexion.",
+      "passwordPlaceholder": "Votre mot de passe",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "remember": "Rester connecté",
+      "rememberHint": "Vous resterez connecté sur cet appareil pendant 30 jours.",
+      "invalidCredentials": "Cette combinaison e-mail / mot de passe ne correspond à aucun compte.",
+      "emailNotConfirmed": "Votre e-mail n’est pas encore confirmé. Ouvrez le lien reçu ou renvoyez-le.",
+      "tooMany": "Trop de tentatives de connexion. Patientez une minute puis réessayez.",
+      "network": "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez."
     },
     "signUp": {
-      "title": "S’inscrire",
-      "description": "Créer un nouveau compte",
+      "title": "Créez votre compte gratuit",
+      "description": "Organisez votre travail SEO et gardez chaque analyse au même endroit.",
       "email": "Adresse e-mail",
       "emailPlaceholder": "m@example.com",
       "password": "Mot de passe",
       "repeatPassword": "Confirmer le mot de passe",
-      "submit": "S’inscrire",
+      "submit": "Créer mon compte",
       "submitting": "Création du compte…",
-      "errorMismatch": "Les mots de passe ne correspondent pas",
+      "errorMismatch": "Les mots de passe ne correspondent pas.",
       "errorFallback": "Une erreur s’est produite",
       "haveAccount": "Vous avez déjà un compte ?",
-      "loginLink": "Se connecter"
+      "loginLink": "Se connecter",
+      "fullName": "Nom complet",
+      "fullNamePlaceholder": "Marie Dupont",
+      "fullNameHint": "Affiché sur votre tableau de bord et vos rapports.",
+      "passwordPlaceholder": "8 caractères minimum",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "strengthLabel": "Robustesse du mot de passe",
+      "strength": {
+        "weak": "Faible",
+        "fair": "Moyen",
+        "good": "Bon",
+        "strong": "Solide"
+      },
+      "strengthHint": "Utilisez 8 caractères ou plus, avec un chiffre et un symbole.",
+      "terms": "J’accepte les <terms>conditions d’utilisation</terms> et la <privacy>politique de confidentialité</privacy>.",
+      "termsRequired": "Veuillez accepter les conditions d’utilisation et la politique de confidentialité.",
+      "errorExists": "Un compte existe déjà avec cet e-mail. Essayez de vous connecter."
     },
     "forgot": {
       "title": "Réinitialiser votre mot de passe",
@@ -3354,7 +3481,8 @@
       "successBody": "Si vous vous êtes inscrit avec votre adresse e-mail et votre mot de passe, vous recevrez un e-mail de réinitialisation du mot de passe.",
       "haveAccount": "Vous avez déjà un compte ?",
       "loginLink": "Se connecter",
-      "errorFallback": "Une erreur s’est produite"
+      "errorFallback": "Une erreur s’est produite",
+      "rateLimited": "Trop de demandes de réinitialisation. Patientez une minute puis réessayez."
     },
     "update": {
       "title": "Réinitialiser votre mot de passe",
@@ -3363,7 +3491,16 @@
       "passwordPlaceholder": "Nouveau mot de passe",
       "submit": "Enregistrer le nouveau mot de passe",
       "submitting": "Enregistrement…",
-      "errorFallback": "Une erreur s’est produite"
+      "errorFallback": "Une erreur s’est produite",
+      "mismatch": "Les mots de passe ne correspondent pas.",
+      "tooShort": "Utilisez au moins 8 caractères.",
+      "sessionExpired": "Votre lien de réinitialisation a expiré. Demandez-en un nouveau depuis la page de connexion.",
+      "strength": {
+        "weak": "Faible",
+        "fair": "Moyen",
+        "good": "Bon",
+        "strong": "Solide"
+      }
     },
     "success": {
       "title": "Merci pour votre inscription !",
@@ -3380,6 +3517,60 @@
     "nav": {
       "signIn": "Se connecter",
       "signUp": "S’inscrire"
+    },
+    "verify": {
+      "title": "Vérifiez votre boîte de réception",
+      "body": "Nous avons envoyé un lien de vérification à {email}. Ouvrez-le pour confirmer votre compte.",
+      "spam": "Cela peut prendre une minute. Pensez à vérifier vos courriers indésirables.",
+      "resend": "Renvoyer l’e-mail",
+      "resending": "Envoi…",
+      "resent": "E-mail de vérification renvoyé.",
+      "resendError": "L’e-mail n’a pas pu être envoyé. Réessayez dans une minute.",
+      "resendCooldown": "Patientez {seconds} s avant de renvoyer.",
+      "check": "Vérifier le statut",
+      "checking": "Vérification…",
+      "statusLabel": "Statut de vérification",
+      "verified": "Adresse e-mail vérifiée.",
+      "pending": "Pas encore vérifié — ouvrez d’abord le lien reçu par e-mail.",
+      "checkError": "Impossible de lire votre statut. Connectez-vous puis réessayez.",
+      "noEmail": "Nous n’avons pas d’adresse à vérifier. Recréez votre compte.",
+      "signIn": "Aller à la connexion",
+      "backHome": "Retour à l’accueil"
+    },
+    "gate": {
+      "title": "Libérez votre potentiel SEO",
+      "body": "Créez votre compte LifeSeos gratuit pour organiser votre travail SEO et accéder à votre espace personnalisé.",
+      "create": "Créer un compte gratuit",
+      "signIn": "Se connecter",
+      "later": "Plus tard",
+      "close": "Fermer",
+      "perks": {
+        "one": "Enregistrez vos analyses et retrouvez-les plus tard",
+        "two": "Regroupez votre travail SEO dans un seul tableau de bord",
+        "three": "Gratuit pour commencer — sans carte bancaire"
+      }
+    },
+    "common": {
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "matches": "Les mots de passe correspondent",
+      "verifyNow": "Vérifier l’e-mail",
+      "tooMany": "Trop de tentatives. Patientez un instant puis réessayez.",
+      "network": "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez."
+    },
+    "shell": {
+      "eyebrow": "Compte LifeSeos",
+      "headline": "Un seul espace pour chaque décision SEO que vous prenez.",
+      "body": "Lancez une analyse, gardez le résultat et revenez-y quand vous êtes prêt à agir. Sans installation, sans carte, sans encombrement.",
+      "workspaceTitle": "Tout au même endroit",
+      "workspaceBody": "Analyses, scores et rapports enregistrés restent dans votre tableau de bord au lieu de se disperser.",
+      "privateTitle": "Vos données restent les vôtres",
+      "privateBody": "Les sessions sont gérées par Supabase ; nous ne stockons jamais votre mot de passe.",
+      "freeTitle": "Gratuit pour commencer",
+      "freeBody": "Créez votre compte maintenant et commencez avec les outils gratuits.",
+      "back": "Retour à LifeSeos",
+      "legal": "En continuant, vous acceptez les conditions d’utilisation et la politique de confidentialité."
     }
   },
   "Dashboard": {
@@ -3493,6 +3684,27 @@
       "improvement": "Amélioration SEO",
       "noRecommendations": "Aucune recommandation n’a été enregistrée pour ce rapport.",
       "newAnalysis": "Nouvelle analyse SEO"
+    },
+    "perf": {
+      "eyebrow": "Analyse de performance SEO",
+      "title": "Votre performance de recherche en une vue",
+      "subtitle": "Les scores de tous vos audits, agrégés par jour. Changez la période pour comparer, et survolez le graphique pour les valeurs exactes.",
+      "rangeLabel": "Période du graphique",
+      "range24h": "24 h",
+      "range7d": "7 j",
+      "range28d": "28 j",
+      "range90d": "90 j",
+      "chartTitle": "Évolution du score",
+      "chartHint": "Moyenne quotidienne de vos audits. Survolez pour le détail.",
+      "seriesAverage": "Score moyen",
+      "seriesBest": "Meilleur score",
+      "auditsUnit": "audits",
+      "scoreUnit": "score",
+      "vsPrevious": "vs période précédente",
+      "flat": "aucun changement",
+      "sampleBadge": "Données de démonstration",
+      "sampleNote": "Vous avez moins de deux audits : le graphique montre donc une série illustrative. Lancez un audit pour la remplacer par vos résultats.",
+      "footnote": "Les scores sont agrégés par jour en UTC. Un jour sans audit apparaît comme une absence, pas comme un zéro."
     }
   },
   "Admin": {

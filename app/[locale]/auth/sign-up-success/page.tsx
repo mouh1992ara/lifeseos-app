@@ -1,36 +1,30 @@
+import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import AuthShell from "@/components/auth-shell";
+import VerifyPanel from "@/components/verify-panel";
 
-type Props = { params: Promise<{ locale: string }> };
+type Props = {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ email?: string }>;
+};
 
+/**
+ * Kept for links already in the wild (`/auth/sign-up-success`). It renders the
+ * same live verification panel as `/auth/verify`, so there is exactly one
+ * verification experience to maintain.
+ */
 export default async function Page({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("Auth.success");
+  const t = await getTranslations("Auth.verify");
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        <div className="flex flex-col gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">{t("title")}</CardTitle>
-              <CardDescription>{t("description")}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">{t("body")}</p>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </div>
+    <AuthShell heading={t("title")}>
+      <Suspense fallback={<div className="mt-7 h-64" aria-hidden="true" />}>
+        <VerifyPanel />
+      </Suspense>
+    </AuthShell>
   );
 }

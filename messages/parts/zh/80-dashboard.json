@@ -110,6 +110,27 @@
       "improvement": "SEO 改进",
       "noRecommendations": "此报告没有保存任何建议。",
       "newAnalysis": "新的 SEO 分析"
+    },
+    "perf": {
+      "eyebrow": "SEO 效果分析",
+      "title": "一眼看清你的搜索表现",
+      "subtitle": "你每次审计的分数，按天聚合。切换区间即可对比不同时段，将鼠标移到图表上查看精确数值。",
+      "rangeLabel": "图表区间",
+      "range24h": "24小时",
+      "range7d": "7天",
+      "range28d": "28天",
+      "range90d": "90天",
+      "chartTitle": "评分趋势",
+      "chartHint": "你所有审计的日均值，悬停查看详情。",
+      "seriesAverage": "平均评分",
+      "seriesBest": "最高评分",
+      "auditsUnit": "次审计",
+      "scoreUnit": "分",
+      "vsPrevious": "对比上一周期",
+      "flat": "无变化",
+      "sampleBadge": "示例数据",
+      "sampleNote": "你的审计记录少于两条，图表暂用示例曲线展示。运行一次审计后即替换为你的真实结果。",
+      "footnote": "评分按 UTC 以天聚合。当天没有审计会留空，而不是记为 0。"
     }
   },
   "Admin": {

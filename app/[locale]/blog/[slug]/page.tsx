@@ -127,6 +127,7 @@ export default async function ArticlePage({ params }: Props) {
           ctaTitle: t("articleCta.title"),
           ctaBody: t("articleCta.body"),
           toolLabel: tr("title"),
+          readingProgress: t("readingProgress"),
         }}
       />
     </>

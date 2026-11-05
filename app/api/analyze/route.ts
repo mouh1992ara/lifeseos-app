@@ -239,7 +239,6 @@ export async function POST(request: Request) {
         : `https://${url}`;
 
     const {
-      response,
       html,
       finalUrl,
     } = await safeFetch(normalizedUrl);

@@ -213,7 +213,7 @@ ${entries}
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
+    <main data-tool-surface className="min-h-screen bg-slate-950 text-white">
 
       <section className="mx-auto max-w-6xl px-5 py-14 sm:px-6 lg:px-8">
 

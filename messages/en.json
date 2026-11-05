@@ -26,7 +26,14 @@
     "terms": "Terms",
     "rights": "© {year} LifeSeos. All rights reserved.",
     "built": "Built for better SEO workflows.",
-    "navLabel": "Footer navigation"
+    "navLabel": "Footer navigation",
+    "browseTools": "Browse all tools",
+    "dashboard": "Dashboard",
+    "groups": {
+      "product": "Product",
+      "company": "Company",
+      "legal": "Legal"
+    }
   },
   "Language": {
     "label": "Language",
@@ -264,25 +271,31 @@
     },
     "index": {
       "badge": "LifeSeos Tool Library",
-      "titleLine1": "Powerful SEO tools",
-      "titleLine2": "for every website",
-      "subtitle": "Analyze websites, improve content, generate structured data and optimize YouTube content with free LifeSeos tools.",
-      "searchPlaceholder": "Search SEO tools…",
+      "titleLine1": "Powerful SEO tools for",
+      "titleLine2": "every website",
+      "subtitle": "Analyze, optimize, and grow your online presence with powerful tools designed for smarter SEO decisions.",
+      "explore": "Explore tools",
+      "searchPlaceholder": "Search tools, categories or keywords…",
       "searchLabel": "Search SEO tools",
-      "resultCount": "{count, plural, =0 {No tools found.} one {# tool found} other {# tools found}}",
-      "noResultsTitle": "No tools found",
-      "noResultsBody": "Try another tool name or category.",
-      "clearSearch": "Clear search",
+      "searchHint": "Try “sitemap”, “speed” or “YouTube”",
+      "searchClear": "Clear search",
+      "resultLabel": "Showing {shown} of {total} tools",
+      "noResultsTitle": "No tools match that search",
+      "noResultsBody": "Try another tool name, a category such as “Performance”, or a keyword like “schema”.",
+      "clearAll": "Reset filters",
+      "filterLabel": "Filter by category",
       "statsTools": "Free tools",
-      "statsCategories": "Tool categories",
-      "statsAccess": "Instant access",
-      "statsAccessValue": "Instant"
+      "statsCategories": "Categories",
+      "statsAccess": "Without an account",
+      "statsAccessValue": "Always"
     },
     "categories": {
+      "all": "All Tools",
       "technical": "Technical SEO",
-      "content": "Content SEO",
+      "onPage": "On-Page SEO",
+      "crawling": "Crawling & Indexing",
       "performance": "Performance",
-      "management": "Content Management",
+      "content": "Content SEO",
       "youtube": "YouTube SEO"
     },
     "youtubeBlurb": "Discover video keywords, create stronger titles and descriptions, analyze title quality and build structured scripts.",
@@ -373,6 +386,57 @@
         "long": "Build structured video scripts with hooks, main points, transitions and CTAs."
       }
     }
+  },
+  "Radial": {
+    "label": "SEO disciplines",
+    "hubLabel": "Core",
+    "nodes": {
+      "technical": "Technical SEO",
+      "onPage": "On-Page SEO",
+      "crawling": "Crawling & Indexing",
+      "performance": "Performance",
+      "content": "Content SEO",
+      "schema": "Structured Data",
+      "keywords": "Keyword Research",
+      "youtube": "YouTube SEO"
+    }
+  },
+  "Analytics": {
+    "eyebrow": "Search performance",
+    "title": "Watch search behave the way it really does",
+    "subtitle": "Clicks, impressions and ranking keywords across twelve months — including the dips, not just the wins.",
+    "demo": "Sample data",
+    "demoNote": "Illustrative figures for a demo property, not LifeSeos platform metrics.",
+    "series": {
+      "clicks": "Organic clicks",
+      "impressions": "Impressions",
+      "keywords": "Keywords ranked"
+    },
+    "tooltip": {
+      "clicks": "clicks",
+      "impressions": "impressions",
+      "keywords": "keywords"
+    },
+    "stats": {
+      "organic": "Organic clicks",
+      "impressions": "Impressions",
+      "keywords": "Keywords tracked",
+      "score": "Average SEO score",
+      "pages": "Pages analyzed"
+    }
+  },
+  "BlogFeed": {
+    "eyebrow": "Insights",
+    "title": "Guides built on real audits",
+    "subtitle": "Technical SEO, on-page, performance and content — written by the people running the crawlers.",
+    "all": "All guides",
+    "read": "Read guide"
+  },
+  "HeroForm": {
+    "label": "Website URL",
+    "placeholder": "yourdomain.com",
+    "cta": "Analyze website",
+    "hint": "Free · No signup · Results in seconds"
   },
   "ToolShared": {
     "related": {
@@ -601,7 +665,12 @@
       "benefit3Title": "Mobile performance",
       "benefit3Body": "Review page performance using the mobile testing strategy used by the tool.",
       "benefit4Title": "Track improvements",
-      "benefit4Body": "Run another test after optimization and compare the resulting performance metrics."
+      "benefit4Body": "Run another test after optimization and compare the resulting performance metrics.",
+      "cwvHeadline": "Core Web Vitals",
+      "cwvDemo": "Demo data",
+      "cwvNote": "Sample values shown so you can see the layout. Run an analysis to replace them with your own measurements.",
+      "cwvInpLabel": "Interaction to Next Paint",
+      "cwvInpDesc": "Interactivity"
     },
     "robotsTxt": {
       "meta": {
@@ -2912,6 +2981,27 @@
       "consentLink": "Privacy Policy"
     }
   },
+  "Community": {
+    "eyebrow": "Community",
+    "title": "Built for People Growing Online",
+    "subtitle": "Discover how website owners, creators, and SEO professionals use LifeSeos to understand their websites and make smarter optimization decisions.",
+    "prev": "Previous reviews",
+    "next": "Next reviews",
+    "dot": "Go to review group {index}",
+    "range": "Reviews {from}–{to} of {total}",
+    "pause": "Pause automatic rotation",
+    "play": "Resume automatic rotation",
+    "ctaTitle": "Your next SEO success story starts here.",
+    "ctaButton": "Start Exploring LifeSeos",
+    "featuresEyebrow": "What you can do",
+    "featuresTitle": "Explore What You Can Do with LifeSeos",
+    "featuresSubtitle": "Six of the tools available from day one. Each one runs on a real URL and returns something you can act on.",
+    "openTool": "Open tool",
+    "featuresPrev": "Previous tools",
+    "featuresNext": "Next tools",
+    "featuresDot": "Go to tool group {index}",
+    "featuresRange": "Tools {from}–{to} of {total}"
+  },
   "Blog": {
     "meta": {
       "title": "SEO Blog & Guides",
@@ -2961,7 +3051,18 @@
     "articleCta": {
       "title": "Put this guide into practice",
       "body": "Open the related LifeSeos tool and apply what you just learned to your own website."
-    }
+    },
+    "heroCta": "Explore articles",
+    "searchPlaceholder": "Search guides, tools or topics…",
+    "searchLabel": "Search articles",
+    "clearSearch": "Clear search",
+    "filterLabel": "Filter by category",
+    "resultsCount": "{count} guides",
+    "emptyTitle": "No guides match that search",
+    "emptyBody": "Try another keyword, or switch back to all guides.",
+    "emptyReset": "Show all guides",
+    "featuredBadge": "Featured guide",
+    "readingProgress": "Reading progress"
   },
   "Legal": {
     "privacy": {
@@ -3316,8 +3417,8 @@
   },
   "Auth": {
     "login": {
-      "title": "Login",
-      "description": "Enter your email below to login to your account",
+      "title": "Welcome back",
+      "description": "Sign in to your LifeSeos workspace.",
       "email": "Email",
       "emailPlaceholder": "m@example.com",
       "password": "Password",
@@ -3326,21 +3427,47 @@
       "submitting": "Logging in…",
       "noAccount": "Don’t have an account?",
       "signUpLink": "Sign up",
-      "errorFallback": "An error occurred while logging in."
+      "errorFallback": "An error occurred while logging in.",
+      "passwordPlaceholder": "Enter your password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "remember": "Keep me signed in",
+      "rememberHint": "Stay signed in on this device for 30 days.",
+      "invalidCredentials": "That email and password combination does not match an account.",
+      "emailNotConfirmed": "Your email is not confirmed yet. Open the link we sent you, or resend it.",
+      "tooMany": "Too many sign-in attempts. Please wait a minute and try again.",
+      "network": "Unable to reach the server. Check your connection and try again."
     },
     "signUp": {
-      "title": "Sign up",
-      "description": "Create a new account",
+      "title": "Create your free account",
+      "description": "Organize your SEO work and keep every analysis in one workspace.",
       "email": "Email",
       "emailPlaceholder": "m@example.com",
       "password": "Password",
       "repeatPassword": "Repeat Password",
-      "submit": "Sign up",
+      "submit": "Create free account",
       "submitting": "Creating an account…",
-      "errorMismatch": "Passwords do not match",
+      "errorMismatch": "Passwords do not match.",
       "errorFallback": "An error occurred",
       "haveAccount": "Already have an account?",
-      "loginLink": "Login"
+      "loginLink": "Login",
+      "fullName": "Full name",
+      "fullNamePlaceholder": "Jane Doe",
+      "fullNameHint": "Shown on your dashboard and reports.",
+      "passwordPlaceholder": "At least 8 characters",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "strengthLabel": "Password strength",
+      "strength": {
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong"
+      },
+      "strengthHint": "Use 8 or more characters, with a number and a symbol.",
+      "terms": "I agree to the <terms>Terms of Service</terms> and the <privacy>Privacy Policy</privacy>.",
+      "termsRequired": "Please accept the Terms of Service and Privacy Policy.",
+      "errorExists": "An account with this email already exists. Try signing in instead."
     },
     "forgot": {
       "title": "Reset Your Password",
@@ -3354,7 +3481,8 @@
       "successBody": "If you registered using your email and password, you will receive a password reset email.",
       "haveAccount": "Already have an account?",
       "loginLink": "Login",
-      "errorFallback": "An error occurred"
+      "errorFallback": "An error occurred",
+      "rateLimited": "Too many reset requests. Please wait a minute and try again."
     },
     "update": {
       "title": "Reset Your Password",
@@ -3363,7 +3491,16 @@
       "passwordPlaceholder": "New password",
       "submit": "Save new password",
       "submitting": "Saving…",
-      "errorFallback": "An error occurred"
+      "errorFallback": "An error occurred",
+      "mismatch": "Passwords do not match.",
+      "tooShort": "Use at least 8 characters.",
+      "sessionExpired": "Your reset link has expired. Request a new one from the sign-in page.",
+      "strength": {
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong"
+      }
     },
     "success": {
       "title": "Thank you for signing up!",
@@ -3380,6 +3517,60 @@
     "nav": {
       "signIn": "Sign in",
       "signUp": "Sign up"
+    },
+    "verify": {
+      "title": "Check your inbox",
+      "body": "We sent a verification link to {email}. Open it to confirm your account.",
+      "spam": "It can take a minute. Check your spam folder if it does not arrive.",
+      "resend": "Resend email",
+      "resending": "Sending…",
+      "resent": "Verification email sent again.",
+      "resendError": "The email could not be sent just now. Try again in a minute.",
+      "resendCooldown": "Wait {seconds}s before resending.",
+      "check": "Check status",
+      "checking": "Checking…",
+      "statusLabel": "Verification status",
+      "verified": "Email verified.",
+      "pending": "Not verified yet — open the link in your email first.",
+      "checkError": "Could not read your status. Sign in and try again.",
+      "noEmail": "We do not have an address to verify. Create your account again.",
+      "signIn": "Go to sign in",
+      "backHome": "Back to home"
+    },
+    "gate": {
+      "title": "Unlock Your SEO Growth Potential",
+      "body": "Create your free LifeSeos account to organize your SEO work and access your personalized workspace.",
+      "create": "Create Free Account",
+      "signIn": "Sign In",
+      "later": "Maybe Later",
+      "close": "Close",
+      "perks": {
+        "one": "Save analyses and come back to them later",
+        "two": "Keep your SEO work in one dashboard",
+        "three": "Free to start — no card required"
+      }
+    },
+    "common": {
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "confirmPassword": "Confirm password",
+      "matches": "Passwords match",
+      "verifyNow": "Verify email",
+      "tooMany": "Too many attempts. Please wait a moment and try again.",
+      "network": "Unable to reach the server. Check your connection and try again."
+    },
+    "shell": {
+      "eyebrow": "LifeSeos account",
+      "headline": "One workspace for every SEO decision you make.",
+      "body": "Run an analysis, keep the result, and come back to it when you are ready to act on it. No setup, no card, no clutter.",
+      "workspaceTitle": "Everything in one place",
+      "workspaceBody": "Saved analyses, scores and reports stay in your dashboard instead of scattered across tabs.",
+      "privateTitle": "Your data stays yours",
+      "privateBody": "Sessions are handled by Supabase auth; we never store your password ourselves.",
+      "freeTitle": "Free to start",
+      "freeBody": "Create the account now and start with the free tools immediately.",
+      "back": "Back to LifeSeos",
+      "legal": "By continuing you agree to the Terms of Service and Privacy Policy."
     }
   },
   "Dashboard": {
@@ -3493,6 +3684,27 @@
       "improvement": "SEO Improvement",
       "noRecommendations": "No recommendations were saved for this report.",
       "newAnalysis": "New SEO Analysis"
+    },
+    "perf": {
+      "eyebrow": "SEO performance analytics",
+      "title": "Your search performance, in one view",
+      "subtitle": "Scores from every audit you have run, aggregated by day. Change the range to compare periods, and hover the chart for exact values.",
+      "rangeLabel": "Chart range",
+      "range24h": "24h",
+      "range7d": "7d",
+      "range28d": "28d",
+      "range90d": "90d",
+      "chartTitle": "Score trend",
+      "chartHint": "Daily average across your audits. Hover for detail.",
+      "seriesAverage": "Average score",
+      "seriesBest": "Best score",
+      "auditsUnit": "audits",
+      "scoreUnit": "score",
+      "vsPrevious": "vs previous period",
+      "flat": "no change",
+      "sampleBadge": "Sample data",
+      "sampleNote": "You have fewer than two audits, so this chart shows an illustrative series. Run an audit and it is replaced with your own results.",
+      "footnote": "Scores are aggregated per day in UTC. A day with no audit is left as a gap rather than a zero."
     }
   },
   "Admin": {

@@ -22,12 +22,16 @@ export function CountUp({
   delay = 0,
   className,
   suffix = "",
+  prefix = "",
+  decimals = 0,
 }: {
   value: number;
   duration?: number;
   delay?: number;
   className?: string;
   suffix?: string;
+  prefix?: string;
+  decimals?: number;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [display, setDisplay] = useState(value);
@@ -53,7 +57,7 @@ export function CountUp({
         const t = Math.min(1, (now - start) / duration);
         // easeOutQuart: fast start, gentle settle — reads as "measuring".
         const eased = 1 - Math.pow(1 - t, 4);
-        setDisplay(Math.round(eased * value));
+        setDisplay(eased * value);
         if (t < 1) raf = requestAnimationFrame(tick);
       };
       raf = requestAnimationFrame(tick);
@@ -62,7 +66,7 @@ export function CountUp({
     const start = () => {
       if (started) return;
       started = true;
-      if (safety) clearTimeout(safety);
+      clearTimeout(safety);
       timer = setTimeout(run, delay);
     };
 
@@ -88,7 +92,7 @@ export function CountUp({
 
       return () => {
         observer.disconnect();
-        if (safety) clearTimeout(safety);
+        clearTimeout(safety);
         if (timer) clearTimeout(timer);
         cancelAnimationFrame(raf);
       };
@@ -102,7 +106,8 @@ export function CountUp({
 
   return (
     <span ref={ref} className={className} data-ltr-text>
-      {display}
+      {prefix}
+      {decimals > 0 ? display.toFixed(decimals) : Math.round(display)}
       {suffix}
     </span>
   );
@@ -137,10 +142,11 @@ export function Meter({
     if (!node || prefersReducedMotion()) return;
 
     let timer: ReturnType<typeof setTimeout> | undefined;
-    let safety: ReturnType<typeof setTimeout> | undefined;
+    let filled = false;
 
     const fill = () => {
-      if (safety) clearTimeout(safety);
+      if (filled) return;
+      filled = true;
       timer = setTimeout(() => setWidth(value), delay);
     };
 
@@ -164,11 +170,13 @@ export function Meter({
     );
 
     observer.observe(node);
-    safety = setTimeout(fill, 2600);
+    // Safety net: a meter must never stay empty just because the observer
+    // never fired (hidden container, zero-height parent, tab restored).
+    const safety = setTimeout(fill, 2600);
 
     return () => {
       observer.disconnect();
-      if (safety) clearTimeout(safety);
+      clearTimeout(safety);
       if (timer) clearTimeout(timer);
     };
   }, [value, delay]);

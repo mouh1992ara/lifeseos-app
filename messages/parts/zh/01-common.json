@@ -21,7 +21,14 @@
     "terms": "条款",
     "rights": "© {year} LifeSeos. 保留所有权利。",
     "built": "为更高效的 SEO 工作流而生。",
-    "navLabel": "页脚导航"
+    "navLabel": "页脚导航",
+    "browseTools": "浏览全部工具",
+    "dashboard": "工作台",
+    "groups": {
+      "product": "产品",
+      "company": "公司",
+      "legal": "法律"
+    }
   },
   "Language": {
     "label": "语言",

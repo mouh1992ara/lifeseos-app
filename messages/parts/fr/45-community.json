@@ -1,0 +1,23 @@
+{
+  "Community": {
+    "eyebrow": "Communauté",
+    "title": "Conçu pour celles et ceux qui grandissent en ligne",
+    "subtitle": "Découvrez comment propriétaires de sites, créateurs et professionnels du SEO utilisent LifeSeos pour comprendre leurs sites et prendre de meilleures décisions d’optimisation.",
+    "prev": "Avis précédents",
+    "next": "Avis suivants",
+    "dot": "Aller au groupe d’avis {index}",
+    "range": "Avis {from}–{to} sur {total}",
+    "pause": "Suspendre la rotation automatique",
+    "play": "Reprendre la rotation automatique",
+    "ctaTitle": "Votre prochaine réussite SEO commence ici.",
+    "ctaButton": "Commencer avec LifeSeos",
+    "featuresEyebrow": "Ce que vous pouvez faire",
+    "featuresTitle": "Découvrez tout ce que vous pouvez faire avec LifeSeos",
+    "featuresSubtitle": "Six outils disponibles dès le premier jour. Chacun travaille sur une vraie URL et renvoie un résultat exploitable.",
+    "openTool": "Ouvrir l’outil",
+    "featuresPrev": "Outils précédents",
+    "featuresNext": "Outils suivants",
+    "featuresDot": "Aller au groupe d’outils {index}",
+    "featuresRange": "Outils {from}–{to} sur {total}"
+  }
+}

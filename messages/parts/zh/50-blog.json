@@ -48,6 +48,17 @@
     "articleCta": {
       "title": "把这篇文章用起来",
       "body": "打开对应的 LifeSeos 工具，把刚学到的内容应用到自己的网站上。"
-    }
+    },
+    "heroCta": "浏览文章",
+    "searchPlaceholder": "搜索指南、工具或主题…",
+    "searchLabel": "搜索文章",
+    "clearSearch": "清除搜索",
+    "filterLabel": "按分类筛选",
+    "resultsCount": "{count} 篇指南",
+    "emptyTitle": "没有匹配的指南",
+    "emptyBody": "换个关键词试试，或返回全部指南。",
+    "emptyReset": "显示全部指南",
+    "featuredBadge": "精选指南",
+    "readingProgress": "阅读进度"
   }
 }

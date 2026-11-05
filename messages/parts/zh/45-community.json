@@ -1,0 +1,23 @@
+{
+  "Community": {
+    "eyebrow": "社区",
+    "title": "为在线上成长的人而建",
+    "subtitle": "了解网站所有者、创作者和 SEO 从业者如何使用 LifeSeos 读懂自己的网站，并做出更明智的优化决策。",
+    "prev": "上一组评价",
+    "next": "下一组评价",
+    "dot": "跳转到第 {index} 组评价",
+    "range": "第 {from}–{to} 条，共 {total} 条",
+    "pause": "暂停自动轮播",
+    "play": "继续自动轮播",
+    "ctaTitle": "你的下一个 SEO 成功故事，从这里开始。",
+    "ctaButton": "开始探索 LifeSeos",
+    "featuresEyebrow": "你可以做什么",
+    "featuresTitle": "看看你能用 LifeSeos 做什么",
+    "featuresSubtitle": "六款开箱即用的工具。每一个都针对真实网址运行，并给出可执行的结论。",
+    "openTool": "打开工具",
+    "featuresPrev": "上一组工具",
+    "featuresNext": "下一组工具",
+    "featuresDot": "跳转到第 {index} 组工具",
+    "featuresRange": "第 {from}–{to} 个工具，共 {total} 个"
+  }
+}

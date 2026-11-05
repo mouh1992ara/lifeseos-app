@@ -1,0 +1,23 @@
+{
+  "Community": {
+    "eyebrow": "Community",
+    "title": "Built for People Growing Online",
+    "subtitle": "Discover how website owners, creators, and SEO professionals use LifeSeos to understand their websites and make smarter optimization decisions.",
+    "prev": "Previous reviews",
+    "next": "Next reviews",
+    "dot": "Go to review group {index}",
+    "range": "Reviews {from}–{to} of {total}",
+    "pause": "Pause automatic rotation",
+    "play": "Resume automatic rotation",
+    "ctaTitle": "Your next SEO success story starts here.",
+    "ctaButton": "Start Exploring LifeSeos",
+    "featuresEyebrow": "What you can do",
+    "featuresTitle": "Explore What You Can Do with LifeSeos",
+    "featuresSubtitle": "Six of the tools available from day one. Each one runs on a real URL and returns something you can act on.",
+    "openTool": "Open tool",
+    "featuresPrev": "Previous tools",
+    "featuresNext": "Next tools",
+    "featuresDot": "Go to tool group {index}",
+    "featuresRange": "Tools {from}–{to} of {total}"
+  }
+}

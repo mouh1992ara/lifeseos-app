@@ -1,0 +1,53 @@
+{
+  "Radial": {
+    "label": "Disciplines SEO",
+    "hubLabel": "Cœur",
+    "nodes": {
+      "technical": "SEO technique",
+      "onPage": "SEO on-page",
+      "crawling": "Exploration et indexation",
+      "performance": "Performance",
+      "content": "SEO de contenu",
+      "schema": "Données structurées",
+      "keywords": "Recherche de mots-clés",
+      "youtube": "SEO YouTube"
+    }
+  },
+  "Analytics": {
+    "eyebrow": "Performance de recherche",
+    "title": "Voyez la recherche telle qu’elle se comporte vraiment",
+    "subtitle": "Clics, impressions et mots-clés classés sur douze mois — avec les creux, pas seulement les sommets.",
+    "demo": "Données d’exemple",
+    "demoNote": "Chiffres illustratifs pour un site de démonstration, et non des statistiques de la plateforme LifeSeos.",
+    "series": {
+      "clicks": "Clics organiques",
+      "impressions": "Impressions",
+      "keywords": "Mots-clés classés"
+    },
+    "tooltip": {
+      "clicks": "clics",
+      "impressions": "impressions",
+      "keywords": "mots-clés"
+    },
+    "stats": {
+      "organic": "Clics organiques",
+      "impressions": "Impressions",
+      "keywords": "Mots-clés suivis",
+      "score": "Score SEO moyen",
+      "pages": "Pages analysées"
+    }
+  },
+  "BlogFeed": {
+    "eyebrow": "Analyses",
+    "title": "Des guides issus d’audits réels",
+    "subtitle": "SEO technique, on-page, performance et contenu — écrits par ceux qui font tourner les robots.",
+    "all": "Tous les guides",
+    "read": "Lire le guide"
+  },
+  "HeroForm": {
+    "label": "URL du site",
+    "placeholder": "votredomaine.com",
+    "cta": "Analyser le site",
+    "hint": "Gratuit · Sans inscription · Résultat en quelques secondes"
+  }
+}

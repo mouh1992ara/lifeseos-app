@@ -48,6 +48,17 @@
     "articleCta": {
       "title": "طبّق هذا الدليل عمليًا",
       "body": "افتح أداة LifeSeos ذات الصلة وطبّق ما تعلمته للتو على موقعك."
-    }
+    },
+    "heroCta": "تصفّح المقالات",
+    "searchPlaceholder": "ابحث في الأدلة أو الأدوات أو الموضوعات…",
+    "searchLabel": "البحث في المقالات",
+    "clearSearch": "مسح البحث",
+    "filterLabel": "تصفية حسب الفئة",
+    "resultsCount": "{count} دليلًا",
+    "emptyTitle": "لا توجد أدلة مطابقة",
+    "emptyBody": "جرّب كلمة أخرى، أو ارجع إلى جميع الأدلة.",
+    "emptyReset": "عرض كل الأدلة",
+    "featuredBadge": "دليل مميّز",
+    "readingProgress": "تقدّم القراءة"
   }
 }

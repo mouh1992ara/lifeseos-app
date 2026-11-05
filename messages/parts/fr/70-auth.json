@@ -1,8 +1,8 @@
 {
   "Auth": {
     "login": {
-      "title": "Se connecter",
-      "description": "Saisissez votre adresse e-mail ci-dessous pour vous connecter à votre compte",
+      "title": "Content de vous revoir",
+      "description": "Connectez-vous à votre espace LifeSeos.",
       "email": "Adresse e-mail",
       "emailPlaceholder": "m@example.com",
       "password": "Mot de passe",
@@ -11,21 +11,47 @@
       "submitting": "Connexion en cours…",
       "noAccount": "Vous n’avez pas de compte ?",
       "signUpLink": "S’inscrire",
-      "errorFallback": "Une erreur s’est produite lors de la connexion."
+      "errorFallback": "Une erreur s’est produite lors de la connexion.",
+      "passwordPlaceholder": "Votre mot de passe",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "remember": "Rester connecté",
+      "rememberHint": "Vous resterez connecté sur cet appareil pendant 30 jours.",
+      "invalidCredentials": "Cette combinaison e-mail / mot de passe ne correspond à aucun compte.",
+      "emailNotConfirmed": "Votre e-mail n’est pas encore confirmé. Ouvrez le lien reçu ou renvoyez-le.",
+      "tooMany": "Trop de tentatives de connexion. Patientez une minute puis réessayez.",
+      "network": "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez."
     },
     "signUp": {
-      "title": "S’inscrire",
-      "description": "Créer un nouveau compte",
+      "title": "Créez votre compte gratuit",
+      "description": "Organisez votre travail SEO et gardez chaque analyse au même endroit.",
       "email": "Adresse e-mail",
       "emailPlaceholder": "m@example.com",
       "password": "Mot de passe",
       "repeatPassword": "Confirmer le mot de passe",
-      "submit": "S’inscrire",
+      "submit": "Créer mon compte",
       "submitting": "Création du compte…",
-      "errorMismatch": "Les mots de passe ne correspondent pas",
+      "errorMismatch": "Les mots de passe ne correspondent pas.",
       "errorFallback": "Une erreur s’est produite",
       "haveAccount": "Vous avez déjà un compte ?",
-      "loginLink": "Se connecter"
+      "loginLink": "Se connecter",
+      "fullName": "Nom complet",
+      "fullNamePlaceholder": "Marie Dupont",
+      "fullNameHint": "Affiché sur votre tableau de bord et vos rapports.",
+      "passwordPlaceholder": "8 caractères minimum",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "strengthLabel": "Robustesse du mot de passe",
+      "strength": {
+        "weak": "Faible",
+        "fair": "Moyen",
+        "good": "Bon",
+        "strong": "Solide"
+      },
+      "strengthHint": "Utilisez 8 caractères ou plus, avec un chiffre et un symbole.",
+      "terms": "J’accepte les <terms>conditions d’utilisation</terms> et la <privacy>politique de confidentialité</privacy>.",
+      "termsRequired": "Veuillez accepter les conditions d’utilisation et la politique de confidentialité.",
+      "errorExists": "Un compte existe déjà avec cet e-mail. Essayez de vous connecter."
     },
     "forgot": {
       "title": "Réinitialiser votre mot de passe",
@@ -39,7 +65,8 @@
       "successBody": "Si vous vous êtes inscrit avec votre adresse e-mail et votre mot de passe, vous recevrez un e-mail de réinitialisation du mot de passe.",
       "haveAccount": "Vous avez déjà un compte ?",
       "loginLink": "Se connecter",
-      "errorFallback": "Une erreur s’est produite"
+      "errorFallback": "Une erreur s’est produite",
+      "rateLimited": "Trop de demandes de réinitialisation. Patientez une minute puis réessayez."
     },
     "update": {
       "title": "Réinitialiser votre mot de passe",
@@ -48,7 +75,16 @@
       "passwordPlaceholder": "Nouveau mot de passe",
       "submit": "Enregistrer le nouveau mot de passe",
       "submitting": "Enregistrement…",
-      "errorFallback": "Une erreur s’est produite"
+      "errorFallback": "Une erreur s’est produite",
+      "mismatch": "Les mots de passe ne correspondent pas.",
+      "tooShort": "Utilisez au moins 8 caractères.",
+      "sessionExpired": "Votre lien de réinitialisation a expiré. Demandez-en un nouveau depuis la page de connexion.",
+      "strength": {
+        "weak": "Faible",
+        "fair": "Moyen",
+        "good": "Bon",
+        "strong": "Solide"
+      }
     },
     "success": {
       "title": "Merci pour votre inscription !",
@@ -65,6 +101,60 @@
     "nav": {
       "signIn": "Se connecter",
       "signUp": "S’inscrire"
+    },
+    "verify": {
+      "title": "Vérifiez votre boîte de réception",
+      "body": "Nous avons envoyé un lien de vérification à {email}. Ouvrez-le pour confirmer votre compte.",
+      "spam": "Cela peut prendre une minute. Pensez à vérifier vos courriers indésirables.",
+      "resend": "Renvoyer l’e-mail",
+      "resending": "Envoi…",
+      "resent": "E-mail de vérification renvoyé.",
+      "resendError": "L’e-mail n’a pas pu être envoyé. Réessayez dans une minute.",
+      "resendCooldown": "Patientez {seconds} s avant de renvoyer.",
+      "check": "Vérifier le statut",
+      "checking": "Vérification…",
+      "statusLabel": "Statut de vérification",
+      "verified": "Adresse e-mail vérifiée.",
+      "pending": "Pas encore vérifié — ouvrez d’abord le lien reçu par e-mail.",
+      "checkError": "Impossible de lire votre statut. Connectez-vous puis réessayez.",
+      "noEmail": "Nous n’avons pas d’adresse à vérifier. Recréez votre compte.",
+      "signIn": "Aller à la connexion",
+      "backHome": "Retour à l’accueil"
+    },
+    "gate": {
+      "title": "Libérez votre potentiel SEO",
+      "body": "Créez votre compte LifeSeos gratuit pour organiser votre travail SEO et accéder à votre espace personnalisé.",
+      "create": "Créer un compte gratuit",
+      "signIn": "Se connecter",
+      "later": "Plus tard",
+      "close": "Fermer",
+      "perks": {
+        "one": "Enregistrez vos analyses et retrouvez-les plus tard",
+        "two": "Regroupez votre travail SEO dans un seul tableau de bord",
+        "three": "Gratuit pour commencer — sans carte bancaire"
+      }
+    },
+    "common": {
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "matches": "Les mots de passe correspondent",
+      "verifyNow": "Vérifier l’e-mail",
+      "tooMany": "Trop de tentatives. Patientez un instant puis réessayez.",
+      "network": "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez."
+    },
+    "shell": {
+      "eyebrow": "Compte LifeSeos",
+      "headline": "Un seul espace pour chaque décision SEO que vous prenez.",
+      "body": "Lancez une analyse, gardez le résultat et revenez-y quand vous êtes prêt à agir. Sans installation, sans carte, sans encombrement.",
+      "workspaceTitle": "Tout au même endroit",
+      "workspaceBody": "Analyses, scores et rapports enregistrés restent dans votre tableau de bord au lieu de se disperser.",
+      "privateTitle": "Vos données restent les vôtres",
+      "privateBody": "Les sessions sont gérées par Supabase ; nous ne stockons jamais votre mot de passe.",
+      "freeTitle": "Gratuit pour commencer",
+      "freeBody": "Créez votre compte maintenant et commencez avec les outils gratuits.",
+      "back": "Retour à LifeSeos",
+      "legal": "En continuant, vous acceptez les conditions d’utilisation et la politique de confidentialité."
     }
   }
 }

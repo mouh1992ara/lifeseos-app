@@ -9,8 +9,12 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
 
+import AdSense from "@/components/adsense";
+import HeaderMetrics from "@/components/header-metrics";
 import LivePresence from "@/components/live-presence";
 import MotionProvider from "@/components/motion-provider";
+import SessionPolicy from "@/components/session-policy";
+import SignupGate from "@/components/signup-gate";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
 import {
@@ -20,6 +24,7 @@ import {
   routing,
   type Locale,
 } from "@/i18n/config";
+import { createClient } from "@/lib/supabase/server";
 
 import PageVisitTracker from "../page-visit-tracker";
 import "../globals.css";
@@ -142,6 +147,14 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
+  /* The invitation modal and the header both need to know whether this visitor
+     is signed in. Reading it once here keeps the answer consistent across the
+     whole render, and lets the modal skip its own network call. */
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const meta = localeMeta[locale as Locale];
   const dir = meta.dir;
   const fontClass =
@@ -155,14 +168,13 @@ export default async function LocaleLayout({
     <html lang={meta.htmlLang} dir={dir} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionBootstrap }} />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4870397991437721"
-          crossOrigin="anonymous"
-        />
+
       </head>
 
-      <body className={`min-h-screen bg-slate-950 text-white antialiased ${fontClass}`}>
+      <body
+        className={`min-h-screen bg-slate-950 text-white antialiased ${fontClass}`}
+        data-authed={user ? "1" : "0"}
+      >
         <script
           id="website-schema"
           type="application/ld+json"
@@ -182,6 +194,9 @@ export default async function LocaleLayout({
             disableTransitionOnChange
           >
             <MotionProvider />
+            <AdSense client="ca-pub-4870397991437721" />
+            <SessionPolicy />
+            <HeaderMetrics />
 
             <div className="flex min-h-screen flex-col">
               <SiteHeader />
@@ -191,6 +206,9 @@ export default async function LocaleLayout({
 
               <SiteFooter />
             </div>
+
+            {/* Anonymous visitors only; the component re-checks against Supabase. */}
+            {!user ? <SignupGate /> : null}
           </ThemeProvider>
           <PageVisitTracker />
         </NextIntlClientProvider>

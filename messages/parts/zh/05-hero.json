@@ -1,0 +1,53 @@
+{
+  "Radial": {
+    "label": "SEO 领域",
+    "hubLabel": "核心",
+    "nodes": {
+      "technical": "技术 SEO",
+      "onPage": "页面 SEO",
+      "crawling": "抓取与索引",
+      "performance": "性能",
+      "content": "内容 SEO",
+      "schema": "结构化数据",
+      "keywords": "关键词研究",
+      "youtube": "YouTube SEO"
+    }
+  },
+  "Analytics": {
+    "eyebrow": "搜索表现",
+    "title": "看清搜索的真实走势",
+    "subtitle": "十二个月的自然点击、展示次数与排名关键词——包含低谷，而不只有增长。",
+    "demo": "示例数据",
+    "demoNote": "用于演示站点的示意数据，并非 LifeSeos 平台统计。",
+    "series": {
+      "clicks": "自然点击",
+      "impressions": "展示次数",
+      "keywords": "排名关键词"
+    },
+    "tooltip": {
+      "clicks": "次点击",
+      "impressions": "次展示",
+      "keywords": "个关键词"
+    },
+    "stats": {
+      "organic": "自然点击",
+      "impressions": "展示次数",
+      "keywords": "追踪关键词",
+      "score": "平均 SEO 评分",
+      "pages": "已分析页面"
+    }
+  },
+  "BlogFeed": {
+    "eyebrow": "洞察",
+    "title": "来自真实审计的指南",
+    "subtitle": "技术 SEO、页面优化、性能与内容——由实际运行爬虫的人撰写。",
+    "all": "全部指南",
+    "read": "阅读指南"
+  },
+  "HeroForm": {
+    "label": "网站网址",
+    "placeholder": "yourdomain.com",
+    "cta": "分析网站",
+    "hint": "免费 · 无需注册 · 秒级出结果"
+  }
+}

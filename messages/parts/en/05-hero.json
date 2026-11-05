@@ -1,0 +1,53 @@
+{
+  "Radial": {
+    "label": "SEO disciplines",
+    "hubLabel": "Core",
+    "nodes": {
+      "technical": "Technical SEO",
+      "onPage": "On-Page SEO",
+      "crawling": "Crawling & Indexing",
+      "performance": "Performance",
+      "content": "Content SEO",
+      "schema": "Structured Data",
+      "keywords": "Keyword Research",
+      "youtube": "YouTube SEO"
+    }
+  },
+  "Analytics": {
+    "eyebrow": "Search performance",
+    "title": "Watch search behave the way it really does",
+    "subtitle": "Clicks, impressions and ranking keywords across twelve months — including the dips, not just the wins.",
+    "demo": "Sample data",
+    "demoNote": "Illustrative figures for a demo property, not LifeSeos platform metrics.",
+    "series": {
+      "clicks": "Organic clicks",
+      "impressions": "Impressions",
+      "keywords": "Keywords ranked"
+    },
+    "tooltip": {
+      "clicks": "clicks",
+      "impressions": "impressions",
+      "keywords": "keywords"
+    },
+    "stats": {
+      "organic": "Organic clicks",
+      "impressions": "Impressions",
+      "keywords": "Keywords tracked",
+      "score": "Average SEO score",
+      "pages": "Pages analyzed"
+    }
+  },
+  "BlogFeed": {
+    "eyebrow": "Insights",
+    "title": "Guides built on real audits",
+    "subtitle": "Technical SEO, on-page, performance and content — written by the people running the crawlers.",
+    "all": "All guides",
+    "read": "Read guide"
+  },
+  "HeroForm": {
+    "label": "Website URL",
+    "placeholder": "yourdomain.com",
+    "cta": "Analyze website",
+    "hint": "Free · No signup · Results in seconds"
+  }
+}

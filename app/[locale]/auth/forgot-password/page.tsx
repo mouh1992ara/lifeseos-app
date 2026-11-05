@@ -1,5 +1,6 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import AuthShell from "@/components/auth-shell";
 import { ForgotPasswordForm } from "@/components/forgot-password-form";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -8,11 +9,11 @@ export default async function Page({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
+  const t = await getTranslations("Auth.forgot");
+
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        <ForgotPasswordForm />
-      </div>
-    </div>
+    <AuthShell heading={t("title")}>
+      <ForgotPasswordForm />
+    </AuthShell>
   );
 }

@@ -15,13 +15,20 @@
     "home": "الرئيسية",
     "tools": "الأدوات",
     "blog": "المدونة",
-    "about": "من نحن",
+    "about": "عن المنصة",
     "contact": "اتصل بنا",
     "privacy": "الخصوصية",
     "terms": "الشروط",
     "rights": "© {year} LifeSeos. جميع الحقوق محفوظة.",
     "built": "مصممة لسير عمل SEO أفضل.",
-    "navLabel": "تنقل التذييل"
+    "navLabel": "تنقل التذييل",
+    "browseTools": "تصفّح كل الأدوات",
+    "dashboard": "لوحة التحكم",
+    "groups": {
+      "product": "المنتج",
+      "company": "الشركة",
+      "legal": "قانوني"
+    }
   },
   "Language": {
     "label": "اللغة",

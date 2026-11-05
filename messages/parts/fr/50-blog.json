@@ -48,6 +48,17 @@
     "articleCta": {
       "title": "Mettez ce guide en pratique",
       "body": "Ouvrez l’outil LifeSeos associé et appliquez ce que vous venez d’apprendre à votre propre site."
-    }
+    },
+    "heroCta": "Explorer les articles",
+    "searchPlaceholder": "Rechercher un guide, un outil ou un sujet…",
+    "searchLabel": "Rechercher des articles",
+    "clearSearch": "Effacer la recherche",
+    "filterLabel": "Filtrer par catégorie",
+    "resultsCount": "{count} guides",
+    "emptyTitle": "Aucun guide ne correspond",
+    "emptyBody": "Essayez un autre mot-clé ou revenez à tous les guides.",
+    "emptyReset": "Afficher tous les guides",
+    "featuredBadge": "Guide à la une",
+    "readingProgress": "Progression de lecture"
   }
 }

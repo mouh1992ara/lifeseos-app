@@ -1,8 +1,8 @@
 {
   "Auth": {
     "login": {
-      "title": "Login",
-      "description": "Enter your email below to login to your account",
+      "title": "Welcome back",
+      "description": "Sign in to your LifeSeos workspace.",
       "email": "Email",
       "emailPlaceholder": "m@example.com",
       "password": "Password",
@@ -11,21 +11,47 @@
       "submitting": "Logging in…",
       "noAccount": "Don’t have an account?",
       "signUpLink": "Sign up",
-      "errorFallback": "An error occurred while logging in."
+      "errorFallback": "An error occurred while logging in.",
+      "passwordPlaceholder": "Enter your password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "remember": "Keep me signed in",
+      "rememberHint": "Stay signed in on this device for 30 days.",
+      "invalidCredentials": "That email and password combination does not match an account.",
+      "emailNotConfirmed": "Your email is not confirmed yet. Open the link we sent you, or resend it.",
+      "tooMany": "Too many sign-in attempts. Please wait a minute and try again.",
+      "network": "Unable to reach the server. Check your connection and try again."
     },
     "signUp": {
-      "title": "Sign up",
-      "description": "Create a new account",
+      "title": "Create your free account",
+      "description": "Organize your SEO work and keep every analysis in one workspace.",
       "email": "Email",
       "emailPlaceholder": "m@example.com",
       "password": "Password",
       "repeatPassword": "Repeat Password",
-      "submit": "Sign up",
+      "submit": "Create free account",
       "submitting": "Creating an account…",
-      "errorMismatch": "Passwords do not match",
+      "errorMismatch": "Passwords do not match.",
       "errorFallback": "An error occurred",
       "haveAccount": "Already have an account?",
-      "loginLink": "Login"
+      "loginLink": "Login",
+      "fullName": "Full name",
+      "fullNamePlaceholder": "Jane Doe",
+      "fullNameHint": "Shown on your dashboard and reports.",
+      "passwordPlaceholder": "At least 8 characters",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "strengthLabel": "Password strength",
+      "strength": {
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong"
+      },
+      "strengthHint": "Use 8 or more characters, with a number and a symbol.",
+      "terms": "I agree to the <terms>Terms of Service</terms> and the <privacy>Privacy Policy</privacy>.",
+      "termsRequired": "Please accept the Terms of Service and Privacy Policy.",
+      "errorExists": "An account with this email already exists. Try signing in instead."
     },
     "forgot": {
       "title": "Reset Your Password",
@@ -39,7 +65,8 @@
       "successBody": "If you registered using your email and password, you will receive a password reset email.",
       "haveAccount": "Already have an account?",
       "loginLink": "Login",
-      "errorFallback": "An error occurred"
+      "errorFallback": "An error occurred",
+      "rateLimited": "Too many reset requests. Please wait a minute and try again."
     },
     "update": {
       "title": "Reset Your Password",
@@ -48,7 +75,16 @@
       "passwordPlaceholder": "New password",
       "submit": "Save new password",
       "submitting": "Saving…",
-      "errorFallback": "An error occurred"
+      "errorFallback": "An error occurred",
+      "mismatch": "Passwords do not match.",
+      "tooShort": "Use at least 8 characters.",
+      "sessionExpired": "Your reset link has expired. Request a new one from the sign-in page.",
+      "strength": {
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong"
+      }
     },
     "success": {
       "title": "Thank you for signing up!",
@@ -65,6 +101,60 @@
     "nav": {
       "signIn": "Sign in",
       "signUp": "Sign up"
+    },
+    "verify": {
+      "title": "Check your inbox",
+      "body": "We sent a verification link to {email}. Open it to confirm your account.",
+      "spam": "It can take a minute. Check your spam folder if it does not arrive.",
+      "resend": "Resend email",
+      "resending": "Sending…",
+      "resent": "Verification email sent again.",
+      "resendError": "The email could not be sent just now. Try again in a minute.",
+      "resendCooldown": "Wait {seconds}s before resending.",
+      "check": "Check status",
+      "checking": "Checking…",
+      "statusLabel": "Verification status",
+      "verified": "Email verified.",
+      "pending": "Not verified yet — open the link in your email first.",
+      "checkError": "Could not read your status. Sign in and try again.",
+      "noEmail": "We do not have an address to verify. Create your account again.",
+      "signIn": "Go to sign in",
+      "backHome": "Back to home"
+    },
+    "gate": {
+      "title": "Unlock Your SEO Growth Potential",
+      "body": "Create your free LifeSeos account to organize your SEO work and access your personalized workspace.",
+      "create": "Create Free Account",
+      "signIn": "Sign In",
+      "later": "Maybe Later",
+      "close": "Close",
+      "perks": {
+        "one": "Save analyses and come back to them later",
+        "two": "Keep your SEO work in one dashboard",
+        "three": "Free to start — no card required"
+      }
+    },
+    "common": {
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "confirmPassword": "Confirm password",
+      "matches": "Passwords match",
+      "verifyNow": "Verify email",
+      "tooMany": "Too many attempts. Please wait a moment and try again.",
+      "network": "Unable to reach the server. Check your connection and try again."
+    },
+    "shell": {
+      "eyebrow": "LifeSeos account",
+      "headline": "One workspace for every SEO decision you make.",
+      "body": "Run an analysis, keep the result, and come back to it when you are ready to act on it. No setup, no card, no clutter.",
+      "workspaceTitle": "Everything in one place",
+      "workspaceBody": "Saved analyses, scores and reports stay in your dashboard instead of scattered across tabs.",
+      "privateTitle": "Your data stays yours",
+      "privateBody": "Sessions are handled by Supabase auth; we never store your password ourselves.",
+      "freeTitle": "Free to start",
+      "freeBody": "Create the account now and start with the free tools immediately.",
+      "back": "Back to LifeSeos",
+      "legal": "By continuing you agree to the Terms of Service and Privacy Policy."
     }
   }
 }

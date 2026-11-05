@@ -110,6 +110,27 @@
       "improvement": "Amélioration SEO",
       "noRecommendations": "Aucune recommandation n’a été enregistrée pour ce rapport.",
       "newAnalysis": "Nouvelle analyse SEO"
+    },
+    "perf": {
+      "eyebrow": "Analyse de performance SEO",
+      "title": "Votre performance de recherche en une vue",
+      "subtitle": "Les scores de tous vos audits, agrégés par jour. Changez la période pour comparer, et survolez le graphique pour les valeurs exactes.",
+      "rangeLabel": "Période du graphique",
+      "range24h": "24 h",
+      "range7d": "7 j",
+      "range28d": "28 j",
+      "range90d": "90 j",
+      "chartTitle": "Évolution du score",
+      "chartHint": "Moyenne quotidienne de vos audits. Survolez pour le détail.",
+      "seriesAverage": "Score moyen",
+      "seriesBest": "Meilleur score",
+      "auditsUnit": "audits",
+      "scoreUnit": "score",
+      "vsPrevious": "vs période précédente",
+      "flat": "aucun changement",
+      "sampleBadge": "Données de démonstration",
+      "sampleNote": "Vous avez moins de deux audits : le graphique montre donc une série illustrative. Lancez un audit pour la remplacer par vos résultats.",
+      "footnote": "Les scores sont agrégés par jour en UTC. Un jour sans audit apparaît comme une absence, pas comme un zéro."
     }
   },
   "Admin": {

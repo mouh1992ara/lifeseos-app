@@ -1,5 +1,6 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import AuthShell from "@/components/auth-shell";
 import { UpdatePasswordForm } from "@/components/update-password-form";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -8,11 +9,11 @@ export default async function Page({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
+  const t = await getTranslations("Auth.update");
+
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        <UpdatePasswordForm />
-      </div>
-    </div>
+    <AuthShell heading={t("title")}>
+      <UpdatePasswordForm />
+    </AuthShell>
   );
 }

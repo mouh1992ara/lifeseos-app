@@ -1,6 +1,22 @@
 import { NextResponse } from "next/server";
 
-import { supabaseAdmin } from "@/lib/supabase/admin";
+/**
+ * Visit logging is optional infrastructure, not a feature of the page.
+ *
+ * `lib/supabase/admin.ts` throws while being imported when the service-role key
+ * is absent, which turned every page view into a 500 in the console. Import it
+ * lazily and swallow the failure: a missing analytics key must never look like
+ * a broken site, and it must never break the page that is reporting the visit.
+ */
+async function getAdmin() {
+  if (!process.env.SUPABASE_SECRET_KEY) return null;
+  try {
+    const mod = await import("@/lib/supabase/admin");
+    return mod.supabaseAdmin;
+  } catch {
+    return null;
+  }
+}
 
 function getCountryName(countryCode: string) {
   if (!countryCode) {
@@ -19,6 +35,12 @@ function getCountryName(countryCode: string) {
 }
 
 export async function POST(request: Request) {
+  const supabaseAdmin = await getAdmin();
+  // Not configured: accept and drop. 204 keeps the console clean.
+  if (!supabaseAdmin) {
+    return new NextResponse(null, { status: 204 });
+  }
+
   try {
     const body = await request.json();
 
@@ -45,16 +67,12 @@ export async function POST(request: Request) {
       });
 
     if (error) {
-      console.error("Page visit insert error:", error);
+      /* Logged server-side only. A beacon that cannot be stored is not a
+         failure the visitor should see — and definitely not a console error on
+         every page view. */
+      console.error("Page visit insert error:", error.message);
 
-      return NextResponse.json(
-        {
-          error: "Failed to record page visit.",
-        },
-        {
-          status: 500,
-        }
-      );
+      return new NextResponse(null, { status: 204 });
     }
 
     return NextResponse.json({

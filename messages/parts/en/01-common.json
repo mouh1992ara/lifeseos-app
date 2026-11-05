@@ -21,7 +21,14 @@
     "terms": "Terms",
     "rights": "© {year} LifeSeos. All rights reserved.",
     "built": "Built for better SEO workflows.",
-    "navLabel": "Footer navigation"
+    "navLabel": "Footer navigation",
+    "browseTools": "Browse all tools",
+    "dashboard": "Dashboard",
+    "groups": {
+      "product": "Product",
+      "company": "Company",
+      "legal": "Legal"
+    }
   },
   "Language": {
     "label": "Language",

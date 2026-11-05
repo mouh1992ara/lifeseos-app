@@ -3,6 +3,13 @@ import { redirect } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Link } from "@/i18n/navigation";
+import PerformanceAnalytics from "@/components/dashboard/performance-analytics";
+import { localizePath } from "@/i18n/config";
+import {
+  bucketReports,
+  sampleBuckets,
+  topSites,
+} from "@/lib/dashboard-analytics";
 
 export const dynamic = "force-dynamic";
 
@@ -40,21 +47,12 @@ export default async function DashboardPage({ params }: Props) {
   const seoReports: SEOReport[] = reports ?? [];
 
   const t = await getTranslations("Dashboard");
+  const lp = (path: string) => localizePath(locale as Parameters<typeof localizePath>[0], path);
 
   const totalAudits = seoReports.length;
 
-  const averageScore =
-    totalAudits > 0
-      ? Math.round(
-          seoReports.reduce((total, r) => total + Number(r.score ?? 0), 0) /
-            totalAudits,
-        )
-      : 0;
-
-  const bestScore =
-    totalAudits > 0
-      ? Math.max(...seoReports.map((r) => Number(r.score ?? 0)))
-      : 0;
+  /* Average and best scores are computed inside the analytics component from
+     the same buckets, so the KPIs and the chart can never disagree. */
 
   const latestReport = seoReports[0] ?? null;
   const previousReport = seoReports[1] ?? null;
@@ -65,6 +63,16 @@ export default async function DashboardPage({ params }: Props) {
     latestReport && previousReport
       ? Number(latestReport.score ?? 0) - Number(previousReport.score ?? 0)
       : null;
+
+  /* Analytics: real rows only. With fewer than two audits there is nothing to
+     plot, so the dashboard shows an explicitly labelled sample instead of an
+     empty box — never a fabricated number passed off as real. */
+  const trackedSites = topSites(seoReports, 2);
+  const realBuckets = bucketReports(seoReports, trackedSites, locale);
+  const useSample = realBuckets.length < 2;
+  const sample = sampleBuckets(locale);
+  const buckets = useSample ? sample.buckets : realBuckets;
+  const siteLabels = useSample ? sample.sites : trackedSites;
 
   // Dates follow the active locale instead of a hardcoded en-US format.
   const formatDate = (dateString: string) =>
@@ -104,28 +112,41 @@ export default async function DashboardPage({ params }: Props) {
           </Link>
         </div>
 
-        <section className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-          <StatCard
-            label={t("stats.totalAudits")}
-            value={String(totalAudits)}
-            description={t("stats.totalAuditsBody")}
-          />
-          <StatCard
-            label={t("stats.averageScore")}
-            value={`${averageScore}/100`}
-            description={t("stats.averageScoreBody")}
-          />
-          <StatCard
-            label={t("stats.bestScore")}
-            value={`${bestScore}/100`}
-            description={t("stats.bestScoreBody")}
-          />
-          <StatCard
-            label={t("stats.websites")}
-            value={String(uniqueWebsites)}
-            description={t("stats.websitesBody")}
-          />
-        </section>
+        <PerformanceAnalytics
+          buckets={buckets}
+          siteLabels={siteLabels}
+          sample={useSample}
+          siteCount={uniqueWebsites}
+          labels={{
+            eyebrow: t("perf.eyebrow"),
+            title: t("perf.title"),
+            subtitle: t("perf.subtitle"),
+            rangeLabel: t("perf.rangeLabel"),
+            ranges: {
+              "24h": t("perf.range24h"),
+              "7d": t("perf.range7d"),
+              "28d": t("perf.range28d"),
+              "90d": t("perf.range90d"),
+            },
+            chartTitle: t("perf.chartTitle"),
+            chartHint: t("perf.chartHint"),
+            seriesAverage: t("perf.seriesAverage"),
+            seriesBest: t("perf.seriesBest"),
+            kpiAudits: t("stats.totalAudits"),
+            kpiAverage: t("stats.averageScore"),
+            kpiBest: t("stats.bestScore"),
+            kpiSites: t("stats.websites"),
+            auditsUnit: t("perf.auditsUnit"),
+            scoreUnit: t("perf.scoreUnit"),
+            vsPrevious: t("perf.vsPrevious"),
+            flat: t("perf.flat"),
+            sampleBadge: t("perf.sampleBadge"),
+            sampleNote: t("perf.sampleNote"),
+            footnote: t("perf.footnote"),
+            cta: t("newAnalysis"),
+            ctaHref: lp("/tools/seo-analyzer"),
+          }}
+        />
 
         {latestReport && (
           <section className="relative mt-10 overflow-hidden rounded-[30px] border border-white/10 bg-gradient-to-br from-white/[0.055] to-white/[0.018] p-6 sm:p-8">
@@ -397,26 +418,6 @@ export default async function DashboardPage({ params }: Props) {
         </section>
       </div>
     </main>
-  );
-}
-
-function StatCard({
-  label,
-  value,
-  description,
-}: {
-  label: string;
-  value: string;
-  description: string;
-}) {
-  return (
-    <div className="rounded-[24px] border border-white/10 bg-slate-900/80 p-6 transition duration-300 hover:-translate-y-0.5 hover:border-violet-400/20 hover:bg-slate-900">
-      <p className="text-sm text-slate-500">{label}</p>
-      <p className="mt-3 text-3xl font-bold text-white" data-ltr-text>
-        {value}
-      </p>
-      <p className="mt-2 text-sm leading-6 text-slate-500">{description}</p>
-    </div>
   );
 }
 

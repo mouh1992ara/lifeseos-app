@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import { ArticleToc, ReadingProgress } from "@/components/blog/reading-progress";
 import type { BlogArticle } from "@/lib/blog";
 
 type Labels = {
@@ -14,6 +15,7 @@ type Labels = {
   ctaTitle: string;
   ctaBody: string;
   toolLabel: string;
+  readingProgress: string;
 };
 
 type RelatedArticle = Pick<
@@ -32,6 +34,8 @@ export default function ArticleView({
 }) {
   return (
     <main className="min-h-screen bg-slate-950 text-white">
+      <ReadingProgress label={labels.readingProgress} />
+
       {/* HERO */}
       <section className="border-b border-white/10">
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-6 sm:py-20">
@@ -79,7 +83,7 @@ export default function ArticleView({
               <img
                 src={article.featuredImage}
                 alt={article.imageAlt}
-                className="w-full rounded-[28px] border border-white/10 object-cover shadow-2xl"
+                className="aspect-[16/10] w-full rounded-[26px] border border-white/10 object-cover shadow-2xl"
                 loading="eager"
               />
             </div>
@@ -90,7 +94,7 @@ export default function ArticleView({
       {/* BODY */}
       <section className="mx-auto max-w-6xl px-5 py-14 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
-          <article className="min-w-0 space-y-10">
+          <article data-article-body className="min-w-0 space-y-10">
             {article.sections.map((section, index) => (
               <section key={section.id} id={section.id} className="scroll-mt-24">
                 <h2 className="flex items-start gap-3 text-2xl font-bold leading-snug sm:text-3xl">
@@ -173,28 +177,14 @@ export default function ArticleView({
           </article>
 
           {/* SIDEBAR */}
-          <aside className="lg:sticky lg:top-8">
-            <nav className="rounded-[24px] border border-white/10 bg-white/[0.03] p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                {labels.contents}
-              </p>
-
-              <ol className="mt-4 space-y-2 text-sm">
-                {article.sections.map((section, index) => (
-                  <li key={section.id}>
-                    <a
-                      href={`#${section.id}`}
-                      className="flex items-start gap-2 leading-6 text-slate-400 transition hover:text-white"
-                    >
-                      <span className="font-mono text-xs text-slate-600">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <span>{section.title}</span>
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
+          <aside className="lg:sticky lg:top-[calc(var(--header-h,76px)+1rem)]">
+            <ArticleToc
+              label={labels.contents}
+              sections={article.sections.map((section) => ({
+                id: section.id,
+                title: section.title,
+              }))}
+            />
           </aside>
         </div>
       </section>

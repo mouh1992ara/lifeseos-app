@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
+import CwvDashboard, { parseMetric } from "@/components/cwv-dashboard";
 import ShareTool from "@/components/share-tool";
 
 type PageSpeedResult = {
@@ -255,24 +256,6 @@ export default function PageSpeedAnalyzerPage() {
     return "scorePoor";
   }
 
-  function getScoreClass(
-    score: number | null
-  ) {
-    if (score === null) {
-      return "text-slate-400";
-    }
-
-    if (score >= 90) {
-      return "text-emerald-400";
-    }
-
-    if (score >= 50) {
-      return "text-amber-400";
-    }
-
-    return "text-rose-400";
-  }
-
   function getMetricStatus(
     metric: string,
     value: string
@@ -453,7 +436,7 @@ export default function PageSpeedAnalyzerPage() {
     : [];
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
+    <main data-tool-surface className="min-h-screen bg-slate-950 text-white">
 
       {/* HERO */}
 
@@ -551,6 +534,32 @@ export default function PageSpeedAnalyzerPage() {
         </section>
 
 
+        {/* SAMPLE DASHBOARD — shown before any analysis, clearly labelled demo */}
+        {!result && (
+          <div className="mt-8">
+            <CwvDashboard
+              headline={t("cwvHeadline")}
+              score={92}
+              scoreLabel={t("ringLabel")}
+              scoreOutOf={t("ringOutOf")}
+              demo
+              demoLabel={t("cwvDemo")}
+              note={t("cwvNote")}
+              statusLabels={{
+                good: t("scoreGood"),
+                warn: t("scoreNeedsImprovement"),
+                poor: t("scorePoor"),
+                unknown: t("scoreUnavailable"),
+              }}
+              metrics={[
+                { key: "lcp", label: t("metricLcpLabel"), value: "2.1", num: 2.1 },
+                { key: "inp", label: t("cwvInpLabel"), value: "180", num: 180 },
+                { key: "cls", label: t("metricClsLabel"), value: "0.04", num: 0.04 },
+              ]}
+            />
+          </div>
+        )}
+
         {/* RESULTS */}
 
         {result && (
@@ -560,10 +569,42 @@ export default function PageSpeedAnalyzerPage() {
               <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-cyan-500/10 blur-3xl" />
               <div className="pointer-events-none absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-emerald-500/10 blur-3xl" />
 
-              <div className="relative grid items-center gap-8 lg:grid-cols-[260px_1fr]">
+              <div className="relative grid items-center gap-8 lg:grid-cols-[1fr_1.05fr]">
                 <div className="flex justify-center">
-                  <PerformanceScoreRing
+                  <CwvDashboard
+                    headline={t("cwvHeadline")}
                     score={animatedScore}
+                    scoreLabel={t("ringLabel")}
+                    scoreOutOf={t("ringOutOf")}
+                    demoLabel={t("cwvDemo")}
+                    statusLabels={{
+                      good: t("scoreGood"),
+                      warn: t("scoreNeedsImprovement"),
+                      poor: t("scorePoor"),
+                      unknown: t("scoreUnavailable"),
+                    }}
+                    metrics={[
+                      {
+                        key: "lcp",
+                        label: t("metricLcpLabel"),
+                        value: result.largestContentfulPaint,
+                        num: parseMetric(result.largestContentfulPaint),
+                      },
+                      {
+                        key: "inp",
+                        // Lighthouse lab data has no INP; show it as unavailable
+                        // rather than inventing a number.
+                        label: t("cwvInpLabel"),
+                        value: "—",
+                        num: null,
+                      },
+                      {
+                        key: "cls",
+                        label: t("metricClsLabel"),
+                        value: result.cumulativeLayoutShift,
+                        num: parseMetric(result.cumulativeLayoutShift),
+                      },
+                    ]}
                   />
                 </div>
 
@@ -958,69 +999,6 @@ export default function PageSpeedAnalyzerPage() {
       </section>
 
     </main>
-  );
-}
-
-
-function PerformanceScoreRing({
-  score,
-}: {
-  score: number;
-}) {
-  const t = useTranslations("Tool.pageSpeed");
-
-  const safeScore =
-    Math.max(
-      0,
-      Math.min(
-        100,
-        score
-      )
-    );
-
-  const color =
-    safeScore >= 90
-      ? "#34d399"
-      : safeScore >= 50
-      ? "#facc15"
-      : "#fb7185";
-
-  return (
-    <div
-      className="relative flex h-52 w-52 items-center justify-center rounded-full"
-      style={{
-        background:
-          `conic-gradient(${color} ${
-            safeScore * 3.6
-          }deg, rgba(51,65,85,0.45) 0deg)`,
-      }}
-    >
-
-      <div className="absolute inset-[12px] rounded-full bg-slate-950 shadow-inner shadow-black/50" />
-
-      <div className="relative text-center">
-
-        <div
-          className="text-6xl font-bold tabular-nums"
-          style={{
-            color,
-          }}
-          data-ltr-text
-        >
-          {safeScore}
-        </div>
-
-        <div className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-          {t("ringLabel")}
-        </div>
-
-        <div className="mt-1 text-xs text-slate-600">
-          {t("ringOutOf")}
-        </div>
-
-      </div>
-
-    </div>
   );
 }
 

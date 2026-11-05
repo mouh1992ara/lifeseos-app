@@ -1,7 +1,21 @@
 import { NextResponse } from "next/server";
 
 import { createClient } from "@/lib/supabase/server";
-import { supabaseAdmin } from "@/lib/supabase/admin";
+
+/**
+ * Tool analytics are optional. `lib/supabase/admin.ts` throws during import
+ * when the service-role key is missing, so it is imported lazily and a missing
+ * key simply means the event is dropped instead of failing in the console.
+ */
+async function getAdmin() {
+  if (!process.env.SUPABASE_SECRET_KEY) return null;
+  try {
+    const mod = await import("@/lib/supabase/admin");
+    return mod.supabaseAdmin;
+  } catch {
+    return null;
+  }
+}
 
 export async function POST(request: Request) {
   try {
@@ -40,6 +54,11 @@ export async function POST(request: Request) {
       data: { user },
     } = await supabase.auth.getUser();
 
+    const supabaseAdmin = await getAdmin();
+    if (!supabaseAdmin) {
+      return new NextResponse(null, { status: 204 });
+    }
+
     const { error } = await supabaseAdmin
       .from("tool_events")
       .insert({
@@ -48,16 +67,11 @@ export async function POST(request: Request) {
       });
 
     if (error) {
-      console.error("Tool event insert error:", error);
+      /* Server-side log only: an unstored analytics event is not something the
+         visitor should ever see surface as a console error. */
+      console.error("Tool event insert error:", error.message);
 
-      return NextResponse.json(
-        {
-          error: "Failed to record tool usage.",
-        },
-        {
-          status: 500,
-        }
-      );
+      return new NextResponse(null, { status: 204 });
     }
 
     return NextResponse.json({

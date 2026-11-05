@@ -110,6 +110,27 @@
       "improvement": "SEO Improvement",
       "noRecommendations": "No recommendations were saved for this report.",
       "newAnalysis": "New SEO Analysis"
+    },
+    "perf": {
+      "eyebrow": "SEO performance analytics",
+      "title": "Your search performance, in one view",
+      "subtitle": "Scores from every audit you have run, aggregated by day. Change the range to compare periods, and hover the chart for exact values.",
+      "rangeLabel": "Chart range",
+      "range24h": "24h",
+      "range7d": "7d",
+      "range28d": "28d",
+      "range90d": "90d",
+      "chartTitle": "Score trend",
+      "chartHint": "Daily average across your audits. Hover for detail.",
+      "seriesAverage": "Average score",
+      "seriesBest": "Best score",
+      "auditsUnit": "audits",
+      "scoreUnit": "score",
+      "vsPrevious": "vs previous period",
+      "flat": "no change",
+      "sampleBadge": "Sample data",
+      "sampleNote": "You have fewer than two audits, so this chart shows an illustrative series. Run an audit and it is replaced with your own results.",
+      "footnote": "Scores are aggregated per day in UTC. A day with no audit is left as a gap rather than a zero."
     }
   },
   "Admin": {
