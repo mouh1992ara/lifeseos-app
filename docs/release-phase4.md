@@ -1,40 +1,55 @@
-# Phase 4 release — commit plan (not executed)
+# Phase 4 release — branch, commits, deployment checklist
 
-Branch: `release/phase4` off `add3c73`. Never commit to `main` directly.
+Branch: `release/phase4` (7 commits on top of `add3c73`). Not pushed, not merged.
 
-## Commit 1 — perf + i18n + SEO foundations
-app/[locale]/layout.tsx, components/adsense.tsx, app/robots.ts, i18n/config.ts,
-lib/dashboard-analytics.ts
-(font preload, AdSense deferred, Baiduspider rules, canonical/locale fixes)
+## Commits
 
-## Commit 2 — dashboard analytics + empty states
-app/[locale]/dashboard/page.tsx, lib/dashboard-analytics.ts,
-messages/parts/*/80-dashboard.json, messages/*.json
-(removes the 27-vs-0 sample contradiction)
+| # | SHA | Subject |
+|---|---|---|
+| 1 | `7542c41` | perf(seo): defer AdSense, preload Arabic font, tighten canonicals and robots |
+| 2 | `d6dacfc` | fix(dashboard): stop showing fabricated KPIs next to real ones |
+| 3 | `fb3c1fd` | feat(auth): enforce email confirmation server-side; close an open redirect |
+| 4 | `049f7cb` | feat(verify): confirmation flow that survives a phone, and a real one-time handoff |
+| 5 | `368c004` | feat(captcha): verify Turnstile server-side and fail closed in production |
+| 6 | `409d2bf` | feat(verify): premium success animation with reduced-motion support |
+| 7 | `33b7f50` | docs(i18n): four-locale auth strings, runbooks and the branded email template |
 
-## Commit 3 — auth security core
-lib/auth-guard.ts, lib/ratelimit.ts, app/api/auth/*, components/sign-up-form.tsx,
-components/login-form.tsx, app/[locale]/admin/page.tsx,
-app/[locale]/dashboard/reports/[id]/page.tsx
+Totals: 50 files changed, 3735 insertions(+), 563 deletions(-).
 
-## Commit 4 — verification flow + handoff
-app/auth/callback/route.ts, app/auth/confirm/route.ts, proxy.ts,
-lib/verify-handoff.ts, app/[locale]/auth/{verify,verified,error,sign-up-success}/page.tsx,
-components/{email-verify-panel,verified-panel,verify-success,code-input}.tsx,
-components/verify-panel.tsx (deleted)
+## Before production
 
-## Commit 5 — Turnstile
-lib/turnstile.ts, components/turnstile.tsx
+### Must do (blocks a correct launch)
 
-## Commit 6 — styling
-app/i18n.css (verification animations, reduced-motion)
+- [ ] **Supabase → Authentication → Email Templates → Confirm signup**: paste
+      `docs/email-templates/confirm-signup.html`. This is the item that fixes
+      confirmation on a phone, because it uses `token_hash` and needs no PKCE cookie.
+- [ ] **Supabase → URL Configuration**: Site URL `https://www.lifeseos.com`;
+      Redirect URLs add `https://www.lifeseos.com/auth/callback`,
+      `https://www.lifeseos.com/auth/confirm`, and `https://lifeseos-*.vercel.app/auth/callback`.
+- [ ] **Cloudflare Turnstile**: hostnames `www.lifeseos.com` and `lifeseos-*.vercel.app`.
+- [ ] **Vercel Production env**: confirm `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and
+      `TURNSTILE_SECRET_KEY` exist for Production, not only Preview. Without the
+      secret, production sign-up returns 503 by design.
 
-## Commit 7 — docs + template
-docs/auth.md, docs/baidu.md, docs/email-templates/confirm-signup.html,
-app/api/baidu-push/ (kept, submissions disabled)
+### Should do
 
-## Before committing
-- [ ] .env.local untouched and gitignored
-- [ ] no key, token or secret in any diff (`git diff | grep -iE "secret|token|key"` review)
-- [ ] messages parity: `node scripts/build-messages.mjs`
-- [ ] tsc + eslint clean
+- [ ] Custom SMTP + SPF/DKIM/DMARC (see `docs/external-blockers.md`).
+- [ ] Raise Supabase email rate limit above the default before any launch spike.
+- [ ] Optional: set `AUTH_VERIFY_SECRET`; otherwise the ticket is signed with
+      `SUPABASE_SECRET_KEY`, which works but couples two concerns.
+
+### Verify after deploy
+
+- [ ] Register with a real address → confirmation email arrives.
+- [ ] Open the link **on a phone** → success animation, then dashboard.
+- [ ] Open the same link again → dashboard, no animation (replay rejected).
+- [ ] Sign in as an unconfirmed account → redirected to `/auth/verify`, no dashboard.
+- [ ] `/dashboard` while signed out → login.
+- [ ] Arabic `/ar` → RTL layout intact.
+- [ ] One tool from each category → works.
+
+## Rollback
+
+`git checkout main && git reset --hard add3c73` is unnecessary — production still runs
+`add3c73`. If the release misbehaves, redeploy the previous production deployment from
+the Vercel dashboard; no data migration is involved and no users are altered.
