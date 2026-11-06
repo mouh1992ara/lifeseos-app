@@ -3592,7 +3592,12 @@
       "strengthHint": "Utilisez 8 caractères ou plus, avec un chiffre et un symbole.",
       "terms": "J’accepte les <terms>conditions d’utilisation</terms> et la <privacy>politique de confidentialité</privacy>.",
       "termsRequired": "Veuillez accepter les conditions d’utilisation et la politique de confidentialité.",
-      "errorExists": "Un compte existe déjà avec cet e-mail. Essayez de vous connecter."
+      "errorExists": "Un compte existe déjà avec cet e-mail. Essayez de vous connecter.",
+      "errorEmail": "Saisissez une adresse e-mail valide.",
+      "errorName": "Saisissez votre nom (2 caractères minimum).",
+      "captchaRequired": "Veuillez compléter la vérification ci-dessous.",
+      "captchaFailed": "La vérification a échoué. Réessayez.",
+      "captchaUnavailable": "L’inscription est momentanément indisponible le temps de finaliser une vérification de sécurité. Réessayez dans un instant."
     },
     "forgot": {
       "title": "Réinitialiser votre mot de passe",
@@ -3633,9 +3638,16 @@
       "body": "Votre inscription a bien été enregistrée. Veuillez vérifier votre adresse e-mail pour confirmer votre compte avant de vous connecter."
     },
     "error": {
-      "title": "Désolé, une erreur s’est produite.",
-      "codeError": "Code d’erreur : {code}",
-      "fallback": "Une erreur non spécifiée s’est produite."
+      "title": "Ce lien n’a pas fonctionné",
+      "expired": "Ce lien de vérification a expiré. Demandez-en un nouveau, il arrive en une minute.",
+      "invalid": "Ce lien de vérification n’est plus valide — il a peut-être déjà servi, ou été remplacé par un e-mail plus récent.",
+      "missing": "Le lien est incomplet. Ouvrez le dernier e-mail envoyé et utilisez le bouton qu’il contient.",
+      "fallback": "Nous n’avons pas pu vérifier ce lien.",
+      "resend": "Envoyer un nouveau lien",
+      "backToSignUp": "Retour à l’inscription",
+      "backToLogin": "Aller à la connexion",
+      "hint": "Déjà confirmé ? La connexion vous mènera directement à votre tableau de bord.",
+      "crossDevice": "Ce lien a été ouvert dans un autre navigateur ou appareil que celui de votre inscription. Ouvrez-le sur cet appareil, ou connectez-vous ici et utilisez « Renvoyer l’e-mail » pour recevoir un nouveau lien."
     },
     "greeting": "Bonjour, {email} !",
     "logout": "Se déconnecter",
@@ -3644,23 +3656,31 @@
       "signUp": "S’inscrire"
     },
     "verify": {
-      "title": "Vérifiez votre boîte de réception",
-      "body": "Nous avons envoyé un lien de vérification à {email}. Ouvrez-le pour confirmer votre compte.",
-      "spam": "Cela peut prendre une minute. Pensez à vérifier vos courriers indésirables.",
+      "title": "Vérifiez votre e-mail",
+      "checkInbox": "Consultez votre boîte de réception",
+      "sentTo": "Nous avons envoyé un lien de vérification à <mail>{email}</mail>. Ouvrez-le pour confirmer votre compte.",
+      "otpBody": "Saisissez le code envoyé à <mail>{email}</mail>.",
+      "codeLabel": "Code de vérification",
+      "verify": "Vérifier l’e-mail",
+      "verifying": "Vérification…",
       "resend": "Renvoyer l’e-mail",
       "resending": "Envoi…",
       "resent": "E-mail de vérification renvoyé.",
-      "resendError": "L’e-mail n’a pas pu être envoyé. Réessayez dans une minute.",
-      "resendCooldown": "Patientez {seconds} s avant de renvoyer.",
-      "check": "Vérifier le statut",
-      "checking": "Vérification…",
-      "statusLabel": "Statut de vérification",
-      "verified": "Adresse e-mail vérifiée.",
-      "pending": "Pas encore vérifié — ouvrez d’abord le lien reçu par e-mail.",
-      "checkError": "Impossible de lire votre statut. Connectez-vous puis réessayez.",
-      "noEmail": "Nous n’avons pas d’adresse à vérifier. Recréez votre compte.",
-      "signIn": "Aller à la connexion",
-      "backHome": "Retour à l’accueil"
+      "resendIn": "Renvoyer dans {seconds} s",
+      "spam": "Cela peut prendre une minute. Vérifiez vos spams si rien n’arrive.",
+      "wrongEmail": "Mauvaise adresse ?",
+      "changeEmail": "Utiliser une autre adresse",
+      "backToSignUp": "Retour à l’inscription",
+      "noEmail": "Aucune vérification en attente ici. Si vous avez déjà confirmé votre e-mail, connectez-vous — sinon, créez un compte.",
+      "successTitle": "E-mail vérifié",
+      "successBody": "Votre compte est actif. Redirection vers votre tableau de bord…",
+      "successFootnote": "Vous pouvez fermer l’autre onglet s’il est encore ouvert.",
+      "errorInvalid": "Ce code est incorrect. Vérifiez l’e-mail et réessayez.",
+      "errorExpired": "Ce code a expiré. Demandez-en un nouveau.",
+      "errorRate": "Trop de tentatives. Patientez quelques minutes.",
+      "errorGeneric": "Une erreur est survenue. Réessayez.",
+      "nothingPending": "Votre e-mail est déjà confirmé — il ne reste rien à vérifier.",
+      "goToDashboard": "Aller au tableau de bord"
     },
     "gate": {
       "title": "Libérez votre potentiel SEO",
@@ -3696,6 +3716,13 @@
       "freeBody": "Créez votre compte maintenant et commencez avec les outils gratuits.",
       "back": "Retour à LifeSeos",
       "legal": "En continuant, vous acceptez les conditions d’utilisation et la politique de confidentialité."
+    },
+    "verified": {
+      "heading": "E-mail vérifié",
+      "title": "C’est confirmé",
+      "body": "Votre adresse e-mail est confirmée et votre espace est prêt.",
+      "footnote": "Connexion automatique en cours.",
+      "continue": "Aller au tableau de bord"
     }
   },
   "Dashboard": {
@@ -3829,7 +3856,19 @@
       "flat": "aucun changement",
       "sampleBadge": "Données de démonstration",
       "sampleNote": "Vous avez moins de deux audits : le graphique montre donc une série illustrative. Lancez un audit pour la remplacer par vos résultats.",
-      "footnote": "Les scores sont agrégés par jour en UTC. Un jour sans audit apparaît comme une absence, pas comme un zéro."
+      "footnote": "Les scores sont agrégés par jour en UTC. Un jour sans audit apparaît comme une absence, pas comme un zéro.",
+      "emptyTitle": "Aucun audit pour l’instant",
+      "emptyBody": "Votre courbe de score apparaîtra après votre première analyse. En attendant, ce panneau reste vide plutôt que d’afficher des chiffres fictifs."
+    },
+    "sites": {
+      "eyebrow": "Vos sites",
+      "title": "Projets suivis",
+      "subtitle": "Chaque analyse enregistrée, regroupée par site, pour rouvrir le dernier rapport ou comparer les scores dans le temps.",
+      "audits": "Analyses",
+      "avg": "Moyenne",
+      "best": "Meilleur",
+      "last": "Dernière analyse {date}",
+      "open": "Ouvrir le dernier rapport"
     }
   },
   "Admin": {

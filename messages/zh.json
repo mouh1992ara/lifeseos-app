@@ -3592,7 +3592,12 @@
       "strengthHint": "使用至少 8 个字符，并包含数字与符号。",
       "terms": "我已阅读并同意<terms>服务条款</terms>与<privacy>隐私政策</privacy>。",
       "termsRequired": "请先同意服务条款与隐私政策。",
-      "errorExists": "该邮箱已注册，请直接登录。"
+      "errorExists": "该邮箱已注册，请直接登录。",
+      "errorEmail": "请输入有效的邮箱地址。",
+      "errorName": "请输入姓名（至少 2 个字符）。",
+      "captchaRequired": "请先完成下方的人机验证。",
+      "captchaFailed": "人机验证未通过，请重试。",
+      "captchaUnavailable": "注册暂时不可用，我们正在完成一项安全校验，请稍后再试。"
     },
     "forgot": {
       "title": "重置密码",
@@ -3633,9 +3638,16 @@
       "body": "注册成功。登录前请先查收邮件并确认你的账户。"
     },
     "error": {
-      "title": "抱歉，出现了一些问题。",
-      "codeError": "错误代码：{code}",
-      "fallback": "发生了未指明的错误。"
+      "title": "这个链接无法使用",
+      "expired": "验证链接已过期，请重新获取，一分钟内即可收到。",
+      "invalid": "该验证链接已失效——可能已经使用过，或被更新的邮件替代。",
+      "missing": "链接不完整，请打开我们最近发送的邮件并使用其中的按钮。",
+      "fallback": "无法验证该链接。",
+      "resend": "重新发送链接",
+      "backToSignUp": "返回注册",
+      "backToLogin": "前往登录",
+      "hint": "已经确认过？直接登录即可进入工作台。",
+      "crossDevice": "该链接是在与注册时不同的浏览器或设备上打开的。请在注册时使用的设备上打开，或在此登录后点击“重新发送邮件”获取新链接。"
     },
     "greeting": "你好，{email}！",
     "logout": "退出登录",
@@ -3644,23 +3656,31 @@
       "signUp": "注册"
     },
     "verify": {
-      "title": "请查收邮件",
-      "body": "我们已向 {email} 发送验证链接，打开即可确认账号。",
-      "spam": "可能需要一分钟，若未收到请检查垃圾邮件文件夹。",
+      "title": "验证你的邮箱",
+      "checkInbox": "请查收邮件",
+      "sentTo": "我们已向 <mail>{email}</mail> 发送验证链接，打开即可确认账户。",
+      "otpBody": "请输入发送至 <mail>{email}</mail> 的验证码。",
+      "codeLabel": "验证码",
+      "verify": "验证邮箱",
+      "verifying": "验证中…",
       "resend": "重新发送邮件",
       "resending": "发送中…",
       "resent": "验证邮件已重新发送。",
-      "resendError": "暂时无法发送邮件，请稍后再试。",
-      "resendCooldown": "请等待 {seconds} 秒后再发送。",
-      "check": "检查验证状态",
-      "checking": "检查中…",
-      "statusLabel": "验证状态",
-      "verified": "邮箱已验证。",
-      "pending": "尚未验证——请先打开邮件中的链接。",
-      "checkError": "无法读取验证状态，请登录后重试。",
-      "noEmail": "没有可验证的邮箱地址，请重新注册。",
-      "signIn": "前往登录",
-      "backHome": "返回首页"
+      "resendIn": "{seconds} 秒后可重发",
+      "spam": "可能需要一分钟。若未收到，请检查垃圾邮件文件夹。",
+      "wrongEmail": "地址填错了？",
+      "changeEmail": "换一个邮箱",
+      "backToSignUp": "返回注册",
+      "noEmail": "这里没有待验证的邮箱。如果已经确认过邮箱，直接登录即可；否则请先注册。",
+      "successTitle": "邮箱已验证",
+      "successBody": "账户已激活，正在进入你的工作台…",
+      "successFootnote": "如果还有另一个标签页，可以关闭了。",
+      "errorInvalid": "验证码不正确，请核对邮件后重试。",
+      "errorExpired": "验证码已过期，请重新获取。",
+      "errorRate": "尝试次数过多，请稍后再试。",
+      "errorGeneric": "出现错误，请重试。",
+      "nothingPending": "你的邮箱已验证，无需再次确认。",
+      "goToDashboard": "前往工作台"
     },
     "gate": {
       "title": "释放你的 SEO 增长潜力",
@@ -3696,6 +3716,13 @@
       "freeBody": "现在创建账号，立刻用上免费工具。",
       "back": "返回 LifeSeos",
       "legal": "继续即表示你同意服务条款与隐私政策。"
+    },
+    "verified": {
+      "heading": "邮箱已验证",
+      "title": "验证完成",
+      "body": "邮箱地址已确认，你的工作台已就绪。",
+      "footnote": "正在为你自动登录。",
+      "continue": "前往工作台"
     }
   },
   "Dashboard": {
@@ -3829,7 +3856,19 @@
       "flat": "无变化",
       "sampleBadge": "示例数据",
       "sampleNote": "你的审计记录少于两条，图表暂用示例曲线展示。运行一次审计后即替换为你的真实结果。",
-      "footnote": "评分按 UTC 以天聚合。当天没有审计会留空，而不是记为 0。"
+      "footnote": "评分按 UTC 以天聚合。当天没有审计会留空，而不是记为 0。",
+      "emptyTitle": "还没有分析记录",
+      "emptyBody": "完成第一次分析后，这里会显示评分趋势。在此之前，面板保持为空，而不是展示示意数字。"
+    },
+    "sites": {
+      "eyebrow": "你的网站",
+      "title": "正在跟踪的项目",
+      "subtitle": "按网站汇总每一次已保存的分析，方便重新打开最新报告或对比历史得分。",
+      "audits": "分析次数",
+      "avg": "平均分",
+      "best": "最高分",
+      "last": "最后分析 {date}",
+      "open": "打开最新报告"
     }
   },
   "Admin": {

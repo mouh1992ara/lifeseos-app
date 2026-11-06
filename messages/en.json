@@ -3592,7 +3592,12 @@
       "strengthHint": "Use 8 or more characters, with a number and a symbol.",
       "terms": "I agree to the <terms>Terms of Service</terms> and the <privacy>Privacy Policy</privacy>.",
       "termsRequired": "Please accept the Terms of Service and Privacy Policy.",
-      "errorExists": "An account with this email already exists. Try signing in instead."
+      "errorExists": "An account with this email already exists. Try signing in instead.",
+      "errorEmail": "Enter a valid email address.",
+      "errorName": "Enter your name (at least 2 characters).",
+      "captchaRequired": "Please complete the quick verification below.",
+      "captchaFailed": "Verification failed. Please try again.",
+      "captchaUnavailable": "Registration is temporarily unavailable while we finish a security check. Please try again shortly."
     },
     "forgot": {
       "title": "Reset Your Password",
@@ -3633,9 +3638,16 @@
       "body": "You’ve successfully signed up. Please check your email to confirm your account before signing in."
     },
     "error": {
-      "title": "Sorry, something went wrong.",
-      "codeError": "Code error: {code}",
-      "fallback": "An unspecified error occurred."
+      "title": "That link didn’t work",
+      "expired": "This verification link has expired. Request a new one and it will arrive in a minute.",
+      "invalid": "This verification link is no longer valid — it may have been used already, or replaced by a newer email.",
+      "missing": "The link is incomplete. Open the most recent email we sent and use the button inside it.",
+      "fallback": "We could not verify that link.",
+      "resend": "Send a new link",
+      "backToSignUp": "Back to sign up",
+      "backToLogin": "Go to sign in",
+      "hint": "Already confirmed? Signing in will take you straight to your dashboard.",
+      "crossDevice": "This link was opened in a different browser or device than the one you signed up on. Open it on that device, or sign in here and use “Resend email” to get a fresh link."
     },
     "greeting": "Hey, {email}!",
     "logout": "Logout",
@@ -3644,23 +3656,31 @@
       "signUp": "Sign up"
     },
     "verify": {
-      "title": "Check your inbox",
-      "body": "We sent a verification link to {email}. Open it to confirm your account.",
-      "spam": "It can take a minute. Check your spam folder if it does not arrive.",
+      "title": "Verify your email",
+      "checkInbox": "Check your inbox",
+      "sentTo": "We sent a verification link to <mail>{email}</mail>. Open it to confirm your account.",
+      "otpBody": "Enter the code we sent to <mail>{email}</mail>.",
+      "codeLabel": "Verification code",
+      "verify": "Verify email",
+      "verifying": "Verifying…",
       "resend": "Resend email",
       "resending": "Sending…",
       "resent": "Verification email sent again.",
-      "resendError": "The email could not be sent just now. Try again in a minute.",
-      "resendCooldown": "Wait {seconds}s before resending.",
-      "check": "Check status",
-      "checking": "Checking…",
-      "statusLabel": "Verification status",
-      "verified": "Email verified.",
-      "pending": "Not verified yet — open the link in your email first.",
-      "checkError": "Could not read your status. Sign in and try again.",
-      "noEmail": "We do not have an address to verify. Create your account again.",
-      "signIn": "Go to sign in",
-      "backHome": "Back to home"
+      "resendIn": "Resend in {seconds}s",
+      "spam": "It can take a minute. Check your spam folder if it does not arrive.",
+      "wrongEmail": "Wrong address?",
+      "changeEmail": "Use a different email",
+      "backToSignUp": "Back to sign up",
+      "noEmail": "There is no verification waiting here. If you already confirmed your email, sign in — otherwise create an account.",
+      "successTitle": "Email verified",
+      "successBody": "Your account is active. Taking you to your dashboard…",
+      "successFootnote": "You can close the other tab if you still have it open.",
+      "errorInvalid": "That code is not correct. Check the email and try again.",
+      "errorExpired": "That code has expired. Resend a new one.",
+      "errorRate": "Too many attempts. Please wait a few minutes.",
+      "errorGeneric": "Something went wrong. Please try again.",
+      "nothingPending": "Your email is already confirmed — there is nothing left to verify.",
+      "goToDashboard": "Go to dashboard"
     },
     "gate": {
       "title": "Unlock Your SEO Growth Potential",
@@ -3696,6 +3716,13 @@
       "freeBody": "Create the account now and start with the free tools immediately.",
       "back": "Back to LifeSeos",
       "legal": "By continuing you agree to the Terms of Service and Privacy Policy."
+    },
+    "verified": {
+      "heading": "Email verified",
+      "title": "You're verified",
+      "body": "Your email address is confirmed and your workspace is ready.",
+      "footnote": "Signing you in automatically.",
+      "continue": "Go to dashboard"
     }
   },
   "Dashboard": {
@@ -3829,7 +3856,19 @@
       "flat": "no change",
       "sampleBadge": "Sample data",
       "sampleNote": "You have fewer than two audits, so this chart shows an illustrative series. Run an audit and it is replaced with your own results.",
-      "footnote": "Scores are aggregated per day in UTC. A day with no audit is left as a gap rather than a zero."
+      "footnote": "Scores are aggregated per day in UTC. A day with no audit is left as a gap rather than a zero.",
+      "emptyTitle": "No audits yet",
+      "emptyBody": "Your score trend appears here after your first analysis. Until then, this panel stays empty rather than showing illustrative numbers."
+    },
+    "sites": {
+      "eyebrow": "Your websites",
+      "title": "Projects you are tracking",
+      "subtitle": "Every saved analysis, grouped by website, so you can reopen the latest report or compare scores over time.",
+      "audits": "Analyses",
+      "avg": "Average",
+      "best": "Best",
+      "last": "Last analysis {date}",
+      "open": "Open latest report"
     }
   },
   "Admin": {
