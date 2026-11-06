@@ -1,13 +1,13 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { AlertCircle, ArrowRight, Check, Loader2 } from "lucide-react";
 
 import PasswordField from "@/components/password-field";
+import { Turnstile, turnstileEnabled } from "@/components/turnstile";
 import { Link } from "@/i18n/navigation";
-import { createClient } from "@/lib/supabase/client";
 
 /** 0–4, and the reasons behind it, so the hint can be specific. */
 export function scorePassword(value: string) {
@@ -26,6 +26,7 @@ export function SignUpForm({ className = "" }: { className?: string }) {
   const t = useTranslations("Auth.signUp");
   const tc = useTranslations("Auth.common");
   const router = useRouter();
+  const locale = useLocale();
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,10 +35,38 @@ export function SignUpForm({ className = "" }: { className?: string }) {
   const [terms, setTerms] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaReset, setCaptchaReset] = useState(0);
+  /* "blocked" means the server refuses registration because the captcha it
+     requires is not configured. We say so up front instead of letting someone
+     fill in the form and fail at the end. */
+  const [blocked, setBlocked] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/auth/sign-up")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { captcha?: string; captchaRequired?: boolean } | null) => {
+        if (cancelled || !d) return;
+        setBlocked(
+          d.captcha === "unconfigured" ||
+            d.captcha === "widget-missing" ||
+            (Boolean(d.captchaRequired) && d.captcha !== "ready"),
+        );
+      })
+      .catch(() => {
+        /* Probe failure is not proof of a blocker; submit will report it. */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const strength = useMemo(() => scorePassword(password), [password]);
   const mismatch = repeat.length > 0 && repeat !== password;
   const strongEnough = password.length >= 8;
+
+  const onToken = useCallback((token: string | null) => setCaptchaToken(token), []);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,46 +84,58 @@ export function SignUpForm({ className = "" }: { className?: string }) {
       setError(t("termsRequired"));
       return;
     }
+    if (blocked) {
+      setError(t("captchaUnavailable"));
+      return;
+    }
+    if (turnstileEnabled && !captchaToken) {
+      setError(t("captchaRequired"));
+      return;
+    }
 
-    const supabase = createClient();
     setIsLoading(true);
 
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          /* Stored on the auth user, so the dashboard can greet them by name.
-             This is real metadata on the Supabase user record, not a local
-             cache. */
-          data: { full_name: fullName.trim() },
-          emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
-        },
+      /* Registration goes through our own route so Turnstile can be verified
+         server-side and the per-IP budget applied. It never creates a session:
+         the address must be confirmed first. */
+      const res = await fetch("/api/auth/sign-up", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          fullName: fullName.trim(),
+          email,
+          password,
+          turnstileToken: captchaToken ?? "",
+          locale,
+        }),
       });
-      if (error) throw error;
 
-      // Two legitimate outcomes: a session (email confirmation disabled) or a
-      // user with no session (confirmation required). We branch on what the
-      // backend actually returned instead of assuming.
-      if (data.session) {
-        router.push("/dashboard");
-        router.refresh();
+      const data = (await res.json().catch(() => ({}))) as { error?: string };
+
+      if (res.ok) {
+        router.push(`/auth/verify?email=${encodeURIComponent(email)}`);
         return;
       }
 
-      router.push(`/auth/verify?email=${encodeURIComponent(email)}`);
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "";
-      const m = message.toLowerCase();
-      setError(
-        m.includes("already registered") || m.includes("already exists")
-          ? t("errorExists")
-          : m.includes("rate limit") || m.includes("too many")
-            ? tc("tooMany")
-            : m.includes("password")
-              ? t("strengthHint")
-              : message || t("errorFallback"),
-      );
+      if (data.error === "rate_limited") setError(tc("tooMany"));
+      else if (data.error === "invalid_email") setError(t("errorEmail"));
+      else if (data.error === "weak_password") setError(t("strengthHint"));
+      else if (data.error === "invalid_name") setError(t("errorName"));
+      else if (data.error === "captcha_failed") setError(t("captchaFailed"));
+      else if (
+        data.error === "captcha_unconfigured" ||
+        data.error === "captcha_unavailable"
+      ) {
+        setBlocked(true);
+        setError(t("captchaUnavailable"));
+      }
+      else setError(t("errorFallback"));
+
+      setCaptchaToken(null);
+      setCaptchaReset((n) => n + 1);
+    } catch {
+      setError(tc("network"));
     } finally {
       setIsLoading(false);
     }
@@ -236,7 +277,22 @@ export function SignUpForm({ className = "" }: { className?: string }) {
           </div>
         ) : null}
 
-        <button type="submit" disabled={isLoading} className="btn-primary mt-1 h-11 w-full text-sm">
+        {blocked ? (
+          <p
+            className="rounded-xl border border-amber-400/25 bg-amber-400/[0.07] px-3 py-2.5 text-[12px] leading-5 text-amber-200"
+            role="status"
+          >
+            {t("captchaUnavailable")}
+          </p>
+        ) : (
+          <Turnstile onToken={onToken} resetSignal={captchaReset} />
+        )}
+
+        <button
+          type="submit"
+          disabled={isLoading || blocked || (turnstileEnabled && !captchaToken)}
+          className="btn-primary mt-1 h-11 w-full text-sm"
+        >
           {isLoading ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />

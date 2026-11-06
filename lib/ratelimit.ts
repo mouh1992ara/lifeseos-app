@@ -47,6 +47,7 @@ let analyzeLimiter: Ratelimit | null | undefined;
 let contactLimiter: Ratelimit | null | undefined;
 let statusLimiter: Ratelimit | null | undefined;
 let pageSpeedLimiter: Ratelimit | null | undefined;
+let baiduLimiter: Ratelimit | null | undefined;
 
 /** `null` means Redis is unavailable; callers should skip limiting. */
 export function getAnalyzeRatelimit(): Ratelimit | null {
@@ -72,9 +73,49 @@ export function getPageSpeedRatelimit(): Ratelimit | null {
   return pageSpeedLimiter;
 }
 
+/** Baidu accepts limited daily quota, so submissions are throttled per IP. */
+export function getBaiduRatelimit(): Ratelimit | null {
+  if (baiduLimiter === undefined) {
+    baiduLimiter = makeLimiter(20, "1 h", "lifeseos:baidu-push");
+  }
+  return baiduLimiter;
+}
+
 export function getContactRatelimit(): Ratelimit | null {
   if (contactLimiter === undefined) {
     contactLimiter = makeLimiter(5, "10 m", "lifeseos:contact");
   }
   return contactLimiter;
+}
+
+let signupLimiter: Ratelimit | null | undefined;
+let resendLimiter: Ratelimit | null | undefined;
+let verifyLimiter: Ratelimit | null | undefined;
+
+/**
+ * Registration: 5 accounts per IP per hour. Deliberately generous for shared
+ * connections (offices, universities, mobile carriers) while still stopping a
+ * scripted flood, and it is only one layer — Turnstile sits in front of it.
+ */
+export function getSignupRatelimit(): Ratelimit | null {
+  if (signupLimiter === undefined) {
+    signupLimiter = makeLimiter(5, "1 h", "lifeseos:auth-signup");
+  }
+  return signupLimiter;
+}
+
+/** Verification email resend: 3 per 10 minutes per IP, on top of the 60s UI cooldown. */
+export function getResendRatelimit(): Ratelimit | null {
+  if (resendLimiter === undefined) {
+    resendLimiter = makeLimiter(3, "10 m", "lifeseos:auth-resend");
+  }
+  return resendLimiter;
+}
+
+/** Code checks: brute-forcing a 6-digit code is cheap for the attacker, so cap attempts. */
+export function getVerifyRatelimit(): Ratelimit | null {
+  if (verifyLimiter === undefined) {
+    verifyLimiter = makeLimiter(10, "10 m", "lifeseos:auth-verify");
+  }
+  return verifyLimiter;
 }

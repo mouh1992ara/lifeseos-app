@@ -9,6 +9,7 @@ import PasswordField from "@/components/password-field";
 import { Link } from "@/i18n/navigation";
 import { REMEMBER_KEY } from "@/components/session-policy";
 import { createClient } from "@/lib/supabase/client";
+import { safePath } from "@/lib/safe-redirect";
 
 /** Supabase's messages are developer-facing; map the ones users hit. */
 function readableError(message: string, fallback: string, t: (k: string) => string) {
@@ -63,10 +64,25 @@ export function LoginForm({ className = "" }: { className?: string }) {
         /* storage blocked — the login itself must still work */
       }
 
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      const { data: signIn, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
 
-      router.push(nextPath && nextPath.startsWith("/") ? nextPath : "/dashboard");
+      /* A password is not proof of mailbox ownership, and Supabase is only
+         configured to block unconfirmed accounts — which is a project setting,
+         not a guarantee. Treat the confirmed flag as authoritative here too:
+         an unverified session is discarded rather than handed a dashboard. */
+      const confirmed = Boolean(
+        signIn.user?.email_confirmed_at ?? signIn.user?.confirmed_at,
+      );
+
+      if (!confirmed) {
+        await supabase.auth.signOut();
+        setUnconfirmed(true);
+        router.push(`/auth/verify?email=${encodeURIComponent(email)}&reason=unverified`);
+        return;
+      }
+
+      router.push(safePath(nextPath, "/dashboard"));
       router.refresh();
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "";

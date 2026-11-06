@@ -1,8 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
-import { redirect, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Link } from "@/i18n/navigation";
+import { requireVerifiedUser } from "@/lib/auth-guard";
 
 export const dynamic = "force-dynamic";
 
@@ -53,13 +54,8 @@ export default async function SEOReportPage({ params }: Props) {
 
   const supabase = await createClient();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/auth/login");
-  }
+  // Confirmed address required: a saved report is private data.
+  const user = await requireVerifiedUser("/dashboard");
 
   const { data: report, error } = await supabase
     .from("seo_reports")

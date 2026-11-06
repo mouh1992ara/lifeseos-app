@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import LiveVisitors from "@/components/admin/live-visitors";
-import { createClient } from "@/lib/supabase/server";
+import { requireVerifiedUser } from "@/lib/auth-guard";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 
 const ADMIN_TIME_ZONE = "Asia/Shanghai";
@@ -98,15 +98,7 @@ export default async function AdminPage({ params }: Props) {
 
   const t = await getTranslations("Admin");
 
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/auth/login");
-  }
+  const user = await requireVerifiedUser("/admin");
 
   const adminUserId = process.env.ADMIN_USER_ID;
 
