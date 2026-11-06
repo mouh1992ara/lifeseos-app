@@ -54,7 +54,7 @@ export default function LanguageSwitcher({
              margins cancel it out, so the header layout does not move at all. */
           compact
             ? "inline-flex items-center gap-2 px-2 -mx-2 py-[14px] -my-[14px] text-slate-300 transition hover:text-white"
-            : "inline-flex items-center gap-2 rounded-xl border border-white/[0.07] bg-white/[0.03] px-2.5 py-2 text-sm text-slate-300 transition hover:border-white/15 hover:bg-white/[0.06] hover:text-white aria-expanded:border-emerald-400/30 aria-expanded:bg-emerald-400/[0.08] aria-expanded:text-white"
+            : "lg-rail inline-flex items-center gap-2 !rounded-full px-3 py-2 text-sm text-slate-300 transition hover:text-white aria-expanded:text-white [&[aria-expanded=true]]:border-emerald-400/35"
         }
       >
         {compact ? (
@@ -81,7 +81,7 @@ export default function LanguageSwitcher({
         <div
           role="menu"
           aria-label={t("label")}
-          className="lang-panel absolute end-0 top-full z-50 mt-2 w-64 origin-top overflow-hidden rounded-2xl border border-white/10 bg-slate-950/95 p-1.5 shadow-2xl shadow-black/60 backdrop-blur-xl"
+          className="lang-panel lg-menu absolute end-0 top-full z-50 mt-2 w-64 origin-top overflow-hidden p-1.5"
         >
           <p className="px-3 pb-1.5 pt-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">
             {t("label")}

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, Info, Minus, TrendingDown, TrendingUp } from "lucide-react";
 
+import { GlassRail, lgItem } from "@/components/glass/glass-rail";
 import type { Bucket } from "@/lib/dashboard-analytics";
 
 type RangeKey = "24h" | "7d" | "28d" | "90d";
@@ -334,24 +335,28 @@ export default function PerformanceAnalytics({
         </div>
 
         <div className="flex items-center gap-2">
-          <div
-            className="dash-seg"
-            role="group"
-            aria-label={labels.rangeLabel}
+          {/* Same rail primitive as the header: one sliding indicator instead of
+              four independently-highlighted buttons. A range switcher is a
+              selection, and a single moving pill communicates that better than a
+              per-button background does. */}
+          <GlassRail
+            size="sm"
+            className="dash-glass-rail"
+            activeIndex={RANGES.findIndex((r) => r.key === range)}
           >
-            {RANGES.map((r) => (
+            {RANGES.map((r, index) => (
               <button
                 key={r.key}
                 type="button"
                 onClick={() => setRange(r.key)}
                 aria-pressed={range === r.key}
                 data-range={r.key}
-                className="dash-seg-btn"
+                {...lgItem(index, range === r.key, "dash-seg-btn")}
               >
                 {labels.ranges[r.key]}
               </button>
             ))}
-          </div>
+          </GlassRail>
 
           <a href={labels.ctaHref} className="btn-primary h-9 px-4 text-[13px]">
             {labels.cta}

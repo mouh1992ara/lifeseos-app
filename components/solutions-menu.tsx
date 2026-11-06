@@ -23,10 +23,10 @@ const sheetTriggerClass =
   "inline-flex items-center gap-1 text-xs text-slate-300 hover:text-white";
 
 const dropdownPanelClass =
-  "absolute start-1/2 top-full z-50 mt-3 w-[22rem] -translate-x-1/2 rounded-2xl border border-white/10 bg-slate-950/95 p-2 shadow-2xl shadow-black/40 backdrop-blur-xl rtl:translate-x-1/2";
+  "lg-menu absolute start-1/2 top-full z-50 mt-3 w-[22rem] -translate-x-1/2 p-2 rtl:translate-x-1/2";
 // The sheet spans the whole width of the nearest positioned parent (the mobile bar).
 const sheetPanelClass =
-  "absolute inset-x-0 top-full z-50 mt-2 rounded-2xl border border-white/10 bg-slate-950 p-2 shadow-2xl shadow-black/40";
+  "lg-menu absolute inset-x-0 top-full z-50 mt-2 p-2";
 
 type SolutionsMenuProps = {
   label?: string;
@@ -37,6 +37,8 @@ type SolutionsMenuProps = {
   variant?: "dropdown" | "sheet";
   /** Pass the same classes your other header links use so the trigger matches them. */
   className?: string;
+  /** Extra data attributes for the glass rail's indicator measurement. */
+  itemProps?: Record<string, string>;
 };
 
 /**
@@ -48,6 +50,7 @@ export function SolutionsMenu({
   label,
   variant = "dropdown",
   className,
+  itemProps,
 }: SolutionsMenuProps) {
   const t = useTranslations("Solutions");
   const [open, setOpen] = useState(false);
@@ -85,6 +88,7 @@ export function SolutionsMenu({
         aria-controls={panelId}
         onClick={() => setOpen((value) => !value)}
         className={className ?? (isSheet ? sheetTriggerClass : dropdownTriggerClass)}
+        {...itemProps}
       >
         {label ?? t("label")}
         <ChevronDown
@@ -113,7 +117,7 @@ export function SolutionsMenu({
                   aria-current={active ? "page" : undefined}
                   className={
                     "flex items-start gap-3 rounded-xl p-3 text-start transition hover:bg-white/[0.06] " +
-                    (active ? "bg-white/[0.04]" : "")
+                    (active ? "lg-inner" : "")
                   }
                 >
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-400/10 text-emerald-300">

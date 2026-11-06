@@ -29,6 +29,7 @@ import { createClient } from "@/lib/supabase/server";
 import PageVisitTracker from "../page-visit-tracker";
 import "../globals.css";
 import "../i18n.css";
+import "../liquid-glass.css";
 
 const arabic = Noto_Sans_Arabic({
   subsets: ["arabic"],
