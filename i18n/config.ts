@@ -74,7 +74,12 @@ export function isLocale(value: unknown): value is Locale {
 /** `/path` for a locale, applying the as-needed prefix rule. */
 export function localizePath(locale: Locale, path: string): string {
   const clean = path.startsWith("/") ? path : `/${path}`;
-  return locale === defaultLocale ? clean : `/${locale}${clean}`;
+  if (locale === defaultLocale) return clean;
+  // The router serves the locale root without a trailing slash and answers
+  // "/fr/" with a 308 to "/fr". Emitting "/fr/" in canonicals, hreflang and the
+  // sitemap pointed every crawler at a redirect, so the root is collapsed here.
+  if (clean === "/") return `/${locale}`;
+  return `/${locale}${clean}`;
 }
 
 /**

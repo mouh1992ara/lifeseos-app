@@ -34,6 +34,9 @@ const arabic = Noto_Sans_Arabic({
   subsets: ["arabic"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
+  // NotoSansArabic is ~160 KB. It is only used by the Arabic locale, so preloading
+  // it shipped that weight to en/fr/zh visitors as well; it now loads on demand.
+  preload: false,
   variable: "--font-ar",
 });
 
@@ -111,7 +114,15 @@ export async function generateMetadata({
         "max-video-preview": -1,
       },
     },
-    verification: { other: { "baidu-site-verification": "codeva-GvjC1XoP41" } },
+    // Baidu Search Resource Platform ownership check for www.lifeseos.com.
+    // The code can be replaced through NEXT_PUBLIC_BAIDU_VERIFY without a code
+    // change when the property is re-verified.
+    verification: {
+      other: {
+        "baidu-site-verification":
+          process.env.NEXT_PUBLIC_BAIDU_VERIFY?.trim() || "codeva-GvjC1XoP41",
+      },
+    },
   };
 }
 

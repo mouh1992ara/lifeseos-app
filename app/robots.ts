@@ -11,18 +11,21 @@ const localePrefixes = ["/ar", "/fr", "/zh"];
 export default function robots(): MetadataRoute.Robots {
   const both = (p: string) => [p, `${p}/`];
 
+  const disallow = [
+    ...privatePaths.flatMap(both),
+    ...both("/api"),
+    ...localePrefixes.flatMap((l) =>
+      privatePaths.flatMap((p) => both(`${l}${p}`)),
+    ),
+  ];
+
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: [
-        ...privatePaths.flatMap(both),
-        ...both("/api"),
-        ...localePrefixes.flatMap((l) =>
-          privatePaths.flatMap((p) => both(`${l}${p}`)),
-        ),
-      ],
-    },
+    // Baidu is stated explicitly: an inherited "*" rule works, but an explicit
+    // block documents the intent and survives future edits to the wildcard rule.
+    rules: [
+      { userAgent: "Baiduspider", allow: "/", disallow },
+      { userAgent: "*", allow: "/", disallow },
+    ],
     sitemap: `${baseUrl}/sitemap.xml`,
   };
 }
