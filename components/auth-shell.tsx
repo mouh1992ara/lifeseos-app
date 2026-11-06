@@ -90,7 +90,7 @@ export default async function AuthShell({
               </Link>
             </div>
 
-            <div className="card-surface auth-panel px-6 py-7 sm:px-8 sm:py-9">
+            <div className="lg-surface auth-panel px-6 py-7 sm:px-8 sm:py-9">
               <h1 className="text-2xl font-bold tracking-tight text-white">{heading}</h1>
               {children}
             </div>

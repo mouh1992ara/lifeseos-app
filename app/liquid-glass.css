@@ -381,3 +381,297 @@
   box-shadow: none;
   color: #ecfdf5;
 }
+
+/* ==========================================================================
+   Site-wide extension
+   --------------------------------------------------------------------------
+   The prototype covered navigation only. Everything interactive below is styled
+   through the *existing* shared classes (.btn-primary, .btn-secondary, .field,
+   .category-chip, .tool-card …) rather than by touching 17 tool pages — one
+   definition, every page. Pages keep their markup and their semantics.
+
+   Rule of thumb applied throughout: glass and the crest are for elements with a
+   meaningful active/selected state. Static cards get tint and edge light only,
+   because an animating arch on something you cannot select is decoration lying
+   about affordance.
+   ========================================================================== */
+
+/* ---------------------------- primary buttons ---------------------------- */
+
+/* Kept unmistakably solid. The finish changes, the colour hierarchy does not:
+   a filled emerald button must still be the only filled button on a page. */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(180deg, #4ade9f 0%, var(--brand-emerald, #34d399) 52%, #22c98d 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.42),
+    inset 0 -1px 0 rgb(6 40 28 / 0.25),
+    0 10px 30px -14px rgb(52 211 153 / 0.7);
+  transition:
+    translate 180ms var(--lg-ease),
+    box-shadow 260ms var(--lg-ease),
+    filter 180ms var(--lg-ease);
+}
+
+/* The internal reflection: a soft band across the top third, exactly where a
+   glossy surface catches a light source above it. */
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 42%;
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.28), transparent);
+  pointer-events: none;
+}
+
+.btn-primary > * {
+  position: relative;
+}
+
+.btn-primary:hover {
+  background-image: linear-gradient(180deg, #6ee7b7 0%, #3ae0ab 52%, #2ed09a 100%);
+  translate: 0 -1px;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.5),
+    0 16px 40px -14px rgb(52 211 153 / 0.85);
+}
+
+/* Tactile pressed state: it sinks rather than merely stopping its lift. */
+.btn-primary:active {
+  translate: 0 1px;
+  filter: saturate(1.05) brightness(0.97);
+  box-shadow:
+    inset 0 2px 6px rgb(6 40 28 / 0.32),
+    0 4px 12px -8px rgb(52 211 153 / 0.6);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid rgb(167 243 208 / 0.9);
+  outline-offset: 2px;
+}
+
+/* --------------------------- secondary buttons ---------------------------- */
+
+.btn-secondary {
+  border-color: var(--lg-border);
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.075), rgb(255 255 255 / 0.028));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1);
+  transition:
+    border-color 200ms var(--lg-ease),
+    background-color 200ms var(--lg-ease),
+    color 200ms var(--lg-ease),
+    translate 180ms var(--lg-ease),
+    box-shadow 220ms var(--lg-ease);
+}
+
+.btn-secondary:hover {
+  border-color: rgb(255 255 255 / 0.24);
+  translate: 0 -1px;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.16),
+    0 10px 26px -18px rgb(0 0 0 / 0.9);
+}
+
+.btn-secondary:active {
+  translate: 0 1px;
+  box-shadow: inset 0 2px 5px rgb(0 0 0 / 0.35);
+}
+
+.btn-secondary:focus-visible,
+.btn-ghost:focus-visible {
+  outline: 2px solid rgb(var(--lg-emerald) / 0.75);
+  outline-offset: 2px;
+}
+
+/* ------------------------------- form fields ------------------------------ */
+
+.field {
+  border-color: var(--lg-border);
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.045), rgb(2 6 23 / 0.55));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.07);
+  transition:
+    border-color 200ms var(--lg-ease),
+    box-shadow 260ms var(--lg-ease),
+    background-color 200ms var(--lg-ease);
+}
+
+.field:hover {
+  border-color: rgb(255 255 255 / 0.2);
+}
+
+.field:focus,
+.field:focus-visible {
+  border-color: rgb(var(--lg-emerald) / 0.6);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.09),
+    0 0 0 3px rgb(var(--lg-emerald) / 0.14),
+    0 10px 30px -22px rgb(var(--lg-emerald) / 0.8);
+}
+
+/* --------------------------- tools search field --------------------------- */
+
+.tools-search {
+  /* The hero already paints a wash behind it; keep the single blur this field
+     already had and only restyle the edge and the inner light. */
+  border-radius: var(--lg-radius-field);
+  border-color: var(--lg-border);
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(2 6 23 / 0.62));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.09),
+    0 18px 44px -34px rgb(0 0 0 / 0.95);
+  transition:
+    border-color 200ms var(--lg-ease),
+    box-shadow 260ms var(--lg-ease);
+}
+
+.tools-search.is-focused,
+.tools-search:focus-within {
+  border-color: rgb(var(--lg-emerald) / 0.45);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    0 0 0 3px rgb(var(--lg-emerald) / 0.12),
+    0 22px 50px -32px rgb(var(--lg-emerald) / 0.5);
+}
+
+/* ------------------------- category chips (tablist) ----------------------- */
+
+.category-chip {
+  border-color: var(--lg-border);
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.022));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
+  transition:
+    background-color 200ms var(--lg-ease),
+    border-color 200ms var(--lg-ease),
+    color 200ms var(--lg-ease),
+    translate 180ms var(--lg-ease),
+    box-shadow 240ms var(--lg-ease);
+}
+
+.category-chip:hover {
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.04));
+}
+
+.category-chip:focus-visible {
+  outline: 2px solid rgb(var(--lg-emerald) / 0.8);
+  outline-offset: 2px;
+}
+
+/* The active chip keeps its category colour — the colour is information, not
+   decoration, and removing it would flatten six categories into one look. It
+   gains the same top-edge light as a glass pill so it belongs to the family. */
+.category-chip[aria-selected="true"] {
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.3), transparent 58%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.5),
+    0 8px 24px -12px color-mix(in srgb, var(--c, #34d399) 85%, transparent);
+}
+
+.category-chip:active {
+  translate: 0 1px;
+}
+
+/* The sticky filter bar: one tint, no second blur competing with the header. */
+.category-rail {
+  scrollbar-width: none;
+}
+
+.category-rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* ------------------------------- tool cards ------------------------------- */
+
+/* Static surfaces: edge light, a faint inner sheen, and a hover that lifts. No
+   crest — a card has no selected state, so an animated arch would promise an
+   interaction that does not exist. */
+.tool-card {
+  border-color: rgb(255 255 255 / 0.075);
+  background-image: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.045) 0%,
+    rgb(255 255 255 / 0.018) 45%,
+    rgb(2 6 23 / 0.28) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.07),
+    0 20px 46px -38px rgb(0 0 0 / 0.95);
+  transition:
+    transform 420ms var(--lg-ease),
+    border-color 240ms var(--lg-ease),
+    box-shadow 320ms var(--lg-ease);
+}
+
+.tool-card:hover,
+.tool-card:focus-visible {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    0 26px 60px -34px rgb(0 0 0 / 0.92),
+    0 0 44px -24px color-mix(in srgb, var(--accent, #34d399) 95%, transparent);
+}
+
+/* The icon tile gets the same glossy top edge as a primary button, at card
+   scale — it is the card's "physical" object. */
+.tool-card-icon {
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent, #34d399) 26%, transparent),
+    color-mix(in srgb, var(--accent, #34d399) 8%, transparent)
+  );
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.28),
+    inset 0 0 0 1px color-mix(in srgb, var(--accent, #34d399) 22%, transparent);
+}
+
+/* ------------------------------ generic cards ------------------------------ */
+
+.card-surface {
+  border-color: rgb(255 255 255 / 0.075);
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.04), rgb(255 255 255 / 0.015));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.07),
+    0 24px 60px -44px rgb(0 0 0 / 0.95);
+}
+
+/* ---------------------- dashboard filter / nav surfaces -------------------- */
+
+/* Stat tiles and panels get the same edge light as cards, so a dashboard reads
+   as part of the same product rather than a separate admin tool — but they are
+   deliberately NOT `.lg-surface`. Four blurred tiles side by side would cost more
+   GPU than the entire rest of the page for no visible gain; edge light alone is
+   what reads as glass at this scale. */
+.dash-kpi {
+  border-color: rgb(255 255 255 / 0.075);
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.015));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 18px 40px -34px rgb(0 0 0 / 0.95);
+}
+
+/* --------------------------- auth form controls --------------------------- */
+
+/* Auth panels are the first surface a new user meets, so they get the full
+   treatment: one blurred surface, inner fields flat on top of it. */
+.auth-shell-surface {
+  border-color: var(--lg-border);
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.055), rgb(2 6 23 / 0.62));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.1),
+    0 40px 90px -60px rgb(0 0 0 / 0.95);
+}
+
+/* ------------------------------- motion guard ------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary:hover,
+  .btn-primary:active,
+  .btn-secondary:hover,
+  .btn-secondary:active,
+  .category-chip:hover,
+  .category-chip:active,
+  .tool-card {
+    translate: none;
+    transform: none;
+    transition: none;
+  }
+}

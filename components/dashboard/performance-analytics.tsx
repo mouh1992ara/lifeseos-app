@@ -379,7 +379,7 @@ export default function PerformanceAnalytics({
         {kpis.map((kpi) => (
           <article
             key={kpi.key}
-            className="dash-kpi group relative overflow-hidden rounded-2xl border border-white/[0.07] p-4"
+            className="dash-kpi group relative overflow-hidden rounded-2xl p-4"
             style={{ "--c": kpi.color } as React.CSSProperties}
             data-kpi={kpi.key}
           >
