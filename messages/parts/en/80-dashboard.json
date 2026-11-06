@@ -130,7 +130,19 @@
       "flat": "no change",
       "sampleBadge": "Sample data",
       "sampleNote": "You have fewer than two audits, so this chart shows an illustrative series. Run an audit and it is replaced with your own results.",
-      "footnote": "Scores are aggregated per day in UTC. A day with no audit is left as a gap rather than a zero."
+      "footnote": "Scores are aggregated per day in UTC. A day with no audit is left as a gap rather than a zero.",
+      "emptyTitle": "No audits yet",
+      "emptyBody": "Your score trend appears here after your first analysis. Until then, this panel stays empty rather than showing illustrative numbers."
+    },
+    "sites": {
+      "eyebrow": "Your websites",
+      "title": "Projects you are tracking",
+      "subtitle": "Every saved analysis, grouped by website, so you can reopen the latest report or compare scores over time.",
+      "audits": "Analyses",
+      "avg": "Average",
+      "best": "Best",
+      "last": "Last analysis {date}",
+      "open": "Open latest report"
     }
   },
   "Admin": {

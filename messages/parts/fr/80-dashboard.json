@@ -130,7 +130,19 @@
       "flat": "aucun changement",
       "sampleBadge": "Données de démonstration",
       "sampleNote": "Vous avez moins de deux audits : le graphique montre donc une série illustrative. Lancez un audit pour la remplacer par vos résultats.",
-      "footnote": "Les scores sont agrégés par jour en UTC. Un jour sans audit apparaît comme une absence, pas comme un zéro."
+      "footnote": "Les scores sont agrégés par jour en UTC. Un jour sans audit apparaît comme une absence, pas comme un zéro.",
+      "emptyTitle": "Aucun audit pour l’instant",
+      "emptyBody": "Votre courbe de score apparaîtra après votre première analyse. En attendant, ce panneau reste vide plutôt que d’afficher des chiffres fictifs."
+    },
+    "sites": {
+      "eyebrow": "Vos sites",
+      "title": "Projets suivis",
+      "subtitle": "Chaque analyse enregistrée, regroupée par site, pour rouvrir le dernier rapport ou comparer les scores dans le temps.",
+      "audits": "Analyses",
+      "avg": "Moyenne",
+      "best": "Meilleur",
+      "last": "Dernière analyse {date}",
+      "open": "Ouvrir le dernier rapport"
     }
   },
   "Admin": {

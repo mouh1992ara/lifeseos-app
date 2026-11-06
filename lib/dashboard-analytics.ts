@@ -146,3 +146,49 @@ export function sampleBuckets(locale: string): { buckets: Bucket[]; sites: strin
 
   return { buckets, sites };
 }
+
+export type SiteRow = { id: string; url: string; score: number; created_at: string };
+
+export type SiteGroup = {
+  url: string;
+  audits: number;
+  average: number;
+  best: number;
+  latest: SiteRow;
+};
+
+/**
+ * Groups reports per website for the dashboard "projects" cards. Pure function of
+ * the same rows the history table renders, so the two can never disagree.
+ */
+export function groupBySite(rows: readonly SiteRow[], limit = 6): SiteGroup[] {
+  const map = new Map<string, { url: string; audits: number; total: number; best: number; latest: SiteRow }>();
+
+  for (const row of rows) {
+    const score = Number(row.score ?? 0);
+    const current = map.get(row.url);
+
+    if (!current) {
+      map.set(row.url, { url: row.url, audits: 1, total: score, best: score, latest: row });
+      continue;
+    }
+
+    current.audits += 1;
+    current.total += score;
+    current.best = Math.max(current.best, score);
+    if (new Date(row.created_at) > new Date(current.latest.created_at)) {
+      current.latest = row;
+    }
+  }
+
+  return Array.from(map.values())
+    .map((site) => ({
+      url: site.url,
+      audits: site.audits,
+      average: Math.round(site.total / site.audits),
+      best: site.best,
+      latest: site.latest,
+    }))
+    .sort((a, b) => b.audits - a.audits || b.average - a.average)
+    .slice(0, limit);
+}

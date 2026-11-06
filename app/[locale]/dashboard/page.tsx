@@ -1,13 +1,13 @@
 import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Link } from "@/i18n/navigation";
+import { requireVerifiedUser } from "@/lib/auth-guard";
 import PerformanceAnalytics from "@/components/dashboard/performance-analytics";
 import { localizePath } from "@/i18n/config";
 import {
   bucketReports,
-  sampleBuckets,
+  groupBySite,
   topSites,
 } from "@/lib/dashboard-analytics";
 
@@ -28,15 +28,10 @@ export default async function DashboardPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
+  /* Redirects unauthenticated visitors to login and unconfirmed ones to the
+     verification screen — a session alone is not enough. */
+  const user = await requireVerifiedUser("/dashboard");
   const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/auth/login");
-  }
 
   const { data: reports, error } = await supabase
     .from("seo_reports")
@@ -64,17 +59,28 @@ export default async function DashboardPage({ params }: Props) {
       ? Number(latestReport.score ?? 0) - Number(previousReport.score ?? 0)
       : null;
 
-  /* Analytics: real rows only. With fewer than two audits there is nothing to
-     plot, so the dashboard shows an explicitly labelled sample instead of an
-     empty box — never a fabricated number passed off as real. */
+  /* Analytics: real rows only.
+   *
+   * The previous version fell back to a deterministic *sample* series below two
+   * audits. That series sums to 27 audits, so the "Total audits" KPI showed 27
+   * while "Websites analyzed" — computed from the real rows — showed 0. Two KPIs
+   * side by side, one fabricated, one true, with no way to tell which was which.
+   *
+   * A fabricated headline number on a page a user pays attention to is worse than
+   * an empty state. Below two audits the chart now renders its own empty state.
+   */
   const trackedSites = topSites(seoReports, 2);
   const realBuckets = bucketReports(seoReports, trackedSites, locale);
-  const useSample = realBuckets.length < 2;
-  const sample = sampleBuckets(locale);
-  const buckets = useSample ? sample.buckets : realBuckets;
-  const siteLabels = useSample ? sample.sites : trackedSites;
+  const hasReports = seoReports.length > 0;
+  const buckets = realBuckets;
+  const siteLabels = trackedSites;
 
   // Dates follow the active locale instead of a hardcoded en-US format.
+  // Websites ("projects"): one card per analysed URL, from the same rows as the
+  // history table (pure function in lib/dashboard-analytics.ts).
+  const siteGroups = groupBySite(seoReports);
+
+
   const formatDate = (dateString: string) =>
     new Intl.DateTimeFormat(locale, {
       year: "numeric",
@@ -112,10 +118,11 @@ export default async function DashboardPage({ params }: Props) {
           </Link>
         </div>
 
+        {hasReports ? (
         <PerformanceAnalytics
           buckets={buckets}
           siteLabels={siteLabels}
-          sample={useSample}
+          sample={false}
           siteCount={uniqueWebsites}
           labels={{
             eyebrow: t("perf.eyebrow"),
@@ -147,6 +154,28 @@ export default async function DashboardPage({ params }: Props) {
             ctaHref: lp("/tools/seo-analyzer"),
           }}
         />
+        ) : (
+          /* Nothing analysed yet: an honest empty state beats four fabricated
+             KPIs. The previous sample series summed to 27 audits while the real
+             "Websites analyzed" read 0 — the panel contradicted itself. */
+          <section className="mt-9 overflow-hidden rounded-[26px] border border-white/10 bg-white/[0.03] p-8 text-center sm:p-12">
+            <span
+              aria-hidden="true"
+              className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-emerald-400/25 bg-emerald-400/10"
+            >
+              <span className="text-lg text-emerald-300">◔</span>
+            </span>
+            <h2 className="mt-5 text-xl font-bold tracking-tight text-white">
+              {t("perf.emptyTitle")}
+            </h2>
+            <p className="mx-auto mt-2.5 max-w-md text-sm leading-6 text-slate-400">
+              {t("perf.emptyBody")}
+            </p>
+            <Link href={lp("/tools/seo-analyzer")} className="btn-primary mx-auto mt-6 h-10 px-5 text-sm">
+              {t("newAnalysis")}
+            </Link>
+          </section>
+        )}
 
         {latestReport && (
           <section className="relative mt-10 overflow-hidden rounded-[30px] border border-white/10 bg-gradient-to-br from-white/[0.055] to-white/[0.018] p-6 sm:p-8">
@@ -396,6 +425,76 @@ export default async function DashboardPage({ params }: Props) {
             </div>
           )}
         </section>
+
+        {siteGroups.length > 0 && (
+          <section className="mt-10">
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
+                  {t("sites.eyebrow")}
+                </p>
+                <h2 className="mt-2 text-2xl font-bold">{t("sites.title")}</h2>
+                <p className="mt-2 max-w-2xl text-sm text-slate-500">
+                  {t("sites.subtitle")}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {siteGroups.map((site) => (
+                <article
+                  key={site.url}
+                  className="rounded-[24px] border border-white/10 bg-gradient-to-br from-white/[0.05] to-white/[0.015] p-5"
+                >
+                  <p className="break-all text-sm font-semibold text-slate-200" data-ltr-text>
+                    {site.url}
+                  </p>
+
+                  <div className="mt-4 grid grid-cols-3 gap-3">
+                    <div>
+                      <p className="text-[11px] uppercase tracking-[0.14em] text-slate-500">
+                        {t("sites.audits")}
+                      </p>
+                      <p className="mt-1 text-xl font-bold text-white" data-ltr-text>
+                        {site.audits}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-[11px] uppercase tracking-[0.14em] text-slate-500">
+                        {t("sites.avg")}
+                      </p>
+                      <p className="mt-1 text-xl font-bold text-cyan-300" data-ltr-text>
+                        {site.average}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-[11px] uppercase tracking-[0.14em] text-slate-500">
+                        {t("sites.best")}
+                      </p>
+                      <p className="mt-1 text-xl font-bold text-emerald-300" data-ltr-text>
+                        {site.best}
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="mt-4 text-xs text-slate-500">
+                    {t("sites.last", { date: formatDate(site.latest.created_at) })}
+                  </p>
+
+                  <Link
+                    href={`/dashboard/reports/${site.latest.id}`}
+                    className="mt-4 inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-white/20 hover:bg-white/[0.06] hover:text-white"
+                  >
+                    {t("sites.open")}
+                    <span aria-hidden="true" className="rtl:rotate-180">
+                      →
+                    </span>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="mt-10 rounded-[28px] border border-white/10 bg-gradient-to-br from-white/[0.045] to-white/[0.02] p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
