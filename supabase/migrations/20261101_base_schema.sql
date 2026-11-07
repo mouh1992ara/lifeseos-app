@@ -180,3 +180,40 @@ alter table public.contact_messages enable row level security;
 
 -- No storage buckets are created: the application references none, and an
 -- unused public bucket is only a place for someone else to put bytes.
+
+-- ---------------------------------------------------------------------------
+-- 5. Table privileges
+-- ---------------------------------------------------------------------------
+-- RLS alone is not enough, and this bit is easy to miss until it fails in
+-- production. Postgres checks table GRANTs *before* it evaluates row policies:
+-- a table with RLS on and a perfectly good policy still answers
+--
+--   42501  permission denied for table seo_reports
+--
+-- to the `authenticated` role if that role was never granted SELECT. Verified
+-- exactly that against the live project — the policies were correct and every
+-- anon read failed with 42501.
+--
+-- So: grant the minimum DML each role needs, and let RLS decide which *rows* it
+-- may touch. On seo_reports the four grants below are paired with the four
+-- policies above; the row scope comes from `auth.uid() = user_id`, not from the
+-- grant. Delete and update are granted because the dashboard offers both.
+--
+-- The three service-role-only tables get NO grant to anon or authenticated.
+-- That is deliberate and is what makes "not readable from the browser" true at
+-- the privilege layer, not just at the policy layer.
+
+grant usage on schema public to anon, authenticated;
+
+grant select, insert, update, delete on public.seo_reports to authenticated;
+
+-- The sequences behind any serial column, if one is ever added.
+grant usage, select on all sequences in schema public to authenticated;
+
+-- Belt and braces: make sure nothing above accidentally opened the
+-- write-only streams to the browser roles.
+revoke all on public.tool_events      from anon, authenticated;
+revoke all on public.page_visits      from anon, authenticated;
+revoke all on public.contact_messages from anon, authenticated;
+revoke all on public.analytics_events from anon, authenticated;
+revoke all on public.analytics_daily  from anon, authenticated;

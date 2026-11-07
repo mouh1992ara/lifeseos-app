@@ -48,3 +48,6 @@ next-env.d.ts
 /blog-design/
 /dashboard-design/
 /blog-animation-reel.html
+
+# Supabase CLI local state: holds a database URL with a password.
+supabase/.temp/
