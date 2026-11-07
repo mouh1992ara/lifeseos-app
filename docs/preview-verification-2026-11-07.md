@@ -84,9 +84,11 @@ tables, 0 auth users.**
 
 ## Gaps — not tested, not claimed
 
-1. **Resend delivery unverified.** I have no access to an inbox. The token-hash
-   verification path is proven; the *delivery* of the email is not. This needs
-   one real signup whose mailbox you can open.
+1. **Resend delivery — NOW VERIFIED** (2026-11-07, 13:54Z). A real signup on an
+   iPhone completed Turnstile, received the Resend email, opened the token-hash
+   link on that device, and reached the authenticated dashboard. Account
+   `aramchi24@gmail.com`, `email_confirmed_at` `2026-11-07T13:54:48Z`. This closes
+   the gap; the note below records what was true when it was written.
 2. **Turnstile could not be completed headlessly.** The widget is a managed
    challenge; a real browser reached `{"captchaRequired":true,"captcha":"ready"}`
    but the challenge never resolved. Captcha was **not** disabled or mocked.
