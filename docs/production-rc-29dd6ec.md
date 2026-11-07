@@ -280,10 +280,32 @@ every user. It:
 Dry run against live state: `total users: 1 · protected present:
 ['aramchi24@gmail.com'] · eligible: 0`.
 
-**Preview protection.** `ssoProtection` is still `all_except_custom_domains`,
-yet the preview currently answers 200 unauthenticated — so protection was changed
-during testing and has not been reverted. If the preview should not remain public,
-restore Vercel Authentication before the cutover; it has no effect on Production.
+**Preview protection — RESTORED.** The project setting was never the problem:
+`ssoProtection` has been `all_except_custom_domains` throughout. The exception was
+a per-alias override on `lifeseos-phase5.vercel.app`:
+
+```
+protectionBypass: { '*': { scope: 'alias-protection-override', … } }
+```
+
+That flag made one hostname public while every other preview answered 302 →
+`vercel.com/sso-api`. Measured across three hosts to be sure it was the alias and
+not the project.
+
+Removed by deleting the alias (the API exposes no field to clear the override).
+
+| Host | Before | After |
+|---|---|---|
+| `lifeseos-phase5.vercel.app` | 200, public | **404 — alias deleted** |
+| `lifeseos-iwsjbb723-…vercel.app` | 302 → SSO | 302 → SSO |
+| `lifeseos-app-git-phase5-tool-outcomes-…vercel.app` | 302 → SSO | 302 → SSO |
+
+The branch alias is the one to use from now on: it is git-linked, has no
+override, and now points at `6a8f493`. Sign in to Vercel to view it, or pass the
+protection bypass header.
+
+Production was never touched: `www.lifeseos.com` still returns 200 and still runs
+the old project.
 
 **Unchanged and must stay so:** Turnstile enforced (`NODE_ENV=production` makes it
 required), RLS on every table, service-only grants on the four internal tables.
