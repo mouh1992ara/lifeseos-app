@@ -193,6 +193,39 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
+  /* Static image assets were served with `max-age=0, must-revalidate`, so the
+     78 KB favicon re-downloaded on every single page view. Next's immutable
+     caching only applies to content-hashed `/_next/static` output; files under
+     /public (and app/icon.png, which Next serves at /icon.png) fall through to
+     the default.
+
+     A one-year immutable cache is safe here because these paths are not
+     content-hashed — but they are brand assets that change roughly never, and a
+     rename forces a fresh fetch. HTML is deliberately untouched: it must keep
+     revalidating so deploys are visible immediately. */
+  async headers() {
+    return [
+      {
+        source: "/icon.png",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/favicon.ico",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/:file(favicon-.*\\.png|apple-touch-icon.*\\.png|icon-.*\\.png)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);

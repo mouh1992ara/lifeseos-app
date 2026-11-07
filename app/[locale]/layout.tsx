@@ -24,7 +24,7 @@ import {
   routing,
   type Locale,
 } from "@/i18n/config";
-import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/auth-guard";
 
 import PageVisitTracker from "../page-visit-tracker";
 import "../globals.css";
@@ -162,10 +162,7 @@ export default async function LocaleLayout({
   /* The invitation modal and the header both need to know whether this visitor
      is signed in. Reading it once here keeps the answer consistent across the
      whole render, and lets the modal skip its own network call. */
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
 
   const meta = localeMeta[locale as Locale];
   const dir = meta.dir;

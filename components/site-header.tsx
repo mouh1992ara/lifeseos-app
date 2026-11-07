@@ -9,6 +9,7 @@ import { NavLink } from "@/components/nav-link";
 import { localizePath, type Locale } from "@/i18n/config";
 import { Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/auth-guard";
 
 /* One set of classes per role, so the header cannot drift from the rest of the
    site as pages are added. Sizes are identical between desktop and mobile:
@@ -38,10 +39,7 @@ export default function SiteHeader() {
 }
 
 async function SiteHeaderContent() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
 
   const t = await getTranslations("Header");
   const locale = (await getLocale()) as Locale;
