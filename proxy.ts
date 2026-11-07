@@ -40,7 +40,14 @@ export async function proxy(request: NextRequest) {
 
   if (hasAuthPayload && !pathname.startsWith("/auth/") && !pathname.startsWith("/api/")) {
     const target = request.nextUrl.clone();
-    target.pathname = "/auth/callback";
+    /* Send each payload to the handler that can actually consume it. A
+       `token_hash` forwarded to `/auth/callback` is useless: that route exchanges
+       a PKCE `?code=` and has no verifier to offer, so the rescue path would turn
+       a recoverable fallback into a guaranteed failure — which matters because a
+       Site-URL substitution lands these params on `/`. */
+    target.pathname = request.nextUrl.searchParams.has("token_hash")
+      ? "/auth/confirm"
+      : "/auth/callback";
     return NextResponse.redirect(target);
   }
 

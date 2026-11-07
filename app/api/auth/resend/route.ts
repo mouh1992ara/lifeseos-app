@@ -41,7 +41,6 @@ export async function POST(request: Request) {
   }
 
   const email = typeof payload.email === "string" ? payload.email.trim().toLowerCase() : "";
-  const locale = typeof payload.locale === "string" && /^[a-z]{2}$/.test(payload.locale) ? payload.locale : "en";
 
   if (!EMAIL_RE.test(email)) {
     return NextResponse.json({ error: "invalid_email" }, { status: 400 });
@@ -54,9 +53,10 @@ export async function POST(request: Request) {
     await supabase.auth.resend({
       type: "signup",
       email,
-      // Matches sign-up: the template's `{{ .RedirectTo }}` is this URL, and it
-      // must land on the token-hash route for cross-device confirmation.
-      options: { emailRedirectTo: `${origin}/auth/confirm?next=/${locale}/dashboard&from=resend` },
+      // Must match the allow-list entry exactly — no query string, or Supabase
+      // substitutes the Site URL and the mail link breaks. Locale comes from the
+      // metadata stored at sign-up.
+      options: { emailRedirectTo: `${origin}/auth/confirm` },
     });
   } catch {
     /* Swallowed on purpose: see the note about enumeration above. */

@@ -6,7 +6,7 @@
   Subject suggestion:  Confirm your LifeSeos account
 
   Why this shape:
-    * The button points at {{ .RedirectTo }}&token_hash=…&type=email.
+    * The button points at {{ .RedirectTo }}?token_hash=…&type=email.
       `.RedirectTo` is the `emailRedirectTo` the app passed to signUp:
           https://<deployment-origin>/auth/confirm?next=/<locale>/dashboard
       so the link carries the RIGHT origin for whichever deployment sent it —
@@ -54,7 +54,7 @@
 
             <tr>
               <td style="padding:26px 28px 0 28px;" align="center">
-                <a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email"
+                <a href="{{ .RedirectTo }}?token_hash={{ .TokenHash }}&type=email"
                    style="display:inline-block;background:#10b981;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:13px 30px;border-radius:10px;">
                   Confirm email address
                 </a>
@@ -80,7 +80,7 @@
                   If the button does not work, paste this address into your browser:
                 </p>
                 <p style="margin:6px 0 0 0;word-break:break-all;color:#0f766e;font-size:11px;line-height:1.6;">
-                  {{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email
+                  {{ .RedirectTo }}?token_hash={{ .TokenHash }}&type=email
                 </p>
               </td>
             </tr>

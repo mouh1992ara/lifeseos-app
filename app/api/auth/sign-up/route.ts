@@ -128,24 +128,34 @@ export async function POST(request: Request) {
   const origin = new URL(request.url).origin;
   const supabase = await createClient();
 
-  /* The confirmation email's link is built from `{{ .RedirectTo }}`, which is
-     exactly this value. Pointing it at `/auth/confirm` — not `/auth/callback` —
-     is what makes cross-device confirmation work: `/auth/confirm` verifies with
-     `verifyOtp({ token_hash, type })`, which needs no PKCE code verifier, so the
-     link opens on a phone that never started the sign-up.
-
-     The template therefore appends only `&type=email`, never a path. An earlier
-     version of the template tried to append `/auth/confirm` to a redirect that
-     already carried `/auth/callback?next=…`, which produces a broken double path. */
-  // Always carries a query string: the email template appends "&token_hash=…",
-  // so a bare path with no "?" would render a broken link.
-  const confirmTarget = `${origin}/auth/confirm?next=/${locale}/dashboard&from=signup`;
+  /* MUST be exactly the allow-listed URL, with no query string.
+   *
+   * Measured against the live project: Supabase compares `emailRedirectTo` to the
+   * Redirect URL allow-list literally. An entry of
+   *     https://<preview>/auth/confirm
+   * does NOT match
+   *     https://<preview>/auth/confirm?next=/en/dashboard&from=signup
+   * and a non-matching value is *silently replaced by the Site URL*. That is what
+   * produced the broken mail link `https://www.lifeseos.com&token_hash=…`: the
+   * template received the Site URL as {{ .RedirectTo }}.
+   *
+   * Production survives a query only because its entry is a `/**` wildcard.
+   * The preview entry is exact, so the query had to go.
+   *
+   * The locale therefore travels in user metadata instead, and /auth/confirm
+   * reads it to build the post-verification target.
+   *
+   * Pointing at `/auth/confirm` rather than `/auth/callback` is also what makes
+   * cross-device confirmation work: it verifies with
+   * `verifyOtp({ token_hash, type })`, which needs no PKCE code verifier, so a
+   * phone that never started the sign-up can still confirm. */
+  const confirmTarget = `${origin}/auth/confirm`;
 
   const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      data: { full_name: fullName },
+      data: { full_name: fullName, locale },
       emailRedirectTo: confirmTarget,
     },
   });
