@@ -195,34 +195,33 @@ const nextConfig: NextConfig = {
   },
 
   /* Static image assets were served with `max-age=0, must-revalidate`, so the
-     78 KB favicon re-downloaded on every single page view. Next's immutable
-     caching only applies to content-hashed `/_next/static` output; files under
-     /public (and app/icon.png, which Next serves at /icon.png) fall through to
-     the default.
+     78 KB favicon re-downloaded on every single page view. Next only sets
+     immutable caching on content-hashed output under /_next/static; files it
+     serves from app/ fall through to the default.
 
-     A one-year immutable cache is safe here because these paths are not
-     content-hashed — but they are brand assets that change roughly never, and a
-     rename forces a fresh fetch. HTML is deliberately untouched: it must keep
-     revalidating so deploys are visible immediately. */
+     Why a week and not a year:
+     Next does version its metadata icons — the rendered tag is
+     `/icon.png?icon.<hash>.png` — so an immutable year would be safe for the
+     versioned URL. But `/icon.png` is also reachable directly (a bookmark, a
+     crawler, a pasted link), and that bare URL has no version query. A one-year
+     immutable policy there would pin an updated logo for a year with no way to
+     recover short of renaming the file.
+
+     One week plus a month of stale-while-revalidate removes the per-page-view
+     cost that was the actual bug, while guaranteeing a new icon is picked up
+     within seven days. Repeat visitors within the week — the overwhelming
+     majority — never re-download it at all. */
   async headers() {
+    const ICON_CACHE = "public, max-age=604800, stale-while-revalidate=2592000";
+    const headers = [{ key: "Cache-Control", value: ICON_CACHE }];
+
     return [
+      { source: "/icon.png", headers },
+      { source: "/favicon.ico", headers },
+      { source: "/apple-icon.png", headers },
       {
-        source: "/icon.png",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
-        ],
-      },
-      {
-        source: "/favicon.ico",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
-        ],
-      },
-      {
-        source: "/:file(favicon-.*\\.png|apple-touch-icon.*\\.png|icon-.*\\.png)",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
-        ],
+        source: "/:file(favicon-.*\\\\.png|apple-touch-icon.*\\\\.png|icon-.*\\\\.png)",
+        headers,
       },
     ];
   },
