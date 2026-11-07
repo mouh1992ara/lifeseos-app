@@ -6,14 +6,18 @@
   Subject suggestion:  Confirm your LifeSeos account
 
   Why this shape:
-    * The button points at {{ .SiteURL }}/auth/confirm?token_hash=…&type=email.
-      That route calls verifyOtp, which needs no PKCE code verifier, so the link
-      works on any device — the phone case that broke the default template.
+    * The button points at {{ .RedirectTo }}&token_hash=…&type=email.
+      `.RedirectTo` is the `emailRedirectTo` the app passed to signUp:
+          https://<deployment-origin>/auth/confirm?next=/<locale>/dashboard
+      so the link carries the RIGHT origin for whichever deployment sent it —
+      preview or production. Appending only `&token_hash` and `&type` (never a
+      path) keeps that URL intact; the earlier template hard-coded `.SiteURL`,
+      which sent preview sign-ups to the production host.
     * {{ .Token }} is rendered too: if numeric codes are enabled
       (NEXT_PUBLIC_EMAIL_OTP_ENABLED=1) the same email covers both paths.
-    * {{ .SiteURL }} must be https://www.lifeseos.com, and every preview host you
-      test on must be in Redirect URLs, otherwise Supabase rewrites the target
-      and the button lands on the homepage.
+    * Supabase only honours `emailRedirectTo` when its origin is in the project's
+      Redirect URL allow-list; otherwise it silently substitutes Site URL. Add
+      every origin you deploy to.
 
   Email clients do not support <style> reliably; everything below is inline and
   table-based on purpose. Colours are light-on-light because Gmail's dark mode
@@ -50,7 +54,7 @@
 
             <tr>
               <td style="padding:26px 28px 0 28px;" align="center">
-                <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/dashboard"
+                <a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email"
                    style="display:inline-block;background:#10b981;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:13px 30px;border-radius:10px;">
                   Confirm email address
                 </a>
@@ -76,7 +80,7 @@
                   If the button does not work, paste this address into your browser:
                 </p>
                 <p style="margin:6px 0 0 0;word-break:break-all;color:#0f766e;font-size:11px;line-height:1.6;">
-                  {{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/dashboard
+                  {{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email
                 </p>
               </td>
             </tr>

@@ -54,7 +54,9 @@ export async function POST(request: Request) {
     await supabase.auth.resend({
       type: "signup",
       email,
-      options: { emailRedirectTo: `${origin}/auth/callback?next=/${locale}/dashboard` },
+      // Matches sign-up: the template's `{{ .RedirectTo }}` is this URL, and it
+      // must land on the token-hash route for cross-device confirmation.
+      options: { emailRedirectTo: `${origin}/auth/confirm?next=/${locale}/dashboard&from=resend` },
     });
   } catch {
     /* Swallowed on purpose: see the note about enumeration above. */

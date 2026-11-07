@@ -128,12 +128,25 @@ export async function POST(request: Request) {
   const origin = new URL(request.url).origin;
   const supabase = await createClient();
 
+  /* The confirmation email's link is built from `{{ .RedirectTo }}`, which is
+     exactly this value. Pointing it at `/auth/confirm` — not `/auth/callback` —
+     is what makes cross-device confirmation work: `/auth/confirm` verifies with
+     `verifyOtp({ token_hash, type })`, which needs no PKCE code verifier, so the
+     link opens on a phone that never started the sign-up.
+
+     The template therefore appends only `&type=email`, never a path. An earlier
+     version of the template tried to append `/auth/confirm` to a redirect that
+     already carried `/auth/callback?next=…`, which produces a broken double path. */
+  // Always carries a query string: the email template appends "&token_hash=…",
+  // so a bare path with no "?" would render a broken link.
+  const confirmTarget = `${origin}/auth/confirm?next=/${locale}/dashboard&from=signup`;
+
   const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: { full_name: fullName },
-      emailRedirectTo: `${origin}/auth/callback?next=/${locale}/dashboard`,
+      emailRedirectTo: confirmTarget,
     },
   });
 
