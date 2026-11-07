@@ -9,14 +9,19 @@ reconfigured.** Production remains `b88bc64` on the OLD project.
 
 | | |
 |---|---|
-| Runbook says | `dpl_FQeXp7e9gTfhfT` `Y8F8ymrKUrc4Cp` |
+| Runbook said | same prefix, characters 16–19 were `fT` instead of `tt` (literal removed deliberately — see below) |
 | Actually serving | `dpl_FQeXp7e9gTfhtt` `Y8F8ymrKUrc4Cp` |
 
 A transposition at positions 16–19: the real ID has `tt`, the runbook has `fT`.
 Both are 32 characters, so it looks plausible and nothing catches it.
 
-`vercel rollback dpl_FQeXp7e9gTfhfTY8F8ymrKUrc4Cp` would fail with
-"deployment not found" — at the exact moment you least want a failure.
+`vercel rollback <mistyped UID>` would have failed with "deployment not found" —
+at the exact moment you least want a failure.
+
+The mistyped string has been struck from this document on purpose. While it sat
+here as a literal, it was a copy-paste trap: any future reader quoting "the ID"
+could pick up the broken one. The only UID that should appear anywhere now is
+the verified one below.
 
 **Origin: my error.** I typed the ID by hand in an earlier report and it has been
 copied forward ever since. It is now corrected in all three affected documents,
