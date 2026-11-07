@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { errorCodeFrom, isUserValidationError, useToolOutcome } from "@/lib/use-tool-outcome";
 import { useTranslations } from "next-intl";
 
 import ShareTool from "@/components/share-tool";
@@ -33,6 +34,7 @@ const RELATED = [
 ] as const;
 
 export default function HttpStatusCheckerPage() {
+  const { start: startOutcome } = useToolOutcome("http-status-checker");
   const t = useTranslations("Tool.httpStatus");
   const tc = useTranslations("Tools.catalog");
   const tCommon = useTranslations("Common");
@@ -44,22 +46,7 @@ export default function HttpStatusCheckerPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const hasTrackedUse = useRef(false);
 
-  async function recordToolUseOnce() {
-    if (hasTrackedUse.current) return;
-    hasTrackedUse.current = true;
-
-    try {
-      await fetch("/api/tool-events", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tool_name: "HTTP Status Checker" }),
-      });
-    } catch {
-      // Usage tracking is best-effort and must never block the tool.
-    }
-  }
 
   async function checkStatus() {
     const cleanUrl = url.trim();
@@ -73,6 +60,9 @@ export default function HttpStatusCheckerPage() {
     }
 
     setLoading(true);
+
+    // Validation passed: a real attempt, and the clock starts here.
+    const op = startOutcome();
 
     try {
       const response = await fetch("/api/http-status", {
@@ -90,13 +80,18 @@ export default function HttpStatusCheckerPage() {
             ? tErr(key)
             : data.error || tErr("generic")
         );
+        
+        if (!isUserValidationError(response.status)) {
+          op.error(errorCodeFrom(data));
+        }
         return;
       }
 
-      await recordToolUseOnce();
       setResult(data);
+      op.success();
     } catch {
       setError(tErr("network"));
+      op.error("INTERNAL");
     } finally {
       setLoading(false);
     }

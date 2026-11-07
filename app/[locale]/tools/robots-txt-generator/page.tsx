@@ -1,17 +1,15 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import {
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { hasRealOutput, useToolOutcome } from "@/lib/use-tool-outcome";
+import { useMemo, useRef, useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { normalisePath, normaliseUrl, splitLines } from "@/lib/tool-input";
 
 import ShareTool from "@/components/share-tool";
 
 export default function RobotsTxtGeneratorPage() {
+  const { start: startOutcome } = useToolOutcome("robots-txt-generator");
   const t = useTranslations("Tool.robotsTxt");
   const tc = useTranslations("Tools.catalog");
   const tCommon = useTranslations("Common");
@@ -30,7 +28,6 @@ export default function RobotsTxtGeneratorPage() {
   const [sitemap, setSitemap] =
     useState("");
 
-  const hasTrackedUse = useRef(false);
 
   const robotsTxt = useMemo(() => {
     const lines = [
@@ -75,76 +72,45 @@ export default function RobotsTxtGeneratorPage() {
     sitemap,
   ]);
 
-  async function recordToolUseOnce() {
-    if (
-      hasTrackedUse.current
-    ) {
-      return;
-    }
+  /* One success per visit, and only for output the visitor caused.
+     These tools recompute on every keystroke, so counting each change would
+     record dozens of operations for one person typing. `hasRealOutput` stops an
+     empty result counting, and the mount snapshot stops a non-empty default
+     from being recorded as work nobody did. */
+  const outcomeOutput = robotsTxt;
+  const initialOutcomeOutput = useRef(outcomeOutput);
+  const outcomeTrackedRef = useRef(false);
+  useEffect(() => {
+    if (outcomeTrackedRef.current) return;
+    if (outcomeOutput === initialOutcomeOutput.current) return;
+    if (!hasRealOutput(outcomeOutput)) return;
+    outcomeTrackedRef.current = true;
+    startOutcome().success();
+  }, [outcomeOutput, startOutcome]);
 
-    hasTrackedUse.current =
-      true;
-
-    try {
-      const response =
-        await fetch(
-          "/api/tool-events",
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json",
-            },
-
-            body: JSON.stringify({
-              tool_name:
-                "Robots.txt Generator",
-            }),
-          }
-        );
-
-      if (!response.ok) {
-        console.error(
-          "Failed to record Robots.txt Generator usage."
-        );
-      }
-    } catch (
-      trackingError
-    ) {
-      console.error(
-        "Unable to record tool usage:",
-        trackingError
-      );
-    }
-  }
 
   function handleUserAgentChange(
     value: string
   ) {
     setUserAgent(value);
-    void recordToolUseOnce();
   }
 
   function handleAllowPathChange(
     value: string
   ) {
     setAllowPath(value);
-    void recordToolUseOnce();
   }
 
   function handleDisallowPathsChange(
     value: string
   ) {
     setDisallowPaths(value);
-    void recordToolUseOnce();
   }
 
   function handleSitemapChange(
     value: string
   ) {
     setSitemap(value);
-    void recordToolUseOnce();
   }
 
   async function copyRobotsTxt() {
@@ -152,7 +118,6 @@ export default function RobotsTxtGeneratorPage() {
       robotsTxt
     );
 
-    void recordToolUseOnce();
   }
 
   return (

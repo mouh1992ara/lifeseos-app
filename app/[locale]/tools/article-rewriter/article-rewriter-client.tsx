@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import { hasRealOutput, useToolOutcome } from "@/lib/use-tool-outcome";
 import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import {
@@ -349,6 +350,7 @@ function getReadabilityKey(words: number, chars: number): ReadabilityKey {
 }
 
 export default function ArticleRewriterClient() {
+  const { start: startOutcome } = useToolOutcome("article-rewriter");
   const t = useTranslations("Tool.articleRewriter");
   const locale = useLocale();
   const tc = useTranslations("Tools.catalog");
@@ -403,6 +405,9 @@ export default function ArticleRewriterClient() {
     return;
   }
 
+  // Validation passed: a real operation begins here.
+  const op = startOutcome();
+
   const result = rewriteArticle(
     article,
     style,
@@ -416,17 +421,9 @@ export default function ArticleRewriterClient() {
 
   setRewrittenArticle(result);
 
-  void fetch("/api/tool-events", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      tool_name: "SEO Article Rewriter",
-    }),
-  }).catch(() => {
-    // Tracking should never interrupt the tool.
-  });
+  if (hasRealOutput(result)) op.success();
+  else op.error("INVALID_REQUEST");
+
 }
 
   async function handleCopy() {

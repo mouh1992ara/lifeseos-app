@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import { hasRealOutput, useToolOutcome } from "@/lib/use-tool-outcome";
 import type { Locale } from "@/i18n/config";
 import { buildTitles, type TitleStyleKey } from "@/lib/youtube-titles";
 import { useMemo, useState } from "react";
@@ -102,6 +103,7 @@ function getLengthStatus(length: number) {
 }
 
 export default function YouTubeTitleGeneratorClient() {
+  const { start: startOutcome } = useToolOutcome("youtube-title-generator");
   const t = useTranslations("Tool.youtubeTitleGenerator");
   const locale = useLocale() as Locale;
   const tc = useTranslations("Tools.catalog");
@@ -159,22 +161,17 @@ export default function YouTubeTitleGeneratorClient() {
       return;
     }
 
+    // Validation passed: a real operation begins here.
+    const op = startOutcome();
+
     const generated = generateTitles(topic, keyword, style, audience, locale);
 
     setTitles(generated);
     setSelectedTitle(generated[0]?.title ?? "");
 
-    void fetch("/api/tool-events", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        tool_name: "YouTube Title Generator",
-      }),
-    }).catch(() => {
-      // Tracking should never interrupt the tool.
-    });
+    if (hasRealOutput(generated)) op.success();
+    else op.error("INVALID_REQUEST");
+
   }
 
   async function handleCopy(title: string) {

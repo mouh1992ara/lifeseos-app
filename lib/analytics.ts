@@ -16,6 +16,8 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 
+import { stableEventId } from "./event-id.ts";
+
 /** Closed vocabulary. Adding a value here is a deliberate schema decision. */
 export const EVENT_NAMES = [
   "page_view",
@@ -246,22 +248,7 @@ export async function recordEvent(
  * Example: one page_view per path per session per minute.
  */
 export function deterministicEventId(parts: (string | null | undefined)[]): string {
-  const seed = parts.filter(Boolean).join("|");
-  // Simple FNV-1a expanded into a UUID-shaped string. Collisions would merge
-  // two analytics rows, which is acceptable; they would never merge user data.
-  let h1 = 0x811c9dc5;
-  let h2 = 0x01000193;
-  for (let i = 0; i < seed.length; i += 1) {
-    h1 ^= seed.charCodeAt(i);
-    h1 = Math.imul(h1, 0x01000193) >>> 0;
-    h2 = Math.imul(h2 ^ seed.charCodeAt(i), 0x85ebca6b) >>> 0;
-  }
-  const hex = (n: number) => n.toString(16).padStart(8, "0");
-  const a = hex(h1);
-  const b = hex(h2);
-  const c = hex((h1 ^ h2) >>> 0);
-  const d = seed.length.toString(16).padStart(4, "0").slice(-4);
-  return `${a}-${b.slice(0, 4)}-4${b.slice(4, 7)}-a${c.slice(0, 3)}-${d}${c.slice(3, 11)}`;
+  return stableEventId(parts);
 }
 
 export const SESSION_COOKIE = "ls.sid";

@@ -4,6 +4,8 @@ import { Link } from "@/i18n/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
+import { errorCodeFrom, isUserValidationError, useToolOutcome } from "@/lib/use-tool-outcome";
+
 import CwvDashboard, { parseMetric } from "@/components/cwv-dashboard";
 import ShareTool from "@/components/share-tool";
 import { errorCodeKey } from "@/lib/tool-errors";
@@ -62,44 +64,8 @@ export default function PageSpeedAnalyzerPage() {
   const [animatedScore, setAnimatedScore] =
     useState(0);
 
-  const hasTrackedUse = useRef(false);
   const initialUrlHandledRef = useRef(false);
-
-  async function recordToolUseOnce() {
-    if (hasTrackedUse.current) {
-      return;
-    }
-
-    hasTrackedUse.current = true;
-
-    try {
-      const response = await fetch(
-        "/api/tool-events",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-          body: JSON.stringify({
-            tool_name:
-              "Page Speed Analyzer",
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        console.error(
-          "Failed to record Page Speed Analyzer usage."
-        );
-      }
-    } catch (trackingError) {
-      console.error(
-        "Unable to record tool usage:",
-        trackingError
-      );
-    }
-  }
+  const { start } = useToolOutcome("page-speed");
 
   async function analyzeSpeed(
     overrideUrl?: string
@@ -116,6 +82,9 @@ export default function PageSpeedAnalyzerPage() {
     }
 
     setLoading(true);
+
+    // Validation passed, so this is a real attempt by a real user.
+    const op = start();
 
     try {
       const response = await fetch(
@@ -142,14 +111,21 @@ export default function PageSpeedAnalyzerPage() {
             ? tErr(key)
             : data.error || t("errorFallback")
         );
+        /* A malformed or empty URL is the user's input problem, not a failed
+           operation. Emitting tool_error here would make every typo look like
+           an outage and would swamp the real failures. */
+        if (!isUserValidationError(response.status)) {
+          op.error(errorCodeFrom(data));
+        }
         return;
       }
 
-      await recordToolUseOnce();
-
       setResult(data);
+      op.success();
     } catch {
       setError(t("errorFallback"));
+      // A thrown error has no category of its own; INTERNAL is honest about that.
+      op.error("INTERNAL");
     } finally {
       setLoading(false);
     }

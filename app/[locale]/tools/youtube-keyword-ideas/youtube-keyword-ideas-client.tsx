@@ -5,8 +5,9 @@
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/config";
 import { buildKeywords, type KeywordIntentKey } from "@/lib/content-i18n";
+import { hasRealOutput, useToolOutcome } from "@/lib/use-tool-outcome";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { useLocale, useTranslations } from "next-intl";
 
@@ -514,6 +515,7 @@ function buildVideoAngles(topic: string, seedKeyword: string, intent: Intent) {
 
 
 export default function YouTubeKeywordIdeasClient() {
+  const { start: startOutcome } = useToolOutcome("youtube-keyword-ideas");
 
   const t = useTranslations("Tool.youtubeKeywordIdeas");
   const locale = useLocale() as Locale;
@@ -543,38 +545,7 @@ export default function YouTubeKeywordIdeasClient() {
 
 
   
-  const hasTrackedUse = useRef(false);
 
-  async function recordToolUseOnce() {
-    if (hasTrackedUse.current) {
-      return;
-    }
-
-    hasTrackedUse.current = true;
-
-    try {
-      const response = await fetch("/api/tool-events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          tool_name: "YouTube Keyword Ideas",
-        }),
-      });
-
-      if (!response.ok) {
-        console.error(
-          "Failed to record YouTube Keyword Ideas usage."
-        );
-      }
-    } catch (trackingError) {
-      console.error(
-        "Unable to record tool usage:",
-        trackingError
-      );
-    }
-  }
 
 const allKeywords = useMemo(
 
@@ -660,6 +631,9 @@ const allKeywords = useMemo(
 
 
 
+    // Validation passed: a real operation begins here.
+    const op = startOutcome();
+
     const baseGroups = buildKeywordGroups(topic, seedKeyword, intent, audience);
 
     const order: KeywordIntentKey[] = ["broad", "howTo", "beginner", "comparison", "problem", "review"];
@@ -682,9 +656,10 @@ const allKeywords = useMemo(
 
     setGroups(generatedGroups);
 
-    setVideoAngles(buildVideoAngles(topic, seedKeyword, intent));
+    if (hasRealOutput(generatedGroups)) op.success();
+    else op.error("INVALID_REQUEST");
 
-    void recordToolUseOnce();
+    setVideoAngles(buildVideoAngles(topic, seedKeyword, intent));
 
   }
 

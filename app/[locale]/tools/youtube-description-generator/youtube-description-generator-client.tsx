@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import { hasRealOutput, useToolOutcome } from "@/lib/use-tool-outcome";
 import type { Locale } from "@/i18n/config";
 import { buildDescriptions, hashtagsFor, type DescriptionStyleKey } from "@/lib/content-i18n";
 
@@ -96,6 +97,7 @@ function buildHashtags(topic: string, keyword: string, locale: Locale) {
 }
 
 export default function YouTubeDescriptionGeneratorClient() {
+  const { start: startOutcome } = useToolOutcome("youtube-description-generator");
   const t = useTranslations("Tool.youtubeDescriptionGenerator");
   const locale = useLocale() as Locale;
   const tc = useTranslations("Tools.catalog");
@@ -139,6 +141,9 @@ export default function YouTubeDescriptionGeneratorClient() {
 
     // Localized generation: the shared builder writes in the current language
     // instead of translating English templates word for word.
+    // Validation passed: a real operation begins here.
+    const op = startOutcome();
+
     const localized = buildDescriptions({
       topic,
       keyword,
@@ -156,17 +161,9 @@ export default function YouTubeDescriptionGeneratorClient() {
     setResults(generated);
     setSelectedDescription(generated[0]?.description ?? "");
 
-    void fetch("/api/tool-events", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        tool_name: "YouTube Description Generator",
-      }),
-    }).catch(() => {
-      // Tracking should never interrupt the tool.
-    });
+    if (hasRealOutput(generated)) op.success();
+    else op.error("INVALID_REQUEST");
+
   }
 
   async function handleCopy(text: string) {

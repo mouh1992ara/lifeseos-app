@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import { errorCodeFrom, isUserValidationError, useToolOutcome } from "@/lib/use-tool-outcome";
 import { useLocale, useTranslations } from "next-intl";
 import {
   FormEvent,
@@ -94,6 +95,7 @@ const STEP_IDS = ["1", "2", "3", "4"] as const;
 const BENEFIT_IDS = ["1", "2", "3", "4"] as const;
 
 export default function SEOAnalyzerPage() {
+  const { start: startOutcome } = useToolOutcome("seo-analyzer");
   const t = useTranslations("Tool.seoAnalyzer");
   const tc = useTranslations("Tools.catalog");
   const tCommon = useTranslations("Common");
@@ -196,6 +198,12 @@ export default function SEOAnalyzerPage() {
     setResult(null);
     setAnimatedScore(0);
 
+    // Validation passed: a real attempt, and the clock starts here.
+    const op = startOutcome();
+    // Set once this run has recorded its own outcome, so the catch below does
+    // not report a second one.
+    let outcomeClosed = false;
+
     try {
       const response =
         await fetch(
@@ -235,6 +243,16 @@ export default function SEOAnalyzerPage() {
                 c.toUpperCase()
             )}`;
 
+        /* A malformed URL is the visitor's input problem, not a failure of the
+           service. Both cases close the outcome so the catch does not count it
+           twice. */
+        if (isUserValidationError(response.status)) {
+          outcomeClosed = true;
+        } else {
+          op.error(errorCodeFrom(data));
+          outcomeClosed = true;
+        }
+
         throw new Error(
           code &&
             t.has(key)
@@ -244,40 +262,6 @@ export default function SEOAnalyzerPage() {
         );
       }
 
-      try {
-        const trackingResponse =
-          await fetch(
-            "/api/tool-events",
-            {
-              method: "POST",
-
-              headers: {
-                "Content-Type":
-                  "application/json",
-              },
-
-              body: JSON.stringify({
-                tool_name:
-                  "SEO Analyzer",
-              }),
-            }
-          );
-
-        if (
-          !trackingResponse.ok
-        ) {
-          console.error(
-            "Failed to record SEO Analyzer usage."
-          );
-        }
-      } catch (
-        trackingError
-      ) {
-        console.error(
-          "Unable to record tool usage:",
-          trackingError
-        );
-      }
 
       const supabase =
         createClient();
@@ -353,12 +337,15 @@ export default function SEOAnalyzerPage() {
         errors:
           data.errors ?? [],
       });
+
+      op.success();
     } catch (err) {
       setError(
         err instanceof Error
           ? err.message
           : t("errorFallback")
       );
+      if (!outcomeClosed) op.error("INTERNAL");
     } finally {
       setLoading(false);
     }

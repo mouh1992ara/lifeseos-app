@@ -1,17 +1,15 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import {
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { hasRealOutput, useToolOutcome } from "@/lib/use-tool-outcome";
+import { useMemo, useRef, useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { parseSitemapUrls } from "@/lib/tool-input";
 
 import ShareTool from "@/components/share-tool";
 
 export default function XmlSitemapGeneratorPage() {
+  const { start: startOutcome } = useToolOutcome("xml-sitemap-generator");
   const t = useTranslations("Tool.xmlSitemap");
   const tc = useTranslations("Tools.catalog");
   const tCommon = useTranslations("Common");
@@ -29,52 +27,6 @@ export default function XmlSitemapGeneratorPage() {
     setPriority,
   ] = useState("0.8");
 
-  const hasTrackedUse =
-    useRef(false);
-
-  async function recordToolUseOnce() {
-    if (
-      hasTrackedUse.current
-    ) {
-      return;
-    }
-
-    hasTrackedUse.current =
-      true;
-
-    try {
-      const response =
-        await fetch(
-          "/api/tool-events",
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json",
-            },
-
-            body: JSON.stringify({
-              tool_name:
-                "XML Sitemap Generator",
-            }),
-          }
-        );
-
-      if (!response.ok) {
-        console.error(
-          "Failed to record XML Sitemap Generator usage."
-        );
-      }
-    } catch (
-      trackingError
-    ) {
-      console.error(
-        "Unable to record tool usage:",
-        trackingError
-      );
-    }
-  }
 
   function escapeXml(
     value: string
@@ -146,24 +98,18 @@ ${entries}
       event.target.value;
 
     setUrls(value);
-
-    if (value.trim()) {
-      void recordToolUseOnce();
-    }
   }
 
   function handleChangeFrequency(
     value: string
   ) {
     setChangefreq(value);
-    void recordToolUseOnce();
   }
 
   function handlePriorityChange(
     value: string
   ) {
     setPriority(value);
-    void recordToolUseOnce();
   }
 
   async function copySitemap() {
@@ -171,7 +117,6 @@ ${entries}
       sitemap
     );
 
-    void recordToolUseOnce();
   }
 
   function downloadSitemap() {
@@ -203,8 +148,24 @@ ${entries}
 
     URL.revokeObjectURL(url);
 
-    void recordToolUseOnce();
   }
+
+
+  /* One success per visit, and only for output the visitor caused.
+     These tools recompute on every keystroke, so counting each change would
+     record dozens of operations for one person typing. `hasRealOutput` stops an
+     empty result counting, and the mount snapshot stops a non-empty default
+     from being recorded as work nobody did. */
+  const outcomeOutput = sitemap;
+  const initialOutcomeOutput = useRef(outcomeOutput);
+  const outcomeTrackedRef = useRef(false);
+  useEffect(() => {
+    if (outcomeTrackedRef.current) return;
+    if (outcomeOutput === initialOutcomeOutput.current) return;
+    if (!hasRealOutput(outcomeOutput)) return;
+    outcomeTrackedRef.current = true;
+    startOutcome().success();
+  }, [outcomeOutput, startOutcome]);
 
   return (
     <main data-tool-surface className="min-h-screen bg-slate-950 text-white">

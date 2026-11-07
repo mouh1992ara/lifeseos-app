@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import { hasRealOutput, useToolOutcome } from "@/lib/use-tool-outcome";
 import type { Locale } from "@/i18n/config";
 import { buildScriptContent, type ScriptStyleKey } from "@/lib/content-i18n";
 import { useMemo, useState } from "react";
@@ -244,6 +245,7 @@ ${result.outro}`;
 }
 
 export default function YouTubeScriptWriterClient() {
+  const { start: startOutcome } = useToolOutcome("youtube-script-writer");
   const t = useTranslations("Tool.youtubeScriptWriter");
   const locale = useLocale() as Locale;
   const tc = useTranslations("Tools.catalog");
@@ -283,6 +285,9 @@ export default function YouTubeScriptWriterClient() {
       return;
     }
 
+    // Validation passed: a real operation begins here.
+    const op = startOutcome();
+
     const base = buildScript(topic, keyword, audience, style, videoLength, goal);
 
     // Keep the English structure for counts/timing, but write the actual script
@@ -309,17 +314,9 @@ export default function YouTubeScriptWriterClient() {
       ctaAlternatives: localized.ctaAlternatives,
     });
 
-    void fetch("/api/tool-events", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        tool_name: "YouTube Script Writer",
-      }),
-    }).catch(() => {
-      // Tracking should never interrupt the tool.
-    });
+    if (hasRealOutput(base)) op.success();
+    else op.error("INVALID_REQUEST");
+
   }
 
   async function handleCopy(text: string) {

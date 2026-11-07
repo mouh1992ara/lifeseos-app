@@ -1,7 +1,8 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { useEffect, useRef, useState } from "react";
+import { errorCodeFrom, isUserValidationError, useToolOutcome } from "@/lib/use-tool-outcome";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import ShareTool from "@/components/share-tool";
@@ -61,6 +62,7 @@ const BENEFIT_IDS = ["1", "2", "3", "4"] as const;
 const CHECK_ICONS = ["T", "D", "H", "C", "R", "ALT"] as const;
 
 export default function SeoPageAnalyzerPage() {
+  const { start: startOutcome } = useToolOutcome("seo-page-analyzer");
   const t = useTranslations("Tool.seoPageAnalyzer");
   const tc = useTranslations("Tools.catalog");
   const tCommon = useTranslations("Common");
@@ -86,43 +88,7 @@ export default function SeoPageAnalyzerPage() {
     return () => window.clearInterval(id);
   }, [loading]);
 
-  const hasTrackedUse = useRef(false);
 
-  async function recordToolUseOnce() {
-    if (hasTrackedUse.current) {
-      return;
-    }
-
-    hasTrackedUse.current = true;
-
-    try {
-      const response = await fetch(
-        "/api/tool-events",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-          body: JSON.stringify({
-            tool_name:
-              "SEO Page Analyzer",
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        console.error(
-          "Failed to record SEO Page Analyzer usage."
-        );
-      }
-    } catch (trackingError) {
-      console.error(
-        "Unable to record tool usage:",
-        trackingError
-      );
-    }
-  }
 
   async function analyzePage() {
     const cleanUrl = url.trim();
@@ -136,6 +102,9 @@ export default function SeoPageAnalyzerPage() {
     }
 
     setLoading(true);
+
+    // Validation passed: a real attempt, and the clock starts here.
+    const op = startOutcome();
 
     try {
       const response = await fetch(
@@ -169,16 +138,25 @@ export default function SeoPageAnalyzerPage() {
             ? t(key)
             : data.error || t("errorFallback")
         );
+        /* A 400/422 here means the visitor's URL was rejected before any work
+           happened — that is input validation, not a failed operation, and
+           counting it would make every typo look like an outage. Every other
+           status is a genuine failure and must be recorded, otherwise the
+           success rate silently absorbs it. */
+        if (!isUserValidationError(response.status)) {
+          op.error(errorCodeFrom(data));
+        }
         return;
       }
 
-      await recordToolUseOnce();
 
       setResult(data);
+      op.success();
     } catch {
       setError(
         t("errorFallback")
       );
+      op.error("INTERNAL");
     } finally {
       setLoading(false);
     }

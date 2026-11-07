@@ -3,6 +3,7 @@
 
 
 import { Link } from "@/i18n/navigation";
+import { hasRealOutput, useToolOutcome } from "@/lib/use-tool-outcome";
 
 import { useMemo, useState } from "react";
 
@@ -734,6 +735,7 @@ function statusClass(status: MetricStatus) {
 
 
 export default function YouTubeTitleAnalyzerClient() {
+  const { start: startOutcome } = useToolOutcome("youtube-title-analyzer");
 
   const t = useTranslations("Tool.youtubeTitleAnalyzer");
 
@@ -789,31 +791,17 @@ export default function YouTubeTitleAnalyzerClient() {
 
 
 
-    setResult(analyzeTitle(title, keyword));
+    // Validation passed: a real operation begins here.
+    const op = startOutcome();
+
+    const analyzed = analyzeTitle(title, keyword);
+    setResult(analyzed);
+
+    if (hasRealOutput(analyzed)) op.success();
+    else op.error("INVALID_REQUEST");
 
 
 
-    void fetch("/api/tool-events", {
-
-      method: "POST",
-
-      headers: {
-
-        "Content-Type": "application/json",
-
-      },
-
-      body: JSON.stringify({
-
-        tool_name: "YouTube Title Analyzer",
-
-      }),
-
-    }).catch(() => {
-
-      // Tracking should never interrupt the tool.
-
-    });
 
   }
 

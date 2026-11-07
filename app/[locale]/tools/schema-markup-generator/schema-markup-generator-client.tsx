@@ -1,8 +1,9 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import { hasRealOutput, useToolOutcome } from "@/lib/use-tool-outcome";
 import { useTranslations } from "next-intl";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import {
   AlertCircle,
   Building2,
@@ -366,6 +367,7 @@ function getRequiredErrors(type: SchemaType, form: FormState) {
 }
 
 export default function SchemaMarkupGeneratorClient() {
+  const { start: startOutcome } = useToolOutcome("schema-markup-generator");
   const t = useTranslations("Tool.schemaMarkup");
   const tc = useTranslations("Tools.catalog");
   const tCommon = useTranslations("Common");
@@ -408,18 +410,6 @@ export default function SchemaMarkupGeneratorClient() {
       await navigator.clipboard.writeText(generatedJson);
       setCopied(true);
 
-      void fetch("/api/tool-events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          tool_name: "Schema Markup Generator",
-        }),
-      }).catch(() => {
-        // Tracking should never interrupt the tool.
-      });
-
       window.setTimeout(() => {
         setCopied(false);
       }, 1800);
@@ -459,6 +449,22 @@ export default function SchemaMarkupGeneratorClient() {
   const currentSchemaLabel = currentSchema
     ? t(`types.${currentSchema.key}.label`)
     : "";
+
+  /* One success per visit, and only for output the visitor caused.
+     These tools recompute on every keystroke, so counting each change would
+     record dozens of operations for one person typing. `hasRealOutput` stops an
+     empty result counting, and the mount snapshot stops a non-empty default
+     from being recorded as work nobody did. */
+  const outcomeOutput = generatedJson;
+  const initialOutcomeOutput = useRef(outcomeOutput);
+  const outcomeTrackedRef = useRef(false);
+  useEffect(() => {
+    if (outcomeTrackedRef.current) return;
+    if (outcomeOutput === initialOutcomeOutput.current) return;
+    if (!hasRealOutput(outcomeOutput)) return;
+    outcomeTrackedRef.current = true;
+    startOutcome().success();
+  }, [outcomeOutput, startOutcome]);
 
   return (
     <main className="min-h-screen bg-slate-950 text-white">

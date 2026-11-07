@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import { hasRealOutput, useToolOutcome } from "@/lib/use-tool-outcome";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { escapeHtmlAttribute, escapeHtmlText } from "@/lib/tool-input";
@@ -8,6 +9,7 @@ import { escapeHtmlAttribute, escapeHtmlText } from "@/lib/tool-input";
 import ShareTool from "@/components/share-tool";
 
 export default function MetaTagGeneratorPage() {
+  const { start: startOutcome } = useToolOutcome("meta-tag-generator");
   const t = useTranslations("Tool.metaTag");
   const tc = useTranslations("Tools.catalog");
   const tCommon = useTranslations("Common");
@@ -15,7 +17,6 @@ export default function MetaTagGeneratorPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const hasTrackedUse = useRef(false);
   const prefillHandledRef = useRef(false);
 
   useEffect(() => {
@@ -51,41 +52,6 @@ export default function MetaTagGeneratorPage() {
   const titleLength = title.length;
   const descriptionLength = description.length;
 
-  async function recordToolUseOnce() {
-    if (hasTrackedUse.current) {
-      return;
-    }
-
-    hasTrackedUse.current = true;
-
-    try {
-      const response = await fetch(
-        "/api/tool-events",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-          body: JSON.stringify({
-            tool_name:
-              "Meta Tag Generator",
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        console.error(
-          "Failed to record Meta Tag Generator usage."
-        );
-      }
-    } catch (trackingError) {
-      console.error(
-        "Unable to record tool usage:",
-        trackingError
-      );
-    }
-  }
 
   function handleTitleChange(
     event: React.ChangeEvent<HTMLInputElement>
@@ -93,7 +59,6 @@ export default function MetaTagGeneratorPage() {
     setTitle(event.target.value);
 
     if (event.target.value.trim()) {
-      void recordToolUseOnce();
     }
   }
 
@@ -103,7 +68,6 @@ export default function MetaTagGeneratorPage() {
     setDescription(event.target.value);
 
     if (event.target.value.trim()) {
-      void recordToolUseOnce();
     }
   }
 
@@ -172,6 +136,23 @@ export default function MetaTagGeneratorPage() {
   const titleStatus = getTitleStatus();
   const descriptionStatus =
     getDescriptionStatus();
+
+
+  /* One success per visit, and only for output the visitor caused.
+     These tools recompute on every keystroke, so counting each change would
+     record dozens of operations for one person typing. `hasRealOutput` stops an
+     empty result counting, and the mount snapshot stops a non-empty default
+     from being recorded as work nobody did. */
+  const outcomeOutput = `${title}${description}`.trim();
+  const initialOutcomeOutput = useRef(outcomeOutput);
+  const outcomeTrackedRef = useRef(false);
+  useEffect(() => {
+    if (outcomeTrackedRef.current) return;
+    if (outcomeOutput === initialOutcomeOutput.current) return;
+    if (!hasRealOutput(outcomeOutput)) return;
+    outcomeTrackedRef.current = true;
+    startOutcome().success();
+  }, [outcomeOutput, startOutcome]);
 
   return (
     <main data-tool-surface className="min-h-screen bg-slate-950 text-white">

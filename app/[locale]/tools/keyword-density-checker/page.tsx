@@ -1,24 +1,21 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import {
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { hasRealOutput, useToolOutcome } from "@/lib/use-tool-outcome";
+import { useMemo, useRef, useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { tokenize } from "@/lib/text-stats";
 
 import ShareTool from "@/components/share-tool";
 
 export default function KeywordDensityCheckerPage() {
+  const { start: startOutcome } = useToolOutcome("keyword-density-checker");
   const t = useTranslations("Tool.keywordDensity");
   const tc = useTranslations("Tools.catalog");
   const tCommon = useTranslations("Common");
 
   const [text, setText] = useState("");
 
-  const hasTrackedUse = useRef(false);
 
   const analysis = useMemo(() => {
     // Shared tokeniser: keeps "l'outil" / "don't" as one word and counts each
@@ -76,41 +73,6 @@ export default function KeywordDensityCheckerPage() {
     };
   }, [text]);
 
-  async function recordToolUseOnce() {
-    if (hasTrackedUse.current) {
-      return;
-    }
-
-    hasTrackedUse.current = true;
-
-    try {
-      const response = await fetch(
-        "/api/tool-events",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-          body: JSON.stringify({
-            tool_name:
-              "Keyword Density Checker",
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        console.error(
-          "Failed to record Keyword Density Checker usage."
-        );
-      }
-    } catch (trackingError) {
-      console.error(
-        "Unable to record tool usage:",
-        trackingError
-      );
-    }
-  }
 
   function handleTextChange(
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -119,11 +81,24 @@ export default function KeywordDensityCheckerPage() {
       event.target.value;
 
     setText(value);
-
-    if (value.trim()) {
-      void recordToolUseOnce();
-    }
   }
+
+
+  /* One success per visit, and only for output the visitor caused.
+     These tools recompute on every keystroke, so counting each change would
+     record dozens of operations for one person typing. `hasRealOutput` stops an
+     empty result counting, and the mount snapshot stops a non-empty default
+     from being recorded as work nobody did. */
+  const outcomeOutput = analysis;
+  const initialOutcomeOutput = useRef(outcomeOutput);
+  const outcomeTrackedRef = useRef(false);
+  useEffect(() => {
+    if (outcomeTrackedRef.current) return;
+    if (outcomeOutput === initialOutcomeOutput.current) return;
+    if (!hasRealOutput(outcomeOutput)) return;
+    outcomeTrackedRef.current = true;
+    startOutcome().success();
+  }, [outcomeOutput, startOutcome]);
 
   return (
     <main data-tool-surface className="min-h-screen bg-slate-950 text-white">

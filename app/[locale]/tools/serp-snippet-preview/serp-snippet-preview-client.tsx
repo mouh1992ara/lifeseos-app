@@ -1,7 +1,8 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { useMemo, useState } from "react";
+import { hasRealOutput, useToolOutcome } from "@/lib/use-tool-outcome";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import {
   Check,
@@ -79,6 +80,7 @@ const APPEARANCE_CARDS = [
 const HOW_STEPS = ["1", "2", "3", "4"] as const;
 
 export default function SerpSnippetPreviewClient() {
+  const { start: startOutcome } = useToolOutcome("serp-snippet-preview");
   const t = useTranslations("Tool.serpPreview");
   const tc = useTranslations("Tools.catalog");
   const tCommon = useTranslations("Common");
@@ -138,18 +140,6 @@ async function copyField(field: string, value: string) {
     await navigator.clipboard.writeText(value);
     setCopiedField(field);
 
-    void fetch("/api/tool-events", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        tool_name: "SERP Snippet Preview",
-      }),
-    }).catch(() => {
-      // Tracking should never interrupt the tool.
-    });
-
     window.setTimeout(() => {
       setCopiedField("");
     }, 1800);
@@ -181,6 +171,22 @@ async function copyField(field: string, value: string) {
       // Ignore cancelled share actions.
     }
   }
+
+  /* One success per visit, and only for output the visitor caused.
+     These tools recompute on every keystroke, so counting each change would
+     record dozens of operations for one person typing. `hasRealOutput` stops an
+     empty result counting, and the mount snapshot stops a non-empty default
+     from being recorded as work nobody did. */
+  const outcomeOutput = `${previewTitle}${previewDescription}${displayUrl}`.trim();
+  const initialOutcomeOutput = useRef(outcomeOutput);
+  const outcomeTrackedRef = useRef(false);
+  useEffect(() => {
+    if (outcomeTrackedRef.current) return;
+    if (outcomeOutput === initialOutcomeOutput.current) return;
+    if (!hasRealOutput(outcomeOutput)) return;
+    outcomeTrackedRef.current = true;
+    startOutcome().success();
+  }, [outcomeOutput, startOutcome]);
 
   return (
     <main className="min-h-screen bg-slate-950 text-white">
