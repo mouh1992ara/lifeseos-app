@@ -1457,3 +1457,23 @@
     inset 0 -1px 0 rgb(60 0 0 / 0.4),
     0 12px 30px -14px rgb(239 68 68 / 0.7);
 }
+
+/* ---------------------- placeholder contrast (a11y fix) ------------------- */
+
+/* Measured on the live page: the tool placeholders resolve to rgb(71 85 105),
+   which is 2.69:1 against the new field surface — below the 4.5:1 WCAG AA floor
+   for text. The darker field introduced by the glass treatment is what pushed it
+   under; before the change the field was lighter, so the old value passed.
+   Bumped to slate-400, which measures 7.02:1 on the same surface.
+
+   Colour only: no layout, no size, no effect change. */
+[data-lg-scope="tools"] :is(input, textarea)::placeholder {
+  color: rgb(148 163 184);
+  opacity: 1; /* Firefox applies a default 0.54 that would undo the value */
+}
+
+/* The same fix for the shared field class used outside tools. */
+.field::placeholder {
+  color: rgb(148 163 184);
+  opacity: 1;
+}
