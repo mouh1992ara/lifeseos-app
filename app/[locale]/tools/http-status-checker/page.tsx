@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { errorCodeFrom, isUserValidationError, useToolOutcome } from "@/lib/use-tool-outcome";
+import { errorCodeFrom, isUserInputError, useToolOutcome } from "@/lib/use-tool-outcome";
 import { useTranslations } from "next-intl";
 
 import ShareTool from "@/components/share-tool";
@@ -81,7 +81,7 @@ export default function HttpStatusCheckerPage() {
             : data.error || tErr("generic")
         );
         
-        if (!isUserValidationError(response.status)) {
+        if (!isUserInputError(data.code, response.status)) {
           op.error(errorCodeFrom(data));
         }
         return;

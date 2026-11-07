@@ -198,10 +198,21 @@ export function errorCodeFrom(err: unknown): ErrorCode {
 }
 
 /**
- * A 4xx that the user caused by their own input (empty URL, malformed URL) is a
- * validation error, not a failed operation. Counting those as `tool_error` would
- * make every typo look like an outage.
+ * Did the visitor's own input stop the run before any work happened?
+ *
+ * This is deliberately keyed on the API's error CODE, not the HTTP status. The
+ * routes answer `400` for both "you typed nothing" and "that host is a private
+ * address" — so a status check would silently swallow real refusals:
+ * `BLOCKED_ADDRESS` and `UPSTREAM_ERROR` (an unresolvable host) are failures of
+ * the operation and must be counted, or the error rate reads as zero during
+ * exactly the incidents worth seeing.
+ *
+ * When there is no code to go on, fall back to the status: a bare 400/422 is
+ * more likely a malformed submission than an outage.
  */
-export function isUserValidationError(status: number): boolean {
+export function isUserInputError(code: unknown, status: number): boolean {
+  if (typeof code === "string" && code) {
+    return code === "INVALID_URL" || code === "INVALID_REQUEST";
+  }
   return status === 400 || status === 422;
 }

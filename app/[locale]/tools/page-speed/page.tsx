@@ -4,7 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
-import { errorCodeFrom, isUserValidationError, useToolOutcome } from "@/lib/use-tool-outcome";
+import { errorCodeFrom, isUserInputError, useToolOutcome } from "@/lib/use-tool-outcome";
 
 import CwvDashboard, { parseMetric } from "@/components/cwv-dashboard";
 import ShareTool from "@/components/share-tool";
@@ -114,7 +114,7 @@ export default function PageSpeedAnalyzerPage() {
         /* A malformed or empty URL is the user's input problem, not a failed
            operation. Emitting tool_error here would make every typo look like
            an outage and would swamp the real failures. */
-        if (!isUserValidationError(response.status)) {
+        if (!isUserInputError(data.code, response.status)) {
           op.error(errorCodeFrom(data));
         }
         return;

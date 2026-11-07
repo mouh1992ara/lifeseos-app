@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { errorCodeFrom, isUserValidationError, useToolOutcome } from "@/lib/use-tool-outcome";
+import { errorCodeFrom, isUserInputError, useToolOutcome } from "@/lib/use-tool-outcome";
 import { useLocale, useTranslations } from "next-intl";
 import {
   FormEvent,
@@ -246,7 +246,7 @@ export default function SEOAnalyzerPage() {
         /* A malformed URL is the visitor's input problem, not a failure of the
            service. Both cases close the outcome so the catch does not count it
            twice. */
-        if (isUserValidationError(response.status)) {
+        if (isUserInputError(data.code, response.status)) {
           outcomeClosed = true;
         } else {
           op.error(errorCodeFrom(data));

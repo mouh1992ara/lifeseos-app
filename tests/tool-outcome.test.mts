@@ -9,7 +9,7 @@ import {
   eventIdFor,
   errorCodeFrom,
   hasRealOutput,
-  isUserValidationError,
+  isUserInputError,
 } from "../lib/use-tool-outcome.ts";
 import { deterministicEventId, validateEvent } from "../lib/analytics.ts";
 import { readFileSync } from "node:fs";
@@ -111,11 +111,26 @@ ok(
   errorCodeFrom(new Error("https://secret.example/timeout")) === "INTERNAL",
 );
 
-ok("400 is user validation", isUserValidationError(400) === true);
-ok("422 is user validation", isUserValidationError(422) === true);
-ok("429 is a real failure", isUserValidationError(429) === false);
-ok("500 is a real failure", isUserValidationError(500) === false);
-ok("403 is a real failure", isUserValidationError(403) === false);
+ok("a bare 400 is input", isUserInputError(undefined, 400) === true);
+ok("a bare 422 is input", isUserInputError(undefined, 422) === true);
+ok("a bare 429 is a failure", isUserInputError(undefined, 429) === false);
+ok("a bare 500 is a failure", isUserInputError(undefined, 500) === false);
+
+/* The API answers 400 for these too, so status alone cannot decide. Confirmed
+   against the live preview: BLOCKED_ADDRESS and UPSTREAM_ERROR both come back
+   as 400, and treating those as validation would hide every real failure. */
+ok("INVALID_URL is input", isUserInputError("INVALID_URL", 400) === true);
+ok("INVALID_REQUEST is input", isUserInputError("INVALID_REQUEST", 400) === true);
+ok(
+  "BLOCKED_ADDRESS is a real failure despite 400",
+  isUserInputError("BLOCKED_ADDRESS", 400) === false,
+);
+ok(
+  "UPSTREAM_ERROR is a real failure despite 400",
+  isUserInputError("UPSTREAM_ERROR", 400) === false,
+);
+ok("RATE_LIMITED is a real failure", isUserInputError("RATE_LIMITED", 429) === false);
+ok("a blank code falls back to status", isUserInputError("", 400) === true);
 
 /* ------------------------------------------------------------------ *
  * 5. What the server actually stores

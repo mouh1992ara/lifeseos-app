@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { errorCodeFrom, isUserValidationError, useToolOutcome } from "@/lib/use-tool-outcome";
+import { errorCodeFrom, isUserInputError, useToolOutcome } from "@/lib/use-tool-outcome";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
@@ -143,7 +143,7 @@ export default function SeoPageAnalyzerPage() {
            counting it would make every typo look like an outage. Every other
            status is a genuine failure and must be recorded, otherwise the
            success rate silently absorbs it. */
-        if (!isUserValidationError(response.status)) {
+        if (!isUserInputError(data.code, response.status)) {
           op.error(errorCodeFrom(data));
         }
         return;
