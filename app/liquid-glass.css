@@ -675,3 +675,235 @@
     transition: none;
   }
 }
+
+/* ==========================================================================
+   Polish pass — interaction states
+   --------------------------------------------------------------------------
+   Adds the missing half of a glass system: what a control does while you use it.
+   Everything below is additive and transform/opacity based, so it composites
+   without layout work.
+   ========================================================================== */
+
+/* ------------------------ moving top-edge reflection ---------------------- */
+
+/* A wide, soft band that travels across the top edge on hover. It is a separate
+   pseudo-element because it must be masked to the 1px-ish highlight strip — a
+   gradient painted over the whole button would wash out the label. */
+.btn-primary::after,
+.btn-secondary::after,
+.category-chip::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 48%;
+  border-radius: inherit;
+  background: linear-gradient(
+    100deg,
+    transparent 12%,
+    rgb(255 255 255 / 0.34) 42%,
+    rgb(255 255 255 / 0.16) 58%,
+    transparent 82%
+  );
+  opacity: 0;
+  translate: -18% 0;
+  transition:
+    opacity 220ms var(--lg-ease),
+    translate 520ms var(--lg-ease);
+  pointer-events: none;
+}
+
+.btn-primary:hover::after,
+.btn-secondary:hover::after {
+  opacity: 1;
+  translate: 6% 0;
+}
+
+/* Chips deliberately excluded above: their ::after is the selection sheen, and a
+   single pseudo-element cannot be both a hover band and a one-shot sweep. They
+   get the sheen only. */
+
+/* Secondary and chip need positioning for their pseudo-element. */
+.btn-secondary,
+.category-chip {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Focus: a ring plus a faint inner edge, so keyboard users see the same family
+   of highlight that hover users see. */
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.category-chip:focus-visible,
+.field:focus-visible,
+.lg-item:focus-visible {
+  outline: 2px solid rgb(var(--lg-emerald) / 0.85);
+  outline-offset: 2px;
+  outline-style: solid;
+}
+
+/* ------------------------------ disabled state ---------------------------- */
+
+.btn-primary:disabled,
+.btn-secondary:disabled,
+.btn-ghost:disabled {
+  filter: grayscale(0.55) brightness(0.82);
+  box-shadow: none;
+  translate: none;
+  cursor: not-allowed;
+}
+
+.btn-primary:disabled::after,
+.btn-secondary:disabled::after {
+  display: none;
+}
+
+/* ------------------------- loading (aria-busy) state ---------------------- */
+
+/* A quiet pulse rather than a spinner: the component already renders its own
+   indicator, and two simultaneous loading signals read as a fault. */
+[aria-busy="true"].btn-primary,
+[aria-busy="true"].btn-secondary {
+  pointer-events: none;
+  animation: lg-busy 1.4s ease-in-out infinite;
+}
+
+@keyframes lg-busy {
+  0%, 100% { filter: saturate(1) brightness(1); }
+  50%      { filter: saturate(1.1) brightness(1.04); }
+}
+
+/* --------------------- category chip: sliding selection ------------------- */
+
+/* The chips keep their own colours, so the "indicator" here is light rather than
+   a moving plate: the selected pill gains a travelling sheen, and switching
+   categories cross-fades instead of jumping. Width never animates, which is what
+   prevents the row from reflowing as labels change length between locales. */
+.category-chip {
+  transition:
+    background-color 220ms var(--lg-ease),
+    border-color 220ms var(--lg-ease),
+    color 220ms var(--lg-ease),
+    translate 160ms var(--lg-ease),
+    box-shadow 260ms var(--lg-ease);
+}
+
+/* The selected chip lights up along its own edge instead of running a separate
+   overlay element: one layer, no competition with the hover band, and it works
+   the same in RTL because the gradient is symmetric. */
+.category-chip[aria-selected="true"] {
+  animation: lg-chip-light 620ms var(--lg-ease) 1;
+}
+
+@keyframes lg-chip-light {
+  0%   { filter: brightness(1); }
+  30%  { filter: brightness(1.22) saturate(1.08); }
+  100% { filter: brightness(1); }
+}
+
+/* ---------------------------- tool cards: lift ---------------------------- */
+
+/* Replaces the previous pointer-tracking tilt. The tilt was restrained, but on a
+   grid of 17 cards it read as jitter during diagonal movement; a consistent
+   uniform lift is calmer and costs nothing per pointer event. */
+.tool-card {
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tool-card:hover,
+  .tool-card:focus-visible {
+    transform: translate3d(0, -3px, 0);
+  }
+}
+
+/* Directional sheen: a single soft sweep from the top-left corner, present at
+   rest so the surface reads as glass even before you touch it. */
+.tool-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    145deg,
+    rgb(255 255 255 / 0.07) 0%,
+    rgb(255 255 255 / 0.02) 28%,
+    transparent 52%
+  );
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 320ms var(--lg-ease);
+}
+
+.tool-card:hover::after {
+  opacity: 0.55;
+}
+
+/* The CTA row inside a card gets a small nudge, which is the cheapest honest
+   "this is a link" signal at this size. */
+.tool-card-arrow {
+  transition: translate 240ms var(--lg-ease);
+}
+
+.tool-card:hover .tool-card-arrow {
+  translate: 2px -2px;
+}
+
+/* -------------------------------- mobile nav ------------------------------ */
+
+/* Sticky behaviour: the rail must not grow a shadow that punches through the
+   header when the page scrolls under it. */
+@media (max-width: 767px) {
+  .site-header .lg-rail {
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1);
+  }
+
+  /* 44px minimum touch target without changing the visual bar height. */
+  .lg-rail[data-size="sm"] .lg-item {
+    min-height: 40px;
+    padding-block: 0.5rem;
+  }
+}
+
+/* ----------------------------- reduced motion ----------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary::after,
+  .btn-secondary::after,
+  .category-chip[aria-selected="true"] {
+    animation: none !important;
+  }
+
+  .category-chip::after {
+    animation: none !important;
+    transition: none !important;
+    opacity: 0 !important;
+    translate: none !important;
+  }
+
+  [aria-busy="true"].btn-primary,
+  [aria-busy="true"].btn-secondary {
+    animation: none;
+  }
+
+  .tool-card,
+  .tool-card:hover,
+  .tool-card:focus-visible,
+  .tool-card-arrow,
+  .tool-card:hover .tool-card-arrow {
+    transform: none;
+    translate: none;
+    transition: none;
+  }
+}
+
+/* --------------------------- no-backdrop fallback ------------------------- */
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .btn-secondary,
+  .category-chip,
+  .tool-card {
+    background-image: none;
+    background-color: rgb(12 18 34 / 0.96);
+  }
+}

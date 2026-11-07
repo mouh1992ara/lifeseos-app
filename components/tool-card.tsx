@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import {
   ArrowUpRight,
@@ -58,10 +57,10 @@ export const TOOL_ACCENT: Record<ToolCategory, string> = {
 /**
  * A tool card.
  *
- * The tilt is a two-degree maximum and only runs on fine pointers: enough to
- * feel dimensional, far too small to make text harder to read. All motion
- * lives in `--tx` / `--ty` which CSS turns into a rotate, so the browser never
- * re-lays-out the card while the pointer moves.
+ * Hover motion is a uniform lift owned by CSS (`.tool-card` in liquid-glass.css),
+ * not a pointer-tracking tilt. The tilt ran a getBoundingClientRect plus two
+ * style writes on every pointermove across a 17-card grid; it read as jitter on
+ * diagonal movement and bought nothing a consistent lift does not.
  */
 export default function ToolCard({
   tool,
@@ -73,38 +72,14 @@ export default function ToolCard({
   const catalog = useTranslations("Tools.catalog");
   const tc = useTranslations("Tools.categories");
   const common = useTranslations("Common");
-  const ref = useRef<HTMLAnchorElement>(null);
 
   const Icon = TOOL_ICON[tool.key] ?? FileSearch;
   const accent = TOOL_ACCENT[tool.primary];
   const isYouTube = tool.primary === "youtube";
 
-  const onMove = (event: React.PointerEvent<HTMLAnchorElement>) => {
-    const el = ref.current;
-    if (!el || event.pointerType !== "mouse") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const rect = el.getBoundingClientRect();
-    const px = (event.clientX - rect.left) / rect.width - 0.5;
-    const py = (event.clientY - rect.top) / rect.height - 0.5;
-    el.style.setProperty("--tx", `${(py * -2.4).toFixed(2)}deg`);
-    el.style.setProperty("--ty", `${(px * 2.8).toFixed(2)}deg`);
-  };
-
-  const reset = () => {
-    const el = ref.current;
-    if (!el) return;
-    el.style.setProperty("--tx", "0deg");
-    el.style.setProperty("--ty", "0deg");
-  };
-
   return (
     <Link
-      ref={ref}
       href={toolHref(tool)}
-      onPointerMove={onMove}
-      onPointerLeave={reset}
-      onBlur={reset}
       data-tool-card={tool.key}
       data-tool-category={tool.primary}
       className="tool-card group relative flex flex-col rounded-[22px] border border-white/[0.07] bg-white/[0.022] p-5 sm:p-6"
