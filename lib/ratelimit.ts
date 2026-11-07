@@ -119,3 +119,33 @@ export function getVerifyRatelimit(): Ratelimit | null {
   }
   return verifyLimiter;
 }
+
+/**
+ * Analytics beacons.
+ *
+ * These endpoints are public, unauthenticated, and write to the database with
+ * service-role credentials — the highest-risk shape a route can have. Without a
+ * limiter, one script can create rows as fast as the function can accept them.
+ *
+ * The budgets are set from what real traffic looks like, not from paranoia: a
+ * person browsing fast might fire 20–30 page views a minute, never 120. A 429
+ * here loses at most one analytics row and the client already ignores failures,
+ * so a false positive costs nothing a user can perceive.
+ */
+let analyticsLimiter: Ratelimit | null | undefined;
+let toolEventLimiter: Ratelimit | null | undefined;
+
+export function getAnalyticsRatelimit(): Ratelimit | null {
+  if (analyticsLimiter === undefined) {
+    analyticsLimiter = makeLimiter(120, "1 m", "lifeseos:analytics");
+  }
+  return analyticsLimiter;
+}
+
+/** Tool beacons are one per completed run, so the budget is far smaller. */
+export function getToolEventRatelimit(): Ratelimit | null {
+  if (toolEventLimiter === undefined) {
+    toolEventLimiter = makeLimiter(60, "1 m", "lifeseos:tool-events");
+  }
+  return toolEventLimiter;
+}

@@ -2,11 +2,15 @@ import { NextResponse } from "next/server";
 
 import { createClient } from "@/lib/supabase/server";
 import {
+  clientIp,
   deterministicEventId,
   localeFromPath,
+  payloadTooLarge,
   recordEvent,
+  safeSessionKey,
   validateEvent,
 } from "@/lib/analytics";
+import { getToolEventRatelimit } from "@/lib/ratelimit";
 
 /**
  * Tool analytics.
@@ -35,7 +39,12 @@ async function getAdmin() {
   }
 }
 
-/** Display name → canonical slug, for legacy callers. */
+/**
+ * Display name → canonical slug, for legacy callers.
+ *
+ * Without this map a legacy beacon has no `tool_key`, and every one of the 17
+ * tools would collapse into a single anonymous row.
+ */
 const NAME_TO_KEY: Record<string, string> = {
   "Schema Markup Generator": "schema-markup-generator",
   "SEO Analyzer": "seo-analyzer",
@@ -58,7 +67,28 @@ const NAME_TO_KEY: Record<string, string> = {
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json().catch(() => null);
+    // Abuse guard first: this route writes with service-role credentials.
+    const limiter = getToolEventRatelimit();
+    if (limiter) {
+      try {
+        const { success } = await limiter.limit(clientIp(request));
+        if (!success) return new NextResponse(null, { status: 429 });
+      } catch {
+        // A Redis hiccup must not take analytics down for everyone.
+      }
+    }
+
+    const raw = await request.text().catch(() => null);
+    if (payloadTooLarge(request, raw)) {
+      return new NextResponse(null, { status: 413 });
+    }
+
+    let body: Record<string, unknown> | null = null;
+    try {
+      body = raw ? JSON.parse(raw) : null;
+    } catch {
+      body = null;
+    }
     if (!body || typeof body !== "object") {
       return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     }
@@ -78,8 +108,7 @@ export async function POST(request: Request) {
     // path, which is `/api/tool-events` and therefore only useful for locale.
     const pathname =
       (typeof body.path === "string" && body.path.slice(0, 200)) || url.pathname;
-    const sessionKey =
-      typeof body.session_key === "string" ? body.session_key.slice(0, 64) : null;
+    const sessionKey = safeSessionKey(body.session_key);
     const userAgent = request.headers.get("user-agent");
 
     // ---- legacy shape -----------------------------------------------------
@@ -91,12 +120,18 @@ export async function POST(request: Request) {
         ? body.tool_key
         : (NAME_TO_KEY[legacyName] ?? null);
 
-    // Legacy callers mean "this tool was used and produced a result", so they
-    // are recorded as successes rather than left unattributed.
+    /* Legacy callers send only a display name. That proves a tool was used —
+       it does NOT prove the run succeeded, because the beacon fires on the
+       client regardless of whether the result was useful, and the client never
+       reports an outcome. Recording those as `tool_success` would manufacture a
+       100% success rate out of nothing.
+
+       They are recorded as `tool_use`: real usage, unknown outcome. Success and
+       error rates stay unavailable until clients send genuine outcome events. */
     const eventName =
       typeof body.event_name === "string" && body.event_name
         ? body.event_name
-        : "tool_success";
+        : "tool_use";
 
     const event = validateEvent(
       {

@@ -2,12 +2,16 @@ import { NextResponse } from "next/server";
 
 import { createClient } from "@/lib/supabase/server";
 import {
+  clientIp,
   deterministicEventId,
   newSessionKey,
+  payloadTooLarge,
   recordEvent,
+  safeSessionKey,
   SESSION_COOKIE,
   validateEvent,
 } from "@/lib/analytics";
+import { getAnalyticsRatelimit } from "@/lib/ratelimit";
 
 /**
  * Funnel and page-view events.
@@ -34,7 +38,27 @@ async function getAdmin() {
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json().catch(() => null);
+    const limiter = getAnalyticsRatelimit();
+    if (limiter) {
+      try {
+        const { success } = await limiter.limit(clientIp(request));
+        if (!success) return new NextResponse(null, { status: 429 });
+      } catch {
+        // Redis down: degrade to unlimited rather than lose all analytics.
+      }
+    }
+
+    const raw = await request.text().catch(() => null);
+    if (payloadTooLarge(request, raw)) {
+      return new NextResponse(null, { status: 413 });
+    }
+
+    let body: Record<string, unknown> | null = null;
+    try {
+      body = raw ? JSON.parse(raw) : null;
+    } catch {
+      body = null;
+    }
     if (!body || typeof body !== "object") {
       return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     }
@@ -56,7 +80,9 @@ export async function POST(request: Request) {
       .find((c) => c.startsWith(`${SESSION_COOKIE}=`))
       ?.slice(SESSION_COOKIE.length + 1);
 
-    const sessionKey = existing || newSessionKey();
+    // A cookie value is attacker-controlled, so it must satisfy the same UUID
+    // rule as a body value: shaped oddly means replaced, not trusted.
+    const sessionKey = safeSessionKey(existing) || newSessionKey();
 
     const pathname = typeof body.path === "string" ? body.path.slice(0, 200) : "/";
     const eventName = typeof body.event_name === "string" ? body.event_name : "";
@@ -87,7 +113,7 @@ export async function POST(request: Request) {
 
     const response = NextResponse.json({ ok: stored }, { status: 200 });
 
-    if (!existing) {
+    if (!safeSessionKey(existing)) {
       response.cookies.set(SESSION_COOKIE, sessionKey, {
         httpOnly: true,
         sameSite: "lax",

@@ -20,6 +20,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 export const EVENT_NAMES = [
   "page_view",
   "tool_start",
+  "tool_use",      // a tool ran but the outcome is unknown (legacy beacons)
   "tool_success",
   "tool_error",
   "signup_view",
@@ -268,4 +269,58 @@ export const SESSION_COOKIE = "ls.sid";
 /** A random, opaque, non-fingerprint session id. */
 export function newSessionKey(): string {
   return crypto.randomUUID();
+}
+
+/* ==========================================================================
+   Request guards
+   --------------------------------------------------------------------------
+   Both analytics endpoints are public, unauthenticated, and write with service
+   role credentials. These guards exist because that combination is the most
+   abusable shape a route can have.
+   ========================================================================== */
+
+/** Hard ceiling on a beacon body. Real payloads are ~120 bytes. */
+export const MAX_BODY_BYTES = 2048;
+
+/**
+ * Client IP, for rate limiting only.
+ *
+ * Never stored. `x-forwarded-for` is read for the left-most hop because that is
+ * what Vercel writes; a spoofed header can only move an attacker into a
+ * different bucket, it cannot grant anything.
+ */
+export function clientIp(request: Request): string {
+  const fwd = request.headers.get("x-forwarded-for");
+  return (
+    fwd?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "local"
+  );
+}
+
+/**
+ * Reject oversized bodies before parsing.
+ *
+ * `Content-Length` is checked first so a huge upload is refused without being
+ * read; the header can lie, so the actual text length is re-checked after the
+ * read as well.
+ */
+export function payloadTooLarge(request: Request, raw: string | null): boolean {
+  const declared = Number(request.headers.get("content-length") ?? "0");
+  if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) return true;
+  if (raw && raw.length > MAX_BODY_BYTES) return true;
+  return false;
+}
+
+/**
+ * Session keys are grouping labels, never credentials.
+ *
+ * Validating the shape matters anyway: an attacker who could choose any string
+ * could poison "distinct sessions" by writing a million unique values, or collide
+ * deliberately with someone else's bucket. A UUID-restricted, length-capped value
+ * makes that meaningless. This value grants no access — it is not read anywhere
+ * for authorisation.
+ */
+export function safeSessionKey(value: unknown): string | null {
+  return typeof value === "string" && UUID_RE.test(value) ? value.toLowerCase() : null;
 }

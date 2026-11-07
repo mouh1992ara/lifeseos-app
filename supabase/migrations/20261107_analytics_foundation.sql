@@ -47,7 +47,8 @@ create table if not exists public.analytics_events (
     check (event_name in (
       'page_view',
       'tool_start',        -- request accepted, work begun
-      'tool_success',      -- result produced
+      'tool_use',          -- a tool ran, outcome UNKNOWN (legacy beacons)
+      'tool_success',      -- result produced AND reported as successful
       'tool_error',        -- request rejected or upstream failed
       'signup_view',
       'signup_submit',

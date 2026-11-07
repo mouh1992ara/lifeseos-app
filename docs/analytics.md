@@ -39,7 +39,8 @@ client promise.
 |---|---|---|
 | `page_view` | Any route render | locale, device, path, session_key |
 | `tool_start` | Request accepted | tool_key, locale, device |
-| `tool_success` | Result produced | tool_key, duration_ms |
+| `tool_use` | Tool ran, **outcome unknown** | tool_key, locale, device |
+| `tool_success` | Result produced and reported successful | tool_key, duration_ms |
 | `tool_error` | Rejected or upstream failed | tool_key, error_code, duration_ms |
 | `signup_view` | Signup page shown | locale, device |
 | `signup_submit` | Form posted | locale |
@@ -94,6 +95,28 @@ introduced.
 `seo_reports` return `content-range: */0` — RLS denies them. The same posture
 applies to the new table by construction.
 
+## 4a. Abuse controls
+
+Both analytics endpoints are public, unauthenticated, and write with service-role
+credentials. That combination is the most abusable shape a route can have, so:
+
+| Control | Value | Why |
+|---|---|---|
+| Rate limit `/api/analytics` | 120 / min / IP | A fast human browsing fires 20–30; 120 leaves headroom without allowing a flood |
+| Rate limit `/api/tool-events` | 60 / min / IP | One beacon per completed run |
+| Body size cap | 2048 bytes | Real payloads are ~120 bytes; checked on `Content-Length` *and* after read, because the header can lie |
+| Session key shape | UUID only | Otherwise a client could poison "distinct sessions" with arbitrary strings |
+
+A 429 loses at most one analytics row, and the client already ignores failures.
+
+**Client identity is never trusted.** `user_id` comes from the server session
+cookie via `supabase.auth.getUser()`, never from the request body. There is no
+code path that reads a user id from a beacon.
+
+**The session cookie grants nothing.** `ls.sid` is a grouping label, validated for
+shape and read nowhere for authorisation. Forging it can only mis-group your own
+traffic.
+
 ## 5. Deployment order
 
 The application and the migration are independent, in both directions.
@@ -139,6 +162,38 @@ cherry-picked highlights; the point is to see what is actually happening.
 2. Show the date range in the header at all times.
 3. Anything under 20 events renders with an explicit "low sample" note.
 4. No fabricated comparison arrows against a previous period that has no data.
+
+## 6a. Which numbers do not exist yet
+
+**Success rate and error rate are not measurable at launch, and must not be
+displayed as if they were.**
+
+Every one of the 17 tool clients sends only `{ tool_name }`. Verified by audit:
+zero clients send `event_name`, `outcome`, or `error_code`. A legacy beacon proves
+a tool was *used* — it does not prove the run succeeded, because the beacon fires
+from the client regardless of whether the result was useful.
+
+Those events are therefore recorded as **`tool_use`**, not `tool_success`.
+Recording them as successes would produce a 100% success rate manufactured out of
+nothing, which is worse than no number at all.
+
+To make outcome rates real, each tool needs two calls at the point it already
+knows the answer:
+
+```ts
+// on success, where the result is rendered
+fetch("/api/tool-events", { method: "POST", headers: {...}, body: JSON.stringify({
+  tool_key: "seo-analyzer", event_name: "tool_success", duration_ms: elapsed,
+})});
+
+// on failure, in the catch that already exists
+fetch("/api/tool-events", { method: "POST", headers: {...}, body: JSON.stringify({
+  tool_key: "seo-analyzer", event_name: "tool_error", error_code: "UPSTREAM_ERROR",
+})});
+```
+
+Until that lands, the dashboard's tool-health band shows **usage only**, with the
+success/error columns explicitly marked "not measured".
 
 ## 7. Reading the numbers honestly
 
