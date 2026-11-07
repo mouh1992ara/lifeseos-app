@@ -105,10 +105,12 @@ Vercel → Settings → Environment Variables → **Production**:
 | `NEXT_PUBLIC_SITE_URL` | `https://www.lifeseos.com` | unchanged |
 | `TURNSTILE_*`, `UPSTASH_*`, `CRON_SECRET`, `GOOGLE_PAGESPEED_API_KEY`, `BAIDU_PUSH_TOKEN` | — | unchanged |
 
-**`SUPABASE_SECRET_KEY` must be the JWT.** Verified against the live project:
-`sb_secret_…` returns `401 Invalid API key` on both REST and Auth admin, while
-the `service_role` JWT works. Set it wrong and every server route fails — and
-because they swallow errors, the app looks healthy while storing nothing.
+**`SUPABASE_SECRET_KEY` must be the `service_role` JWT** (`eyJ…`). An earlier
+version of this document claimed `sb_secret_…` was rejected by the project; that
+was wrong — the value tested was the Management API's *masked* display
+(`sb_secret_L72yy···`), so the 401 proved nothing. See
+`docs/supabase-secret-key-correction.md`. The JWT is recommended at cutover only
+because it is the form actually verified end to end.
 
 ### Preventing concurrent writes to two databases
 
