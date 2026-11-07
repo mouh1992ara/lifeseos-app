@@ -1,44 +1,37 @@
 # Custom SMTP for the new project + cross-device confirmation
 
-## The structural problem, stated first
+## Correction: `{{ .RedirectTo }}` is supported
 
-Supabase's email template only interpolates **`{{ .SiteURL }}`** — there is no
-`{{ .RedirectTo }}` variable. The app *does* send the right per-deployment target:
+An earlier version of this document claimed Supabase templates expose only
+`{{ .SiteURL }}` and cannot read the per-deployment redirect. **That was wrong.**
+`{{ .RedirectTo }}` is documented and does exactly what is needed: it is the
+`emailRedirectTo` passed to `signUp`.
 
-```ts
-// app/api/auth/sign-up/route.ts
-const origin = new URL(request.url).origin;
-emailRedirectTo: `${origin}/auth/callback?next=/${locale}/dashboard`
+The template now uses it:
+
+```
+{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email
 ```
 
-but the **template cannot read it**. Its button always points at the project's
-single Site URL. Consequences:
+so a preview sign-up returns to the preview, and a production sign-up returns to
+production, from one template.
 
-| Where sign-up happens | Where the button sends you | Result |
-|---|---|---|
-| Production (`www.lifeseos.com`) | `www.lifeseos.com` | correct |
-| A preview host | `www.lifeseos.com` | **wrong origin** |
+Only `&token_hash` and `&type` are appended — never a path. The redirect already
+ends in `/auth/confirm?next=/<locale>/dashboard`; appending a path would produce
+`/auth/confirm?next=…/auth/confirm`. Both call sites now guarantee a trailing
+query string (`&from=signup` / `&from=resend`) so the plain `&` join is always
+well-formed:
 
-So a preview cannot "accidentally" consume a new-project token on the old backend
-— the token is verified server-side against whichever project the *receiving
-deployment* is configured with. The real risk is subtler and worth naming:
+```
+sign-up → https://<origin>/auth/confirm?next=/<locale>/dashboard&from=signup
+resend  → https://<origin>/auth/confirm?next=/<locale>/dashboard&from=resend
+```
 
-- The button lands on **`www.lifeseos.com`**, which until cutover runs the **old**
-  project. The old project sees an unknown `token_hash`, fails `verifyOtp`, and
-  redirects to `/auth/error`. The new-project token is **not consumed** (a failed
-  verify does not spend it) but the user is stranded.
-- After cutover, the same flow works, because `www` then runs the new project.
+Supabase honours this only when `<origin>` is in the project's Redirect URL
+allow-list; otherwise it silently substitutes Site URL.
 
-**Therefore:** preview sign-up testing must not rely on the emailed link until
-cutover. Two clean options:
-
-1. **Confirm in the dashboard** — Authentication → Users → ⋯ → Confirm email.
-   One click per test user. Fine for a handful of tests.
-2. **A separate throwaway project** whose Site URL *is* the preview alias. Cost:
-   one project; benefit: the real email path can be tested end to end pre-cutover.
-
-Option 1 is what I recommend for the remaining tests. Option 2 if you want email
-delivery proven before cutover.
+Verified for production, hashed preview, alias and localhost across all four
+locales: path, `type`, `token_hash` and `next` all parse correctly.
 
 ### Making the preview origin stable (either option benefits)
 

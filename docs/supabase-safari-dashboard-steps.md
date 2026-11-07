@@ -86,7 +86,7 @@ Confirm your LifeSeos account
 ```html
 <h2>Confirm your email</h2>
 <p>Follow this link to confirm your LifeSeos account:</p>
-<p><a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/dashboard">Confirm my account</a></p>
+<p><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">Confirm my account</a></p>
 <p>This link works on any device and expires in 24 hours.</p>
 <p>If you did not create a LifeSeos account, you can ignore this email.</p>
 ```
@@ -107,12 +107,11 @@ protocol-relative values — so `next=https://evil.example` degrades to
 
 ### Preview versus Production
 
-`{{ .SiteURL }}` resolves to the **project's** Site URL
-(`https://www.lifeseos.com`), not the deployment that sent the email. So a
-sign-up started on the preview confirms to Production. That is the safe
-direction — a confirmation never breaks because a preview URL expired — but it
-means a preview tester finishes on the Production origin, where no session
-exists yet.
+`{{ .RedirectTo }}` is the `emailRedirectTo` the app passed to `signUp`,
+computed from the deployment's own origin. So a preview sign-up confirms back to
+that preview and a production sign-up confirms to production, from one template.
+Supabase substitutes Site URL only when the origin is missing from the Redirect
+URL allow-list.
 
 Three options, in order of preference:
 
