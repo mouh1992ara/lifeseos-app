@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 import { getContactRatelimit } from "@/lib/ratelimit";
 
 export async function POST(request: Request) {
@@ -47,13 +48,20 @@ export async function POST(request: Request) {
       );
     }
 
+    /* Read the session with the cookie-scoped client so `user_id` comes from the
+       verified session, never from the request body. */
     const supabase = await createClient();
 
     const {
       data: { user },
     } = await supabase.auth.getUser();
 
-    const { error } = await supabase
+    /* Write with the service-role client. `contact_messages` has all privileges
+       revoked from anon and authenticated on purpose — it is an inbox, not a
+       user-owned table — so a user-scoped insert fails with 42501 and the message
+       is lost. The insert stays server-side and takes only validated fields; the
+       caller cannot name a different table, role or user. */
+    const { error } = await supabaseAdmin
       .from("contact_messages")
       .insert({
         name,
