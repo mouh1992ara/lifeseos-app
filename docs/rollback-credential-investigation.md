@@ -48,7 +48,7 @@ What a rollback could restore today:
 
 | Capability | Restorable? |
 |---|---|
-| Previous deployment (`dpl_FQeXp7e9gTfhfTY8F8ymrKUrc4Cp`, `b88bc649`) | ✓ |
+| Previous deployment (`dpl_FQeXp7e9gTfhttY8F8ymrKUrc4Cp`, `b88bc649`) | ✓ |
 | `NEXT_PUBLIC_SUPABASE_URL` → old project | ✓ from `.env.local` |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` → old | ✓ from `.env.local` |
 | `SUPABASE_SECRET_KEY` → old | ✗ **unavailable** |

@@ -22,7 +22,7 @@ Fast-forward from `main` is therefore possible and clean.
 
 | | |
 |---|---|
-| Deployment ID | `dpl_FQeXp7e9gTfhfTY8F8ymrKUrc4Cp` |
+| Deployment ID | `dpl_FQeXp7e9gTfhttY8F8ymrKUrc4Cp` |
 | URL | `lifeseos-ri5jj167i-lifeseos.vercel.app` |
 | Commit | `b88bc649` — "test(analytics): guard the guards" |
 | Branch / target | `main` / production |
@@ -120,7 +120,7 @@ rather than silently reading Production's database.
 | Non-admin blocked | ✓ anonymous → login; authenticated ordinary → `/dashboard` |
 | Migrations intact | ✓ both present and applied; nothing re-run |
 | Preview/Production scope | ✓ branch-scoped Preview values exist |
-| Previous Production deployment | ✓ `dpl_FQeXp7e9gTfhfTY8F8ymrKUrc4Cp` / `b88bc649` |
+| Previous Production deployment | ✓ `dpl_FQeXp7e9gTfhttY8F8ymrKUrc4Cp` / `b88bc649` |
 | Old env values for rollback | ⚠ **2 of 4** — see §3 |
 | Old project untouched | ✓ all four table endpoints still 200, `analytics_events` 404 |
 

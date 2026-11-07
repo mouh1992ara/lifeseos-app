@@ -49,7 +49,7 @@ one-variable fix beats a full retreat.
 ## §1. Restore the previous deployment and variables
 
 ```
-1. vercel rollback dpl_FQeXp7e9gTfhfTY8F8ymrKUrc4Cp --yes
+1. vercel rollback dpl_FQeXp7e9gTfhttY8F8ymrKUrc4Cp --yes
    (or redeploy commit b88bc649)
 
 2. Restore the OLD values:
