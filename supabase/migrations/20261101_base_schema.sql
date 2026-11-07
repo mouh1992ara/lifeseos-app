@@ -210,10 +210,27 @@ grant select, insert, update, delete on public.seo_reports to authenticated;
 -- The sequences behind any serial column, if one is ever added.
 grant usage, select on all sequences in schema public to authenticated;
 
+-- `service_role` is the server routes' own identity, and a table created by raw
+-- DDL has no default grants for it either. Without this, every route that
+-- writes with the service key fails with 42501 — and they catch insert errors
+-- and carry on, so it fails silently.
+grant usage on schema public to service_role;
+
+grant select, insert, update, delete on public.seo_reports      to service_role;
+grant select, insert, update, delete on public.tool_events      to service_role;
+grant select, insert, update, delete on public.page_visits      to service_role;
+grant select, insert, update, delete on public.contact_messages to service_role;
+
+grant usage, select on all sequences in schema public to service_role;
+
 -- Belt and braces: make sure nothing above accidentally opened the
--- write-only streams to the browser roles.
+-- write-only streams to the browser roles. This deliberately names anon and
+-- authenticated only — an earlier version used a blanket revoke that also
+-- stripped service_role and broke every write path.
 revoke all on public.tool_events      from anon, authenticated;
 revoke all on public.page_visits      from anon, authenticated;
 revoke all on public.contact_messages from anon, authenticated;
-revoke all on public.analytics_events from anon, authenticated;
-revoke all on public.analytics_daily  from anon, authenticated;
+revoke all on public.seo_reports      from anon;
+
+-- analytics_events and analytics_daily are created by the analytics migration,
+-- which grants and revokes them there.

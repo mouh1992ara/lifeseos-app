@@ -196,6 +196,23 @@ group by 1, 2, 3, 4, 5, 6, 7;
 -- The view inherits the table's RLS posture for non-service roles because it
 -- runs with the caller's privileges by default. No SECURITY DEFINER.
 
+-- ---------------------------------------------------------------------------
+-- 5. Privileges
+-- ---------------------------------------------------------------------------
+-- RLS decides rows; grants decide whether a role may touch the table at all,
+-- and Postgres checks the grant first. A table created by raw DDL gets no
+-- default grants, so every role below needs them stated explicitly.
+--
+-- service_role is the analytics writer; anon and authenticated are closed on
+-- purpose so a browser holding the publishable key cannot read or forge events.
+
+grant select, insert, update, delete on public.analytics_events to service_role;
+grant select                        on public.analytics_daily  to service_role;
+grant usage, select on all sequences in schema public to service_role;
+
+revoke all on public.analytics_events from anon, authenticated;
+revoke all on public.analytics_daily  from anon, authenticated;
+
 -- ============================================================================
 -- ROLLBACK
 -- ============================================================================
