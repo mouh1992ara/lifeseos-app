@@ -140,17 +140,29 @@ alter table public.analytics_events enable row level security;
 
 -- Existing inserts omit these columns and keep working: all are nullable with
 -- no default, so old code paths are byte-for-byte compatible.
-alter table public.tool_events
-  add column if not exists locale      text,
-  add column if not exists device      text,
-  add column if not exists outcome     text,
-  add column if not exists error_code  text,
-  add column if not exists duration_ms integer,
-  add column if not exists event_id    uuid;
+--
+-- Guarded on the table existing so this file does not fail if it is applied
+-- before the base schema. Nothing is created here — a missing table means the
+-- base migration has not run, and inventing it here would produce a table with
+-- the wrong shape.
+do $$
+begin
+  if to_regclass('public.tool_events') is not null then
+    alter table public.tool_events
+      add column if not exists locale      text,
+      add column if not exists device      text,
+      add column if not exists outcome     text,
+      add column if not exists error_code  text,
+      add column if not exists duration_ms integer,
+      add column if not exists event_id    uuid;
+  end if;
 
-alter table public.page_visits
-  add column if not exists locale text,
-  add column if not exists device text;
+  if to_regclass('public.page_visits') is not null then
+    alter table public.page_visits
+      add column if not exists locale text,
+      add column if not exists device text;
+  end if;
+end $$;
 
 -- Backfill is intentionally NOT attempted: existing rows have no locale or
 -- device, and inventing one would corrupt the only history we have.
