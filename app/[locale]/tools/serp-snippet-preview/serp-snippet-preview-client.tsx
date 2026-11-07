@@ -184,9 +184,14 @@ async function copyField(field: string, value: string) {
     if (outcomeTrackedRef.current) return;
     if (outcomeOutput === initialOutcomeOutput.current) return;
     if (!hasRealOutput(outcomeOutput)) return;
+    /* The preview is never truly empty: with no input it renders the
+       "No title yet" placeholders, so output existing proves nothing. RESET
+       clears the fields and would otherwise read as a completed operation. A
+       run counts only while the visitor has actually typed something. */
+    if (!title.trim() && !description.trim() && !url.trim()) return;
     outcomeTrackedRef.current = true;
     startOutcome().success();
-  }, [outcomeOutput, startOutcome]);
+  }, [outcomeOutput, startOutcome, title, description, url]);
 
   return (
     <main className="min-h-screen bg-slate-950 text-white">
