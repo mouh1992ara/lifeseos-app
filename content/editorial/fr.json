@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "title": "Charte éditoriale : comment nous créons et testons les outils LifeSeos",
+    "description": "Comment les outils LifeSeos sont conçus, testés et mis à jour, ce que nos résultats peuvent ou non vous dire, comment nous traitons les corrections, et pourquoi la publicité n'influence jamais nos recommandations."
+  },
+  "heading": "Charte éditoriale",
+  "intro": "Cette page explique comment les outils et les guides de LifeSeos sont produits, vérifiés et mis à jour. Elle existe pour que vous puissiez juger si vous devez faire confiance à ce que vous lisez ici, et pour que toute erreur de notre part puisse être signalée et corrigée.",
+  "sections": [
+    {
+      "id": "what-we-publish",
+      "title": "Ce que nous publions",
+      "paragraphs": [
+        "LifeSeos publie deux types de contenus : des outils SEO interactifs et des guides écrits qui expliquent ce que ces outils mesurent et comment agir sur les résultats.",
+        "Chaque guide est rédigé pour ce site. Nous ne republions pas d'articles syndiqués, nous ne copions pas le contenu de concurrents et nous ne remplissons pas les pages de textes qui répètent le même conseil avec des mots différents. Si une page n'apporte rien de plus que l'interface de l'outil, elle n'a pas de raison d'exister.",
+        "Nous ne publions ni études de cas inventées, ni résultats clients fictifs, ni témoignages que nous ne pouvons pas attribuer à une personne réelle ayant accepté d'être nommée. Lorsque nous n'avons pas de témoignage vérifié, la section correspondante est simplement absente."
+      ]
+    },
+    {
+      "id": "how-tools-work",
+      "title": "Comment fonctionnent les outils, et ce qui quitte votre navigateur",
+      "paragraphs": [
+        "La plupart des outils LifeSeos fonctionnent entièrement dans votre navigateur. Le texte que vous collez dans le vérificateur de densité de mots-clés, le générateur de balises meta, le réécrivain d'articles ou les outils YouTube est traité localement et n'est pas envoyé à nos serveurs.",
+        "Certains outils doivent se connecter à Internet pour remplir leur fonction. L'analyseur SEO, le test de vitesse, le vérificateur de code HTTP et l'analyseur de page récupèrent l'URL que vous saisissez, car ils ne peuvent pas mesurer une page qu'ils n'ont pas récupérée. Ces requêtes partent de notre serveur, et l'URL saisie n'est pas conservée après le renvoi du résultat.",
+        "Les fonctionnalités de compte sont distinctes des outils. Si vous choisissez de vous connecter, vos rapports enregistrés et votre tableau de bord appartiennent à votre compte et sont protégés par une sécurité au niveau des lignes : un compte ne peut pas lire les données d'un autre. Si vous ne vous connectez jamais, rien n'est enregistré et il n'y a rien à protéger."
+      ]
+    },
+    {
+      "id": "how-we-test",
+      "title": "Comment nous testons avant publication",
+      "paragraphs": [
+        "Chaque outil est exercé sur des entrées connues avant sa mise en ligne, puis de nouveau à chaque modification du code qui le fait tourner. Un outil qui produit un chiffre que nous ne pouvons pas expliquer à partir des principes de base n'est pas publié.",
+        "Pour les analyseurs qui récupèrent une URL, nous testons délibérément des pages cassées autant que des pages saines : titres manquants, descriptions meta dupliquées, chaînes de redirections, pages renvoyant 404 et pages bloquant les robots. Un vérificateur qui ne fonctionne que sur des sites bien configurés est inutile, car ce n'est pas pour eux qu'on vérifie.",
+        "Pour les générateurs, nous vérifions que la sortie est valide pour l'usage annoncé : que le balisage schema généré s'analyse comme du JSON-LD, que le robots.txt et les sitemaps XML générés respectent la syntaxe exigée par la spécification, et que les extraits générés reflètent l'entrée plutôt qu'un modèle figé."
+      ]
+    },
+    {
+      "id": "limits",
+      "title": "Ce que nos résultats ne peuvent pas vous dire",
+      "paragraphs": [
+        "Aucun outil tiers ne peut voir les systèmes de classement de Google. Tout ce qui prétend évaluer votre page face au véritable algorithme déduit à partir de la documentation publiée et du comportement observé — et nous faisons de même.",
+        "Lorsqu'un outil signale un seuil, considérez-le comme un signal de diagnostic et non comme une note de réussite. La densité de mots-clés en est l'exemple le plus clair : il n'existe pas de pourcentage universellement correct, une page peut bien se classer avec une densité inhabituelle, tandis qu'une page à la valeur « idéale » peut échouer. Le chiffre mérite d'être regardé ; le chiffre seul ne mérite pas d'être optimisé.",
+        "Nous indiquons ces limites sur les pages d'outils elles-mêmes, et pas seulement ici, car une limite découverte après avoir agi sur un résultat est une limite qui vous a déjà coûté quelque chose."
+      ]
+    },
+    {
+      "id": "numbers",
+      "title": "D'où viennent nos chiffres",
+      "paragraphs": [
+        "Nous essayons de limiter les chiffres de nos guides à deux catégories : les valeurs définies par une spécification publiée, et les valeurs dont nous pouvons vous montrer comment les reproduire.",
+        "Les valeurs de spécification incluent la signification des codes de statut HTTP et la syntaxe obligatoire de robots.txt et des sitemaps XML. Elles sont stables et vérifiables dans les documents sources.",
+        "Les valeurs observées — poids de page typique, longueur courante des titres, fréquence d'un problème donné — sont présentées comme des observations avec leur contexte, et non comme des règles universelles. Si vous ne pouvez pas reproduire un chiffre avec vos propres données, traitez-le comme un point de départ pour votre propre mesure."
+      ]
+    },
+    {
+      "id": "updates",
+      "title": "Mises à jour et corrections",
+      "paragraphs": [
+        "Les guides portent une date de publication et une date de mise à jour. La date de mise à jour ne change que lorsque le fond de la page change, pas lors d'une correction de faute ou d'un ajustement de style.",
+        "Lorsqu'un moteur de recherche modifie un comportement documenté, nous révisons les guides concernés plutôt que de laisser un conseil devenu silencieusement faux. Quand une ancienne recommandation est désormais incorrecte, nous préférons la supprimer plutôt que la conserver pour rallonger la page.",
+        "Si vous trouvez une erreur, signalez-la. Les signalements portant sur des erreurs précises et vérifiables — une signification de code erronée, un exemple de sitemap invalide, un outil renvoyant un décompte inexact — sont les plus utiles, et ce sont ceux que nous traitons le plus vite."
+      ]
+    },
+    {
+      "id": "advertising",
+      "title": "Publicité et indépendance éditoriale",
+      "paragraphs": [
+        "LifeSeos peut afficher de la publicité pour couvrir le coût de fonctionnement des outils. Elle est diffusée par des réseaux tiers et nous ne la choisissons pas page par page.",
+        "La publicité n'a aucune influence sur ce que recommandent nos guides. Nous n'acceptons pas de paiement pour un avis favorable, nous ne classons pas les outils ou services selon une relation commerciale, et aucun annonceur ne voit le contenu éditorial avant publication.",
+        "La présence d'une publicité sur une page ne change pas les conseils qu'elle contient. Lorsqu'une recommandation nous bénéficierait commercialement, nous le disons explicitement au lieu de la présenter comme un conseil neutre."
+      ]
+    },
+    {
+      "id": "who-writes",
+      "title": "Qui écrit ces pages",
+      "paragraphs": [
+        "LifeSeos est un petit projet indépendant. Les contenus sont rédigés et maintenus par les personnes qui construisent les outils, ce qui explique pourquoi les guides décrivent ce que les outils font réellement plutôt que ce qu'en dit un brief marketing.",
+        "Nous n'inventons ni noms d'auteurs, ni intitulés de poste, ni qualifications pour rendre une page plus crédible. Si une page n'est pas attribuée à une personne nommée, c'est que le projet est assez petit pour que l'attribution soit décorative."
+      ]
+    },
+    {
+      "id": "contact",
+      "title": "Signaler un problème",
+      "paragraphs": [
+        "Si un outil renvoie un résultat que vous jugez erroné, ou si un guide contient une information inexacte, le formulaire de contact nous parvient directement. Indiquer l'URL testée et ce que vous vous attendiez à voir rend le signalement exploitable ; sans cela, nous ne pouvons souvent pas reproduire le problème.",
+        "Nous lisons chaque message. Nous ne pouvons pas toujours répondre individuellement, mais les corrections qui se vérifient sont appliquées à la page."
+      ]
+    }
+  ]
+}

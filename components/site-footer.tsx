@@ -16,6 +16,7 @@ const GROUPS = [
     key: "company",
     links: [
       { href: "/about", key: "about" },
+      { href: "/editorial", key: "editorial" },
       { href: "/contact", key: "contact" },
     ],
   },
