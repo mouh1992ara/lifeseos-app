@@ -106,7 +106,13 @@ export default async function EditorialPage({ params }: Props) {
             </p>
 
             <p className="mt-4 text-sm text-slate-500">
-              {t("lastReviewed")}: <time dateTime={LAST_REVIEWED}>{LAST_REVIEWED}</time>
+              {t("lastReviewed")}:{" "}
+              {/* Isolated as LTR: in an RTL sentence the bidi algorithm reorders
+                  "2026-11-10" and the hyphens read as separators in the wrong
+                  places, which makes the date ambiguous. */}
+              <time dateTime={LAST_REVIEWED} dir="ltr">
+                {LAST_REVIEWED}
+              </time>
             </p>
           </section>
 
