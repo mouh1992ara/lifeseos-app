@@ -9,6 +9,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
 
+import AdConsent from "@/components/ads/ad-consent";
 import AdSense from "@/components/adsense";
 import HeaderMetrics from "@/components/header-metrics";
 import LivePresence from "@/components/live-presence";
@@ -204,6 +205,8 @@ export default async function LocaleLayout({
           >
             <MotionProvider />
             <AdSense client="ca-pub-4870397991437721" />
+            {/* Renders nothing unless NEXT_PUBLIC_ADSTERRA_ENABLED is true. */}
+            <AdConsent />
             <SessionPolicy />
             <HeaderMetrics />
 
