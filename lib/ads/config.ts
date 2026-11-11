@@ -79,12 +79,14 @@ export const EXCLUDED_UNITS = [
 
 /** Pages that must never carry advertising. */
 export const AD_EXCLUDED_SEGMENTS = [
-  "auth",
+  "auth",        // login, signup, verification
   "admin",
   "dashboard",
   "privacy",
   "terms",
   "editorial",
+  "about",
+  "contact",
   "protected",
 ] as const;
 
