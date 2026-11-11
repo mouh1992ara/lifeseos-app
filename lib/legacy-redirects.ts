@@ -61,11 +61,9 @@ const LIVE_LOCALES = new Set(["en", "ar", "fr", "zh"]);
  * some tools were renamed rather than removed.
  */
 const LEGACY_TOOL_ALIASES: Record<string, string> = {
-  // "ping a website" was this tool under another name.
-  "online-ping-website-tool": "http-status-checker",
+  /* "server-status-checker" and "check-http-status" really did report HTTP
+     response codes, so the status checker is their equivalent. */
   "server-status-checker": "http-status-checker",
-  "website-status-checker": "http-status-checker",
-  "ping-website": "http-status-checker",
   "check-http-status": "http-status-checker",
   "seo-content-analyzer": "content-analyzer",
   "content-analyzer-tool": "content-analyzer",
@@ -99,6 +97,15 @@ const LEGACY_TOOL_ALIASES: Record<string, string> = {
  * invites Google to keep re-crawling, while "gone" is a settled answer.
  */
 const GONE_TOOLS = new Set<string>([
+  /* A "ping" tool reports reachability and round-trip time. The status checker
+     reports a response code and a redirect chain — the elapsed time is computed
+     but never shown, and no locale has a label for it. Redirecting a ping
+     search here answers a latency question with a status code, so these are
+     gone rather than moved. */
+  "online-ping-website-tool",
+  "ping-website",
+  "website-ping",
+  "ping-test",
   "online-md5-generator",
   "md5-generator",
   "link-price-calculator",
@@ -141,6 +148,11 @@ export function resolveLegacy(
 ): LegacyResult | null {
   const segments = path.split("/").filter(Boolean);
   if (segments.length === 0) return null;
+
+  /* `path` arrives with a live locale already stripped, so the locale can only
+     come from the caller. Legacy locales (es/de/…) are NOT stripped, which is
+     why they still appear as the first segment below. */
+  const pathLocaleInUrl = localePrefix;
 
   const [first, ...rest] = segments;
 
@@ -187,6 +199,21 @@ export function resolveLegacy(
       return { kind: "redirect", to: LEGACY_PAGES[maybeTool] };
     }
     return { kind: "gone" };
+  }
+
+  /* A legacy slug under a live locale: /fr/online-ping-website-tool. This used
+     to fall through to `null`, which handed the request to the i18n middleware
+     and produced a page; the gone check has to happen before the length test,
+     not inside it. */
+  if (pathLocaleInUrl && rest.length === 1) {
+    const slug = rest[0];
+    if (GONE_TOOLS.has(slug)) return { kind: "gone" };
+    const mapped = LEGACY_TOOL_ALIASES[slug] ?? slug;
+    if (TOOL_SET.has(mapped)) {
+      return { kind: "redirect", to: `/${pathLocaleInUrl}/tools/${mapped}` };
+    }
+    if (LEGACY_PAGES[slug]) return { kind: "redirect", to: LEGACY_PAGES[slug] };
+    return null;
   }
 
   /* A legacy flat slug under a live locale: /fr/keyword-density-checker →
