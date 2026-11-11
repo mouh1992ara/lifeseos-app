@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "title": "Editorial Standards: How We Build and Test LifeSeos Tools",
+    "description": "How LifeSeos tools are built, tested and updated, what our results can and cannot tell you, how we handle corrections, and why advertising never influences our guidance."
+  },
+  "heading": "Editorial standards",
+  "intro": "This page explains how the tools and guides on LifeSeos are produced, checked and updated. It exists so you can judge whether to trust what you read here, and so any mistake we make can be reported and corrected.",
+  "sections": [
+    {
+      "id": "what-we-publish",
+      "title": "What we publish",
+      "paragraphs": [
+        "LifeSeos publishes two kinds of content: interactive SEO tools and written guides that explain what those tools measure and how to act on the results.",
+        "Every guide is written for this site. We do not republish syndicated articles, scrape competitor content, or pad pages with text that repeats the same advice in different words. If a page does not add something you could not get from the tool interface alone, it should not exist.",
+        "We do not publish invented case studies, fictional customer results, or testimonials we cannot attribute to a real person who agreed to be named. When we have no verified customer quote, the testimonial section is simply absent."
+      ]
+    },
+    {
+      "id": "how-tools-work",
+      "title": "How the tools work, and what leaves your browser",
+      "paragraphs": [
+        "Most LifeSeos tools run entirely in your browser. Text you paste into the keyword density checker, the meta tag generator, the article rewriter or the YouTube tools is processed locally and is not uploaded to our servers.",
+        "Some tools must contact the internet to do their job. The SEO analyzer, page speed test, HTTP status checker and page analyzer fetch the URL you enter, because they cannot measure a page they have not retrieved. Those requests are made from our server, and the URL you enter is not stored after the result is returned.",
+        "Account features are separate from the tools. If you choose to sign in, your saved reports and dashboard belong to your account and are protected by row-level security, meaning one account cannot read another account's data. If you never sign in, nothing is saved and there is nothing to protect."
+      ]
+    },
+    {
+      "id": "how-we-test",
+      "title": "How we test before something ships",
+      "paragraphs": [
+        "Every tool is exercised against known inputs before release, and again whenever the code that powers it changes. A tool that produces a number we cannot explain from first principles does not ship.",
+        "For analyzers that fetch a URL, we test against deliberately broken pages as well as healthy ones: missing titles, duplicate meta descriptions, redirect chains, pages that return 404, and pages that block crawlers. A checker that only works on well-configured sites is not useful, because well-configured sites are not why you are checking.",
+        "For generators, we confirm that the output is valid for its stated purpose — that generated schema markup parses as JSON-LD, that generated robots.txt and XML sitemaps follow the syntax the specification requires, and that generated snippets reflect the input rather than a template."
+      ]
+    },
+    {
+      "id": "limits",
+      "title": "What our results cannot tell you",
+      "paragraphs": [
+        "No third-party tool can see Google's ranking systems. Anything that claims to score your page against the real algorithm is inferring from published documentation and observed behaviour, and so are we.",
+        "Where a tool reports a threshold, treat it as a diagnostic signal rather than a pass mark. Keyword density is the clearest example: there is no universal correct percentage, and a page can rank well at a density that looks unusual while a page at the \"textbook\" value can rank badly. The number is worth looking at; the number alone is not worth optimising.",
+        "We state these limits on the tool pages themselves rather than only here, because a limit you discover after acting on a result is a limit that has already cost you something."
+      ]
+    },
+    {
+      "id": "numbers",
+      "title": "Where our figures come from",
+      "paragraphs": [
+        "We try to keep numbers in our guides to two categories: values defined by a published specification, and values we can show you how to reproduce.",
+        "Specification values include things like HTTP status code meanings and the required syntax of robots.txt and XML sitemaps. Those are stable and verifiable against the source documents.",
+        "Observed values — typical page weight, common title lengths, how often a particular issue appears in the wild — we present as observations with their context, not as universal rules. If you cannot reproduce a figure with your own data, treat it as a starting point for your own measurement."
+      ]
+    },
+    {
+      "id": "updates",
+      "title": "Updates and corrections",
+      "paragraphs": [
+        "Guides carry a published date and an updated date. The updated date changes only when the substance of the page changes, not when a typo is fixed or a style is adjusted.",
+        "When a search engine changes documented behaviour, we revise the affected guides rather than leaving advice that has quietly become wrong. Where an old recommendation is now incorrect, we would rather remove it than keep it for the sake of page length.",
+        "If you find an error, please tell us. Reports about specific, checkable mistakes — a wrong status code meaning, an invalid sitemap example, a tool returning an incorrect count — are the most useful, and they are the ones we act on fastest."
+      ]
+    },
+    {
+      "id": "advertising",
+      "title": "Advertising and editorial independence",
+      "paragraphs": [
+        "LifeSeos may display advertising to cover the cost of running the tools. Advertising is served by third-party networks and is not selected by us on a per-page basis.",
+        "Advertising has no influence on what our guides recommend. We do not accept payment for a favourable review, we do not rank tools or services by commercial relationship, and no advertiser sees editorial content before publication.",
+        "If a page contains advertising, that fact does not change the guidance on it. Where a recommendation would benefit us commercially, we say so explicitly rather than presenting it as neutral advice."
+      ]
+    },
+    {
+      "id": "who-writes",
+      "title": "Who writes this",
+      "paragraphs": [
+        "LifeSeos is a small independent project. Content is written and maintained by the same people who build the tools, which is why the guides describe what the tools actually do rather than what a marketing brief says they do.",
+        "We do not invent author names, job titles or credentials to make a page look more authoritative. If a page is not attributed to a named person, it is because the project is small enough that the attribution would be decorative."
+      ]
+    },
+    {
+      "id": "contact",
+      "title": "Reporting a problem",
+      "paragraphs": [
+        "If a tool gives a result you believe is wrong, or a guide contains something inaccurate, the contact form reaches us directly. Including the URL you tested and what you expected to see makes a report actionable; without it, we often cannot reproduce the problem.",
+        "We read every message. We cannot always reply individually, but corrections that hold up are applied to the page."
+      ]
+    }
+  ]
+}

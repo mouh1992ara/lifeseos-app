@@ -19,6 +19,8 @@ const PAGES: { path: string; freq: Freq; priority: number }[] = [
   { path: "/", freq: "weekly", priority: 1 },
   { path: "/tools", freq: "weekly", priority: 0.9 },
   { path: "/blog", freq: "weekly", priority: 0.9 },
+  // Trust page: explains how the tools are built, tested and corrected.
+  { path: "/editorial", freq: "monthly", priority: 0.7 },
 
   ...audienceSlugs.map((slug) => ({
     path: `/for/${slug}`,

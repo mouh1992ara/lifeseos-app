@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import AdSlot from "@/components/ads/ad-slot";
 import { ArticleToc, ReadingProgress } from "@/components/blog/reading-progress";
 import type { BlogArticle } from "@/lib/blog";
 
@@ -156,8 +157,18 @@ export default function ArticleView({
                     ))}
                   </div>
                 ) : null}
+                {/* After the second section: far enough in that the reader has
+                    committed, early enough to be seen. One native slot per
+                    article — a second would push the checksum ratio up and the
+                    brief caps the page at two placements. */}
+                {index === 1 ? <AdSlot unit="native" className="my-2" /> : null}
               </section>
             ))}
+
+            {/* One inline rectangle after the body, before the tool CTA, so it
+                never interrupts the prose. Together with the native slot this is
+                the two-placement maximum. */}
+            <AdSlot unit="inline" className="py-2" />
 
             {/* TOOL CTA */}
             <section className="rounded-[28px] border border-emerald-400/20 bg-emerald-400/[0.06] p-7">

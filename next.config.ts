@@ -5,190 +5,22 @@ const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
   async redirects() {
+    /* Legacy WordPress URLs are handled in proxy.ts, not here.
+     *
+     * next.config redirects run before middleware, so a rule here wins outright
+     * — and the old table got two things wrong that only middleware can get
+     * right: it dropped the locale (`/fr/keyword-density-checker` →
+     * `/tools/...`, an English page, though `/fr/tools/...` exists), and it
+     * answered unsupported language roots by redirecting to the homepage, which
+     * is a soft 404 that keeps the dead URL alive.
+     *
+     * Only redirects that need no locale awareness belong here.
+     */
     return [
-      // Blog: old HTTP status guide URL
+      // The guide was renamed; the slug moved rather than the content.
       {
         source: "/blog/http-status-codes-seo",
         destination: "/blog/http-status-codes-seo-guide",
-        permanent: true,
-      },
-      {
-        source: "/es",
-        destination: "/",
-        permanent: true,
-      },
-      {
-        source: "/es/",
-        destination: "/",
-        permanent: true,
-      },
-      {
-        source: "/fr/online-ping-website-tool",
-        destination: "/tools/http-status-checker",
-        permanent: true,
-      },
-
-      // Keyword Density Checker
-      {
-        source: "/keyword-density-checker",
-        destination: "/tools/keyword-density-checker",
-        permanent: true,
-      },
-      {
-        source: "/fr/keyword-density-checker",
-        destination: "/tools/keyword-density-checker",
-        permanent: true,
-      },
-      {
-        source: "/de/keyword-density-checker",
-        destination: "/tools/keyword-density-checker",
-        permanent: true,
-      },
-      {
-        source: "/es/keyword-density-checker",
-        destination: "/tools/keyword-density-checker",
-        permanent: true,
-      },
-
-      // Robots.txt Generator
-      {
-        source: "/robots-txt-generator",
-        destination: "/tools/robots-txt-generator",
-        permanent: true,
-      },
-      {
-        source: "/fr/robots-txt-generator",
-        destination: "/tools/robots-txt-generator",
-        permanent: true,
-      },
-      {
-        source: "/de/robots-txt-generator",
-        destination: "/tools/robots-txt-generator",
-        permanent: true,
-      },
-      {
-        source: "/es/robots-txt-generator",
-        destination: "/tools/robots-txt-generator",
-        permanent: true,
-      },
-
-      // XML Sitemap Generator
-      {
-        source: "/xml-sitemap-generator",
-        destination: "/tools/xml-sitemap-generator",
-        permanent: true,
-      },
-      {
-        source: "/fr/xml-sitemap-generator",
-        destination: "/tools/xml-sitemap-generator",
-        permanent: true,
-      },
-      {
-        source: "/de/xml-sitemap-generator",
-        destination: "/tools/xml-sitemap-generator",
-        permanent: true,
-      },
-      {
-        source: "/es/xml-sitemap-generator",
-        destination: "/tools/xml-sitemap-generator",
-        permanent: true,
-      },
-
-      // Meta Tag Generator
-      {
-        source: "/meta-tag-generator",
-        destination: "/tools/meta-tag-generator",
-        permanent: true,
-      },
-      {
-        source: "/fr/meta-tag-generator",
-        destination: "/tools/meta-tag-generator",
-        permanent: true,
-      },
-      {
-        source: "/de/meta-tag-generator",
-        destination: "/tools/meta-tag-generator",
-        permanent: true,
-      },
-      {
-        source: "/es/meta-tag-generator",
-        destination: "/tools/meta-tag-generator",
-        permanent: true,
-      },
-
-      // Server Status Checker
-      {
-        source: "/server-status-checker",
-        destination: "/tools/http-status-checker",
-        permanent: true,
-      },
-      {
-        source: "/fr/server-status-checker",
-        destination: "/tools/http-status-checker",
-        permanent: true,
-      },
-      {
-        source: "/de/server-status-checker",
-        destination: "/tools/http-status-checker",
-        permanent: true,
-      },
-      {
-        source: "/es/server-status-checker",
-        destination: "/tools/http-status-checker",
-        permanent: true,
-      },
-
-      // Online Ping Website Tool
-      {
-        source: "/online-ping-website-tool",
-        destination: "/tools/http-status-checker",
-        permanent: true,
-      },
-      {
-        source: "/es/online-ping-website-tool",
-        destination: "/tools/http-status-checker",
-        permanent: true,
-      },
-      {
-        source: "/de/online-ping-website-tool",
-        destination: "/tools/http-status-checker",
-        permanent: true,
-      },
-      {
-        source: "/pt/online-ping-website-tool",
-        destination: "/tools/http-status-checker",
-        permanent: true,
-      },
-      {
-        source: "/it/online-ping-website-tool",
-        destination: "/tools/http-status-checker",
-        permanent: true,
-      },
-
-      // About
-      {
-        source: "/page/about-us",
-        destination: "/about",
-        permanent: true,
-      },
-      {
-        source: "/es/page/about-us",
-        destination: "/about",
-        permanent: true,
-      },
-      {
-        source: "/de/page/about-us",
-        destination: "/about",
-        permanent: true,
-      },
-      {
-        source: "/it/page/about-us",
-        destination: "/about",
-        permanent: true,
-      },
-      {
-        source: "/pt/page/about-us",
-        destination: "/about",
         permanent: true,
       },
     ];

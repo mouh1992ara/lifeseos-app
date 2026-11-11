@@ -154,6 +154,45 @@ export default async function ContactPage({ params }: Props) {
             </p>
           </section>
 
+          {/* WHAT TO INCLUDE — reduces round-trips on both sides */}
+          <section className="mt-8 rounded-[24px] border border-white/10 bg-white/[0.02] p-6 sm:p-8">
+            <h2 className="text-lg font-semibold text-slate-200">
+              {t("includeTitle")}
+            </h2>
+
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-500">
+              {t("includeIntro")}
+            </p>
+
+            <div className="mt-6 grid gap-5 sm:grid-cols-2">
+              <div>
+                <p className="text-sm font-semibold text-slate-200">
+                  {t("includeToolTitle")}
+                </p>
+                <ul className="mt-2 space-y-1.5 text-sm leading-6 text-slate-500">
+                  <li>· {t("includeTool1")}</li>
+                  <li>· {t("includeTool2")}</li>
+                  <li>· {t("includeTool3")}</li>
+                </ul>
+              </div>
+
+              <div>
+                <p className="text-sm font-semibold text-slate-200">
+                  {t("includeGuideTitle")}
+                </p>
+                <ul className="mt-2 space-y-1.5 text-sm leading-6 text-slate-500">
+                  <li>· {t("includeGuide1")}</li>
+                  <li>· {t("includeGuide2")}</li>
+                  <li>· {t("includeGuide3")}</li>
+                </ul>
+              </div>
+            </div>
+
+            <p className="mt-6 max-w-3xl text-sm leading-6 text-slate-500">
+              {t("includePrivacy")}
+            </p>
+          </section>
+
           {/* TOOLS CTA */}
           <section className="mt-12 rounded-[28px] border border-white/10 bg-white/[0.03] p-7 sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">

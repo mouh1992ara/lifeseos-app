@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import ShareTool from "@/components/share-tool";
 import { errorCodeKey } from "@/lib/tool-errors";
 import { Link } from "@/i18n/navigation";
+import AdSlot from "@/components/ads/ad-slot";
 
 type Result = {
   requestedUrl: string;
@@ -473,6 +474,15 @@ export default function HttpStatusCheckerPage() {
                 </Link>
               ))}
             </div>
+          </div>
+
+          {/* Ad sits in the editorial footer, below the last FAQ and above the
+              closing grid — never between the input and the result, so it cannot
+              move the panel a user is reading. Desktop gets the leaderboard,
+              phones get the 320x50; the component decides, so only one renders. */}
+          <div className="mt-14">
+            <AdSlot unit="leaderboard" />
+            <AdSlot unit="mobile" className="mt-6" />
           </div>
         </div>
       </section>

@@ -33,7 +33,8 @@
       "product": "Product",
       "company": "Company",
       "legal": "Legal"
-    }
+    },
+    "editorial": "Editorial standards"
   },
   "Language": {
     "label": "Language",
@@ -2886,7 +2887,7 @@
       "step3Title": "Check your website",
       "step3Body": "Run the SEO Analyzer on the site or blog that supports your channel.",
       "closingTitle": "Start with your next video",
-      "closingBody": "Pick a tool and run it in seconds. The tools are free to use."
+      "closingBody": "Pick a tool and run it in seconds. Start with the title generator if you are still deciding what to publish, or the description generator if the video is already edited. If you also run a website alongside the channel, run the page analyzer on that site first — video traffic is worth more when the landing page it points to can be found in search. All tools are free to use and need no account; only saved reports require signing in."
     },
     "bloggers": {
       "metaTitle": "SEO Tools for Bloggers",
@@ -2909,7 +2910,7 @@
       "step3Title": "Add markup and check speed",
       "step3Body": "Generate schema markup and test page speed before you hit publish.",
       "closingTitle": "Publish with more confidence",
-      "closingBody": "Run your next post through the tools. They are free to use."
+      "closingBody": "Run your next post through the tools before you publish, not after. The content analyzer gives you the broad shape of the post, the keyword density checker shows whether repetition has crept in, and the snippet preview shows what a searcher will actually see. Fixing one of those before publishing is cheaper than rewriting after the page has been indexed. All tools are free and need no account."
     },
     "agencies": {
       "metaTitle": "SEO Audit Tools for Agencies and Freelancers",
@@ -2932,7 +2933,7 @@
       "step3Title": "Fix and document",
       "step3Body": "Use the generators for fixes, and save your reports to the dashboard.",
       "closingTitle": "Audit your next client site",
-      "closingBody": "Run your first audit in seconds. The tools are free to use."
+      "closingBody": "Run your first audit in seconds. For a new client site, work in this order: status codes, then robots.txt, then the sitemap, then the analyzer. That sequence finds the problems that make everything else irrelevant — a blocked page or a redirect chain is worth fixing before any metadata work. Reports can be saved to your dashboard if you want a record across client sites. All tools are free to use."
     },
     "toolDescriptions": {
       "seo-analyzer": "Audit a website for technical, on-page and content issues.",
@@ -3104,7 +3105,18 @@
       "success": "Your message has been sent successfully. Thank you for contacting LifeSeos.",
       "consent": "By sending this form, you agree that LifeSeos may use the information you provide to respond to your message and handle your request. See our <link>Privacy Policy</link>.",
       "consentLink": "Privacy Policy"
-    }
+    },
+    "includeTitle": "What to include in your message",
+    "includeIntro": "A message we can act on gets resolved faster than a message we have to ask about. These details are the ones that usually make the difference.",
+    "includeToolTitle": "Reporting a tool problem",
+    "includeTool1": "The exact URL you entered, if the tool fetches a page.",
+    "includeTool2": "What you expected to see, and what the tool showed instead.",
+    "includeTool3": "Whether it happens every time or only sometimes.",
+    "includeGuideTitle": "Reporting a guide correction",
+    "includeGuide1": "The page and the sentence you believe is wrong.",
+    "includeGuide2": "The source that shows the correct value, if you have one.",
+    "includeGuide3": "Whether the issue is factual or a broken link.",
+    "includePrivacy": "Please do not send passwords, API keys or other credentials. If a problem needs account access, we will ask for the specific detail we need rather than an export of your data."
   },
   "Community": {
     "eyebrow": "Community",
@@ -3987,5 +3999,13 @@
     "backToDashboard": "Back to dashboard",
     "notice": "This is a protected page that you can only see as an authenticated user.",
     "detailsTitle": "Your user details"
+  },
+  "Editorial": {
+    "eyebrow": "Trust and transparency",
+    "lastReviewed": "Last reviewed",
+    "onThisPage": "On this page",
+    "footerNote": "Our tools and guides are updated when documented behaviour changes. If something here is inaccurate, the contact form reaches us directly.",
+    "browseTools": "Browse the tools",
+    "reportIssue": "Report an issue"
   }
 }

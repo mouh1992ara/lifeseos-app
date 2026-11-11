@@ -33,7 +33,8 @@
       "product": "Produit",
       "company": "Entreprise",
       "legal": "Mentions légales"
-    }
+    },
+    "editorial": "Charte éditoriale"
   },
   "Language": {
     "label": "Langue",
@@ -2886,7 +2887,7 @@
       "step3Title": "Vérifier votre site",
       "step3Body": "Lancez l’analyseur SEO sur le site ou le blog qui accompagne votre chaîne.",
       "closingTitle": "Commencez par votre prochaine vidéo",
-      "closingBody": "Choisissez un outil et lancez-le en quelques secondes. Les outils sont gratuits."
+      "closingBody": "Choisissez un outil et lancez-le en quelques secondes. Commencez par le générateur de titres si vous hésitez encore sur le sujet, ou par le générateur de descriptions si la vidéo est déjà montée. Si vous avez aussi un site à côté de la chaîne, lancez d'abord l'analyseur de page sur ce site : le trafic vidéo vaut davantage quand la page vers laquelle il pointe est trouvable dans la recherche. Tous les outils sont gratuits et ne demandent aucun compte ; seuls les rapports enregistrés nécessitent une connexion."
     },
     "bloggers": {
       "metaTitle": "Outils SEO pour les blogueurs",
@@ -2909,7 +2910,7 @@
       "step3Title": "Ajouter le balisage et vérifier la vitesse",
       "step3Body": "Générez le balisage de données structurées et testez la vitesse de la page avant de publier.",
       "closingTitle": "Publiez avec plus de confiance",
-      "closingBody": "Passez votre prochain article dans les outils. Ils sont gratuits."
+      "closingBody": "Faites passer votre prochain article par les outils avant publication, pas après. L'analyseur de contenu donne la structure générale du texte, le vérificateur de densité montre si des répétitions se sont glissées, et l'aperçu d'extrait montre ce qu'un internaute verra réellement. Corriger l'un de ces points avant publication coûte moins cher que réécrire une fois la page indexée. Tous les outils sont gratuits et sans compte."
     },
     "agencies": {
       "metaTitle": "Outils d’audit SEO pour les agences et les indépendants",
@@ -2932,7 +2933,7 @@
       "step3Title": "Corriger et documenter",
       "step3Body": "Utilisez les générateurs pour appliquer les corrections et enregistrez vos rapports dans le tableau de bord.",
       "closingTitle": "Auditez le site de votre prochain client",
-      "closingBody": "Lancez votre premier audit en quelques secondes. Les outils sont gratuits."
+      "closingBody": "Lancez votre premier audit en quelques secondes. Pour un nouveau site client, procédez dans cet ordre : codes de statut, puis robots.txt, puis le sitemap, puis l'analyseur. Cette séquence révèle les problèmes qui rendent le reste inutile — une page bloquée ou une chaîne de redirections mérite d'être corrigée avant tout travail sur les métadonnées. Les rapports peuvent être enregistrés dans votre tableau de bord pour garder une trace par client. Tous les outils sont gratuits."
     },
     "toolDescriptions": {
       "seo-analyzer": "Auditez un site pour repérer les problèmes techniques, on-page et de contenu.",
@@ -3104,7 +3105,18 @@
       "success": "Votre message a bien été envoyé. Merci d’avoir contacté LifeSeos.",
       "consent": "En envoyant ce formulaire, vous acceptez que LifeSeos utilise les informations fournies pour répondre à votre message et traiter votre demande. Consultez notre <link>politique de confidentialité</link>.",
       "consentLink": "politique de confidentialité"
-    }
+    },
+    "includeTitle": "Ce qu'il faut indiquer dans votre message",
+    "includeIntro": "Un message exploitable est traité plus vite qu'un message qui nous oblige à poser des questions. Ce sont ces détails qui font généralement la différence.",
+    "includeToolTitle": "Signaler un problème d'outil",
+    "includeTool1": "L'URL exacte saisie, si l'outil récupère une page.",
+    "includeTool2": "Ce que vous attendiez, et ce que l'outil a affiché à la place.",
+    "includeTool3": "Si le problème est systématique ou intermittent.",
+    "includeGuideTitle": "Signaler une correction de guide",
+    "includeGuide1": "La page et la phrase que vous jugez erronée.",
+    "includeGuide2": "La source indiquant la valeur correcte, si vous en avez une.",
+    "includeGuide3": "S'il s'agit d'une erreur de fait ou d'un lien cassé.",
+    "includePrivacy": "Merci de ne pas envoyer de mots de passe, de clés API ni d'autres identifiants. Si un problème nécessite un accès au compte, nous demanderons le détail précis dont nous avons besoin plutôt qu'un export de vos données."
   },
   "Community": {
     "eyebrow": "Communauté",
@@ -3987,5 +3999,13 @@
     "backToDashboard": "Retour au tableau de bord",
     "notice": "Cette page est protégée : elle n’est visible qu’une fois connecté.",
     "detailsTitle": "Vos informations de compte"
+  },
+  "Editorial": {
+    "eyebrow": "Confiance et transparence",
+    "lastReviewed": "Dernière révision",
+    "onThisPage": "Sur cette page",
+    "footerNote": "Nos outils et guides sont mis à jour lorsque le comportement documenté change. Si une information ici est inexacte, le formulaire de contact nous parvient directement.",
+    "browseTools": "Parcourir les outils",
+    "reportIssue": "Signaler un problème"
   }
 }
